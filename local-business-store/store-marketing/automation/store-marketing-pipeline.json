@@ -1,0 +1,189 @@
+{
+  "name": "Store Marketing - Mobile Telegram Pipeline",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "id": "1b1bf9dc-4362-491d-9b82-e21f306feefa",
+      "name": "Telegram Mobile Trigger",
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1,
+      "position": [
+        -460,
+        0
+      ],
+      "webhookId": "store-marketing-telegram",
+      "credentials": {
+        "telegramApi": {
+          "id": "l2hmk0rUJYaF6mfg",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{ Boolean($json.message.photo) }}",
+              "value2": true
+            }
+          ]
+        }
+      },
+      "id": "bb6e35b5-6336-4a68-89b3-b2d67a6525eb",
+      "name": "Has Photo?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2,
+      "position": [
+        -240,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://generativelanguage.googleapis.com/v1beta/models/gemini-3.6-flash:generateContent",
+        "sendQuery": true,
+        "queryParameters": {
+          "parameters": [
+            {
+              "name": "key",
+              "value": "AQ.Ab8RN6Il7OJcCwHo_dKzESZ5bUi--sP5JgvixdDYNBuoQ-bSBQ"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  contents: [\n    {\n      parts: [\n        {\n          text: \"أنت خبير تسويق محلي ومهندس ديكور داخلي راقي لمحل تحف في الوراق. المطلوب إخراج نتيجتين بناء على وصف وصورة القطعة:\\n1. بوست بالعامية المصرية الهادية والبسيطة بدون مبالغة، يوضح مكانها الصح (نيش، رف مكتبة، أو بوفيه محمي) مع دعوة لزيارة المحل والتواصل واتساب على 01070810979.\\n2. برومت باللغة الإنجليزية لتوليد صورة لايف ستايل واقعية ومبهرة للقطعة محطوطة في مكانها الآمن المناسب (مثلا على رف خشب فاخر مع كتب وإضاءة هادية).\\n\\nأجب بصيغة JSON فقط بهذا الشكل:\\n{\\n  \\\"post\\\": \\\"نص البوست بالعامية...\\\",\\n  \\\"image_prompt\\\": \\\"A luxury interior photography of the product safely displayed on an elegant display shelf in a modern living room, warm accent lighting, 8k...\\\"\\n}\\n\\nتفاصيل القطعة من صاحب المحل: \" + ($json.message?.caption || \"تحفة ديكور راقية\")\n        }\n      ]\n    }\n  ],\n  generationConfig: {\n    responseMimeType: \"application/json\"\n  }\n}) }}",
+        "options": {}
+      },
+      "id": "6ae2aadd-4ca9-478e-b9bb-c92f28b29fcd",
+      "name": "Generate Copy & Staging Prompt",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        0,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const aiRaw = $input.item.json.candidates[0].content.parts[0].text;\nconst parsed = JSON.parse(aiRaw);\nconst chatId = $('Telegram Mobile Trigger').item.json.message.chat.id;\nconst encodedPrompt = encodeURIComponent(parsed.image_prompt || 'luxury modern home decor on display shelf');\nconst photoUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&nologo=true&model=flux`;\n\nreturn {\n  chatId,\n  post: parsed.post,\n  photoUrl\n};"
+      },
+      "id": "c1f8a85e-990a-4299-8ab1-19b84a9e3d04",
+      "name": "Prepare Photo & Caption",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        240,
+        -80
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "sendPhoto",
+        "chatId": "={{ $json.chatId }}",
+        "file": "={{ $json.photoUrl }}",
+        "additionalFields": {
+          "caption": "={{ $json.post }}"
+        }
+      },
+      "id": "a1346b18-a362-48eb-850a-f91e2d9ae4f5",
+      "name": "Send Lifestyle Photo with Copy",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        480,
+        -80
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "l2hmk0rUJYaF6mfg",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "chatId": "={{ $('Telegram Mobile Trigger').item.json.message.chat.id }}",
+        "text": "⚠️ برجاء إرسال صورة للمنتج مع كتابة تفاصيل وسعر القطعة في الكابشن.",
+        "additionalFields": {}
+      },
+      "id": "a2dc61f1-054b-4d63-8021-1b1921ebb0c3",
+      "name": "Prompt For Photo",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        140
+      ],
+      "credentials": {
+        "telegramApi": {
+          "id": "l2hmk0rUJYaF6mfg",
+          "name": "Telegram account"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Telegram Mobile Trigger": {
+      "main": [
+        [
+          {
+            "node": "Has Photo?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Has Photo?": {
+      "main": [
+        [
+          {
+            "node": "Generate Copy & Staging Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Prompt For Photo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Generate Copy & Staging Prompt": {
+      "main": [
+        [
+          {
+            "node": "Prepare Photo & Caption",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Prepare Photo & Caption": {
+      "main": [
+        [
+          {
+            "node": "Send Lifestyle Photo with Copy",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}
