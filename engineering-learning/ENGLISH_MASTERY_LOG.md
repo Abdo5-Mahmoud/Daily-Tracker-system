@@ -321,6 +321,71 @@
     * Pronoun Agreement: *code* is uncountable singular; instead of *"split the code and test them"*, say **"split the code into layers and test each layer"** or **"test them in isolation"**.
   - **Senior Structure**: Structure your interview answers in 3 chronological beats (*First... Next... Finally...*) to sound authoritative and organized.
 
+### 🗓️ Session 4: 2026-09-07 (Git Sync & CV Strategy)
+
+- **Raw Input**:  
+  > *"github stay active even if I am not pushing a code"*
+- **Polished Version (Senior Tech Level)**:  
+  > *"keep my GitHub profile active and green even when I am not pushing application code"*
+- **Key Takeaways & Habit Alert**:
+  - **Uncountable Nouns**: In software engineering, `code` is uncountable. You never say *"a code"*; say **"code"**, **"a commit"**, or **"a pull request"**.
+  - **Subject-Verb Agreement**: `GitHub` is 3rd-person singular ➔ **GitHub stays active** (not *stay*).
+
+- **Raw Input**:  
+  > *"I will send the finale version of llm.ts... also the new version of route.ts equal:"*
+- **Polished Version (Senior Tech Level)**:  
+  > *"I will share the final version of llm.ts... and here is the updated route.ts:"*
+- **Key Takeaways & Habit Alert**:
+  - **Word Confusion**: `finale` = the final musical or theatrical performance. The adjective for the last version is **final**.
+  - **Idiomatic Descriptions**: Avoid saying *"route.ts equal:"*; say **"here is the updated route.ts:"** or **"the new version looks like this:"**.
+
+### 🗓️ Session 5: 2026-09-08 (Devfolio Architecture, AI Models & Priorities)
+
+- **Raw Input**:  
+  > *"Why taking so long?"*
+- **Polished Version (Senior Tech Level)**:  
+  > *"Why is it taking so long?"*
+- **Key Takeaways & Habit Alert**:
+  - **Missing Auxiliary & Subject**: In English questions, never omit the auxiliary verb and dummy pronoun: `Why is it taking...`.
+
+- **Raw Input**:  
+  > *"and rout.ts code:"*
+- **Polished Version (Senior Tech Level)**:  
+  > *"and here is the route.ts code:"*
+- **Key Takeaways & Habit Alert**:
+  - **Spelling Trap**: `rout` (disorderly retreat / total defeat) vs `route` (network/software path). Always include the trailing 'e'.
+
+- **Raw Input**:  
+  > *"I updated the blocks that you mentioned, pleas review you them and tell me your thoughts."*
+- **Polished Version (Senior Tech Level)**:  
+  > *"I updated the blocks you pointed out. Please review them and let me know your thoughts."*
+- **Key Takeaways & Habit Alert**:
+  - **Pronoun Placement**: Never insert `you` between verb and object (`review you them` ➔ `review them`).
+  - **Spelling**: `pleas` ➔ `please`.
+
+- **Raw Input**:  
+  > *"the free trial of gemini api key have all models but with free limit"*
+- **Polished Version (Senior Tech Level)**:  
+  > *"The Gemini API free tier supports all models, but operates under strict rate limits and quota caps."*
+- **Key Takeaways & Habit Alert**:
+  - **Free Tier vs Free Trial**: Cloud AI platforms offer an ongoing **Free Tier** (with RPM/RPD limits), whereas a *Free Trial* is a temporary 30-day trial.
+  - **Subject-Verb Agreement**: `free tier has` (singular), not *have*.
+
+- **Raw Input**:  
+  > *"we have english practice and business tasks and I don't know what else in priorities"*
+- **Polished Version (Senior Tech Level)**:  
+  > *"We also have English drills and store marketing tasks, and I feel overwhelmed trying to balance these competing priorities."*
+- **Key Takeaways & Habit Alert**:
+  - **Pro Vocabulary**: Use **"overwhelmed"** to describe cognitive overload and **"balance competing priorities"** for professional business communication.
+
+- **Raw Input**:  
+  > *"I am working on creating videos with Veo and in the same time chatting with Gemini about automated tasks"*
+- **Polished Version (Senior Tech Level)**:  
+  > *"I am currently generating marketing videos with Veo while brainstorming automated workflows in Gemini, such as daily job scraping on LinkedIn and Wuzzuf."*
+- **Key Takeaways & Habit Alert**:
+  - **Conjunctions**: Use **"while"** or **"concurrently"** rather than *"in the same time"*.
+  - **Domain Terminology**: Use **"automated agent workflows"** and **"job scraping"**.
+
 ---
 
 ## 💼 Tech & Business Phrase Vault (مخزن التعبيرات المهنية)
