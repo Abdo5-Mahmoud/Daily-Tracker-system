@@ -611,4 +611,72 @@ export async function POST(req: Request) {
 
 ---
 
+## 12. Automated Unit Testing with Jest & Next.js (Test Suites, Mocking, and Explicit Type Resolution)
+
+### 👶 كأنك بتشرح لطفل 10 سنين:
+تخيل إنك بتصنع سيارات في مصنع ألعاب. قبل ما تنزل اللعبة للمحل والشارع، عندك جهاز فاحص صغير:
+الجهاز بيحط العربية على سير متحرك، يختبر العجل، ويختبر الفرامل في ثانية واحدة عشان يتأكد إن مفيش مسمار مفكوك.
+- **الاختبار الوهمي (Mocking)**: إنت مش محتاج بنزين حقيقي ولا شارع زحمة عشان تجرب الموتور؛ إنت بتوصله ببطارية اختبار صغيرة جوه المعمل.
+- **اختبار معدل الطلبات (Rate Limiter Test)**: عامل زي بوابة ملاهي مسموح تدخّل 3 أطفال بس في الدقيقة، فلما ييجي الطفل الرابع، البوابة تقفل في وشه تلقائياً!
+
+---
+
+### 💻 كمهندس برمجيات (Production Architecture & Test Engineering):
+
+#### 1. Why Automated Unit Testing? (لماذا لا نكتفي بالاختبار اليدوي؟)
+- الاختبار اليدوي عبر المتصفح (Manual Testing) بطيء، مكلف، وعرضة للخطأ البشري.
+- **Unit Testing**: يعزل أصغر وحدة منطقية من الكود (دالة، فئة، محدد طلبات) ويختبر صحتها رياضياً في أجزاء من الثانية.
+- في بيئات الإنتاج (CI/CD Pipelines على GitHub Actions أو Vercel)، لا يُسمح بدمج أي كود إلا إذا مرت كافة الاختبارات بنسبة نجاح 100%.
+
+#### 2. The Mock Provider Strategy (عزل الشبكة وحماية الموارد)
+- اختبار المنطق لا يجب أن يستهلك رصيد الـ API الحقيقي لـ Gemini أو يعتمد على سرعة الإنترنت.
+- بفضل نمط الاستراتيجية (Strategy Pattern)، قمنا بتمرير `MockProviderStrategy` التي تطبق نفس الواجهة `LLMProviderStrategy` ولكن ترجع استجابة محلية محددة مسبقاً (Deterministic Response):
+```typescript
+import { MockProviderStrategy } from "@/features/ai-workflow/lib/llm";
+
+const mockProvider = new MockProviderStrategy();
+const response = await mockProvider.generateProviderResponse("test prompt");
+expect(response).toBeDefined();
+expect(typeof response).toBe("string");
+```
+
+#### 3. Deterministic Testing of Rate Limiting (اختبار محدد الطلبات رياضياً)
+- نختبر السلوك الحدي (Boundary Edge-Case) عبر حلقة تكرارية:
+```typescript
+const rateLimiter = new RateLimiter(3, 60000);
+const clientIp = "127.0.0.1";
+
+// 3 allowed requests
+for (let i = 0; i < 3; i++) {
+  expect(rateLimiter.isAllowed(clientIp)).toBe(true);
+}
+
+// 4th request must be blocked
+expect(rateLimiter.isAllowed(clientIp)).toBe(false);
+```
+
+#### 4. The Jest Globals vs ESLint Trap (حل مشكلة no-undef والـ Autocomplete)
+- **المشكلة**: في مشاريع TypeScript الحديثة ذات نمط ESM، يعتبر ESLint دوال `describe` و `test` و `expect` كمتغيرات عامة غير معرّفة (`no-undef`)، كما يغيب الإكمال التلقائي في المحرر.
+- **الحل الجذري**: الاستيراد الصريح للدوال من حزمة `@jest/globals`:
+```typescript
+import { describe, test, expect } from "@jest/globals";
+```
+- **فخ الاستيراد الافتراضي (Named vs Default Exports)**:
+  - في حزمة `@jest/globals`، كائن `jest` وباقي الأدوات هي **Named Exports**:
+  - ✅ **الصحيح**: `import { jest, describe, test, expect } from "@jest/globals";`
+  - ❌ **الخطأ الكارثي**: `import jest, { describe, test, expect } from "@jest/globals";`
+  - الخطأ يؤدي فوراً إلى استثناء وقت التشغيل: `TypeError: _globals.default.fn is not a function`.
+
+---
+
+### 🎯 كويز سريع (Quick Test):
+**سؤال:** "لو عندك سيرفر إنتاج بيعمل Build تلقائي على GitHub Actions، ليه مهم إن اختبارات الـ Unit Tests متعملش Fetch حقيقي على خوادم Google Gemini الخارجية؟"
+- **الإجابة الصحيحة**: لثلاثة أسباب حاسمة:
+  1. **السرعة والاستقرار**: اختبارات الشبكة معرضة لتقلبات السرعة والـ Timeout مما يعطل الـ Pipeline بدون وجود خطأ فعلي في كودنا.
+  2. **حماية الرصيد والـ Quota**: منع استنزاف الـ API Keys أو التعرض للـ Rate Limiting أثناء تكرار الـ Commits.
+  3. **عزل المتغيرات (Pure Unit Isolation)**: التأكد بنسبة 100% أن الخطأ إن وُجد فهو ناتج عن منطق مشروعنا الداخلي وليس بسبب سقوط خوادم الطرف الثالث.
+
+---
+
+
 
