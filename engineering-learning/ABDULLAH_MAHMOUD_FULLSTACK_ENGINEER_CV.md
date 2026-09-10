@@ -6,50 +6,43 @@ Cairo, Egypt • abdofwzy9@gmail.com • (+20) 1070810979
 ---
 
 ## Professional Summary
-Software Engineer with a strong foundational degree in **Mathematics (Helwan University)**, specializing in modern **Frontend & Fullstack Engineering** using **Next.js (App Router), TypeScript, and Node.js**. Experienced in engineering scalable web architectures, decoupled design patterns (Strategy, Factory, SRP), resilient state management, and real-time bidirectional systems. Driven by mathematical problem-solving, clean code standards, and production-grade performance optimization.
+Software Engineer with a foundational degree in **Mathematics (Helwan University)**, specializing in modern **Frontend & Fullstack Engineering** using **Next.js 16 (App Router), React 19, TypeScript, and Node.js**. Experienced in designing maintainable architectures via SOLID principles and Strategy/Factory patterns, implementing in-memory rate limiting, securing data flows with HTTP-only cookies and PostgreSQL RLS, and writing automated unit tests with Jest. Passionate about mathematical problem-solving, clean code standards, and production-grade reliability.
 
 ---
 
 ## Technical Skills
 
 - **Languages**: TypeScript, JavaScript (ES6+), SQL, HTML5, CSS3
-- **Frontend Core**: Next.js (App Router, Server & Client Components, Server Actions), React 19, React Hooks, Redux Toolkit, TanStack Query (React Query)
-- **UI & Styling**: Tailwind CSS, CSS Modules, Responsive Design, Accessible UI (ARIA)
-- **Backend & APIs**: Node.js, Express.js, RESTful API Design, WebSockets (Socket.IO), JWT Authentication, Zod Schema Validation, Rate Limiting
+- **Frontend Core**: Next.js 16 (App Router, Server & Client Components, Server Actions), React 19, React Hooks, Redux Toolkit, TanStack Query (React Query)
+- **UI & Components**: Tailwind CSS v4, Radix UI Primitives, CSS Modules, Responsive Layouts, Accessible UI (ARIA), Recharts
+- **Backend & APIs**: Node.js, Express.js, RESTful API Design, WebSockets (Socket.IO), JWT Authentication, Zod Validation, Rate Limiting
 - **Databases & Cloud**: PostgreSQL, Supabase, MongoDB, Mongoose, Vercel, Git & GitHub
-- **Architecture & Patterns**: Single Responsibility Principle (SRP), Strategy Pattern, Factory Pattern, Optimistic UI Updates, Server-Side Prefetching & Hydration
+- **Testing & Architecture**: Automated Unit Testing (Jest), SOLID Principles, Strategy Pattern, Factory Pattern, Server-Side Prefetching & Cache Hydration
 
 ---
 
 ## Featured Engineering Projects
 
 ### 1. Devfolio AI — Engineering Showcase & Architectural Assistant
-*Next.js 15, TypeScript, Tailwind CSS, Strategy Pattern, Rate Limiting* | [GitHub](https://github.com/Abdo5-Mahmoud/devfolio-ai) • [Live Demo](https://devfolio-ai.vercel.app)
-- Architected an engineering-centric portfolio platform featuring dynamic case study rendering and an interactive technical assistant.
-- Decoupled LLM integration across multiple providers by implementing the **Strategy and Factory design patterns**, enabling zero-downtime provider swapping and adherence to Open/Closed and Single Responsibility principles.
-- Built an in-memory sliding-window **Rate Limiter** protecting serverless API routes against backpressure, brute-force abuse, and downstream provider quota exhaustion.
-- Structured end-to-end type safety using TypeScript strict mode and strict request validation schemas.
+*Next.js 16, React 19, TypeScript, Tailwind CSS v4, Jest, MongoDB* | [GitHub](https://github.com/Abdo5-Mahmoud/devfolio-ai) • [Live Demo](https://devfolio-ai.vercel.app)
+- Architected an AI gateway decoupling LLM providers via Strategy and Factory patterns, supporting seamless provider swapping and 100% deterministic Jest unit testing.
+- Built an in-memory sliding-window rate limiter and a custom `LLMError` hierarchy to protect API quotas and propagate exact HTTP status codes (429, 503, 500).
+- Developed an accessible, monochrome-first component library with Radix UI primitives and strict end-to-end TypeScript validation.
 
-### 2. Inventory Management Dashboard
-*Next.js 16 (App Router), TypeScript, TanStack Query, Tailwind CSS, Recharts* | [GitHub](https://github.com/Abdo5-Mahmoud/inventory-management-dashboard) • [Live Demo](https://inventory-dashboard-beryl-zeta.vercel.app)
-- Engineered an enterprise-grade analytics and stock tracking dashboard utilizing Next.js App Router and TanStack Query.
-- Implemented **server-side prefetching with client-side hydration**, reducing initial page data-fetch latency and eliminating layout shifts.
-- Developed multi-parameter sorting, debounced search filters, and client-side pagination handling 1,000+ mock inventory items smoothly.
-- Created interactive visualization modules (Revenue trends, low-stock alerts, category distribution) using Recharts.
+### 2. Inventory Management & Analytics Dashboard
+*Next.js 16, TypeScript, TanStack Query, Tailwind CSS, Recharts* | [GitHub](https://github.com/Abdo5-Mahmoud/inventory-management-dashboard) • [Live Demo](https://inventory-dashboard-beryl-zeta.vercel.app)
+- Implemented server-side data prefetching with client-side cache hydration using TanStack Query, eliminating layout shifts and redundant network requests.
+- Built multi-parameter filtering, debounced search, and pagination across 1,000+ inventory records paired with interactive Recharts financial analytics.
 
-### 3. Real-Time Team Chat & Collaboration Application
+### 3. Real-Time Team Chat & Collaboration Platform
 *React, Redux Toolkit, Node.js, Express, MongoDB, Socket.IO, JWT* | [GitHub](https://github.com/Abdo5-Mahmoud/chatApp_frontend) • [Backend Repo](https://github.com/Abdo5-Mahmoud/chatApp_backend)
-- Built a full-stack real-time messaging application with persistent chat history and active presence detection.
-- Engineered low-latency bidirectional communication pipelines using **Socket.IO** with room-based broadcast mechanisms and optimistic client UI updates.
-- Implemented secure stateless authentication using **JWT (JSON Web Tokens)** stored in HTTP-only secure cookies with bcrypt password encryption and protected Express middleware.
-- Managed complex multi-channel client state with **Redux Toolkit**, handling active conversation switches and unread message notifications.
+- Engineered bidirectional messaging using Socket.IO room broadcasting with optimistic UI updates and normalized Redux Toolkit state management.
+- Implemented stateless JWT authentication using secure HTTP-only cookies and protected Express middlewares to prevent token exfiltration.
 
 ### 4. Hotel Management & Operations Dashboard
-*React, Supabase, React Query, React Hook Form, Recharts* | [GitHub](https://github.com/Abdo5-Mahmoud/hotel-management-system) • [Live Demo](https://hotel-management-system-git-master-abdallahs.vercel.app)
-- Developed an internal operations dashboard for hotel staff managing bookings, cabin inventory, and guest check-in/out workflows.
-- Integrated **Supabase PostgreSQL** backend with Row Level Security (RLS) policies and real-time subscription capabilities.
-- Enforced strict client-side validation using **React Hook Form**, reducing form error rates and eliminating invalid reservation submissions.
-- Constructed administrative statistics displays (occupancy rates, revenue calculations, stay duration metrics).
+*React, Supabase (PostgreSQL), React Query, React Hook Form, Recharts* | [GitHub](https://github.com/Abdo5-Mahmoud/hotel-management-system) • [Live Demo](https://hotel-management-system-git-master-abdallahs.vercel.app)
+- Integrated Supabase PostgreSQL with declarative Row Level Security (RLS) policies to enforce database-level access control.
+- Built end-to-end booking reservation workflows with strict React Hook Form validation, modal flows, and occupancy rate analytics.
 
 ---
 
@@ -57,11 +50,12 @@ Software Engineer with a strong foundational degree in **Mathematics (Helwan Uni
 
 **Bachelor of Science in Mathematics**  
 Helwan University, Cairo, Egypt — *Graduated: October 2024*  
-- Rigorous academic foundation in Discrete Mathematics, Linear Algebra, Probability & Statistics, Logic, and Algorithmic Analysis.
+- Rigorous analytical foundation in Discrete Mathematics, Linear Algebra, Probability & Statistics, Logic, and Algorithmic Analysis.
 - Military Status: Exempt.
 
 ---
 
 ## Languages
 - **Arabic**: Native
-- **English**: Professional Technical Proficiency (Documentation, Code Auditing, Technical Interviews)
+- **English**: Professional Technical Proficiency (Architecture Discussions, Code Auditing, Technical Interviews)
+
