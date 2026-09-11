@@ -49,13 +49,10 @@ export class BuyOneGetOneDiscount implements DiscountStrategy {
 // 3. Write the orchestrator service class:
 // export class CheckoutService (or DiscountService) ...
 
-export class CheckoutService implements DiscountStrategy {
-  constructor(
-    private price: number,
-    private strategy: DiscountStrategy,
-  ) {}
-  public calculateDiscount(): number {
-    return this.strategy.calculateDiscount(this.price);
+export class CheckoutService {
+  constructor(private strategy: DiscountStrategy) {}
+  public applyDiscount(price: number): number {
+    return this.strategy.calculateDiscount(price);
   }
 }
 // ============================================================================
