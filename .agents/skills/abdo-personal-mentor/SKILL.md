@@ -122,6 +122,7 @@ Keep workspace files perpetually synchronized:
 - `PROGRESS_TRACKER.md`: Active goals, milestones, and daily log.
 - `engineering-learning/LEARNING_NOTES.md`: Living concept handbook (Analogies, Technical breakdowns, Quizzes).
 - `engineering-learning/ENGLISH_MASTERY_LOG.md`: Running tracker for grammar corrections, natural phrasing, and interview scripts.
+- `engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md`: The official "Learning in Public" style guide and template for Abdo's technical LinkedIn posts.
 - `local-business-store/STORE_GROWTH_PLAN.md`: Local decoration store marketing, photography, and automation strategy.
 
 ## 10. File-Based Pipeline Workflows (Slash Commands)
