@@ -457,6 +457,14 @@
     * `want` (not *wany*)
     * `lose` (فقدان/خسارة بـ o واحدة, بينما *loose* تعني واسع أو غير محكم).
 
+- **Raw Input**:  
+  > *"compare it with the idle solution... the requirements that we gonna use"*
+- **Polished Version (Senior Tech Level)**:  
+  > *"Benchmark it against the ideal reference solution... the architectural requirements we intend to adopt."*
+- **Key Takeaways & Habit Alert**:
+  - **Vocabulary Confusion**:
+    * **`ideal`** (مثالي / نموذجي) vs. **`idle`** (خامل / عاطل عن العمل). Say **"ideal solution"** or **"reference implementation"**.
+
 ---
 
 ## 💼 Tech & Business Phrase Vault (مخزن التعبيرات المهنية)
