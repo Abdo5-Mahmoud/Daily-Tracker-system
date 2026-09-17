@@ -6,7 +6,8 @@
 
 ## 1. Pipeline Folder Structure
 - `challenges/`: Daily problem specifications rotating across Design Patterns, Applied Algorithms, and Modern Stack.
-- `solutions/`: Clean TypeScript/React code implementations written manually by Abdo.
+- `my-solutions/`: Clean TypeScript/React code implementations written from scratch by Abdo (custom types, architecture, logic).
+- `solutions/`: Golden reference solutions for benchmarking, side-by-side comparison, and post-audit learning.
 - `grilling-quizzes/`: Relentless multi-angle edge cases and interview questions to verify depth.
 
 ---

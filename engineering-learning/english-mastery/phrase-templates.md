@@ -16,6 +16,10 @@
 | هخرج كمان نص ساعة | `i will go in half an hour` | **"I'm heading out in about half an hour"** |
 | سؤال سريع قبل ما نبدأ | `one question at first` | **"Quick question on that..."** / **"First off, ..."** |
 | خلصت الشغل وعملت فحص | `i finished the work` | **"I've wrapped up this task and verified it."** |
+| عايزك تحلل الشات وتشوف هل متأخرين | `analyze this chat and tell me if we are late` | **"Review this log against our tracker to assess our standing and flag any schedule slip."** |
+| هو مش النمط ده مجرد تجميع كونتراكتس؟ | `is it just reading contracts and combining them?` | **"Does this pattern simply bridge incompatible contracts, or is there deeper architectural nuance?"** |
+| بدل ما تترجم حرفي سجلها في الملف | `instead of translating literally log it in file` | **"Rather than literal translations in the chat, log the phrasing upgrades directly in the tracker."** |
+
 
 ---
 

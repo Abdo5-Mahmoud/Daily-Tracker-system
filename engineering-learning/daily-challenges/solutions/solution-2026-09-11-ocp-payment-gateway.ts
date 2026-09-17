@@ -86,12 +86,17 @@ export class PaymentRegistry {
 
   public register(strategy: PaymentStrategy): void {
     // TODO (Abdo): Register the strategy using its providerKey
+    this.strategies.set(strategy.providerKey, strategy);
   }
 
   public get(providerKey: string): PaymentStrategy {
     // TODO (Abdo): Retrieve the strategy.
     // Edge case guard: If not found, throw an explicit Error!
-    throw new Error("Not implemented yet");
+    const strategy = this.strategies.get(providerKey);
+    if (!strategy) {
+      throw new Error(`Unsupported payment provider ${providerKey}`);
+    }
+    return strategy;
   }
 }
 
@@ -106,13 +111,31 @@ export class CheckoutService {
 
   public async checkout(
     order: PaymentOrder,
-    paymentMethod: string
+    paymentMethod: string,
   ): Promise<PaymentResult> {
     // TODO (Abdo):
     // 1. Resolve strategy from registry
+    const strategy = this.registry.get(paymentMethod);
     // 2. Execute processPayment
-    // 3. Return result
-    throw new Error("Not implemented yet");
+    try {
+      const result = await strategy.processPayment(order);
+      // 3. Return result
+      return result;
+    } catch (error) {
+      console.error(
+        `Error processing payment for order ${order.orderId}`,
+        error,
+      );
+      if (error instanceof Error)
+        return {
+          success: false,
+          transactionId: `tx_${Date.now()}`,
+          provider: paymentMethod,
+          timestamp: new Date(),
+          errorMessage: error.message,
+        };
+      throw new Error("Unexpected error", { cause: error });
+    }
   }
 }
 
@@ -133,3 +156,5 @@ export class InstapayProcessor implements PaymentStrategy {
     };
   }
 }
+const registery = new PaymentRegistry();
+registery.register(new InstapayProcessor());
