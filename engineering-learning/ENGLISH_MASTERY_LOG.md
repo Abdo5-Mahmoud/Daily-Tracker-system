@@ -465,6 +465,16 @@
   - **Vocabulary Confusion**:
     * **`ideal`** (مثالي / نموذجي) vs. **`idle`** (خامل / عاطل عن العمل). Say **"ideal solution"** or **"reference implementation"**.
 
+- **Raw Input**:  
+  > *"check it out I didn't put await on the notification service because I don't expect a returned value, we can put it in after method in next and error won't affect the process"*
+- **Polished Version (Senior Tech Level)**:  
+  > *"Take a look: I deliberately omitted the await keyword on the notification call since it's a non-blocking side-effect. In Next.js, we can schedule it inside the after() callback to ensure background failures do not disrupt the primary fulfillment flow."*
+- **Key Takeaways & Habit Alert**:
+  - **Senior Terminology**:
+    * Say **"deliberately omitted the await keyword"** instead of *"I didn't put await"*.
+    * Use **"non-blocking side-effect"** instead of *"I don't expect a returned value"*.
+    * Use **"schedule inside the after() callback"** instead of *"put it in after method"*.
+
 ---
 
 ## 💼 Tech & Business Phrase Vault (مخزن التعبيرات المهنية)
