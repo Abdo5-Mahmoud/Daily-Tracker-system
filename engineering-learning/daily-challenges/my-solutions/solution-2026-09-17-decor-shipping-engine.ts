@@ -153,8 +153,13 @@ class SwappingStrategy {
 
 // [GUIDE]:
 // 1. Single Responsibility: WhatsAppNotificationService
-
-class WhatsAppNotificationService {
+export interface NotificationService {
+  sendShipmentNotification(
+    order: Order,
+    shipmentResult: ShipmentResult,
+  ): Promise<void>;
+}
+class WhatsAppNotificationService implements NotificationService {
   async sendShipmentNotification(order: Order, shipmentResult: ShipmentResult) {
     console.log(
       `[WhatsApp] Sending shipment notification for order ${order.id}`,
@@ -175,7 +180,14 @@ class FulfillmentService {
     console.log(`[Fulfillment] Starting shipment for order ${order.id}`);
     const shipmentCarrier = this.swappingStrategy.getCarrier(carrier);
     const shipmentResult = await shipmentCarrier.shipOrder(order);
-    this.notificationService.sendShipmentNotification(order, shipmentResult);
+    this.notificationService
+      .sendShipmentNotification(order, shipmentResult)
+      .catch((err) => {
+        console.log(
+          `[Fulfillment] Error sending notification for order ${order.id}`,
+          err,
+        );
+      });
     return shipmentResult;
   }
 }

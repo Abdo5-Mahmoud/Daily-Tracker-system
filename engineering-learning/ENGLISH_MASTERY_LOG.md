@@ -475,6 +475,13 @@
     * Use **"non-blocking side-effect"** instead of *"I don't expect a returned value"*.
     * Use **"schedule inside the after() callback"** instead of *"put it in after method"*.
 
+- **Raw Input**:  
+  > *"Maybe the experience was lacking because I split it across multiple days, but I feel a difference because before I was thinking of all interfaces and classes at once, while each piece has its specific purpose."*
+- **Polished Version (Senior Tech Level)**:  
+  > *"Although the challenge spanned across multiple sessions, I experienced a profound cognitive shift. Previously, I attempted to architect every interface and class simultaneously. I now understand that software components possess distinct lifecycles: some represent immutable core domain contracts, while others serve strictly as abstraction boundaries to uphold OCP and LSP."*
+- **Key Takeaways & Habit Alert**:
+  - **Cognitive Framing**: Use **"profound cognitive shift"** and **"abstraction boundaries"** when describing architectural epiphanies in tech interviews.
+
 ---
 
 ## 💼 Tech & Business Phrase Vault (مخزن التعبيرات المهنية)
