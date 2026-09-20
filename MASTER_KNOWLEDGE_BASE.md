@@ -21,50 +21,62 @@
 الملف المرجعي الرئيسي للشرح التفصيلي والأمثلة:  
 🔗 [engineering-learning/LEARNING_NOTES.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/LEARNING_NOTES.md)
 
-### المفاهيم التي أتقنتها وطبقتها عملياً بالكود:
+### المفاهيم المعمارية ومستويات إسنادها:
 
-#### أ. هندسة الخوادم والسيرفرليس (Serverless & Backend Nuances)
-- **Mongoose Cache Poisoning**:
-  - *المشكلة*: إعادة بناء اتصال قاعدة البيانات في كل ريكويست في بيئة السيرفرليس مما يؤدي لنفاد الاتصالات وتسمم الذاكرة.
-  - *الحل*: حفظ وعد الاتصال `cached.promise` في النطاق العام للعملية `globalThis`.
-  - *الملف*: `devfolio/lib/mongodb.ts`
-- **Serverless Container Freeze & `after()`**:
+#### أ. هندسة الخوادم وعديمة الخادم (Serverless & Backend Nuances)
+- `[Tier 2: AI-Audited]` **Mongoose Cache Poisoning & In-Flight Promise Caching**:
+  - *المشكلة*: إعادة بناء الاتصال في كل ريكويست، وتسمم الذاكرة بوعود فاشلة، وخطر سباق الطلبات المتزامنة `Connection Stampede`.
+  - *الحل*: حفظ الوعد غير المتزامن فوراً في `globalThis` لمنع تكرار الاتصال، وتفريغه إلى `null` في `.catch` عند حدوث أي خطأ.
+  - *الشرح المفصل*: [LEARNING_NOTES.md (Concept 02)](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/LEARNING_NOTES.md#02-mongoose-promise-caching--cache-poisoning-nextjs-serverless)
+  - *الملف المرجعي*: [`devfolio/lib/mongodb.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/devfolio/lib/mongodb.ts)
+- `[Tier 2: AI-Audited]` **Serverless Container Freeze & `after()`**:
   - *المشكلة*: الدوال غير المتزامنة التي تعمل بدون `await` تتجمد عند إرسال الرد للمستخدم في السيرفرليس.
   - *الحل*: استخدام دالة `after()` في Next.js 15/16 لتنفيذ المهام الخلفية (مثل إشعارات تيليجرام) دون تأخير الرد للعميل.
-  - *الملف*: `devfolio/lib/telegram.ts`
-- **In-Memory Rate Limiting & Memory Cleanup**:
+  - *الملف*: [`devfolio/lib/telegram.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/devfolio/lib/telegram.ts)
+- `[Tier 2: AI-Audited]` **In-Memory Rate Limiting & Memory Cleanup**:
   - *المشكلة*: استهلاك موارد السيرفر وهجمات إغراق الطلبات وتضخم الذاكرة `Memory Leak` بمرور الوقت.
-  - *الحل*: بناء محدد طلبات بخوارزمية النافذة المنزلقة مع دالة تنظيف دورية للسجلات القديمة `cleanupStaleRecords` وحفظ الحالة في `globalThis`.
-  - *الملف*: `devfolio/lib/rate-limiter.ts`
-- **Honeypot Bot Trap**:
+  - *الحل*: بناء محدد طلبات بخوارزمية النافذة المنزلقة مع دالة تنظيف دورية للسجلات القديمة وحفظ الحالة في `globalThis`.
+  - *الملف*: [`devfolio/lib/rate-limiter.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/devfolio/lib/rate-limiter.ts)
+- `[Tier 2: AI-Audited]` **Honeypot Bot Trap**:
   - *المشكلة*: السبام والبوتات التي تملأ فورم التواصل.
   - *الحل*: حقل مخفي للمستخدم يملأه البوت تلقائياً فيتم إسقاط الطلب بصمت بدون تكلفة `CAPTCHA`.
   - *الملف*: `devfolio/features/contact/`
 
 #### ب. مبادئ التصميم وأنماط البرمجيات (SOLID & Design Patterns)
-- **Single Responsibility Principle (SRP)**:
+- `[Tier 2: AI-Audited]` **Single Responsibility Principle (SRP)**:
   - *المفهوم*: فصل المسؤوليات إلى 4 طبقات نقية:
     `Controller -> Service -> Repository -> Validator`
   - *ملف الحل*: [solution-2026-09-10-srp-user-service.ts](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/solutions/solution-2026-09-10-srp-user-service.ts)
   - *ملف الكويز*: [quiz-2026-09-10-srp-user-service.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/grilling-quizzes/quiz-2026-09-10-srp-user-service.md)
-- **Open/Closed Principle (OCP)**:
+- `[Tier 2: AI-Audited]` **Open/Closed Principle (OCP)**:
   - *المفهوم*: فتح الكود للإضافة وإغلاقه أمام التعديل. التخلص من `switch-case` المعقدة باستخدام نمط السجل والاستراتيجية `Strategy & Registry Pattern`.
   - *ملف الحل*: [solution-2026-09-11-ocp-payment-gateway.ts](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/solutions/solution-2026-09-11-ocp-payment-gateway.ts)
   - *ملف الكويز*: [quiz-2026-09-11-ocp-payment-gateway.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/grilling-quizzes/quiz-2026-09-11-ocp-payment-gateway.md)
-- **Strategy & Gateway Pattern في المساعد الذكي**:
-  - *المفهوم*: عزل مزودي الذكاء الاصطناعي (Gemini / Groq / Mock) عبر واجهة موحدة `LLMProviderStrategy` وبوابة اتصالات معزولة `GeminiClient` مع معالجة أخطاء المجال `LLMError`.
-  - *الملف*: `devfolio/features/ai-workflow/lib/llm.ts`
+- `[Tier 2: AI-Audited]` **Strategy & Gateway Pattern في المساعد الذكي**:
+  - *المفهوم*: عزل مزودي الذكاء الاصطناعي عبر واجهة موحدة `LLMProviderStrategy` وبوابة اتصالات معزولة `GeminiClient` مع معالجة أخطاء المجال `LLMError`.
+  - *الملف*: [`devfolio/features/ai-workflow/lib/llm.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/devfolio/features/ai-workflow/lib/llm.ts)
+
+#### ج. خارطة مشاريع الفول ستاك ونظام أجايل (Fullstack Projects & Agile Roadmap)
+- **محرك متجر الديكور وسبرنتات أجايل الرأسية (Decor Store Commerce Engine)**:
+  - *المنهجية*: نظام سبرنتات أسبوعية بتقسيم الشرائح الرأسية (Vertical Slices) لخدمة المحل كعميل أول:
+    `PostgreSQL + Prisma -> Auth/RBAC -> Concurrency/Locking -> TanStack Query/Docker`
+  - *الوثيقة الكاملة للمسار*: [ROADMAP_AND_AGILE_SPRINTS.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/decor-store-engine/ROADMAP_AND_AGILE_SPRINTS.md)
 
 ---
 
 ## 2. 🧪 الاختبارات وجودة الكود (Testing & Quality)
 
 - **أجنحة اختبارات ديفوليو (5 Test Suites / 38 Tests Passing 100%)**:
+  - *تصنيف الإسناد*: `[Tier 1: AI-Generated Scaffolding]` (تم توليد الهيكل والاختبارات كمرجع لضمان سلامة المشروع، وليست من تأليف عبده المنفرد من الصفر).
   - `__tests__/smoke.test.ts`: اختبار تشغيل واستجابة المسارات الأساسية.
   - `__tests__/auth.test.ts`: اختبار أمان الجلسات وحماية الكوكيز.
   - `__tests__/api-boundaries.test.ts`: اختبار حدود واجهات البرمجة والتحقق من المدخلات.
   - `__tests__/ai-assistant.test.ts`: اختبار المزود الوهمي ومحدد الطلبات الحسابي بدقة 100%.
   - `__tests__/projects-validation.test.ts`: اختبار سلامة بيانات المشاريع ومخطط Zod.
+- **منصة الاختبار مقابل الحالة الاختبارية (Test Harness vs. Test Case)**:
+  - *تصنيف الإسناد*: `[Tier 2: AI-Audited]`
+  - *المفهوم*: بناء منصة بيئة عزل وحواضن تشغيل محكمة (`Test Harness`) لحماية الإنتاج من الخصم المالي، وتلويث الداتابيز، والاختبارات المتذبذبة.
+  - *الشرح الكامل*: [LEARNING_NOTES.md (Concept 12)](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/LEARNING_NOTES.md#12-test-harness-vs-test-case-isolated-execution-rigs--production-risk-elimination)
 - **أمر التشغيل المعتمد**:
   ```bash
   npm test
@@ -112,9 +124,10 @@
 
 - **دستور وكيل ديفوليو (Cursor / Windsurf / Claude)**:  
   🔗 [engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md)
-  (برومبت صلب يجبر الإيجنت على نبرة المنتور الصارم، منع التطبيل، عدم كسر الاختبارات الـ 38، ورادار المفاهيم المعمارية).
-- **دستور المنتور الهندسي الشامل**:  
-  🔗 [MASTER_ENGINEERING_MENTOR_SYSTEM_PROMPT.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/MASTER_ENGINEERING_MENTOR_SYSTEM_PROMPT.md)
+  (برومبت صلب يجبر الإيجنت على نبرة المنتور الصارم، منع التطبيل، عدم كسر الاختبارات الـ 38، ورادار المفاهيم المعمارية، ومصفوفة الوكلاء المجانية).
+- **دستور المنتور ومصفوفة تشغيل الوكلاء المجانية (Multi-Agent Operations Matrix)**:  
+  🔗 [abdo-personal-mentor/SKILL.md (Section 11)](file:///c:/Users/A5/Desktop/growth-workspace-withAI/.agents/skills/abdo-personal-mentor/SKILL.md)
+  (هيكلية قيادة الوكلاء: Antigravity كقائد أعلى، JEV للتصنيف والمشاورة الحتمية، Qwen 3.8 للكود الثقيل، Nemotron 550B للتدقيق وحالات الحافة، Gemini 2.5 Flash للمسح الشامل، و Codex للترقيع السريع).
 
 ---
 
@@ -135,8 +148,6 @@
   🔗 [PROGRESS_TRACKER.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/PROGRESS_TRACKER.md)
 - **بروفايل ومعلومات عبده الدائمة**:  
   🔗 [USER_CONTEXT_PROFILE.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/USER_CONTEXT_PROFILE.md)
-- **الجدول الزمني الصارم لليوم**:  
-  🔗 [DAILY_CALENDAR_SCHEDULE.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/DAILY_CALENDAR_SCHEDULE.md)
 
 ---
 

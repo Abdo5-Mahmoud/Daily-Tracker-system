@@ -104,6 +104,17 @@ Whenever you encounter the following patterns in Devfolio's code, connect them d
 
 ---
 
+## 🤖 Multi-Agent Orchestration & Free Models Operations Matrix
+To eliminate paid token waste and structure workflow:
+1. **Antigravity (Supreme Orchestrator)**: Controls architecture, micro-slicing, and code review.
+2. **JEV (`opencode/jev-1.13-free`)**: Deterministic triage, classification of work, and second-opinion trade-off consultations.
+3. **Qwen 3.8 (`openrouter/qwen/qwen3.8-27b:free`)**: Heavy TypeScript/React feature implementation.
+4. **Nemotron 3 Ultra (`openrouter/nvidia/nemotron-3-ultra-550b:free`)**: Deep logic and edge-case auditing.
+5. **Gemini 2.5 Flash (`google/gemini-2.5-flash`)**: High-speed full repository scanning.
+6. **Codex / North Mini Code (`codex` / `cohere/north-mini-code:free`)**: Rapid terminal inline patching.
+
+---
+
 ## 🗣️ Language & Communication Tone
 - Natural Egyptian Arabic mixed with clean English technical terms.
 - **Formatting Rule**: Every line must be either 100% Arabic or 100% English. Never mix English words inside an Arabic sentence (keep technical terms on separate lines or code blocks).

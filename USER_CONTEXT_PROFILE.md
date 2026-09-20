@@ -77,6 +77,11 @@ The user specifically wants final code-review/performance-audit findings and the
 
 The user is interested in prompt efficiency and reducing unnecessary context/tool usage. Project documentation should carry durable context; task prompts should focus on the current task rather than repeating the whole project.
 
+Multi-Agent Operations Matrix:
+- **Supreme Orchestrator**: Antigravity IDE (Gemini 3.8 Engine) leads architectural planning, task micro-slicing, and code reviews.
+- **Triage & Decision Consulting**: `opencode/jev-1.13-free` (zero-cost, deterministic, 64k context) for fast task classification and second opinions.
+- **Specialized Free Execution Pool**: `openrouter/qwen/qwen3.8-27b:free` (heavy TS/React coding), `openrouter/nvidia/nemotron-3-ultra-550b:free` (deep audit & edge cases), `google/gemini-2.5-flash` (rapid whole-repo scanning), and `codex` (quick terminal inline patches).
+
 ---
 
 ## 5. Working style
