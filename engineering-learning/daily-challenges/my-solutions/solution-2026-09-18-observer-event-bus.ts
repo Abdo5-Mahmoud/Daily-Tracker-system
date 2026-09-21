@@ -15,6 +15,7 @@ type Product = {
   productId: string;
   name: string;
   price: number;
+  count: number;
 };
 type Order = {
   orderId: string;
@@ -29,25 +30,36 @@ type Order = {
 // ============================================================================
 type EventHandler = (data: Order) => void;
 
-interface IEventBus {
+type IEventBus = {
   subscribe(eventName: string, handler: EventHandler): void;
   unsubscribe(eventName: string, handler: EventHandler): void;
   publish(eventName: string, data: Order): void;
-}
+};
+type ShopEvents = {
+  "order:placed": Order;
+  "stock:low": Order;
+};
+
 // ============================================================================
 // Phase 3: The Concrete EventBus Class Implementation
 // ============================================================================
 class EventBus implements IEventBus {
   cachedEvents = new Map<string, EventHandler[]>();
 
-  subscribe(eventName: string, handler: EventHandler): void {
+  subscribe<K extends keyof ShopEvents>(
+    eventName: K,
+    handler: (data: ShopEvents[K]) => void,
+  ): void {
     if (!this.cachedEvents.has(eventName)) {
       this.cachedEvents.set(eventName, [handler]);
     } else {
       this.cachedEvents.get(eventName)?.push(handler);
     }
   }
-  unsubscribe(eventName: string, handler: EventHandler): void {
+  unsubscribe<K extends keyof ShopEvents>(
+    eventName: K,
+    handler: (data: ShopEvents[K]) => void,
+  ): void {
     if (!this.cachedEvents.has(eventName)) return;
     const handlers = this.cachedEvents.get(eventName);
     if (!handlers) return;
@@ -56,13 +68,13 @@ class EventBus implements IEventBus {
       handlers.filter((h) => h !== handler),
     );
   }
-  publish(eventName: string, order: Order) {
+  publish<K extends keyof ShopEvents>(eventName: K, data: ShopEvents[K]) {
     if (this.cachedEvents.has(eventName)) {
       const handlers = this.cachedEvents.get(eventName);
       if (!handlers) return;
       for (const handler of handlers) {
         try {
-          handler(order);
+          handler(data);
         } catch (err) {
           console.log(`[${eventName}] handler failed:`, err);
         }
@@ -78,7 +90,11 @@ const whatsAppListener: EventHandler = (order) => {
 };
 
 const stockListener: EventHandler = (order) => {
-  console.log("Stock: " + order.customerName);
+  for (let item of order.items) {
+    if (item.count < 5) {
+      console.log("Stock: " + item.name);
+    }
+  }
 };
 
 const faultyListener: EventHandler = (order) => {
@@ -94,7 +110,7 @@ const sampleOrder: Order = {
   customerName: "Abdullah",
   customerPhone: 1012345678,
   totalAmount: 1500,
-  items: [{ productId: "P-1", name: "Crystal Vase", price: 1500 }],
+  items: [{ productId: "P-1", name: "Crystal Vase", price: 1500, count: 10 }],
 };
 eventBus.subscribe("order:placed", whatsAppListener);
 eventBus.subscribe("order:placed", stockListener);
