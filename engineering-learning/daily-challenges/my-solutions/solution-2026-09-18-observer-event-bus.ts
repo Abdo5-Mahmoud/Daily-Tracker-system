@@ -121,7 +121,8 @@ const sampleOrder: Order = {
   items: [{ productId: "P-1", name: "Crystal Vase", price: 1500, count: 10 }],
 };
 eventBus.subscribe("order:placed", whatsAppListener);
-eventBus.subscribe("order:placed", stockListener);
 eventBus.subscribe("stock:low", stockListener);
-eventBus.subscribe("order:placed", faultyListener);
+eventBus.subscribe("stock:low", faultyListener);
 eventBus.publish("order:placed", sampleOrder);
+eventBus.publish("stock:low", { productId: "P-1", remainingCount: 2 });
+
