@@ -1,66 +1,104 @@
 # Challenge: Event-Driven Order Processing with Observer Pattern 📡⚡
 
 > **Date**: 2026-09-18  
-> **Topic**: Behavioral Design Patterns - The Observer Pattern / Type-Safe Event Bus  
+> **Topic**: Behavioral Design Patterns - The Observer Pattern (EventBus Architecture)  
 > **Author / Student**: Abdullah Mahmoud Fawzy (Abdo)  
 > **Mentor**: Blue (بلو)  
-> **Target Solution File**: [solution-2026-09-18-observer-event-bus.ts](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts)
+> **Target Solution File**: [solution-2026-09-18-observer-event-bus.ts](../my-solutions/solution-2026-09-18-observer-event-bus.ts)  
+> **Knowledge Reference**: [LEARNING_NOTES.md](../../LEARNING_NOTES.md) | [MASTER_KNOWLEDGE_BASE.md](../../MASTER_KNOWLEDGE_BASE.md)  
 
 ---
 
-## 🎯 Business Context & The Problem
-In our decor e-commerce platform, when an order is placed and paid, multiple independent systems need to react immediately:
-1. **Inventory System**: Must deduct product quantities from the warehouse stock.
-2. **Analytics / Audit System**: Must log financial revenue and buyer metrics for the daily dashboard.
-3. **Notification System**: Must send confirmation alerts to the buyer (WhatsApp / Email).
-4. **Loyalty System**: Must calculate and award reward points to the customer's account.
+## 🎯 Business Context & The Real-World Problem (CasaArt Decor)
 
-### The Anti-Pattern (What we must avoid):
-In typical fragile codebases, the `CheckoutService` directly calls every service one by one:
+في منصة ومحل الديكور الخاص بنا (**CasaArt Decor**)، عندما يشتري العميل منتجات (مثل: تحف كريستال، تابلوهات، أباجورات إضاءة)، يقوم نظام الدفع والطلب (`CheckoutService`) بإنهاء المعاملة.
+
+بمجرد اكتمال الطلب، توجد خدمات وأقسام مستقلة تماماً داخل المحل تحتاج للتفاعل مع هذا الحدث:
+1. **قسم المخزن (Inventory / Stock)**: يخصم الكميات المباعة من رصيد المستودع.
+2. **خدمة رسائل الواتساب (WhatsApp Notifications)**: ترسل رسالة فورية للعميل برقم الأوردر وتفاصيل الشحن.
+3. **دفتر الحسابات والإيرادات (Accounting / Audit)**: يسجل الإيراد المالي للتقرير اليومي.
+
+---
+
+### ❌ The Anti-Pattern: الكود الهش المرتبط ببعضه (Tight Coupling)
+
+في المشاريع غير الاحترافية، تجد المطور يضع استدعاءات مباشرة لكل الخدمات داخل دالة إتمام الطلب:
+
 ```typescript
-await inventory.deduct(...);
-await analytics.track(...);
-await notifications.send(...);
-await loyalty.addPoints(...);
+// ❌ كود كارثي داخل CheckoutService:
+await inventoryService.deductStock(order);
+await whatsAppService.sendOrderConfirmation(order);
+await accountingService.recordRevenue(order);
 ```
-**Why this rots the architecture**:
-- Violates the Single Responsibility Principle: Checkout now has 4+ distinct reasons to change.
-- Violates the Open/Closed Principle: Every time marketing wants a new feature (e.g. sending a discount coupon for the next purchase), `CheckoutService` must be reopened and modified.
-- Tight Coupling: If the Analytics service is slow or down, it can delay or crash the entire checkout transaction.
+
+#### لماذا هذا التصميم فاشل ومعطّل للنمو؟
+1. **كسر مبدأ المسؤولية الواحدة (SRP)**: أصبح `CheckoutService` يعرف تفاصيل الواتساب وتفاصيل الحسابات وتفاصيل المخزن.
+2. **كسر مبدأ الفتح والإغلاق (OCP)**: كلما أردنا إضافة خدمة جديدة (مثلاً: إرسال كوبون خصم بعد الشراء)، سنضطر لفتح كود الشيك أوت والتعديل عليه.
+3. **غياب عزل الأخطاء (No Fault Isolation)**: لو تعطلت شبكة الواتساب ورمت `Error`، سيتوقف الكود بالكامل ويفشل الأوردر للعميل رغم أن الدفع تم بالفعل!
 
 ---
 
-## 📋 Business Requirements & Constraints
+## 🧠 The Architectural Mental Model (النموذج الذهني للحل)
 
-We need an **Event-Driven Architecture** powered by a **Type-Safe Event Bus (Observer Pattern)**:
+الحل الاحترافي هو **Observer Pattern (Event-Driven Architecture)** عبر وسيط مركزي (`EventBus`):
 
-### 1. The Core Events:
-- An event named `order:placed` carrying event payload data: `orderId`, `customerPhone`, `items` (productId, quantity), `totalAmount`, `placedAt`.
-- An event named `inventory:low` carrying: `productId`, `remainingStock`.
+```
+       [ CheckoutService ]  ---> (يطلق حدث: "order:placed")
+                |
+          [ EventBus ] (يحتوي على قاموس لتسجيل المشتركين)
+         /      |      \
+        v       v       v
+[ WhatsApp ] [ Stock ] [ Accounting ]
+```
 
-### 2. The Type-Safe Event Bus Requirements:
-- **Subscription Mechanism**: Observers/listeners can subscribe to specific events (`subscribe(eventName, handler)`).
-- **Unsubscription / Cleanup**: Subscribing should return an unsubscribe cleanup function (or method) to prevent memory leaks.
-- **Type Safety**: The event bus MUST be strictly typed using TypeScript generics or mapped types. If someone subscribes to `order:placed`, the handler parameter MUST automatically infer the exact payload of `order:placed`, not `any` or `unknown`.
-- **Fault Isolation**: If one listener throws an error (e.g. Analytics database timeout), other listeners MUST still execute, and the core event publisher must not crash.
+1. **الناشر (`Publisher`)**: يعرف فقط أنه أطلق حدثاً ومعه بيانات الطلب، ولا يدري من يستمع إليه ولا يعتمد على أحد.
+2. **المستمعون (`Listeners / Observers`)**: كل قسم يشترك بنفسه في الحدث الذي يهمه عبر دالة الاشتراك.
+3. **الوسيط (`EventBus`)**: يحتفظ بـ `Map` يسجل لكل اسم حدث قائمة الدوال المستمعة له.
+4. **عزل الأخطاء (`Fault Isolation`)**: عندما ينفذ `EventBus` الدوال المستمعة، يقوم بحماية التنفيذ بـ `try/catch` لكل مستمع بشكل مستقل، حتى لا يعطل خطأ في مستمع تنفيذ بقية المستمعين.
 
 ---
 
-## 🛠️ Your Mission (Step-by-Step Architecture)
+## 📋 Specific Requirements (المطلوب تنفيذه)
 
-Open your solution file and build this system from scratch:
+افتح ملف الحل الفارغ:  
+[solution-2026-09-18-observer-event-bus.ts](../my-solutions/solution-2026-09-18-observer-event-bus.ts)  
+وقم ببناء المنظومة كاملة خطوة بخطوة:
 
-1. **Phase 1: Event Map & Types**
-   - Define the events dictionary type mapping event names to their specific typed payloads.
-2. **Phase 2: Observer Contracts**
-   - Define the Event Bus / Observer interface.
-3. **Phase 3: The Concrete Event Bus Implementation**
-   - Implement the generic, type-safe Event Bus class with subscription, unsubscription, and safe broadcast.
-4. **Phase 4: Independent Listeners**
-   - Implement at least 3 decoupled listeners: Inventory Listener, Analytics Listener, Notification Listener.
-5. **Phase 5: Simulation & Verification**
-   - Show `CheckoutService` publishing `order:placed` and all listeners reacting independently.
-   - Prove that when one listener throws an error, the others still succeed.
+### 1. Phase 1: Domain Entities & Event Payloads
+- عرّف بيانات الطلب `Order` (مثل: `orderId`, `customerName`, `customerPhone`, `totalAmount`, `items`).
+- عرّف نوع أو كائن بيانات الحدث `OrderPlacedPayload`.
 
-Write your entire code from scratch in:  
-`engineering-learning/daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts`
+### 2. Phase 2: EventBus Contract (Interfaces)
+- صمّم دالة أو نوع المستمع `EventHandler`: دالة تأخذ البيانات المنشورة وتنفذ المطلوب.
+- صمّم عقد الوسيط `IEventBus`:
+  - `subscribe(eventName: string, handler: EventHandler): void` (أو إرجاع دالة تنظيف لإلغاء الاشتراك).
+  - `unsubscribe(eventName: string, handler: EventHandler): void`
+  - `publish(eventName: string, data: any): void`
+
+### 3. Phase 3: The Concrete EventBus Class
+- ابنِ كلاس `EventBus` مع خاصية داخلية خاصة تخزن المستمعين (مثلاً: `Map<string, EventHandler[]>`).
+- اكتب كود دالة `subscribe` (إضافة الدالة للمستمعين).
+- اكتب كود دالة `unsubscribe` (حذف الدالة من مصفوفة المستمعين).
+- اكتب كود دالة `publish`:
+  - تجلب المستمعين الخاصين بهذا الحدث.
+  - تمر عليهم بحلقة تكرار (`for` أو `forEach`).
+  - **مطلب إجباري (Fault Isolation)**: ضع استدعاء المستمع داخل `try/catch` حتى إذا رمت دالة معينة خطأ يتم تسجيله في الكونسول ولا يتوقف البقية.
+
+### 4. Phase 4: Independent Domain Listeners
+- صمم مستمع الواتساب: يطبع رسالة ترحيب بالطلب على الكونسول.
+- صمم مستمع المخزن: يطبع خصم المنتجات من الرصيد.
+- صمم مستمع متعمد الخطأ (Faulty Listener): مستمع يرمي `new Error("WhatsApp Gateway Down!")` لاختبار عزل الأعطال.
+
+### 5. Phase 5: Verification & Simulation (دالة التجربة والاختبار)
+- اكتب دالة تجربة عملية `main()` تثبت:
+  1. اشتراك مستمع المخزن ومستمع الواتساب.
+  2. إطلاق حدث طلب جديد وتأكيد استقبال المستمعين للبيانات وطباعتها.
+  3. إلغاء اشتراك مستمع (`unsubscribe`)، ثم إطلاق حدث جديد والتأكد أنه لم يعد يستلم الحدث.
+  4. تفعيل المستمع الذي يرمي خطأ، وإثبات أن الحدث استمر ونفذ باقي المستمعين بنجاح دون انهيار التطبيق.
+
+---
+
+## 🏆 Definition of Done (DoD)
+- [ ] الكود خالي من الأخطاء ومكتوب بلغة TypeScript نقية.
+- [ ] الكود مبني بجهد ذاتي بالكامل داخل ملف الحلول الشخصية (`Tier 3: Solo-Authored`).
+- [ ] يمكن تشغيل الملف واختباره مباشرة باستخدام `npx tsx` أو `ts-node`.

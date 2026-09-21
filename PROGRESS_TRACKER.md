@@ -307,14 +307,26 @@
 
 ---
 
+### 🗓️ اليوم: الاثنين 2026-09-21 (إنجاز نمط المراقب وعزل الأعطال بجهد فردي كامل 🚀)
+
+- **جلسة الفجر المركزة (03:00 ص - 03:25 ص) - إنجاز ذاتي أصيل (Tier 3: Solo-Authored)**:
+  - [x] تحديث مواصفات التحدي بالمنهجية الجديدة القائمة على واقع متجر الديكور في `challenge-2026-09-18-observer-event-bus.md`.
+  - [x] كتابة كود الوسيط `EventBus` بالكامل من شاشة بيضاء بجهد فردي في `solution-2026-09-18-observer-event-bus.ts`.
+  - [x] بناء دوال الاشتراك `subscribe` وإلغاء الاشتراك `unsubscribe` والبث `publish`.
+  - [x] استبدال `forEach` بحلقة `for...of` وتطبيق عزل الأعطال `Fault Isolation` عبر `try/catch`.
+  - [x] تشغيل الكود واجتياز الاختبار بنجاح مع صمود النظام أمام خطأ المستمع المعطوب بنتيجة خضراء كاملة (Exit Code 0).
+
+---
+
 ## 📊 لوحة حالة المشاريع (Projects Health)
 
 | المشروع | الـ Stack | الحالة الحالية | الخطوة التالية |
 | :--- | :--- | :--- | :--- |
 | **Devfolio AI** | Next.js 16, React 19, TS, Tailwind v4, Mongo | **10 / 10** (مرفوع لايف على الإنتاج والاختبارات الـ 38 خضراء 100%) | إضافة رابط الإنتاج في السيرة الذاتية وبوست لينكد إن |
-| **Daily Challenges** | TypeScript, Design Patterns, SOLID | **SOLID كامل + Factory + Builder + Type-State + Adapter تم بنجاح 100%** | دراسة نمط Observer أولاً قبل أي كود |
+| **Daily Challenges** | TypeScript, Design Patterns, SOLID | **SOLID + Factory + Builder + Adapter + Observer مكتمل بنجاح 100% (Tier 3)** | سبرنت محرك متجر الديكور القادم |
 | **Inventory Dashboard** | Next.js 16, TanStack Query | مكتوب ومنشور على Vercel | Audit سريع وتجهيزه كدليل قوي للإنترفيو |
 | **Hotel Management** | React, Supabase | مكتوب ومنشور | ربطه بالـ Devfolio كـ Case Study |
 | **Chat Application** | MERN + Socket.IO | مكتوب على GitHub | مراجعة الـ Real-time architecture للإنترفيوز |
 | **محل الديكور (Local Biz)** | تجارة أوفلاين + أمازون مصر | تقديم المسار المبسط بالضرائب قيد المعالجة | فحص صدور الرقم الضريبي غداً |
+
 
