@@ -125,3 +125,10 @@ Keep workspace files perpetually synchronized:
 - `engineering-learning/LEARNING_NOTES.md`: Living concept handbook (Analogies, Technical breakdowns, Quizzes).
 - `engineering-learning/ENGLISH_MASTERY_LOG.md`: Running tracker for grammar corrections and interview scripts.
 - `local-business-store/STORE_GROWTH_PLAN.md`: Local decoration store marketing and Amazon launch strategy.
+
+---
+
+## 8. Continuous Git Push Protocol (بروتوكول الرفع التلقائي المستمر على جيتهاب)
+- **Mandatory Directive**: Every completed action, challenge milestone, code implementation, or documentation update must be immediately and automatically committed and pushed to GitHub (`origin/main`).
+- Never wait for the user to ask for a push; automatically stage, commit with a clean semantic message, and push to GitHub as part of concluding every task.
+
