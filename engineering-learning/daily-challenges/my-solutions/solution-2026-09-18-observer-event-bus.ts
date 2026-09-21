@@ -28,27 +28,33 @@ type Order = {
 // ============================================================================
 // Phase 2: EventBus Contract (Interfaces & Types)
 // ============================================================================
-type EventHandler = (data: Order) => void;
-
-type IEventBus = {
-  subscribe(eventName: string, handler: EventHandler): void;
-  unsubscribe(eventName: string, handler: EventHandler): void;
-  publish(eventName: string, data: Order): void;
-};
 type ShopEvents = {
   "order:placed": Order;
-  "stock:low": Order;
+  "stock:low": { productId: string; remainingCount: number };
+};
+type EventHandler<T> = (data: T) => void;
+
+type IEventBus = {
+  subscribe<K extends keyof ShopEvents>(
+    eventName: K,
+    handler: EventHandler<ShopEvents[K]>,
+  ): void;
+  unsubscribe<K extends keyof ShopEvents>(
+    eventName: K,
+    handler: EventHandler<any>,
+  ): void;
+  publish<K extends keyof ShopEvents>(eventName: K, data: ShopEvents[K]): void;
 };
 
 // ============================================================================
 // Phase 3: The Concrete EventBus Class Implementation
 // ============================================================================
 class EventBus implements IEventBus {
-  cachedEvents = new Map<string, EventHandler[]>();
+  cachedEvents = new Map<string, Function[]>();
 
   subscribe<K extends keyof ShopEvents>(
     eventName: K,
-    handler: (data: ShopEvents[K]) => void,
+    handler: EventHandler<ShopEvents[K]>,
   ): void {
     if (!this.cachedEvents.has(eventName)) {
       this.cachedEvents.set(eventName, [handler]);
@@ -58,7 +64,7 @@ class EventBus implements IEventBus {
   }
   unsubscribe<K extends keyof ShopEvents>(
     eventName: K,
-    handler: (data: ShopEvents[K]) => void,
+    handler: EventHandler<ShopEvents[K]>,
   ): void {
     if (!this.cachedEvents.has(eventName)) return;
     const handlers = this.cachedEvents.get(eventName);
@@ -85,19 +91,21 @@ class EventBus implements IEventBus {
 // ============================================================================
 // Phase 4: Independent Domain Listeners (WhatsApp, Stock, Faulty Listener)
 // ============================================================================
-const whatsAppListener: EventHandler = (order) => {
+const whatsAppListener: EventHandler<Order> = (order) => {
   console.log("WhatsApp: " + order.customerName);
 };
 
-const stockListener: EventHandler = (order) => {
-  for (let item of order.items) {
-    if (item.count < 5) {
-      console.log("Stock: " + item.name);
-    }
-  }
+const stockListener: EventHandler<{
+  productId: string;
+  remainingCount: number;
+}> = ({ productId, remainingCount }) => {
+  console.log(`Stock: ${productId} - ${remainingCount}`);
 };
 
-const faultyListener: EventHandler = (order) => {
+const faultyListener: EventHandler<{
+  productId: string;
+  remainingCount: number;
+}> = (order) => {
   throw new Error("Faulty listener");
 };
 // ============================================================================
@@ -114,5 +122,6 @@ const sampleOrder: Order = {
 };
 eventBus.subscribe("order:placed", whatsAppListener);
 eventBus.subscribe("order:placed", stockListener);
+eventBus.subscribe("stock:low", stockListener);
 eventBus.subscribe("order:placed", faultyListener);
 eventBus.publish("order:placed", sampleOrder);
