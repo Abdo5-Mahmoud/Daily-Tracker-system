@@ -32,6 +32,7 @@
 - [13. The Adapter Pattern & Anti-Corruption Layer (Bosta Shipping & Stripe Integration)](#13-the-adapter-pattern--anti-corruption-layer-bosta-shipping--stripe-integration)
 - [14. The Observer Pattern & Type-Safe EventBus with Fault Isolation](#14-the-observer-pattern--type-safe-eventbus-with-fault-isolation)
 - [15. Liskov Substitution Principle (LSP) & Behavioral Subtyping](#15-liskov-substitution-principle-lsp--behavioral-subtyping)
+- [16. Architectural Integration: Unified Order Fulfillment Engine (Strategy + Adapter + Observer)](#16-architectural-integration-unified-order-fulfillment-engine-strategy--adapter--observer)
 
 ---
 
@@ -1066,4 +1067,53 @@ interface RefundableGateway extends ChargeableGateway {
   - **الإجابة الصحيحة**:
     1. وجود رمي استثناءات غير متوقعة مثل `throw new NotImplementedError()` أو `throw new UnsupportedOperationException()` داخل فئة فرعية.
     2. وجود شروط تفحص نوع الكائن في الكود المستهلك مثل `if (obj instanceof SubClass)` لمعاملة بعض الفئات الفرعية كحالات خاصة.
+
+---
+
+## 16. Architectural Integration: Unified Order Fulfillment Engine (Strategy + Adapter + Observer)
+
+> **Status**: `[Tier 3: Solo-Authored & Verified by Abdo]`  
+> **Production Code**: [`daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts)
+
+### 1. 👶 Intuition (كأنك بتشرح لطفل 10 سنين):
+- تخيل أنك صاحب شركة مقاولات عملاقة بتبني أبراج سكنية.
+- هل المدير العام للمشروع بينزل بنفسه يسوق عربية الأسمنت ويوصل مواسير السباكة ويركب لمبات الشقق؟
+- بالتأكيد لا! المدير العام بيعمل الآتي:
+  1. يتعاقد مع شركة نقل معينة بناءً على المكان أو السرعة المطلوبة (`Strategy`).
+  2. شركة النقل دي عندها شاحنات ضخمة، فبتستخدم رافعة أو منصة تحويل خاصة تركب على مقاس مخازننا بدون ما نغير المخازن (`Adapter`).
+  3. أول ما البضاعة توصل للموقع بنجاح، المدير مش بيتصل بكل عامل في البرج! هو بيضرب صفارة بالمكبر العام (`EventBus`)، فعمال السباكة والمحارة والمحاسبين يبدأوا شغلهم فوراً بالتوازي.
+  4. لو عامل الدهان وقع منه جردل بوية، المشروع مبيقفش وباقي العمال بيكملوا شغلهم بأمان تام (`Fault Isolation`).
+
+### 2. 💻 Production Reality & Mechanics (كمهندس برمجيات):
+الهدف المعماري الأسمى هو **التفكيك الكامل للمسؤوليات (Total Decoupling)**:
+- المحرك الرئيسي `FulfillmentEngine` لا يعرف إطلاقاً كيف تعمل بوسطة أو أرامكس، ولا يعرف ما إذا كان العميل سيتلقى رسالة واتساب أو إيميل أو إشعار بنكي!
+- **التركيبة المعمارية الثلاثية**:
+  1. **Strategy Pattern**: اختيار مزود الشحن ديناميكياً من سجل مركزي `CarrierStrategy` بدون شروط `if / else`.
+  2. **Adapter Pattern**: تحويل كائن الطلب الداخلي إلى الصيغة التي تفهمها مكتبة المزود الخارجي `BostaSDKClient` وترجمة الرد إلى عقد موحد `ShipmentResult`.
+  3. **Observer Pattern / EventBus**: بمجرد استلام البوليصة، يبث المحرك حدث `"order:shipped"`. المشتركون (WhatsApp و Accounting) ينفذون مهامهم بشكل مستقل مع حماية `try/catch` لكل مشترك.
+
+```typescript
+// The Pure Orchestrator: Zero coupling to WhatsApp or Carriers
+export class FulfillmentEngine {
+  constructor(
+    private carrierStrategy: CarrierStrategy,
+    private eventBus: EventBus<ShopEvents>,
+  ) {}
+
+  fulfill(order: Order, carrierName: string): void {
+    const carrier = this.carrierStrategy.get(carrierName);
+    const shipmentResult = carrier.shipOrder(order);
+    this.eventBus.publish("order:shipped", shipmentResult);
+  }
+}
+```
+
+### 3. 🎯 The 3-Step Reality Check & Interview Grilling:
+- **سؤال المقابلات الشهير**: *"How would you design a scalable e-commerce order fulfillment pipeline that allows adding new carriers and notification channels with zero regression risk?"*
+  - **الإجابة الصحيحة**:
+    - ندمج ثلاثة أنماط معمارية:
+      1. **Strategy Pattern** لتسجيل واسترجاع شركات الشحن ديناميكياً.
+      2. **Adapter Pattern** لإنشاء طبقة حماية (`Anti-Corruption Layer`) تترجم عقود الشركات الخارجية لعقدنا الموحد.
+      3. **Observer Pattern (EventBus)** لنشر أحداث الشحن دون أي استدعاء مباشر لخدمات الإشعارات أو المحاسبة، مع تطبيق `Fault Isolation` لضمان عدم توقف النظام عند فشل إشعار خارجي.
+
 

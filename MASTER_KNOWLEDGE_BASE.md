@@ -67,6 +67,10 @@
   - *المفهوم*: الفئات الفرعية يجب أن تستبدل الفئات الأصلية دون كسر العقد السلوكي أو رمي استثناءات غير متوقعة. التخلص من فخ `instanceof` عبر تجزئة الواجهات.
   - *الشرح المفصل*: [LEARNING_NOTES.md (Concept 15)](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/LEARNING_NOTES.md#15-liskov-substitution-principle-lsp--behavioral-subtyping)
   - *ملف الحل*: [`solution-2026-09-13-lsp-refund-gateway.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/solutions/solution-2026-09-13-lsp-refund-gateway.ts)
+- `[Tier 3: Solo-Authored]` **Architectural Integration: Unified Order Fulfillment Engine**:
+  - *المفهوم*: تجميع وتكامل أنماط التصميم الثلاثة في تدفق واحد متماسك (Strategy لاختيار الناقل + Adapter لترجمة شروط بوسطة + Observer لبث الأحداث دون ارتباط مباشر مع عزل الأعطال).
+  - *الشرح المفصل*: [LEARNING_NOTES.md (Concept 16)](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/LEARNING_NOTES.md#16-architectural-integration-unified-order-fulfillment-engine-strategy--adapter--observer)
+  - *ملف الحل*: [`solution-2026-09-22-unified-order-fulfillment-engine.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts)
 
 #### ج. خارطة مشاريع الفول ستاك ونظام أجايل (Fullstack Projects & Agile Roadmap)
 - **محرك متجر الديكور وسبرنتات أجايل الرأسية (Decor Store Commerce Engine)**:
