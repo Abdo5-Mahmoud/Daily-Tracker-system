@@ -29,6 +29,9 @@
 - [10. SOLID Principles in Practice (The Real-World Devfolio Case Study)](#10-solid-principles-in-practice-the-real-world-devfolio-case-study)
 - [11. Always-on Cloud AI Agents (Gemini Spark) vs Ephemeral Chatbots](#11-always-on-cloud-ai-agents-gemini-spark-vs-ephemeral-chatbots)
 - [12. Test Harness vs. Test Case (Isolated Execution Rigs & Production Risk Elimination)](#12-test-harness-vs-test-case-isolated-execution-rigs--production-risk-elimination)
+- [13. The Adapter Pattern & Anti-Corruption Layer (Bosta Shipping & Stripe Integration)](#13-the-adapter-pattern--anti-corruption-layer-bosta-shipping--stripe-integration)
+- [14. The Observer Pattern & Type-Safe EventBus with Fault Isolation](#14-the-observer-pattern--type-safe-eventbus-with-fault-isolation)
+- [15. Liskov Substitution Principle (LSP) & Behavioral Subtyping](#15-liskov-substitution-principle-lsp--behavioral-subtyping)
 
 ---
 
@@ -873,3 +876,194 @@ export class ShippingHarness {
 ### 🎯 كويز الفهم السريع (Quick Review):
 **سؤال:** "لو سألك أحد في المقابلة: ما هو الفرق بين Test Harness و Test Suite؟"
 - **الإجابة الصحيحة**: الـ `Test Suite` هي مجرد مجموعة من الـ `Test Cases` المرتبة معاً. أما الـ `Test Harness` فهي البيئة التنفيذية والمحاكيات والأدوات التي تجعل تشغيل هذا الـ Suite ممكناً في عزلة تامة.
+
+---
+
+## 13. The Adapter Pattern & Anti-Corruption Layer (Bosta Shipping & Stripe Integration)
+
+> **Status**: `[Tier 3: Solo-Authored & Verified by Abdo]`  
+> **Production Code**: [`daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts) | [`daily-challenges/my-solutions/solution-2026-09-17-adapter-payment-gateway.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-adapter-payment-gateway.ts)
+
+### 1. 👶 Intuition (كأنك بتشرح لطفل 10 سنين):
+- تخيل أنك اشتريت جهاز بلايستيشن من إنجلترا وجاي بفيشة ثلاثية مربعة، وفي بيتك بمصر المقبس في الحائط ثنائي دائري.
+- هل تكسر حائط الشقة وتغير الكهرباء كلها عشان الفيشة مش داخلة؟
+- بالطبع لا! أنت تشتري مشترك أو فيشة تحويل صغيرة (`Adapter`) برأس ثلاثي من الخلف ورأس ثنائي من الأمام.
+- المشترك ده وظيفته الوحيدة إنه يترجم الشكل غير المتوافق للشكل الذي يفهمه بيتك بدون تغيير أي شيء في الشقة أو في البلايستيشن!
+
+### 2. 💻 Production Reality & Mechanics (كمهندس برمجيات):
+في الأنظمة الحقيقية، لا تدع مكتبات وواجهات الشركات الخارجية (`Third-Party SDKs`) تلوث كودك الداخلي مباشرة:
+- **المشكلة الحقيقية في متجر الديكور**:
+  - نظام متجرنا الداخلي يحسب وزن القطع بالكيلوجرام (`kg: number`) ويحفظ العنوان كنص سطر واحد (`address: string`).
+  - شركة الشحن (بوسطة Bosta SDK) ترفض الكيلوجرام وتطلب الوزن حصراً بالأعداد الصحيحة بالجرام (`weightInGrams: number`)، وترفض العنوان النصي وتتطلب كائناً مفصلاً (`city, district, street, buildingNumber`).
+- **الحل عبر نمط المحول (`Adapter Pattern`)**:
+  - نصمم عقد شحن نظيف يخص متجرنا: `interface ShippingCarrier { shipOrder(order: Order): Promise<ShipmentResult>; }`
+  - نبني كلاس المحول `BostaShippingAdapter implements ShippingCarrier` الذي:
+    1. يستقبل طلب متجرنا بالكيلوجرام والعنوان البسيط.
+    2. يضرب الوزن في 1000 ويقسم العنوان النصي إلى حقول كائن بوسطة.
+    3. يستدعي `bostaSdk.createDelivery()`.
+    4. يترجم رد بوسطة الخاص إلى كائن متجرنا الموحد `ShipmentResult`.
+- **طبقة مكافحة الفساد البرمجي (`Anti-Corruption Layer - ACL`)**:
+  - لو قامت بوسطة غداً بتغيير أسماء حقولها أو استبدال نظامها بـ API جديد، كود المتجر وخدمة الشيك أوت لن يتغير فيهما حرف واحد! التعديل محصور بنسبة 100% داخل ملف المحول فقط.
+
+```typescript
+export class BostaShippingAdapter implements ShippingCarrier {
+  constructor(private bostaSdk: BostaSDK) {}
+
+  async shipOrder(order: Order): Promise<ShipmentResult> {
+    const totalGrams = order.items.reduce((sum, item) => sum + item.weight, 0) * 1000;
+    const [street, district, city, building] = order.address.split(",").map(s => s.trim());
+
+    const result = await this.bostaSdk.createDelivery({
+      weightInGrams: Math.round(totalGrams),
+      receiverAddress: { city, district, street, buildingNumber: building || "1" },
+      codAmountInPiasters: (order.codAmount || 0) * 100,
+    });
+
+    return {
+      success: true,
+      awb: result.awb,
+      carrierName: "Bosta",
+      estimatedDays: result.etaDays,
+      trackingCode: result.awb,
+    };
+  }
+}
+```
+
+### 3. 🎯 The 3-Step Reality Check & Interview Grilling:
+- **سؤال المقابلات الشهير**: *"What is the architectural difference between the Adapter Pattern and the Facade Pattern?"*
+  - **الإجابة الصحيحة**:
+    - الـ **Adapter** يغير الواجهة غير المتوافقة لتطابق عقداً موجوداً يريده العميل (`Incompatible Interface -> Existing Target Interface`).
+    - الـ **Facade** لا يغير واجهة قديمة لتطابق عقداً محدداً، بل يبسط منظومة كاملة معقدة من الكلاسات وراء واجهة واحدة سهلة الاستخدام (`Complex Subsystem -> Simplified Single Interface`).
+
+---
+
+## 14. The Observer Pattern & Type-Safe EventBus with Fault Isolation
+
+> **Status**: `[Tier 3: Solo-Authored & Verified by Abdo]`  
+> **Production Code**: [`daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts)
+
+### 1. 👶 Intuition (كأنك بتشرح لطفل 10 سنين):
+- تخيل أنك صاحب قناة يوتيوب أو متجر ألعاب، وعندك 1000 متابع.
+- لما تنزل لعبة جديدة، هل من المنطقي أن تتصل تليفونياً بكل متابع واحداً تلو الآخر وتقول له: "نزلت لعبة جديدة"؟
+- لو سقطت المكالمة مع المتابع رقم 5، هل هتوقف كل المكالمات والباقي ميعرفش؟
+- الحل الذكي: زر الجرس! المتابعون يشتركون بنفسهم في الجرس. وأنت كناشر مجرد أن تضغط زر "بث الفيديو"، المنصة ترسل الإشعار للجميع في نفس اللحظة. وأنت كصاحب متجر لا تحتاج لمعرفة أسماء أو أرقام هواتف المشتركين!
+
+### 2. 💻 Production Reality & Mechanics (كمهندس برمجيات):
+في الأنظمة غير الاحترافية، خدمة إتمام الطلب `CheckoutService` تنادي مباشرة كل الخدمات:
+```typescript
+// ❌ كارثة الارتباط الوثيق (Tight Coupling)
+await inventory.deductStock(order);
+await whatsapp.sendMessage(order);
+await analytics.logRevenue(order);
+```
+**لماذا هذا الكود مدمر؟**
+1. كسر مبدأ المسؤولية الواحدة (SRP): الـ Checkout أصبح يعرف تفاصيل الواتساب والحسابات والمخزن.
+2. غياب عزل الأعطال (No Fault Isolation): لو تعطل خادم الواتساب، سيفشل الطلب بالكامل ويتوقف الدفع!
+
+**الحل عبر وسيط الأحداث الآمن (`Type-Safe EventBus`):**
+1. **عزل الأعطال بالحلقات المتتابعة (`Fault Isolation`)**:
+   استبدال `forEach` بحلقة `for...of` تحتوي على `try/catch` لكل مستمع بشكل مستقل:
+   إذا تعطل مستمع وسقط بـ `Error`، يتم التقاط الخطأ وتسجيله، ويكمل باقي المستمعين عملهم بنجاح دون انهيار التطبيق.
+2. **أمان الأنواع الشامل (`Strict TypeScript Generics`)**:
+   استخدام مفاتيح الكائنات `keyof ShopEvents` والوصول المفهرس `ShopEvents[K]` لضمان أن كل حدث يستقبل بياناته الدقيقة فقط، مع منع الأخطاء الإملائية واستنتاج الحقول تلقائياً.
+
+```typescript
+type EventHandler<T> = (data: T) => void;
+
+class EventBus<Events extends Record<string, any>> {
+  private cachedEvents = new Map<keyof Events, EventHandler<any>[]>();
+
+  subscribe<K extends keyof Events>(eventName: K, handler: EventHandler<Events[K]>): void {
+    if (!this.cachedEvents.has(eventName)) {
+      this.cachedEvents.set(eventName, [handler]);
+    } else {
+      this.cachedEvents.get(eventName)?.push(handler);
+    }
+  }
+
+  publish<K extends keyof Events>(eventName: K, data: Events[K]): void {
+    const handlers = this.cachedEvents.get(eventName);
+    if (!handlers) return;
+
+    for (const handler of handlers) {
+      try {
+        handler(data);
+      } catch (err) {
+        console.error(`[EventBus] Handler failed on event "${String(eventName)}":`, err);
+      }
+    }
+  }
+}
+```
+
+### 3. 🎯 The 3-Step Reality Check & Interview Grilling:
+- **سؤال المقابلات الشهير**: *"What happens if one of the subscribers in your EventBus returns a Promise (async handler) and rejects? Does synchronous try/catch protect you?"*
+  - **الإجابة الصحيحة**:
+    - لا! الـ `try/catch` المتزامن لا يلتقط الوعود المرفوضة في الدوال غير المتزامنة (`Unhandled Promise Rejection`).
+    - لحماية النظام مع الدوال غير المتزامنة، يجب إما وضع `await` داخل الحلقة، أو الأفضل: تجميع استدعاءات المشتركين وتمريرها عبر:
+      `Promise.allSettled(handlers.map(h => Promise.resolve(h(data))))`
+      بحيث يتم فحص نتائج الوعود وعزل أي `rejected promise` دون تعطيل البقية.
+
+---
+
+## 15. Liskov Substitution Principle (LSP) & Behavioral Subtyping
+
+> **Status**: `[Tier 3: Solo-Authored & Verified by Abdo]`  
+> **Production Code**: [`daily-challenges/solutions/solution-2026-09-13-lsp-refund-gateway.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/solutions/solution-2026-09-13-lsp-refund-gateway.ts)
+
+### 1. 👶 Intuition (كأنك بتشرح لطفل 10 سنين):
+- تخيل أنك اشتريت لعبة سيارة أطفال تعمل بأي بطارية قلم عادية (`AA`).
+- رحت السوق اشتريت بطارية جديدة شكلها بطارية قلم مكتوب عليها `AA`، لكن أول ما حطيتها في العربية طلعت نار وحرقت الموتور لأنها بتخرج كهرباء بالعكس!
+- هل هذه البطارية الجديدة تنفع تكون بديل حقيقي للبطارية الأصلية؟
+- لأ طبعاً! لأنها غيرت القواعد الأساسية التي وعد بها المقاس الأصلي وأتلفت الجهاز.
+- هذا هو مبدأ ليسكوف: أي كائن فرعي (`Subclass`) يجب أن يقدر يحل محل الكائن الأصلي (`Base Class`) في أي مكان بدون ما يكسر البرنامج أو يفاجئ الكود بسلوك غير متوقع.
+
+### 2. 💻 Production Reality & Mechanics (كمهندس برمجيات):
+الانتهاك الكارثي الأكثر شيوعاً لمبدأ ليسكوف في أنظمة المدفوعات:
+- لدينا واجهة عامة:
+  ```typescript
+  interface PaymentGateway {
+    charge(amount: number): Promise<PaymentResult>;
+    refund(transactionId: string): Promise<RefundResult>;
+  }
+  ```
+- المطور أراد إضافة بوابة الدفع عند الاستلام (`CashOnDeliveryGateway`)، فكتب الكود التالي:
+  ```typescript
+  class CashOnDeliveryGateway implements PaymentGateway {
+    async charge(...) { return { success: true }; }
+    async refund(...) {
+      // ❌ انتهاك صارخ لمبدأ ليسكوف (LSP Violation)
+      throw new Error("Cash on delivery orders cannot be refunded online!");
+    }
+  }
+  ```
+- **لماذا هذا الكود كارثي؟**
+  خدمة الاسترجاع العامة `RefundService` ستستدعي `gateway.refund()` مطمئنة إلى أن الواجهة وعدتها بدالة استرجاع، فتتفاجأ برمي خطأ لم تكن مستعدة له، مما يسقط السيرفر!
+  ويضطر المطور لكتابة كود قبيح مليء بالفحوصات:
+  ```typescript
+  if (gateway instanceof CashOnDeliveryGateway) { ... } // رائحة كود كريهة
+  ```
+
+**الحل المعماري الصحيح (Interface Segregation + LSP Compliance):**
+فصل الواجهات إلى قدرات سلوكية دقيقة:
+```typescript
+interface ChargeableGateway {
+  charge(amount: number): Promise<PaymentResult>;
+}
+
+interface RefundableGateway extends ChargeableGateway {
+  refund(transactionId: string): Promise<RefundResult>;
+}
+```
+الآن:
+- بوابة البطاقات `CardPaymentGateway` تطبق `RefundableGateway`.
+- بوابة الدفع عند الاستلام `CashOnDeliveryGateway` تطبق فقط `ChargeableGateway`.
+- لا يمكن لأي كود أن يستدعي دالة غير مدعومة، وتم احترام مبدأ ليسكوف بنسبة 100%.
+
+### 3. 🎯 The 3-Step Reality Check & Interview Grilling:
+- **سؤال المقابلات الشهير**: *"What is the main code smell that reveals a violation of the Liskov Substitution Principle?"*
+  - **الإجابة الصحيحة**:
+    1. وجود رمي استثناءات غير متوقعة مثل `throw new NotImplementedError()` أو `throw new UnsupportedOperationException()` داخل فئة فرعية.
+    2. وجود شروط تفحص نوع الكائن في الكود المستهلك مثل `if (obj instanceof SubClass)` لمعاملة بعض الفئات الفرعية كحالات خاصة.
+

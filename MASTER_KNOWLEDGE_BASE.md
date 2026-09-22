@@ -55,6 +55,18 @@
 - `[Tier 2: AI-Audited]` **Strategy & Gateway Pattern في المساعد الذكي**:
   - *المفهوم*: عزل مزودي الذكاء الاصطناعي عبر واجهة موحدة `LLMProviderStrategy` وبوابة اتصالات معزولة `GeminiClient` مع معالجة أخطاء المجال `LLMError`.
   - *الملف*: [`devfolio/features/ai-workflow/lib/llm.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/devfolio/features/ai-workflow/lib/llm.ts)
+- `[Tier 3: Solo-Authored]` **The Adapter Pattern & Anti-Corruption Layer (Bosta & Stripe)**:
+  - *المفهوم*: ترويض الواجهات والمكتبات الخارجية غير المتوافقة دون تلويث كود النظام الداخلي، مع عزل أخطاء المزود الخارجي في طبقة حماية (`ACL`).
+  - *الشرح المفصل*: [LEARNING_NOTES.md (Concept 13)](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/LEARNING_NOTES.md#13-the-adapter-pattern--anti-corruption-layer-bosta-shipping--stripe-integration)
+  - *ملفات الحل*: [`solution-2026-09-17-decor-shipping-engine.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts) | [`solution-2026-09-17-adapter-payment-gateway.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-adapter-payment-gateway.ts)
+- `[Tier 3: Solo-Authored]` **The Observer Pattern & Type-Safe EventBus with Fault Isolation**:
+  - *المفهوم*: معمارية موجهة بالأحداث، وسيط مركزي مع حلقة تكرار تعزل الأعطال `Fault Isolation` عبر `try/catch` لكل مستمع بشكل مستقل، مع أمان تام للأنواع باستخدام `keyof Events` و `Events[K]`.
+  - *الشرح المفصل*: [LEARNING_NOTES.md (Concept 14)](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/LEARNING_NOTES.md#14-the-observer-pattern--type-safe-eventbus-with-fault-isolation)
+  - *ملف الحل*: [`solution-2026-09-18-observer-event-bus.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts)
+- `[Tier 3: Solo-Authored]` **Liskov Substitution Principle (LSP) & Behavioral Subtyping**:
+  - *المفهوم*: الفئات الفرعية يجب أن تستبدل الفئات الأصلية دون كسر العقد السلوكي أو رمي استثناءات غير متوقعة. التخلص من فخ `instanceof` عبر تجزئة الواجهات.
+  - *الشرح المفصل*: [LEARNING_NOTES.md (Concept 15)](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/LEARNING_NOTES.md#15-liskov-substitution-principle-lsp--behavioral-subtyping)
+  - *ملف الحل*: [`solution-2026-09-13-lsp-refund-gateway.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/solutions/solution-2026-09-13-lsp-refund-gateway.ts)
 
 #### ج. خارطة مشاريع الفول ستاك ونظام أجايل (Fullstack Projects & Agile Roadmap)
 - **محرك متجر الديكور وسبرنتات أجايل الرأسية (Decor Store Commerce Engine)**:
