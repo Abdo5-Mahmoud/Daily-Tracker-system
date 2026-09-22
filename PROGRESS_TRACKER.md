@@ -338,10 +338,11 @@
 - **البلوك الصباحي (العمل الهندسي العميق - 10:00 ص إلى 03:30 م)**:
   - [ ] مراجعة سريعة لتثبيت ما تم إنجازه ذاتياً في نمط المراقب والأنواع المعممة (`Tier 3`).
   - [ ] تدريب إنجليزي تقني مكثف (15 دقيقة) لمحاكاة مقابلة عمل حول أنماط التصميم والأنواع المعممة.
-  - [ ] الاختيار المعماري وتدشين السبرنت:
-    - الخيار (أ): تجميع الأنماط الأربعة السابقة (Adapter + Strategy + Observer + Factory) في تدفق واحد متماسك ومكتمل لمحرك الطلبات.
-    - الخيار (ب): البدء الفعلي في **Sprint 1** لمحرك المتجر (`PostgreSQL + Prisma + Relational Modeling`).
-  - [ ] تطبيق عملي وكتابة كود الإنتاج بيدك وفق المعايير الصارمة.
+  - [ ] تحدي اليوم الشامل: تجميع الأنماط الثلاثة في محرك شحن وتنفيذ الطلبات المتكامل:
+    - ملف المواصفات: [challenge-2026-09-22-unified-order-fulfillment-engine.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/challenges/challenge-2026-09-22-unified-order-fulfillment-engine.md)
+    - ملف الشاشة البيضاء: [solution-2026-09-22-unified-order-fulfillment-engine.ts](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts)
+    - المعمارية المستهدفة: `Strategy + Adapter + Observer (EventBus) + Fault Isolation`
+  - [ ] كتابة كود التنفيذ بيدك من الصفر واجتياز التشغيل بنتيجة خضراء كاملة (`Tier 3: Solo-Authored`).
 
 - **بلوك المحل المسائي (04:00 م - 12:00 ص)**:
   - [ ] فتح المحل بالوراق ومتابعة المبيعات اليومية وتنسيق المنتجات.
