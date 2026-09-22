@@ -50,7 +50,7 @@ type IEventBus = {
 // Phase 3: The Concrete EventBus Class Implementation
 // ============================================================================
 class EventBus implements IEventBus {
-  cachedEvents = new Map<string, Function[]>();
+  cachedEvents = new Map<K extends keyof ShopEvents, Function[]>();
 
   subscribe<K extends keyof ShopEvents>(
     eventName: K,
@@ -125,4 +125,3 @@ eventBus.subscribe("stock:low", stockListener);
 eventBus.subscribe("stock:low", faultyListener);
 eventBus.publish("order:placed", sampleOrder);
 eventBus.publish("stock:low", { productId: "P-1", remainingCount: 2 });
-
