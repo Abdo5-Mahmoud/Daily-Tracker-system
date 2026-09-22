@@ -50,7 +50,7 @@ type IEventBus = {
 // Phase 3: The Concrete EventBus Class Implementation
 // ============================================================================
 class EventBus implements IEventBus {
-  cachedEvents = new Map<K extends keyof ShopEvents, Function[]>();
+  cachedEvents = new Map<keyof ShopEvents, EventHandler<any>[]>();
 
   subscribe<K extends keyof ShopEvents>(
     eventName: K,
