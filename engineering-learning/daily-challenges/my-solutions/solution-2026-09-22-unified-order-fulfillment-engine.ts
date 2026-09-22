@@ -132,7 +132,8 @@ class BostaSDKClient {
       orderId: bostaSDK.id,
       customerPhone: bostaSDK.customerPhone,
       carrierName: "Bosta",
-      trackingCode: "BOSTA-" + Math.random().toString(36).substring(2, 11).toUpperCase(),
+      trackingCode:
+        "BOSTA-" + Math.random().toString(36).substring(2, 11).toUpperCase(),
       etaDays: 3,
     };
   }
@@ -157,10 +158,10 @@ class BostaShippingAdapter implements ShippingCarrier {
         0,
       ),
       address: {
-        city: addressParts[0] || "Cairo",
-        district: addressParts[1] || "Default District",
-        street: addressParts[2] || "Default Street",
-        buildingNumber: addressParts[3] || "1",
+        city: addressParts[0],
+        district: addressParts[1],
+        street: addressParts[2],
+        buildingNumber: addressParts[3],
       },
     };
 
@@ -264,4 +265,3 @@ const sampleOrder: Order = {
 };
 
 fulfillmentEngine.fulfill(sampleOrder, "Bosta");
-
