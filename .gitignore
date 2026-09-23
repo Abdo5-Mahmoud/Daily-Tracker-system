@@ -19,10 +19,9 @@ tmp/
 *.log
 
 # Heavy Media & Local Store Private Assets
-local-business-store/
 *.mp4
 *.mov
-
+automation/
 # OS generated files
 .DS_Store
 .DS_Store?
