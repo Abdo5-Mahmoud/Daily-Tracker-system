@@ -32,29 +32,27 @@ type ShopEvents = {
   "order:placed": Order;
   "stock:low": { productId: string; remainingCount: number };
 };
+type EventMap = Record<string, any>;
 type EventHandler<T> = (data: T) => void;
 
-type IEventBus = {
-  subscribe<K extends keyof ShopEvents>(
+interface IEventBus<T extends EventMap> {
+  subscribe<K extends keyof T>(eventName: K, handler: EventHandler<T[K]>): void;
+  unsubscribe<K extends keyof T>(
     eventName: K,
-    handler: EventHandler<ShopEvents[K]>,
+    handler: EventHandler<T[K]>,
   ): void;
-  unsubscribe<K extends keyof ShopEvents>(
-    eventName: K,
-    handler: EventHandler<any>,
-  ): void;
-  publish<K extends keyof ShopEvents>(eventName: K, data: ShopEvents[K]): void;
-};
+  publish<K extends keyof T>(eventName: K, data: T[K]): void;
+}
 
 // ============================================================================
 // Phase 3: The Concrete EventBus Class Implementation
 // ============================================================================
-class EventBus implements IEventBus {
-  cachedEvents = new Map<keyof ShopEvents, EventHandler<any>[]>();
+class EventBus<T extends EventMap> implements IEventBus<T> {
+  private cachedEvents = new Map<keyof T, EventHandler<any>[]>();
 
-  subscribe<K extends keyof ShopEvents>(
+  subscribe<K extends keyof T>(
     eventName: K,
-    handler: EventHandler<ShopEvents[K]>,
+    handler: EventHandler<T[K]>,
   ): void {
     if (!this.cachedEvents.has(eventName)) {
       this.cachedEvents.set(eventName, [handler]);
@@ -62,9 +60,9 @@ class EventBus implements IEventBus {
       this.cachedEvents.get(eventName)?.push(handler);
     }
   }
-  unsubscribe<K extends keyof ShopEvents>(
+  unsubscribe<K extends keyof T>(
     eventName: K,
-    handler: EventHandler<ShopEvents[K]>,
+    handler: EventHandler<T[K]>,
   ): void {
     if (!this.cachedEvents.has(eventName)) return;
     const handlers = this.cachedEvents.get(eventName);
@@ -74,7 +72,7 @@ class EventBus implements IEventBus {
       handlers.filter((h) => h !== handler),
     );
   }
-  publish<K extends keyof ShopEvents>(eventName: K, data: ShopEvents[K]) {
+  publish<K extends keyof T>(eventName: K, data: T[K]) {
     if (this.cachedEvents.has(eventName)) {
       const handlers = this.cachedEvents.get(eventName);
       if (!handlers) return;
@@ -82,7 +80,7 @@ class EventBus implements IEventBus {
         try {
           handler(data);
         } catch (err) {
-          console.log(`[${eventName}] handler failed:`, err);
+          console.log(`[${String(eventName)}] handler failed:`, err);
         }
       }
     }
@@ -112,7 +110,7 @@ const faultyListener: EventHandler<{
 // Phase 5: Verification & Simulation (Run & Test Scenarios)
 // ============================================================================
 
-const eventBus = new EventBus();
+const shopEventBus = new EventBus<ShopEvents>();
 const sampleOrder: Order = {
   orderId: "ORD-101",
   customerName: "Abdullah",
@@ -120,8 +118,8 @@ const sampleOrder: Order = {
   totalAmount: 1500,
   items: [{ productId: "P-1", name: "Crystal Vase", price: 1500, count: 10 }],
 };
-eventBus.subscribe("order:placed", whatsAppListener);
-eventBus.subscribe("stock:low", stockListener);
-eventBus.subscribe("stock:low", faultyListener);
-eventBus.publish("order:placed", sampleOrder);
-eventBus.publish("stock:low", { productId: "P-1", remainingCount: 2 });
+shopEventBus.subscribe("order:placed", whatsAppListener);
+shopEventBus.subscribe("stock:low", stockListener);
+shopEventBus.subscribe("stock:low", faultyListener);
+shopEventBus.publish("order:placed", sampleOrder);
+shopEventBus.publish("stock:low", { productId: "P-1", remainingCount: 2 });

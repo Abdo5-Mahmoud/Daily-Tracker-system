@@ -1,0 +1,135 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "name": "superpowers-model-registry",
+  "version": "1.0.0",
+  "description": "Dynamic Model Registry and Compute Routing Engine for Antigravity & OpenCode harnesses.",
+  "default_routing": {
+    "planning_and_architecture": "google/gemini-2.0-flash",
+    "core_coding_and_tdd": "mistral/codestral-2501",
+    "verification_and_fast_qa": "groq/llama-3.3-70b-versatile",
+    "algorithmic_and_math_fallback": "openrouter/glm-5.2"
+  },
+  "skill_routing": {
+    "brainstorming": "google/gemini-2.0-flash",
+    "writing-plans": "google/gemini-2.0-flash",
+    "executing-plans": "mistral/codestral-2501",
+    "subagent-driven-development": "mistral/codestral-2501",
+    "test-driven-development": "mistral/codestral-2501",
+    "systematic-debugging": "mistral/codestral-2501",
+    "verification-before-completion": "groq/llama-3.3-70b-versatile",
+    "requesting-code-review": "groq/llama-3.3-70b-versatile",
+    "receiving-code-review": "mistral/codestral-2501"
+  },
+  "models": [
+    {
+      "id": "mistral/codestral-2501",
+      "displayName": "Mistral Codestral 2501",
+      "provider": "Mistral AI",
+      "enabled": true,
+      "tier": "Free / Developer API",
+      "primaryRole": "Code Generation, TDD Implementation, Complex Refactoring",
+      "specs": {
+        "contextWindow": 128000,
+        "maxOutputTokens": 8192,
+        "rateLimits": {
+          "rpm": 30,
+          "rps": 1,
+          "tpm": 500000
+        }
+      },
+      "superpowersCompatibility": {
+        "tddExecution": "primary",
+        "debugging": "primary",
+        "refactoring": "primary"
+      }
+    },
+    {
+      "id": "google/gemini-2.0-flash",
+      "displayName": "Google Gemini 2.0 Flash",
+      "provider": "Google AI Studio",
+      "enabled": true,
+      "tier": "Free Tier",
+      "primaryRole": "Architecture, Brainstorming, Full-Repo Analysis",
+      "specs": {
+        "contextWindow": 1048576,
+        "maxOutputTokens": 8192,
+        "rateLimits": {
+          "rpm": 15,
+          "rpd": 1500,
+          "tpm": 1000000
+        }
+      },
+      "superpowersCompatibility": {
+        "brainstorming": "primary",
+        "writingPlans": "primary",
+        "systemArchitecture": "primary"
+      }
+    },
+    {
+      "id": "groq/llama-3.3-70b-versatile",
+      "displayName": "Groq Llama 3.3 70B Versatile",
+      "provider": "Groq",
+      "enabled": true,
+      "tier": "Free Tier",
+      "primaryRole": "Ultra-fast QA, Verification, Syntax & Lint Screening",
+      "specs": {
+        "contextWindow": 128000,
+        "maxOutputTokens": 8192,
+        "rateLimits": {
+          "rpm": 30,
+          "rpd": 14400,
+          "tpm": 6000
+        }
+      },
+      "superpowersCompatibility": {
+        "verificationBeforeCompletion": "primary",
+        "quickCodeReview": "primary",
+        "testLogAnalysis": "primary"
+      }
+    },
+    {
+      "id": "openrouter/glm-5.2",
+      "displayName": "OpenRouter GLM 5.2 / 4-9B",
+      "provider": "OpenRouter",
+      "enabled": true,
+      "tier": "Free Tier Fallback",
+      "primaryRole": "Mathematical Proofing, Algorithmic Edge Cases Fallback",
+      "specs": {
+        "contextWindow": 32768,
+        "maxOutputTokens": 4096,
+        "rateLimits": {
+          "rpm": 20,
+          "rpd": 50,
+          "tpm": 40000
+        }
+      },
+      "superpowersCompatibility": {
+        "algorithmicReasoning": "fallback",
+        "secondOpinion": "on_demand"
+      }
+    }
+  ],
+  "extensionTemplate": {
+    "instructions": "To add any new model, copy this block into the 'models' array and configure its role.",
+    "schema": {
+      "id": "provider/model-name",
+      "displayName": "Human Readable Name",
+      "provider": "Provider Name",
+      "enabled": true,
+      "tier": "Free / Paid / Dedicated",
+      "primaryRole": "Describe primary workload",
+      "specs": {
+        "contextWindow": 128000,
+        "maxOutputTokens": 8192,
+        "rateLimits": {
+          "rpm": 30,
+          "rpd": 1000,
+          "tpm": 100000
+        }
+      },
+      "superpowersCompatibility": {
+        "skillName": "primary | fallback | secondary"
+      }
+    }
+  }
+}

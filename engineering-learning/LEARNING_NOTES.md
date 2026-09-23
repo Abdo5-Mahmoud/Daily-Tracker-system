@@ -16,57 +16,534 @@
 
 ---
 
-## 📌 الفهرس
-- [01. Interview Self-Introduction & Positioning](#01-interview-self-introduction--positioning)
+## 📌 الفهرس المصنف (Categorized Table of Contents)
+
+### 🎨 1. أنماط التصميم المعمارية (Software Design Patterns)
+- [08. The Strategy & Factory Pattern (Decoupling LLM Providers & Error Resilience)](#08-the-strategy--factory-pattern-decoupling-llm-providers--error-resilience)
+- [13. The Adapter Pattern & Anti-Corruption Layer (Bosta Shipping & Stripe Integration)](#13-the-adapter-pattern--anti-corruption-layer-bosta-shipping--stripe-integration)
+- [14. The Observer Pattern & Type-Safe EventBus with Fault Isolation](#14-the-observer-pattern--type-safe-eventbus-with-fault-isolation)
+- [16. Architectural Integration: Unified Order Fulfillment Engine (Strategy + Adapter + Observer)](#16-architectural-integration-unified-order-fulfillment-engine-strategy--adapter--observer)
+
+### 🧱 2. مبادئ التصميم الصلبة (SOLID Principles in Action)
+- [13. SOLID Part 1: Single Responsibility Principle (SRP) & Clean Layered Architecture](#13-solid-part-1-single-responsibility-principle-srp--clean-layered-architecture)
+- [09. The 4-Layer Architecture & The Gateway Pattern (Single Responsibility in AI Routes)](#09-the-4-layer-architecture--the-gateway-pattern-single-responsibility-in-ai-routes)
+- [15. Liskov Substitution Principle (LSP) & Behavioral Subtyping](#15-liskov-substitution-principle-lsp--behavioral-subtyping)
+- [10. SOLID Principles in Practice (The Real-World Devfolio Case Study)](#10-solid-principles-in-practice-the-real-world-devfolio-case-study)
+
+### ☁️ 3. تصميم وبنية الأنظمة السحابية (System Design & Serverless Architecture)
 - [02. Mongoose Promise Caching & Cache Poisoning (Next.js Serverless)](#02-mongoose-promise-caching--cache-poisoning-nextjs-serverless)
 - [03. Graceful Degradation & Third-Party Notification Resilience (Telegram Bot Dispatch)](#03-graceful-degradation--third-party-notification-resilience-telegram-bot-dispatch)
 - [04. Serverless Lifecycle, Container Freezing, and Background Execution (`after()`)](#04-serverless-lifecycle-container-freezing-and-background-execution-after)
 - [05. Rate Limiting, Abuse Throttling, and The Honeypot Pattern](#05-rate-limiting-abuse-throttling-and-the-honeypot-pattern)
 - [06. Next.js Image Optimization & remotePatterns Security](#06-nextjs-image-optimization--remotepatterns-security)
 - [07. Upstream Rate Limiting & HTTP Error Status Propagation (Gemini API 429 vs 500)](#07-upstream-rate-limiting--http-error-status-propagation-gemini-api-429-vs-500)
-- [08. The Strategy & Factory Pattern (Decoupling LLM Providers & Error Resilience)](#08-the-strategy--factory-pattern-decoupling-llm-providers--error-resilience)
-- [09. The 4-Layer Architecture & The Gateway Pattern (Single Responsibility in AI Routes)](#09-the-4-layer-architecture--the-gateway-pattern-single-responsibility-in-ai-routes)
-- [10. SOLID Principles in Practice (The Real-World Devfolio Case Study)](#10-solid-principles-in-practice-the-real-world-devfolio-case-study)
 - [11. Always-on Cloud AI Agents (Gemini Spark) vs Ephemeral Chatbots](#11-always-on-cloud-ai-agents-gemini-spark-vs-ephemeral-chatbots)
+
+### 🧪 4. هندسة الاختبارات وجودة البرمجيات (Testing & Quality Assurance)
+- [12. Automated Unit Testing with Jest & Next.js (Test Suites, Mocking, and Explicit Type Resolution)](#12-automated-unit-testing-with-jest--nextjs-test-suites-mocking-and-explicit-type-resolution)
 - [12. Test Harness vs. Test Case (Isolated Execution Rigs & Production Risk Elimination)](#12-test-harness-vs-test-case-isolated-execution-rigs--production-risk-elimination)
-- [13. The Adapter Pattern & Anti-Corruption Layer (Bosta Shipping & Stripe Integration)](#13-the-adapter-pattern--anti-corruption-layer-bosta-shipping--stripe-integration)
-- [14. The Observer Pattern & Type-Safe EventBus with Fault Isolation](#14-the-observer-pattern--type-safe-eventbus-with-fault-isolation)
-- [15. Liskov Substitution Principle (LSP) & Behavioral Subtyping](#15-liskov-substitution-principle-lsp--behavioral-subtyping)
-- [16. Architectural Integration: Unified Order Fulfillment Engine (Strategy + Adapter + Observer)](#16-architectural-integration-unified-order-fulfillment-engine-strategy--adapter--observer)
+
+### 💼 5. التحضير للمقابلات والتمركز المهني (Career & Interview Readiness)
+- [01. Interview Self-Introduction & Positioning](#01-interview-self-introduction--positioning)
 
 ---
 
-## 01. Interview Self-Introduction & Positioning
+# 🎨 المحور الأول: أنماط التصميم المعمارية (Software Design Patterns)
+
+## 08. The Strategy & Factory Pattern (Decoupling LLM Providers & Error Resilience)
 
 ### 👶 كأنك بتشرح لطفل 10 سنين:
-تخيل إنك داخل مسابقة تركيب ليجو كبيرة، وفيه حكم بيسألك: "إنت مين وبتحب تركب إيه؟"
-لو قولتله: "أنا دخلت المسابقة عشان الليجو سهل، وأنا عايش لوحدي"، مش هيتحمس ليك.
-لكن لو قولتله: "أنا شاطر جداً في حل الفوازير والرياضيات، وده مخليني بارع في تصميم قلاع ليجو متماسكة ومبتتهزش مهما الناس حركتها"، هنا الحكم هيبصلك كبطل!
+تخيل إنك في محل الديكور وعندك كاونتر الكاشير وماكينة الحساب.
+بيجيلك زبائن بطرق دفع مختلفة: زبون كاش، وزبون فيزا، وزبون فودافون كاش.
+لو كل ما زبون يغير طريقة دفعه، تروح هادد كاونتر الكاشير وباني كاونتر جديد ومغير كل أسلاك المحل عشان تستقبل الفلوس، المحل هيخرب!
+الحل الذكي: الكاشير عنده زرار واحد ثابت اسمه "تحصيل الفاتورة" (`Collect Payment`)، لكن بيبدل "الاستراتيجية" حسب الزبون:
+- استراتيجية الكاش.
+- استراتيجية الفيزا.
+- استراتيجية المحفظة الإلكترونية.
+نظام الكاشير ثابت ومبيتغيرش؛ بنغير الأداة بس في ثانية!
 
 ### 💻 كمهندس برمجيات (The Pro Frame):
-في الإنترفيو، الـ Recruiter أو الـ Tech Lead بيبحث عن:
-1. **Clear Narrative**: خلفيتك في الرياضيات مش عيب؛ دي ميزة تنافسية (Analytical Rigor & Systematic Problem Solving).
-2. **Intrinsic Drive**: إنت دخلت الفرونت إند لأنك بتحب تبني أنظمة الناس بتستخدمها، والتعقيد الهندسي (State, Performance, Architecture) هو اللي بيشدك.
-3. **No Red Flags**: شيل التفاصيل الشخصية الزائدة، وبلاش الألقاب الرسمية بزيادة زي "Sir".
+في تطبيقات الذكاء الاصطناعي وواجهات الـ API، كتابة كود مباشر يستدعي خادم المزود (مثل Gemini أو OpenAI) داخل المسار (`route.ts`) يسبب ارتباطاً وثيقاً معيباً (`Tight Coupling`).
 
-```text
-The Script Template:
-"Hi, great to meet you! I come from a Mathematics background from Helwan University, 
-which heavily shaped how I analyze problems and structure logic. 
-I transitioned into Frontend Engineering because I love building tactile software 
-that users actually interact with. While I started with core UI (HTML/CSS), 
-I quickly found my passion in the engineering depth underneath—scalable state management, 
-resilient architectures, and modern React/Next.js ecosystems."
+**المشاكل المعمارية للتصميم المباشر:**
+1. كسر مبدأ الفتح والإغلاق (`The Open/Closed Principle`): لا يمكن إضافة مزود جديد أو تبديل موديل قديم إلا بتعديل كود المسار نفسه.
+2. شلل الاختبارات الآلية (`Unit Testing Bottleneck`): كل اختبار للمسار سيستهلك كوتا وتوكينات حقيقية وربما يضرب خطأ 429.
+3. مصيدة اصطياد الأخطاء (`The Catch-All Shadowing Trap`): إذا تم تغليف استدعاء الشبكة والتحقق من `!resp.ok` داخل نفس بلوك `try...catch` دون حارس (`if (err instanceof LLMError) throw err;`)، سيتم ابتلاع أخطاء المزود (429/400) وتحويلها إلى 503 خطأ شبكة عام!
+
+```typescript
+// 1. The Strategy Interface
+export interface LLMProviderStrategy {
+  readonly providerName: string;
+  generateProviderResponse(prompt: string): Promise<string>;
+}
+
+// 2. Concrete Strategy with Re-throw Guard
+export class GeminiProviderStrategy implements LLMProviderStrategy {
+  readonly providerName = "gemini-3.6-flash";
+  constructor(private apiKey: string) {}
+
+  async generateProviderResponse(prompt: string): Promise<string> {
+    let resp: Response;
+    try {
+      resp = await fetch(endpoint, { ... });
+      if (!resp.ok) {
+        throw new LLMError(resp.status, this.providerName, await resp.text());
+      }
+    } catch (error) {
+      // Re-throw guard: prevent converting 429 to 503!
+      if (error instanceof LLMError) throw error;
+      throw new LLMError(503, this.providerName, "Network timeout", error as Error);
+    }
+    return resp.text();
+  }
+}
+
+// 3. Factory Pattern Resolution
+export function createLLMProvider(env?: string, apiKey?: string): LLMProviderStrategy {
+  if (env === "test" || !apiKey) return new MockProviderStrategy();
+  return new GeminiProviderStrategy(apiKey);
+}
 ```
 
 ### 🎯 كويز سريع (Quick Test):
-**سؤال:** لو سألك الإنترفيور: *"Why should we hire a Mathematics graduate over a Computer Science graduate?"*
-إيه الكلمة المفتاحية اللي هتركز عليها؟
-- أ) "لأن الرياضيات أصعب من البرمجة."
-- ب) "لأن دراسة الرياضيات دربتني على التفكير المنطقي الصارم، ونمذجة المشاكل المعقدة قبل لمس الكود، وهو صلب هندسة البرمجيات."
-*(الإجابة الصح: ب - بدون تقليل من أي حد، مع إبراز ميزتك).*
+**سؤال:** "لو جوجل رجعت كود 429 داخل بلوك `try`، ليه لازم نكتب `if (error instanceof LLMError) throw error;` في أول سطر داخل `catch`؟"
+
+- **إجابة عبده المعتمدة (10/10)**:
+"عشان الـ catch متبلعش خطأ الـ 429 وتحوله بالخطأ لـ 503 انقطاع شبكة، وتمرره سليم للمسار يرجعه للعميل."
+
+```text
+The Pro Interview Response:
+"By pairing the Strategy Pattern with a Factory, we decouple upstream AI provider lifecycles from our Next.js API routes. Introducing a re-throw guard ensures custom LLM domain errors preserve their exact HTTP status codes rather than being shadowed by generic network failure catch blocks."
+```
+
+*(تم توثيقها وتطبيقها عملياً بنجاح بنسبة 10/10).*
 
 ---
+
+## 13. The Adapter Pattern & Anti-Corruption Layer (Bosta Shipping & Stripe Integration)
+
+> **Status**: `[Tier 3: Solo-Authored & Verified by Abdo]`  
+> **Production Code**: [`daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts) | [`daily-challenges/my-solutions/solution-2026-09-17-adapter-payment-gateway.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-adapter-payment-gateway.ts)
+
+### 1. 👶 Intuition (كأنك بتشرح لطفل 10 سنين):
+- تخيل أنك اشتريت جهاز بلايستيشن من إنجلترا وجاي بفيشة ثلاثية مربعة، وفي بيتك بمصر المقبس في الحائط ثنائي دائري.
+- هل تكسر حائط الشقة وتغير الكهرباء كلها عشان الفيشة مش داخلة؟
+- بالطبع لا! أنت تشتري مشترك أو فيشة تحويل صغيرة (`Adapter`) برأس ثلاثي من الخلف ورأس ثنائي من الأمام.
+- المشترك ده وظيفته الوحيدة إنه يترجم الشكل غير المتوافق للشكل الذي يفهمه بيتك بدون تغيير أي شيء في الشقة أو في البلايستيشن!
+
+### 2. 💻 Production Reality & Mechanics (كمهندس برمجيات):
+في الأنظمة الحقيقية، لا تدع مكتبات وواجهات الشركات الخارجية (`Third-Party SDKs`) تلوث كودك الداخلي مباشرة:
+- **المشكلة الحقيقية في متجر الديكور**:
+  - نظام متجرنا الداخلي يحسب وزن القطع بالكيلوجرام (`kg: number`) ويحفظ العنوان كنص سطر واحد (`address: string`).
+  - شركة الشحن (بوسطة Bosta SDK) ترفض الكيلوجرام وتطلب الوزن حصراً بالأعداد الصحيحة بالجرام (`weightInGrams: number`)، وترفض العنوان النصي وتتطلب كائناً مفصلاً (`city, district, street, buildingNumber`).
+- **الحل عبر نمط المحول (`Adapter Pattern`)**:
+  - نصمم عقد شحن نظيف يخص متجرنا: `interface ShippingCarrier { shipOrder(order: Order): Promise<ShipmentResult>; }`
+  - نبني كلاس المحول `BostaShippingAdapter implements ShippingCarrier` الذي:
+    1. يستقبل طلب متجرنا بالكيلوجرام والعنوان البسيط.
+    2. يضرب الوزن في 1000 ويقسم العنوان النصي إلى حقول كائن بوسطة.
+    3. يستدعي `bostaSdk.createDelivery()`.
+    4. يترجم رد بوسطة الخاص إلى كائن متجرنا الموحد `ShipmentResult`.
+- **طبقة مكافحة الفساد البرمجي (`Anti-Corruption Layer - ACL`)**:
+  - لو قامت بوسطة غداً بتغيير أسماء حقولها أو استبدال نظامها بـ API جديد، كود المتجر وخدمة الشيك أوت لن يتغير فيهما حرف واحد! التعديل محصور بنسبة 100% داخل ملف المحول فقط.
+
+```typescript
+export class BostaShippingAdapter implements ShippingCarrier {
+  constructor(private bostaSdk: BostaSDK) {}
+
+  async shipOrder(order: Order): Promise<ShipmentResult> {
+    const totalGrams = order.items.reduce((sum, item) => sum + item.weight, 0) * 1000;
+    const [street, district, city, building] = order.address.split(",").map(s => s.trim());
+
+    const result = await this.bostaSdk.createDelivery({
+      weightInGrams: Math.round(totalGrams),
+      receiverAddress: { city, district, street, buildingNumber: building || "1" },
+      codAmountInPiasters: (order.codAmount || 0) * 100,
+    });
+
+    return {
+      success: true,
+      awb: result.awb,
+      carrierName: "Bosta",
+      estimatedDays: result.etaDays,
+      trackingCode: result.awb,
+    };
+  }
+}
+```
+
+### 3. 🎯 The 3-Step Reality Check & Interview Grilling:
+- **سؤال المقابلات الشهير**: *"What is the architectural difference between the Adapter Pattern and the Facade Pattern?"*
+  - **الإجابة الصحيحة**:
+    - الـ **Adapter** يغير الواجهة غير المتوافقة لتطابق عقداً موجوداً يريده العميل (`Incompatible Interface -> Existing Target Interface`).
+    - الـ **Facade** لا يغير واجهة قديمة لتطابق عقداً محدداً، بل يبسط منظومة كاملة معقدة من الكلاسات وراء واجهة واحدة سهلة الاستخدام (`Complex Subsystem -> Simplified Single Interface`).
+
+---
+
+## 14. The Observer Pattern & Type-Safe EventBus with Fault Isolation
+
+> **Status**: `[Tier 3: Solo-Authored & Verified by Abdo]`  
+> **Production Code**: [`daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts)
+
+### 1. 👶 Intuition (كأنك بتشرح لطفل 10 سنين):
+- تخيل أنك صاحب قناة يوتيوب أو متجر ألعاب، وعندك 1000 متابع.
+- لما تنزل لعبة جديدة، هل من المنطقي أن تتصل تليفونياً بكل متابع واحداً تلو الآخر وتقول له: "نزلت لعبة جديدة"؟
+- لو سقطت المكالمة مع المتابع رقم 5، هل هتوقف كل المكالمات والباقي ميعرفش؟
+- الحل الذكي: زر الجرس! المتابعون يشتركون بنفسهم في الجرس. وأنت كناشر مجرد أن تضغط زر "بث الفيديو"، المنصة ترسل الإشعار للجميع في نفس اللحظة. وأنت كصاحب متجر لا تحتاج لمعرفة أسماء أو أرقام هواتف المشتركين!
+
+### 2. 💻 Production Reality & Mechanics (كمهندس برمجيات):
+في الأنظمة غير الاحترافية، خدمة إتمام الطلب `CheckoutService` تنادي مباشرة كل الخدمات:
+```typescript
+// ❌ كارثة الارتباط الوثيق (Tight Coupling)
+await inventory.deductStock(order);
+await whatsapp.sendMessage(order);
+await analytics.logRevenue(order);
+```
+**لماذا هذا الكود مدمر؟**
+1. كسر مبدأ المسؤولية الواحدة (SRP): الـ Checkout أصبح يعرف تفاصيل الواتساب والحسابات والمخزن.
+2. غياب عزل الأعطال (No Fault Isolation): لو تعطل خادم الواتساب، سيفشل الطلب بالكامل ويتوقف الدفع!
+
+**الحل عبر وسيط الأحداث الآمن (`Type-Safe EventBus`):**
+1. **عزل الأعطال بالحلقات المتتابعة (`Fault Isolation`)**:
+   استبدال `forEach` بحلقة `for...of` تحتوي على `try/catch` لكل مستمع بشكل مستقل:
+   إذا تعطل مستمع وسقط بـ `Error`، يتم التقاط الخطأ وتسجيله، ويكمل باقي المستمعين عملهم بنجاح دون انهيار التطبيق.
+2. **أمان الأنواع الشامل (`Strict TypeScript Generics`)**:
+   استخدام مفاتيح الكائنات `keyof ShopEvents` والوصول المفهرس `ShopEvents[K]` لضمان أن كل حدث يستقبل بياناته الدقيقة فقط، مع منع الأخطاء الإملائية واستنتاج الحقول تلقائياً.
+
+```typescript
+type EventHandler<T> = (data: T) => void;
+
+class EventBus<Events extends Record<string, any>> {
+  private cachedEvents = new Map<keyof Events, EventHandler<any>[]>();
+
+  subscribe<K extends keyof Events>(eventName: K, handler: EventHandler<Events[K]>): void {
+    if (!this.cachedEvents.has(eventName)) {
+      this.cachedEvents.set(eventName, [handler]);
+    } else {
+      this.cachedEvents.get(eventName)?.push(handler);
+    }
+  }
+
+  publish<K extends keyof Events>(eventName: K, data: Events[K]): void {
+    const handlers = this.cachedEvents.get(eventName);
+    if (!handlers) return;
+
+    for (const handler of handlers) {
+      try {
+        handler(data);
+      } catch (err) {
+        console.error(`[EventBus] Handler failed on event "${String(eventName)}":`, err);
+      }
+    }
+  }
+}
+```
+
+### 3. 🎯 The 3-Step Reality Check & Interview Grilling:
+- **سؤال المقابلات الشهير**: *"What happens if one of the subscribers in your EventBus returns a Promise (async handler) and rejects? Does synchronous try/catch protect you?"*
+  - **الإجابة الصحيحة**:
+    - لا! الـ `try/catch` المتزامن لا يلتقط الوعود المرفوضة في الدوال غير المتزامنة (`Unhandled Promise Rejection`).
+    - لحماية النظام مع الدوال غير المتزامنة، يجب إما وضع `await` داخل الحلقة، أو الأفضل: تجميع استدعاءات المشتركين وتمريرها عبر:
+      `Promise.allSettled(handlers.map(h => Promise.resolve(h(data))))`
+      بحيث يتم فحص نتائج الوعود وعزل أي `rejected promise` دون تعطيل البقية.
+
+---
+
+## 16. Architectural Integration: Unified Order Fulfillment Engine (Strategy + Adapter + Observer)
+
+> **Status**: `[Tier 3: Solo-Authored & Verified by Abdo]`  
+> **Production Code**: [`daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts)
+
+### 1. 👶 Intuition (كأنك بتشرح لطفل 10 سنين):
+- تخيل أنك صاحب شركة مقاولات عملاقة بتبني أبراج سكنية.
+- هل المدير العام للمشروع بينزل بنفسه يسوق عربية الأسمنت ويوصل مواسير السباكة ويركب لمبات الشقق؟
+- بالتأكيد لا! المدير العام بيعمل الآتي:
+  1. يتعاقد مع شركة نقل معينة بناءً على المكان أو السرعة المطلوبة (`Strategy`).
+  2. شركة النقل دي عندها شاحنات ضخمة، فبتستخدم رافعة أو منصة تحويل خاصة تركب على مقاس مخازننا بدون ما نغير المخازن (`Adapter`).
+  3. أول ما البضاعة توصل للموقع بنجاح، المدير مش بيتصل بكل عامل في البرج! هو بيضرب صفارة بالمكبر العام (`EventBus`)، فعمال السباكة والمحارة والمحاسبين يبدأوا شغلهم فوراً بالتوازي.
+  4. لو عامل الدهان وقع منه جردل بوية، المشروع مبيقفش وباقي العمال بيكملوا شغلهم بأمان تام (`Fault Isolation`).
+
+### 2. 💻 Production Reality & Mechanics (كمهندس برمجيات):
+الهدف المعماري الأسمى هو **التفكيك الكامل للمسؤوليات (Total Decoupling)**:
+- المحرك الرئيسي `FulfillmentEngine` لا يعرف إطلاقاً كيف تعمل بوسطة أو أرامكس، ولا يعرف ما إذا كان العميل سيتلقى رسالة واتساب أو إيميل أو إشعار بنكي!
+- **التركيبة المعمارية الثلاثية**:
+  1. **Strategy Pattern**: اختيار مزود الشحن ديناميكياً من سجل مركزي `CarrierStrategy` بدون شروط `if / else`.
+  2. **Adapter Pattern**: تحويل كائن الطلب الداخلي إلى الصيغة التي تفهمها مكتبة المزود الخارجي `BostaSDKClient` وترجمة الرد إلى عقد موحد `ShipmentResult`.
+  3. **Observer Pattern / EventBus**: بمجرد استلام البوليصة، يبث المحرك حدث `"order:shipped"`. المشتركون (WhatsApp و Accounting) ينفذون مهامهم بشكل مستقل مع حماية `try/catch` لكل مشترك.
+
+```typescript
+// The Pure Orchestrator: Zero coupling to WhatsApp or Carriers
+export class FulfillmentEngine {
+  constructor(
+    private carrierStrategy: CarrierStrategy,
+    private eventBus: EventBus<ShopEvents>,
+  ) {}
+
+  fulfill(order: Order, carrierName: string): void {
+    const carrier = this.carrierStrategy.get(carrierName);
+    const shipmentResult = carrier.shipOrder(order);
+    this.eventBus.publish("order:shipped", shipmentResult);
+  }
+}
+```
+
+### 3. 🎯 The 3-Step Reality Check & Interview Grilling:
+- **سؤال المقابلات الشهير**: *"How would you design a scalable e-commerce order fulfillment pipeline that allows adding new carriers and notification channels with zero regression risk?"*
+  - **الإجابة الصحيحة**:
+    - ندمج ثلاثة أنماط معمارية:
+      1. **Strategy Pattern** لتسجيل واسترجاع شركات الشحن ديناميكياً.
+      2. **Adapter Pattern** لإنشاء طبقة حماية (`Anti-Corruption Layer`) تترجم عقود الشركات الخارجية لعقدنا الموحد.
+      3. **Observer Pattern (EventBus)** لنشر أحداث الشحن دون أي استدعاء مباشر لخدمات الإشعارات أو المحاسبة، مع تطبيق `Fault Isolation` لضمان عدم توقف النظام عند فشل إشعار خارجي.
+
+
+---
+
+# 🧱 المحور الثاني: مبادئ التصميم الصلبة (SOLID Principles in Action)
+
+## 13. SOLID Part 1: Single Responsibility Principle (SRP) & Clean Layered Architecture
+
+### 👶 كأنك بتشرح لطفل 10 سنين:
+تخيل إنك دخلت مطعم، ولقيت شخص واحد بس واقف في الصالة:
+هو اللي بيستقبل الزباين وياخد الفلوس، وهو اللي بيدخل المطبخ يطبخ الأكل، وهو اللي بيغسل الأطباق، وهو اللي بيركب الموتوسيكل يوصل الأوردرات للبيوت!
+- لو الشخص ده جاله مغص أو غاب يوم، المطعم كله قفل وتوقف تماماً.
+- لو صاحب المطعم قرر يغير وصفة الأكل، الراجل ده ممكن يتلخبط وهو بيحاسب الزبون على الكاشير.
+- **الحل الصح (مبدأ المسؤولية الواحدة)**: كل وظيفة ليها شخص متخصص: كاشير مستقل، شيف مستقل، وعامل توصيل مستقل. لو الشيف غير الملح أو البهارات، الكاشير ملوش دعوة وشغال طبيعي.
+
+---
+
+### 💻 كمهندس برمجيات (Production Architecture & Clean Layering):
+
+#### 1. تعريف المبدأ (The Single Reason to Change):
+صاغه المهندس روبرت مارتن (Uncle Bob):
+```text
+"A class or module should have one, and only one, reason to change."
+```
+السبب للتعديل يعود دائماً إلى الجهة المسؤولة (Actor) عن هذا الجزء من النظام.
+
+#### 2. تشريح الطبقات الأربع النظيفة (The 4 Decoupled Layers):
+بدلاً من حشر كل العمليات داخل دالة المسار `POST(req)`، قمنا بتفكيكها إلى طبقات معزولة:
+1. **Controller Layer (`route.ts`)**: مسؤولة فقط عن بروتوكول HTTP (قراءة JSON، استدعاء الخدمة، وتوليد كود الحالة 201 أو 400 أو 500).
+2. **Validation Layer (`validateRegisterInput`)**: مسؤولة عن التحقق البنيوي (Syntactic Validation) والتأكد من وجود الحقول ونوع البيانات بأمان في وقت التشغيل.
+3. **Domain Service Layer (`UserService`)**: مسؤولة عن تنسيق قواعد العمل (Orchestration): التحقق من عدم تكرار الإيميل، تشفير الباسورد، وحفظ المستخدم.
+4. **Data Access Layer (`UserRepository`)**: مسؤولة فقط عن التخزين والاستعلام في قاعدة البيانات، وترجع `null` في حالة عدم العثور على السجل بدلاً من رمي خطأ.
+5. **Notification Gateway (`EmailService`)**: مسؤولة عن إرسال الإيميلات الخارجية وعزل أخطائها عن استجابة التسجيل.
+
+#### 3. مصيدة الأمان والـ Type Casting في وقت التشغيل:
+- الكود: `const body = rawBody as RegisterUserInput;` هو مجرد توجيه للمترجم ولا يحمي الكود في وقت التشغيل.
+- إذا أرسل العميل `null`، فإن محاولة الوصول إلى `body.email` ستنهار بخطأ `TypeError: Cannot read properties of null`.
+- **الحل الجذري**: التحقق أولاً من نوع الكائن:
+```typescript
+if (!rawBody || typeof rawBody !== "object") {
+  throw new Error("Invalid request body", { cause: { statusCode: 400 } });
+}
+```
+
+#### 4. جدولة المهام بالخلفية في Next.js ومنع تجميد السيرفرليس:
+- إرسال الإيميل الخارجي قد يستغرق ثوانٍ ويعطل استجابة العميل لو استخدمنا `await` مباشرة في المسار.
+- لكن حذف `await` بدون حماية يؤدي إلى أخطاء غير ممسوكة وإلى إيقاف المهمة بسبب تجميد الحاوية (Serverless Container Freeze) بعد إرجاع الرد.
+- **الحل القياسي الحديث**: استخدام دالة `after()` من `next/server` لجدولة المهمة في الخلفية بأمان بعد إرجاع كود 201 فوراً للمستخدم.
+
+---
+
+### 🎯 كويز الفهم السريع (Quick Review):
+**سؤال:** "لو دالة `findByEmail` في مستودع البيانات رمت `Error: User not found` بدلاً من إرجاع `null`، ما الكارثة التي ستحدث لأي مستخدم جديد يحاول إنشاء حسابه لأول مرة؟"
+- **الإجابة الصحيحة**: سيفشل تسجيل أي مستخدم جديد دائماً، لأن خدمة التسجيل تفحص وجود الإيميل أولاً، فرمي الخطأ سيعتبره السيرفر انهياراً داخلياً (500) قبل أن يصل الكود لخطوة إنشاء الحساب وحفظه!
+---
+
+## 09. The 4-Layer Architecture & The Gateway Pattern (Single Responsibility in AI Routes)
+
+### 👶 كأنك بتشرح لطفل 10 سنين:
+تخيل مطعم برجر فيه 4 أشخاص محترفين:
+1. **الكاشير (الروتر)**: يستلم طلبك، يتأكد إن معاك فلوس، ويمنع أي حد يطلب 10 مرات ورا بعض في دقيقة واحدة.
+2. **مدير الصالة (دالة التنسيق - الخدمة)**: يستلم الطلب من الكاشير، يجهز المكونات المطلوبة من المخزن، ويسلمها للشيف.
+3. **الشيف المنظم (الاستراتيجية)**: يستلم المكونات، ويسلم الكفتة للشواية، ولما تطلع يحطها في الساندوتش ويرجعها سندوتش جاهز ونظيف.
+4. **عامل الشواية الخارجي (كلاينت الاتصال)**: هو الوحيد اللي بيتعامل مع النار المباشرة والأنبوبة الخارجية للغاز (سيرفر جوجل)، ولو الغاز قطع بيصرخ يقول للجميع.
+لو الكاشير هو اللي راح يشوي البرجر وهو اللي بيغير أنبوبة الغاز وهو اللي بيستلم الفلوس، المطعم كله هيتحرق!
+
+### 💻 كمهندس برمجيات (The Pro Frame):
+في مسارات الذكاء الاصطناعي المعقدة، تطبيق مبدأ المسؤولية الواحدة (SRP) يتطلب تفكيك المسار إلى 4 طبقات مستقلة:
+
+1. **طبقة التحكم (Controller Layer - `route.ts`)**:
+   - التحقق من الـ Request Body عبر Zod أو الفحص اليدوي.
+   - فحص الـ Rate Limiting بالـ IP.
+   - حماية المسار بكتلة `try...catch` تلتقط أخطاء المجال `LLMError` وتترجمها إلى استجابات HTTP دقيقة (`error.statusCode`).
+
+2. **طبقة الخدمة والتنسيق (Service / Application Layer - `handleAssistantRequest`)**:
+   - جلب بيانات المعرفة وتطبيق الـ Timeout.
+   - بناء الـ System Instructions.
+   - تنسيق المكالمة بين العميل والمزود وإعادة إطلاق الأخطاء النظيفة.
+
+3. **طبقة الاستراتيجية ومحول البيانات (Strategy / Adapter Layer - `GeminiProviderStrategy`)**:
+   - تطبيق واجهة `LLMProviderStrategy` التي ترجع وعداً بنص صافٍ `Promise<string>`.
+   - استدعاء عميل الاتصال واستخراج النص النهائي من بنية البيانات المعقدة (`extractAnswer(payload)`).
+
+4. **طبقة البوابة والاتصال الشبكي (Gateway / Client Layer - `GeminiClient`)**:
+   - إدارة مكالمة الـ `fetch()` مع الـ API الخارجي.
+   - قراءة الـ Headers والـ Status Codes.
+   - إطلاق فئة الأخطاء المخصصة `LLMError(statusCode, providerName, message, cause)`.
+
+```typescript
+// 1. Domain Error
+export class LLMError extends Error {
+  constructor(
+    readonly statusCode: number,
+    readonly providerName: string,
+    message: string,
+    readonly cause?: Error,
+  ) {
+    super(message);
+    this.name = "LLMError";
+  }
+}
+
+// 2. Gateway Layer (Network Transport)
+class GeminiClient {
+  constructor(private apiKey: string, private model: string = "gemini-1.5-flash") {}
+  async generateContent(prompt: string, instructions: string): Promise<GeminiPayload> {
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${this.model}:generateContent?key=${this.apiKey}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ parts: [{ text: prompt }] }],
+        systemInstruction: { parts: [{ text: instructions }] },
+      }),
+    });
+    if (!res.ok) {
+      throw new LLMError(res.status, this.model, await res.text().catch(() => "Upstream error"));
+    }
+    return (await res.json()) as GeminiPayload;
+  }
+}
+
+// 3. Strategy Layer (Data Translation)
+export class GeminiProviderStrategy implements LLMProviderStrategy {
+  readonly providerName = "gemini-1.5-flash";
+  constructor(private apiKey: string) {}
+  async generateProviderResponse({ prompt, systemInstructions }: ProviderOptions): Promise<string> {
+    const client = new GeminiClient(this.apiKey, this.providerName);
+    const payload = await client.generateContent(prompt, systemInstructions);
+    const answer = extractAnswer(payload);
+    if (!answer) throw new LLMError(502, this.providerName, "Empty payload response");
+    return answer;
+  }
+}
+
+// 4. Controller Layer (HTTP Mapping)
+export async function POST(req: Request) {
+  // Rate limiter & validation...
+  try {
+    const answer = await handleAssistantRequest({ prompt, provider, systemInstructions });
+    return Response.json({ answer });
+  } catch (error) {
+    if (error instanceof LLMError) {
+      return Response.json({ ok: false, error: error.message }, { status: error.statusCode });
+    }
+    return Response.json({ ok: false, error: "Internal Server Error" }, { status: 500 });
+  }
+}
+```
+
+### 🎯 كويز سريع (Quick Test):
+**سؤال:** "لو المزود رمى `LLMError(503)` بسبب ضغط خوادم جوجل، وما كانش فيه `try...catch` جوه الروتر بيمسك الخطأ، إيه اللي المتصفح هيستلمه في Next.js؟"
+- **الإجابة الصحيحة**: المتصفح هيستلم `500 Internal Server Error` لأن الإطار سيعتبره Unhandled Rejection، وهنخسر كود الـ 503 الدقيق ورسالة الخطأ التوضيحية للمستخدم.
+
+---
+
+## 15. Liskov Substitution Principle (LSP) & Behavioral Subtyping
+
+> **Status**: `[Tier 3: Solo-Authored & Verified by Abdo]`  
+> **Production Code**: [`daily-challenges/solutions/solution-2026-09-13-lsp-refund-gateway.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/solutions/solution-2026-09-13-lsp-refund-gateway.ts)
+
+### 1. 👶 Intuition (كأنك بتشرح لطفل 10 سنين):
+- تخيل أنك اشتريت لعبة سيارة أطفال تعمل بأي بطارية قلم عادية (`AA`).
+- رحت السوق اشتريت بطارية جديدة شكلها بطارية قلم مكتوب عليها `AA`، لكن أول ما حطيتها في العربية طلعت نار وحرقت الموتور لأنها بتخرج كهرباء بالعكس!
+- هل هذه البطارية الجديدة تنفع تكون بديل حقيقي للبطارية الأصلية؟
+- لأ طبعاً! لأنها غيرت القواعد الأساسية التي وعد بها المقاس الأصلي وأتلفت الجهاز.
+- هذا هو مبدأ ليسكوف: أي كائن فرعي (`Subclass`) يجب أن يقدر يحل محل الكائن الأصلي (`Base Class`) في أي مكان بدون ما يكسر البرنامج أو يفاجئ الكود بسلوك غير متوقع.
+
+### 2. 💻 Production Reality & Mechanics (كمهندس برمجيات):
+الانتهاك الكارثي الأكثر شيوعاً لمبدأ ليسكوف في أنظمة المدفوعات:
+- لدينا واجهة عامة:
+  ```typescript
+  interface PaymentGateway {
+    charge(amount: number): Promise<PaymentResult>;
+    refund(transactionId: string): Promise<RefundResult>;
+  }
+  ```
+- المطور أراد إضافة بوابة الدفع عند الاستلام (`CashOnDeliveryGateway`)، فكتب الكود التالي:
+  ```typescript
+  class CashOnDeliveryGateway implements PaymentGateway {
+    async charge(...) { return { success: true }; }
+    async refund(...) {
+      // ❌ انتهاك صارخ لمبدأ ليسكوف (LSP Violation)
+      throw new Error("Cash on delivery orders cannot be refunded online!");
+    }
+  }
+  ```
+- **لماذا هذا الكود كارثي؟**
+  خدمة الاسترجاع العامة `RefundService` ستستدعي `gateway.refund()` مطمئنة إلى أن الواجهة وعدتها بدالة استرجاع، فتتفاجأ برمي خطأ لم تكن مستعدة له، مما يسقط السيرفر!
+  ويضطر المطور لكتابة كود قبيح مليء بالفحوصات:
+  ```typescript
+  if (gateway instanceof CashOnDeliveryGateway) { ... } // رائحة كود كريهة
+  ```
+
+**الحل المعماري الصحيح (Interface Segregation + LSP Compliance):**
+فصل الواجهات إلى قدرات سلوكية دقيقة:
+```typescript
+interface ChargeableGateway {
+  charge(amount: number): Promise<PaymentResult>;
+}
+
+interface RefundableGateway extends ChargeableGateway {
+  refund(transactionId: string): Promise<RefundResult>;
+}
+```
+الآن:
+- بوابة البطاقات `CardPaymentGateway` تطبق `RefundableGateway`.
+- بوابة الدفع عند الاستلام `CashOnDeliveryGateway` تطبق فقط `ChargeableGateway`.
+- لا يمكن لأي كود أن يستدعي دالة غير مدعومة، وتم احترام مبدأ ليسكوف بنسبة 100%.
+
+### 3. 🎯 The 3-Step Reality Check & Interview Grilling:
+- **سؤال المقابلات الشهير**: *"What is the main code smell that reveals a violation of the Liskov Substitution Principle?"*
+  - **الإجابة الصحيحة**:
+    1. وجود رمي استثناءات غير متوقعة مثل `throw new NotImplementedError()` أو `throw new UnsupportedOperationException()` داخل فئة فرعية.
+    2. وجود شروط تفحص نوع الكائن في الكود المستهلك مثل `if (obj instanceof SubClass)` لمعاملة بعض الفئات الفرعية كحالات خاصة.
+
+---
+
+## 10. SOLID Principles in Practice (The Real-World Devfolio Case Study)
+
+### 👶 كأنك بتشرح لطفل 10 سنين:
+مبادئ SOLID مش نظريات بنحفظها في كتب عشان نسمعها، دي 5 قواعد ذهبية تخلي الكود عامل زي ألعاب الـ Lego:
+كل قطعة ليها حجمها المستقل، لو شلت قطعة وركبت غيرها، البرج كله مبيقعش ولا بتضطر تكسر باقي القطع!
+
+### 💻 كمهندس برمجيات (How We Applied SOLID in Devfolio):
+
+1. **S - Single Responsibility Principle (المسؤولية الواحدة)**:
+   - `GeminiClient`: مسؤولة حصراً عن الاتصال بالإنترنت وجلب الـ JSON.
+   - `GeminiProviderStrategy`: مسؤولة حصراً عن تحويل الـ JSON إلى نص مفهوم.
+   - `route.ts`: مسؤولة حصراً عن استقبال طلب المتصفح وتحديد معدل الطلبات.
+
+2. **O - Open/Closed Principle (مفتوح للتوسع ومغلق للتعديل)**:
+   - الكود مصمم بحيث لو أردت إضافة موفر جديد (Claude أو OpenAI):
+   - تكتب فئة جديدة `ClaudeProviderStrategy` تطبق نفس الواجهة، دون أن تعدل حرفاً واحداً داخل `route.ts`.
+
+3. **L - Liskov Substitution Principle (إمكانية استبدال النماذج)**:
+   - المزود الوهمي `MockProviderStrategy` والمزود الحقيقي `GeminiProviderStrategy` يطبقان نفس العقد.
+   - تستطيع استبدال المزود الحقيقي بالوهمي في بيئة الاختبار دون أن يعلم الروتر ودون أن يتعطل السيرفر.
+
+4. **I - Interface Segregation Principle (فصل الواجهات)**:
+   - الواجهة `LLMProviderStrategy` تحتوي على دالة واحدة فقط يحتاجها الروتر (`generateProviderResponse`)، دون إجبار المزودات على دوال لا تحتاجها.
+
+5. **D - Dependency Inversion Principle (عكس الاعتمادية)**:
+   - الروتر ودالة التنسيق لا يعتمدان على فئة جوجل مباشرة (`GeminiProviderStrategy`).
+   - بل يعتمدان على الواجهة المجردة (`LLMProviderStrategy`). فالطبقات العليا لا تعتمد على الدنيا، بل كلاهما يعتمد على التجريد (Abstraction).
+
+---
+
+
+---
+
+# ☁️ المحور الثالث: تصميم وبنية الأنظمة السحابية (System Design & Serverless Architecture)
 
 ## 02. Mongoose Promise Caching & Cache Poisoning (Next.js Serverless)
 
@@ -188,7 +665,6 @@ export async function GET() {
 ```
 
 ---
-
 
 ## 03. Graceful Degradation & Third-Party Notification Resilience (Telegram Bot Dispatch)
 
@@ -489,205 +965,6 @@ The Pro Interview Response:
 
 ---
 
-## 08. The Strategy & Factory Pattern (Decoupling LLM Providers & Error Resilience)
-
-### 👶 كأنك بتشرح لطفل 10 سنين:
-تخيل إنك في محل الديكور وعندك كاونتر الكاشير وماكينة الحساب.
-بيجيلك زبائن بطرق دفع مختلفة: زبون كاش، وزبون فيزا، وزبون فودافون كاش.
-لو كل ما زبون يغير طريقة دفعه، تروح هادد كاونتر الكاشير وباني كاونتر جديد ومغير كل أسلاك المحل عشان تستقبل الفلوس، المحل هيخرب!
-الحل الذكي: الكاشير عنده زرار واحد ثابت اسمه "تحصيل الفاتورة" (`Collect Payment`)، لكن بيبدل "الاستراتيجية" حسب الزبون:
-- استراتيجية الكاش.
-- استراتيجية الفيزا.
-- استراتيجية المحفظة الإلكترونية.
-نظام الكاشير ثابت ومبيتغيرش؛ بنغير الأداة بس في ثانية!
-
-### 💻 كمهندس برمجيات (The Pro Frame):
-في تطبيقات الذكاء الاصطناعي وواجهات الـ API، كتابة كود مباشر يستدعي خادم المزود (مثل Gemini أو OpenAI) داخل المسار (`route.ts`) يسبب ارتباطاً وثيقاً معيباً (`Tight Coupling`).
-
-**المشاكل المعمارية للتصميم المباشر:**
-1. كسر مبدأ الفتح والإغلاق (`The Open/Closed Principle`): لا يمكن إضافة مزود جديد أو تبديل موديل قديم إلا بتعديل كود المسار نفسه.
-2. شلل الاختبارات الآلية (`Unit Testing Bottleneck`): كل اختبار للمسار سيستهلك كوتا وتوكينات حقيقية وربما يضرب خطأ 429.
-3. مصيدة اصطياد الأخطاء (`The Catch-All Shadowing Trap`): إذا تم تغليف استدعاء الشبكة والتحقق من `!resp.ok` داخل نفس بلوك `try...catch` دون حارس (`if (err instanceof LLMError) throw err;`)، سيتم ابتلاع أخطاء المزود (429/400) وتحويلها إلى 503 خطأ شبكة عام!
-
-```typescript
-// 1. The Strategy Interface
-export interface LLMProviderStrategy {
-  readonly providerName: string;
-  generateProviderResponse(prompt: string): Promise<string>;
-}
-
-// 2. Concrete Strategy with Re-throw Guard
-export class GeminiProviderStrategy implements LLMProviderStrategy {
-  readonly providerName = "gemini-3.6-flash";
-  constructor(private apiKey: string) {}
-
-  async generateProviderResponse(prompt: string): Promise<string> {
-    let resp: Response;
-    try {
-      resp = await fetch(endpoint, { ... });
-      if (!resp.ok) {
-        throw new LLMError(resp.status, this.providerName, await resp.text());
-      }
-    } catch (error) {
-      // Re-throw guard: prevent converting 429 to 503!
-      if (error instanceof LLMError) throw error;
-      throw new LLMError(503, this.providerName, "Network timeout", error as Error);
-    }
-    return resp.text();
-  }
-}
-
-// 3. Factory Pattern Resolution
-export function createLLMProvider(env?: string, apiKey?: string): LLMProviderStrategy {
-  if (env === "test" || !apiKey) return new MockProviderStrategy();
-  return new GeminiProviderStrategy(apiKey);
-}
-```
-
-### 🎯 كويز سريع (Quick Test):
-**سؤال:** "لو جوجل رجعت كود 429 داخل بلوك `try`، ليه لازم نكتب `if (error instanceof LLMError) throw error;` في أول سطر داخل `catch`؟"
-
-- **إجابة عبده المعتمدة (10/10)**:
-"عشان الـ catch متبلعش خطأ الـ 429 وتحوله بالخطأ لـ 503 انقطاع شبكة، وتمرره سليم للمسار يرجعه للعميل."
-
-```text
-The Pro Interview Response:
-"By pairing the Strategy Pattern with a Factory, we decouple upstream AI provider lifecycles from our Next.js API routes. Introducing a re-throw guard ensures custom LLM domain errors preserve their exact HTTP status codes rather than being shadowed by generic network failure catch blocks."
-```
-
-*(تم توثيقها وتطبيقها عملياً بنجاح بنسبة 10/10).*
-
----
-
-## 09. The 4-Layer Architecture & The Gateway Pattern (Single Responsibility in AI Routes)
-
-### 👶 كأنك بتشرح لطفل 10 سنين:
-تخيل مطعم برجر فيه 4 أشخاص محترفين:
-1. **الكاشير (الروتر)**: يستلم طلبك، يتأكد إن معاك فلوس، ويمنع أي حد يطلب 10 مرات ورا بعض في دقيقة واحدة.
-2. **مدير الصالة (دالة التنسيق - الخدمة)**: يستلم الطلب من الكاشير، يجهز المكونات المطلوبة من المخزن، ويسلمها للشيف.
-3. **الشيف المنظم (الاستراتيجية)**: يستلم المكونات، ويسلم الكفتة للشواية، ولما تطلع يحطها في الساندوتش ويرجعها سندوتش جاهز ونظيف.
-4. **عامل الشواية الخارجي (كلاينت الاتصال)**: هو الوحيد اللي بيتعامل مع النار المباشرة والأنبوبة الخارجية للغاز (سيرفر جوجل)، ولو الغاز قطع بيصرخ يقول للجميع.
-لو الكاشير هو اللي راح يشوي البرجر وهو اللي بيغير أنبوبة الغاز وهو اللي بيستلم الفلوس، المطعم كله هيتحرق!
-
-### 💻 كمهندس برمجيات (The Pro Frame):
-في مسارات الذكاء الاصطناعي المعقدة، تطبيق مبدأ المسؤولية الواحدة (SRP) يتطلب تفكيك المسار إلى 4 طبقات مستقلة:
-
-1. **طبقة التحكم (Controller Layer - `route.ts`)**:
-   - التحقق من الـ Request Body عبر Zod أو الفحص اليدوي.
-   - فحص الـ Rate Limiting بالـ IP.
-   - حماية المسار بكتلة `try...catch` تلتقط أخطاء المجال `LLMError` وتترجمها إلى استجابات HTTP دقيقة (`error.statusCode`).
-
-2. **طبقة الخدمة والتنسيق (Service / Application Layer - `handleAssistantRequest`)**:
-   - جلب بيانات المعرفة وتطبيق الـ Timeout.
-   - بناء الـ System Instructions.
-   - تنسيق المكالمة بين العميل والمزود وإعادة إطلاق الأخطاء النظيفة.
-
-3. **طبقة الاستراتيجية ومحول البيانات (Strategy / Adapter Layer - `GeminiProviderStrategy`)**:
-   - تطبيق واجهة `LLMProviderStrategy` التي ترجع وعداً بنص صافٍ `Promise<string>`.
-   - استدعاء عميل الاتصال واستخراج النص النهائي من بنية البيانات المعقدة (`extractAnswer(payload)`).
-
-4. **طبقة البوابة والاتصال الشبكي (Gateway / Client Layer - `GeminiClient`)**:
-   - إدارة مكالمة الـ `fetch()` مع الـ API الخارجي.
-   - قراءة الـ Headers والـ Status Codes.
-   - إطلاق فئة الأخطاء المخصصة `LLMError(statusCode, providerName, message, cause)`.
-
-```typescript
-// 1. Domain Error
-export class LLMError extends Error {
-  constructor(
-    readonly statusCode: number,
-    readonly providerName: string,
-    message: string,
-    readonly cause?: Error,
-  ) {
-    super(message);
-    this.name = "LLMError";
-  }
-}
-
-// 2. Gateway Layer (Network Transport)
-class GeminiClient {
-  constructor(private apiKey: string, private model: string = "gemini-1.5-flash") {}
-  async generateContent(prompt: string, instructions: string): Promise<GeminiPayload> {
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${this.model}:generateContent?key=${this.apiKey}`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        systemInstruction: { parts: [{ text: instructions }] },
-      }),
-    });
-    if (!res.ok) {
-      throw new LLMError(res.status, this.model, await res.text().catch(() => "Upstream error"));
-    }
-    return (await res.json()) as GeminiPayload;
-  }
-}
-
-// 3. Strategy Layer (Data Translation)
-export class GeminiProviderStrategy implements LLMProviderStrategy {
-  readonly providerName = "gemini-1.5-flash";
-  constructor(private apiKey: string) {}
-  async generateProviderResponse({ prompt, systemInstructions }: ProviderOptions): Promise<string> {
-    const client = new GeminiClient(this.apiKey, this.providerName);
-    const payload = await client.generateContent(prompt, systemInstructions);
-    const answer = extractAnswer(payload);
-    if (!answer) throw new LLMError(502, this.providerName, "Empty payload response");
-    return answer;
-  }
-}
-
-// 4. Controller Layer (HTTP Mapping)
-export async function POST(req: Request) {
-  // Rate limiter & validation...
-  try {
-    const answer = await handleAssistantRequest({ prompt, provider, systemInstructions });
-    return Response.json({ answer });
-  } catch (error) {
-    if (error instanceof LLMError) {
-      return Response.json({ ok: false, error: error.message }, { status: error.statusCode });
-    }
-    return Response.json({ ok: false, error: "Internal Server Error" }, { status: 500 });
-  }
-}
-```
-
-### 🎯 كويز سريع (Quick Test):
-**سؤال:** "لو المزود رمى `LLMError(503)` بسبب ضغط خوادم جوجل، وما كانش فيه `try...catch` جوه الروتر بيمسك الخطأ، إيه اللي المتصفح هيستلمه في Next.js؟"
-- **الإجابة الصحيحة**: المتصفح هيستلم `500 Internal Server Error` لأن الإطار سيعتبره Unhandled Rejection، وهنخسر كود الـ 503 الدقيق ورسالة الخطأ التوضيحية للمستخدم.
-
----
-
-## 10. SOLID Principles in Practice (The Real-World Devfolio Case Study)
-
-### 👶 كأنك بتشرح لطفل 10 سنين:
-مبادئ SOLID مش نظريات بنحفظها في كتب عشان نسمعها، دي 5 قواعد ذهبية تخلي الكود عامل زي ألعاب الـ Lego:
-كل قطعة ليها حجمها المستقل، لو شلت قطعة وركبت غيرها، البرج كله مبيقعش ولا بتضطر تكسر باقي القطع!
-
-### 💻 كمهندس برمجيات (How We Applied SOLID in Devfolio):
-
-1. **S - Single Responsibility Principle (المسؤولية الواحدة)**:
-   - `GeminiClient`: مسؤولة حصراً عن الاتصال بالإنترنت وجلب الـ JSON.
-   - `GeminiProviderStrategy`: مسؤولة حصراً عن تحويل الـ JSON إلى نص مفهوم.
-   - `route.ts`: مسؤولة حصراً عن استقبال طلب المتصفح وتحديد معدل الطلبات.
-
-2. **O - Open/Closed Principle (مفتوح للتوسع ومغلق للتعديل)**:
-   - الكود مصمم بحيث لو أردت إضافة موفر جديد (Claude أو OpenAI):
-   - تكتب فئة جديدة `ClaudeProviderStrategy` تطبق نفس الواجهة، دون أن تعدل حرفاً واحداً داخل `route.ts`.
-
-3. **L - Liskov Substitution Principle (إمكانية استبدال النماذج)**:
-   - المزود الوهمي `MockProviderStrategy` والمزود الحقيقي `GeminiProviderStrategy` يطبقان نفس العقد.
-   - تستطيع استبدال المزود الحقيقي بالوهمي في بيئة الاختبار دون أن يعلم الروتر ودون أن يتعطل السيرفر.
-
-4. **I - Interface Segregation Principle (فصل الواجهات)**:
-   - الواجهة `LLMProviderStrategy` تحتوي على دالة واحدة فقط يحتاجها الروتر (`generateProviderResponse`)، دون إجبار المزودات على دوال لا تحتاجها.
-
-5. **D - Dependency Inversion Principle (عكس الاعتمادية)**:
-   - الروتر ودالة التنسيق لا يعتمدان على فئة جوجل مباشرة (`GeminiProviderStrategy`).
-   - بل يعتمدان على الواجهة المجردة (`LLMProviderStrategy`). فالطبقات العليا لا تعتمد على الدنيا، بل كلاهما يعتمد على التجريد (Abstraction).
-
----
-
 ## 11. Always-on Cloud AI Agents (Gemini Spark) vs Ephemeral Chatbots
 
 ### 👶 كأنك بتشرح لطفل 10 سنين:
@@ -703,6 +980,11 @@ export async function POST(req: Request) {
   4. **تطبيق هندسي عملي**: بناء وكيل مجدول يبحث يومياً في لينكد إن ووظف عن وظائف Next.js/TypeScript الحديثة، ويستخرج بيانات مديري التوظيف، ويرسلها في نشرة صباحية مفلترة إلى البريد الشخصي قبل بدء يوم العمل العميق.
 
 ---
+
+
+---
+
+# 🧪 المحور الرابع: هندسة الاختبارات وجودة البرمجيات (Testing & Quality Assurance)
 
 ## 12. Automated Unit Testing with Jest & Next.js (Test Suites, Mocking, and Explicit Type Resolution)
 
@@ -771,56 +1053,6 @@ import { describe, test, expect } from "@jest/globals";
 
 ---
 
-## 13. SOLID Part 1: Single Responsibility Principle (SRP) & Clean Layered Architecture
-
-### 👶 كأنك بتشرح لطفل 10 سنين:
-تخيل إنك دخلت مطعم، ولقيت شخص واحد بس واقف في الصالة:
-هو اللي بيستقبل الزباين وياخد الفلوس، وهو اللي بيدخل المطبخ يطبخ الأكل، وهو اللي بيغسل الأطباق، وهو اللي بيركب الموتوسيكل يوصل الأوردرات للبيوت!
-- لو الشخص ده جاله مغص أو غاب يوم، المطعم كله قفل وتوقف تماماً.
-- لو صاحب المطعم قرر يغير وصفة الأكل، الراجل ده ممكن يتلخبط وهو بيحاسب الزبون على الكاشير.
-- **الحل الصح (مبدأ المسؤولية الواحدة)**: كل وظيفة ليها شخص متخصص: كاشير مستقل، شيف مستقل، وعامل توصيل مستقل. لو الشيف غير الملح أو البهارات، الكاشير ملوش دعوة وشغال طبيعي.
-
----
-
-### 💻 كمهندس برمجيات (Production Architecture & Clean Layering):
-
-#### 1. تعريف المبدأ (The Single Reason to Change):
-صاغه المهندس روبرت مارتن (Uncle Bob):
-```text
-"A class or module should have one, and only one, reason to change."
-```
-السبب للتعديل يعود دائماً إلى الجهة المسؤولة (Actor) عن هذا الجزء من النظام.
-
-#### 2. تشريح الطبقات الأربع النظيفة (The 4 Decoupled Layers):
-بدلاً من حشر كل العمليات داخل دالة المسار `POST(req)`، قمنا بتفكيكها إلى طبقات معزولة:
-1. **Controller Layer (`route.ts`)**: مسؤولة فقط عن بروتوكول HTTP (قراءة JSON، استدعاء الخدمة، وتوليد كود الحالة 201 أو 400 أو 500).
-2. **Validation Layer (`validateRegisterInput`)**: مسؤولة عن التحقق البنيوي (Syntactic Validation) والتأكد من وجود الحقول ونوع البيانات بأمان في وقت التشغيل.
-3. **Domain Service Layer (`UserService`)**: مسؤولة عن تنسيق قواعد العمل (Orchestration): التحقق من عدم تكرار الإيميل، تشفير الباسورد، وحفظ المستخدم.
-4. **Data Access Layer (`UserRepository`)**: مسؤولة فقط عن التخزين والاستعلام في قاعدة البيانات، وترجع `null` في حالة عدم العثور على السجل بدلاً من رمي خطأ.
-5. **Notification Gateway (`EmailService`)**: مسؤولة عن إرسال الإيميلات الخارجية وعزل أخطائها عن استجابة التسجيل.
-
-#### 3. مصيدة الأمان والـ Type Casting في وقت التشغيل:
-- الكود: `const body = rawBody as RegisterUserInput;` هو مجرد توجيه للمترجم ولا يحمي الكود في وقت التشغيل.
-- إذا أرسل العميل `null`، فإن محاولة الوصول إلى `body.email` ستنهار بخطأ `TypeError: Cannot read properties of null`.
-- **الحل الجذري**: التحقق أولاً من نوع الكائن:
-```typescript
-if (!rawBody || typeof rawBody !== "object") {
-  throw new Error("Invalid request body", { cause: { statusCode: 400 } });
-}
-```
-
-#### 4. جدولة المهام بالخلفية في Next.js ومنع تجميد السيرفرليس:
-- إرسال الإيميل الخارجي قد يستغرق ثوانٍ ويعطل استجابة العميل لو استخدمنا `await` مباشرة في المسار.
-- لكن حذف `await` بدون حماية يؤدي إلى أخطاء غير ممسوكة وإلى إيقاف المهمة بسبب تجميد الحاوية (Serverless Container Freeze) بعد إرجاع الرد.
-- **الحل القياسي الحديث**: استخدام دالة `after()` من `next/server` لجدولة المهمة في الخلفية بأمان بعد إرجاع كود 201 فوراً للمستخدم.
-
----
-
-### 🎯 كويز الفهم السريع (Quick Review):
-**سؤال:** "لو دالة `findByEmail` في مستودع البيانات رمت `Error: User not found` بدلاً من إرجاع `null`، ما الكارثة التي ستحدث لأي مستخدم جديد يحاول إنشاء حسابه لأول مرة؟"
-- **الإجابة الصحيحة**: سيفشل تسجيل أي مستخدم جديد دائماً، لأن خدمة التسجيل تفحص وجود الإيميل أولاً، فرمي الخطأ سيعتبره السيرفر انهياراً داخلياً (500) قبل أن يصل الكود لخطوة إنشاء الحساب وحفظه!
----
-
 ## 12. Test Harness vs. Test Case (Isolated Execution Rigs & Production Risk Elimination)
 
 ### 👶 كأنك بتشرح لطفل 10 سنين:
@@ -880,240 +1112,40 @@ export class ShippingHarness {
 
 ---
 
-## 13. The Adapter Pattern & Anti-Corruption Layer (Bosta Shipping & Stripe Integration)
-
-> **Status**: `[Tier 3: Solo-Authored & Verified by Abdo]`  
-> **Production Code**: [`daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts) | [`daily-challenges/my-solutions/solution-2026-09-17-adapter-payment-gateway.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-adapter-payment-gateway.ts)
-
-### 1. 👶 Intuition (كأنك بتشرح لطفل 10 سنين):
-- تخيل أنك اشتريت جهاز بلايستيشن من إنجلترا وجاي بفيشة ثلاثية مربعة، وفي بيتك بمصر المقبس في الحائط ثنائي دائري.
-- هل تكسر حائط الشقة وتغير الكهرباء كلها عشان الفيشة مش داخلة؟
-- بالطبع لا! أنت تشتري مشترك أو فيشة تحويل صغيرة (`Adapter`) برأس ثلاثي من الخلف ورأس ثنائي من الأمام.
-- المشترك ده وظيفته الوحيدة إنه يترجم الشكل غير المتوافق للشكل الذي يفهمه بيتك بدون تغيير أي شيء في الشقة أو في البلايستيشن!
-
-### 2. 💻 Production Reality & Mechanics (كمهندس برمجيات):
-في الأنظمة الحقيقية، لا تدع مكتبات وواجهات الشركات الخارجية (`Third-Party SDKs`) تلوث كودك الداخلي مباشرة:
-- **المشكلة الحقيقية في متجر الديكور**:
-  - نظام متجرنا الداخلي يحسب وزن القطع بالكيلوجرام (`kg: number`) ويحفظ العنوان كنص سطر واحد (`address: string`).
-  - شركة الشحن (بوسطة Bosta SDK) ترفض الكيلوجرام وتطلب الوزن حصراً بالأعداد الصحيحة بالجرام (`weightInGrams: number`)، وترفض العنوان النصي وتتطلب كائناً مفصلاً (`city, district, street, buildingNumber`).
-- **الحل عبر نمط المحول (`Adapter Pattern`)**:
-  - نصمم عقد شحن نظيف يخص متجرنا: `interface ShippingCarrier { shipOrder(order: Order): Promise<ShipmentResult>; }`
-  - نبني كلاس المحول `BostaShippingAdapter implements ShippingCarrier` الذي:
-    1. يستقبل طلب متجرنا بالكيلوجرام والعنوان البسيط.
-    2. يضرب الوزن في 1000 ويقسم العنوان النصي إلى حقول كائن بوسطة.
-    3. يستدعي `bostaSdk.createDelivery()`.
-    4. يترجم رد بوسطة الخاص إلى كائن متجرنا الموحد `ShipmentResult`.
-- **طبقة مكافحة الفساد البرمجي (`Anti-Corruption Layer - ACL`)**:
-  - لو قامت بوسطة غداً بتغيير أسماء حقولها أو استبدال نظامها بـ API جديد، كود المتجر وخدمة الشيك أوت لن يتغير فيهما حرف واحد! التعديل محصور بنسبة 100% داخل ملف المحول فقط.
-
-```typescript
-export class BostaShippingAdapter implements ShippingCarrier {
-  constructor(private bostaSdk: BostaSDK) {}
-
-  async shipOrder(order: Order): Promise<ShipmentResult> {
-    const totalGrams = order.items.reduce((sum, item) => sum + item.weight, 0) * 1000;
-    const [street, district, city, building] = order.address.split(",").map(s => s.trim());
-
-    const result = await this.bostaSdk.createDelivery({
-      weightInGrams: Math.round(totalGrams),
-      receiverAddress: { city, district, street, buildingNumber: building || "1" },
-      codAmountInPiasters: (order.codAmount || 0) * 100,
-    });
-
-    return {
-      success: true,
-      awb: result.awb,
-      carrierName: "Bosta",
-      estimatedDays: result.etaDays,
-      trackingCode: result.awb,
-    };
-  }
-}
-```
-
-### 3. 🎯 The 3-Step Reality Check & Interview Grilling:
-- **سؤال المقابلات الشهير**: *"What is the architectural difference between the Adapter Pattern and the Facade Pattern?"*
-  - **الإجابة الصحيحة**:
-    - الـ **Adapter** يغير الواجهة غير المتوافقة لتطابق عقداً موجوداً يريده العميل (`Incompatible Interface -> Existing Target Interface`).
-    - الـ **Facade** لا يغير واجهة قديمة لتطابق عقداً محدداً، بل يبسط منظومة كاملة معقدة من الكلاسات وراء واجهة واحدة سهلة الاستخدام (`Complex Subsystem -> Simplified Single Interface`).
 
 ---
 
-## 14. The Observer Pattern & Type-Safe EventBus with Fault Isolation
+# 💼 المحور الخامس: التحضير للمقابلات والتمركز المهني (Career & Interview Readiness)
 
-> **Status**: `[Tier 3: Solo-Authored & Verified by Abdo]`  
-> **Production Code**: [`daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts)
+## 01. Interview Self-Introduction & Positioning
 
-### 1. 👶 Intuition (كأنك بتشرح لطفل 10 سنين):
-- تخيل أنك صاحب قناة يوتيوب أو متجر ألعاب، وعندك 1000 متابع.
-- لما تنزل لعبة جديدة، هل من المنطقي أن تتصل تليفونياً بكل متابع واحداً تلو الآخر وتقول له: "نزلت لعبة جديدة"؟
-- لو سقطت المكالمة مع المتابع رقم 5، هل هتوقف كل المكالمات والباقي ميعرفش؟
-- الحل الذكي: زر الجرس! المتابعون يشتركون بنفسهم في الجرس. وأنت كناشر مجرد أن تضغط زر "بث الفيديو"، المنصة ترسل الإشعار للجميع في نفس اللحظة. وأنت كصاحب متجر لا تحتاج لمعرفة أسماء أو أرقام هواتف المشتركين!
+### 👶 كأنك بتشرح لطفل 10 سنين:
+تخيل إنك داخل مسابقة تركيب ليجو كبيرة، وفيه حكم بيسألك: "إنت مين وبتحب تركب إيه؟"
+لو قولتله: "أنا دخلت المسابقة عشان الليجو سهل، وأنا عايش لوحدي"، مش هيتحمس ليك.
+لكن لو قولتله: "أنا شاطر جداً في حل الفوازير والرياضيات، وده مخليني بارع في تصميم قلاع ليجو متماسكة ومبتتهزش مهما الناس حركتها"، هنا الحكم هيبصلك كبطل!
 
-### 2. 💻 Production Reality & Mechanics (كمهندس برمجيات):
-في الأنظمة غير الاحترافية، خدمة إتمام الطلب `CheckoutService` تنادي مباشرة كل الخدمات:
-```typescript
-// ❌ كارثة الارتباط الوثيق (Tight Coupling)
-await inventory.deductStock(order);
-await whatsapp.sendMessage(order);
-await analytics.logRevenue(order);
-```
-**لماذا هذا الكود مدمر؟**
-1. كسر مبدأ المسؤولية الواحدة (SRP): الـ Checkout أصبح يعرف تفاصيل الواتساب والحسابات والمخزن.
-2. غياب عزل الأعطال (No Fault Isolation): لو تعطل خادم الواتساب، سيفشل الطلب بالكامل ويتوقف الدفع!
+### 💻 كمهندس برمجيات (The Pro Frame):
+في الإنترفيو، الـ Recruiter أو الـ Tech Lead بيبحث عن:
+1. **Clear Narrative**: خلفيتك في الرياضيات مش عيب؛ دي ميزة تنافسية (Analytical Rigor & Systematic Problem Solving).
+2. **Intrinsic Drive**: إنت دخلت الفرونت إند لأنك بتحب تبني أنظمة الناس بتستخدمها، والتعقيد الهندسي (State, Performance, Architecture) هو اللي بيشدك.
+3. **No Red Flags**: شيل التفاصيل الشخصية الزائدة، وبلاش الألقاب الرسمية بزيادة زي "Sir".
 
-**الحل عبر وسيط الأحداث الآمن (`Type-Safe EventBus`):**
-1. **عزل الأعطال بالحلقات المتتابعة (`Fault Isolation`)**:
-   استبدال `forEach` بحلقة `for...of` تحتوي على `try/catch` لكل مستمع بشكل مستقل:
-   إذا تعطل مستمع وسقط بـ `Error`، يتم التقاط الخطأ وتسجيله، ويكمل باقي المستمعين عملهم بنجاح دون انهيار التطبيق.
-2. **أمان الأنواع الشامل (`Strict TypeScript Generics`)**:
-   استخدام مفاتيح الكائنات `keyof ShopEvents` والوصول المفهرس `ShopEvents[K]` لضمان أن كل حدث يستقبل بياناته الدقيقة فقط، مع منع الأخطاء الإملائية واستنتاج الحقول تلقائياً.
-
-```typescript
-type EventHandler<T> = (data: T) => void;
-
-class EventBus<Events extends Record<string, any>> {
-  private cachedEvents = new Map<keyof Events, EventHandler<any>[]>();
-
-  subscribe<K extends keyof Events>(eventName: K, handler: EventHandler<Events[K]>): void {
-    if (!this.cachedEvents.has(eventName)) {
-      this.cachedEvents.set(eventName, [handler]);
-    } else {
-      this.cachedEvents.get(eventName)?.push(handler);
-    }
-  }
-
-  publish<K extends keyof Events>(eventName: K, data: Events[K]): void {
-    const handlers = this.cachedEvents.get(eventName);
-    if (!handlers) return;
-
-    for (const handler of handlers) {
-      try {
-        handler(data);
-      } catch (err) {
-        console.error(`[EventBus] Handler failed on event "${String(eventName)}":`, err);
-      }
-    }
-  }
-}
+```text
+The Script Template:
+"Hi, great to meet you! I come from a Mathematics background from Helwan University, 
+which heavily shaped how I analyze problems and structure logic. 
+I transitioned into Frontend Engineering because I love building tactile software 
+that users actually interact with. While I started with core UI (HTML/CSS), 
+I quickly found my passion in the engineering depth underneath—scalable state management, 
+resilient architectures, and modern React/Next.js ecosystems."
 ```
 
-### 3. 🎯 The 3-Step Reality Check & Interview Grilling:
-- **سؤال المقابلات الشهير**: *"What happens if one of the subscribers in your EventBus returns a Promise (async handler) and rejects? Does synchronous try/catch protect you?"*
-  - **الإجابة الصحيحة**:
-    - لا! الـ `try/catch` المتزامن لا يلتقط الوعود المرفوضة في الدوال غير المتزامنة (`Unhandled Promise Rejection`).
-    - لحماية النظام مع الدوال غير المتزامنة، يجب إما وضع `await` داخل الحلقة، أو الأفضل: تجميع استدعاءات المشتركين وتمريرها عبر:
-      `Promise.allSettled(handlers.map(h => Promise.resolve(h(data))))`
-      بحيث يتم فحص نتائج الوعود وعزل أي `rejected promise` دون تعطيل البقية.
+### 🎯 كويز سريع (Quick Test):
+**سؤال:** لو سألك الإنترفيور: *"Why should we hire a Mathematics graduate over a Computer Science graduate?"*
+إيه الكلمة المفتاحية اللي هتركز عليها؟
+- أ) "لأن الرياضيات أصعب من البرمجة."
+- ب) "لأن دراسة الرياضيات دربتني على التفكير المنطقي الصارم، ونمذجة المشاكل المعقدة قبل لمس الكود، وهو صلب هندسة البرمجيات."
+*(الإجابة الصح: ب - بدون تقليل من أي حد، مع إبراز ميزتك).*
 
 ---
-
-## 15. Liskov Substitution Principle (LSP) & Behavioral Subtyping
-
-> **Status**: `[Tier 3: Solo-Authored & Verified by Abdo]`  
-> **Production Code**: [`daily-challenges/solutions/solution-2026-09-13-lsp-refund-gateway.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/solutions/solution-2026-09-13-lsp-refund-gateway.ts)
-
-### 1. 👶 Intuition (كأنك بتشرح لطفل 10 سنين):
-- تخيل أنك اشتريت لعبة سيارة أطفال تعمل بأي بطارية قلم عادية (`AA`).
-- رحت السوق اشتريت بطارية جديدة شكلها بطارية قلم مكتوب عليها `AA`، لكن أول ما حطيتها في العربية طلعت نار وحرقت الموتور لأنها بتخرج كهرباء بالعكس!
-- هل هذه البطارية الجديدة تنفع تكون بديل حقيقي للبطارية الأصلية؟
-- لأ طبعاً! لأنها غيرت القواعد الأساسية التي وعد بها المقاس الأصلي وأتلفت الجهاز.
-- هذا هو مبدأ ليسكوف: أي كائن فرعي (`Subclass`) يجب أن يقدر يحل محل الكائن الأصلي (`Base Class`) في أي مكان بدون ما يكسر البرنامج أو يفاجئ الكود بسلوك غير متوقع.
-
-### 2. 💻 Production Reality & Mechanics (كمهندس برمجيات):
-الانتهاك الكارثي الأكثر شيوعاً لمبدأ ليسكوف في أنظمة المدفوعات:
-- لدينا واجهة عامة:
-  ```typescript
-  interface PaymentGateway {
-    charge(amount: number): Promise<PaymentResult>;
-    refund(transactionId: string): Promise<RefundResult>;
-  }
-  ```
-- المطور أراد إضافة بوابة الدفع عند الاستلام (`CashOnDeliveryGateway`)، فكتب الكود التالي:
-  ```typescript
-  class CashOnDeliveryGateway implements PaymentGateway {
-    async charge(...) { return { success: true }; }
-    async refund(...) {
-      // ❌ انتهاك صارخ لمبدأ ليسكوف (LSP Violation)
-      throw new Error("Cash on delivery orders cannot be refunded online!");
-    }
-  }
-  ```
-- **لماذا هذا الكود كارثي؟**
-  خدمة الاسترجاع العامة `RefundService` ستستدعي `gateway.refund()` مطمئنة إلى أن الواجهة وعدتها بدالة استرجاع، فتتفاجأ برمي خطأ لم تكن مستعدة له، مما يسقط السيرفر!
-  ويضطر المطور لكتابة كود قبيح مليء بالفحوصات:
-  ```typescript
-  if (gateway instanceof CashOnDeliveryGateway) { ... } // رائحة كود كريهة
-  ```
-
-**الحل المعماري الصحيح (Interface Segregation + LSP Compliance):**
-فصل الواجهات إلى قدرات سلوكية دقيقة:
-```typescript
-interface ChargeableGateway {
-  charge(amount: number): Promise<PaymentResult>;
-}
-
-interface RefundableGateway extends ChargeableGateway {
-  refund(transactionId: string): Promise<RefundResult>;
-}
-```
-الآن:
-- بوابة البطاقات `CardPaymentGateway` تطبق `RefundableGateway`.
-- بوابة الدفع عند الاستلام `CashOnDeliveryGateway` تطبق فقط `ChargeableGateway`.
-- لا يمكن لأي كود أن يستدعي دالة غير مدعومة، وتم احترام مبدأ ليسكوف بنسبة 100%.
-
-### 3. 🎯 The 3-Step Reality Check & Interview Grilling:
-- **سؤال المقابلات الشهير**: *"What is the main code smell that reveals a violation of the Liskov Substitution Principle?"*
-  - **الإجابة الصحيحة**:
-    1. وجود رمي استثناءات غير متوقعة مثل `throw new NotImplementedError()` أو `throw new UnsupportedOperationException()` داخل فئة فرعية.
-    2. وجود شروط تفحص نوع الكائن في الكود المستهلك مثل `if (obj instanceof SubClass)` لمعاملة بعض الفئات الفرعية كحالات خاصة.
-
----
-
-## 16. Architectural Integration: Unified Order Fulfillment Engine (Strategy + Adapter + Observer)
-
-> **Status**: `[Tier 3: Solo-Authored & Verified by Abdo]`  
-> **Production Code**: [`daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts)
-
-### 1. 👶 Intuition (كأنك بتشرح لطفل 10 سنين):
-- تخيل أنك صاحب شركة مقاولات عملاقة بتبني أبراج سكنية.
-- هل المدير العام للمشروع بينزل بنفسه يسوق عربية الأسمنت ويوصل مواسير السباكة ويركب لمبات الشقق؟
-- بالتأكيد لا! المدير العام بيعمل الآتي:
-  1. يتعاقد مع شركة نقل معينة بناءً على المكان أو السرعة المطلوبة (`Strategy`).
-  2. شركة النقل دي عندها شاحنات ضخمة، فبتستخدم رافعة أو منصة تحويل خاصة تركب على مقاس مخازننا بدون ما نغير المخازن (`Adapter`).
-  3. أول ما البضاعة توصل للموقع بنجاح، المدير مش بيتصل بكل عامل في البرج! هو بيضرب صفارة بالمكبر العام (`EventBus`)، فعمال السباكة والمحارة والمحاسبين يبدأوا شغلهم فوراً بالتوازي.
-  4. لو عامل الدهان وقع منه جردل بوية، المشروع مبيقفش وباقي العمال بيكملوا شغلهم بأمان تام (`Fault Isolation`).
-
-### 2. 💻 Production Reality & Mechanics (كمهندس برمجيات):
-الهدف المعماري الأسمى هو **التفكيك الكامل للمسؤوليات (Total Decoupling)**:
-- المحرك الرئيسي `FulfillmentEngine` لا يعرف إطلاقاً كيف تعمل بوسطة أو أرامكس، ولا يعرف ما إذا كان العميل سيتلقى رسالة واتساب أو إيميل أو إشعار بنكي!
-- **التركيبة المعمارية الثلاثية**:
-  1. **Strategy Pattern**: اختيار مزود الشحن ديناميكياً من سجل مركزي `CarrierStrategy` بدون شروط `if / else`.
-  2. **Adapter Pattern**: تحويل كائن الطلب الداخلي إلى الصيغة التي تفهمها مكتبة المزود الخارجي `BostaSDKClient` وترجمة الرد إلى عقد موحد `ShipmentResult`.
-  3. **Observer Pattern / EventBus**: بمجرد استلام البوليصة، يبث المحرك حدث `"order:shipped"`. المشتركون (WhatsApp و Accounting) ينفذون مهامهم بشكل مستقل مع حماية `try/catch` لكل مشترك.
-
-```typescript
-// The Pure Orchestrator: Zero coupling to WhatsApp or Carriers
-export class FulfillmentEngine {
-  constructor(
-    private carrierStrategy: CarrierStrategy,
-    private eventBus: EventBus<ShopEvents>,
-  ) {}
-
-  fulfill(order: Order, carrierName: string): void {
-    const carrier = this.carrierStrategy.get(carrierName);
-    const shipmentResult = carrier.shipOrder(order);
-    this.eventBus.publish("order:shipped", shipmentResult);
-  }
-}
-```
-
-### 3. 🎯 The 3-Step Reality Check & Interview Grilling:
-- **سؤال المقابلات الشهير**: *"How would you design a scalable e-commerce order fulfillment pipeline that allows adding new carriers and notification channels with zero regression risk?"*
-  - **الإجابة الصحيحة**:
-    - ندمج ثلاثة أنماط معمارية:
-      1. **Strategy Pattern** لتسجيل واسترجاع شركات الشحن ديناميكياً.
-      2. **Adapter Pattern** لإنشاء طبقة حماية (`Anti-Corruption Layer`) تترجم عقود الشركات الخارجية لعقدنا الموحد.
-      3. **Observer Pattern (EventBus)** لنشر أحداث الشحن دون أي استدعاء مباشر لخدمات الإشعارات أو المحاسبة، مع تطبيق `Fault Isolation` لضمان عدم توقف النظام عند فشل إشعار خارجي.
-
 
