@@ -93,3 +93,17 @@
 ## 🌐 المرحلة 5: متجر ديفوليو ويب مستقبلي (Custom Web Store)
 - [ ] بناء موقع ويب خفيف وسريع للمحل لعرض الكتالوج (ميزة مزدوجة: بيخدم بيزنسك، ويعتبر مشروع Fullstack Production حقيقي تتباهى بيه في الـ CV والإنترفيوز!).
 
+---
+
+## 📦 المرحلة 6: التوسع على أمازون مصر (Amazon Egypt Expansion)
+> **الهدف**: بيع التنسيقات والبوكيهات الجاهزة وتوليد تدفق مالي مستمر خارج نطاق المحل الجغرافي.
+
+- 📄 **دراسة السوق وفحص المنافسين الميداني**:
+  [AMAZON_MARKET_AUDIT_FLOWER_VASES.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/AMAZON_MARKET_AUDIT_FLOWER_VASES.md)
+- ⚙️ **دليل اقتصاديات الوحدة واستراتيجية التسعير**:
+  [.agents/skills/amazon-ecommerce-growth/SKILL.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/.agents/skills/amazon-ecommerce-growth/SKILL.md)
+- [x] مسح أسعار المنافسين وثغرات الجودة في فئة الفازات الدائرية والبوكيهات الصغيرة.
+- [x] إثبات وجود طلب ضخم (+1000 مبيعة/شهر للمنتج الواحد) مع فجوة حادة في جودة المعروض.
+- [ ] استلام البطاقة الضريبية وتفعيل حساب بائع أمازون مصر (`Individual Seller`).
+- [ ] تصوير أول دفعة اختبارية (10 قطع من `BOUQ-001` و `PLANT-001` و `PLANT-002`) بخلفيات بيضاء نقية وصور إثبات المقاسات.
+
