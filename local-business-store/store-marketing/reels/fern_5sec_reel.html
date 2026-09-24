@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5-Second Reel | مزرعة السرخس المودرن</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background: #0d0f12;
+      color: #fff;
+      font-family: 'Cairo', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      max-width: 500px;
+      width: 100%;
+    }
+    .video-frame {
+      position: relative;
+      width: 360px;
+      height: 640px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.1);
+      background: #000;
+    }
+    canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .controls {
+      display: flex;
+      gap: 12px;
+      width: 100%;
+      justify-content: center;
+    }
+    button {
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 12px 24px;
+      border-radius: 12px;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .btn-download {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: white;
+      box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+    }
+    .btn-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+    }
+    .btn-replay {
+      background: rgba(255,255,255,0.1);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.2);
+    }
+    .btn-replay:hover {
+      background: rgba(255,255,255,0.2);
+    }
+    .status-badge {
+      font-size: 13px;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { opacity: 0.4; }
+      50% { opacity: 1; }
+      100% { opacity: 0.4; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <div class="video-frame">
+      <canvas id="reelCanvas" width="720" height="1280"></canvas>
+    </div>
+
+    <div class="status-badge">
+      <div class="dot"></div>
+      <span id="statusText">جاهز للعرض والتسجيل (5 ثوانٍ | 9:16)</span>
+    </div>
+
+    <div class="controls">
+      <button class="btn-download" id="downloadBtn" onclick="recordAndDownload()">
+        🎥 تسجيل وتحميل الفيديو (MP4 / WebM)
+      </button>
+      <button class="btn-replay" onclick="startAnimation(false)">
+        🔄 إعادة التشغيل
+      </button>
+    </div>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('reelCanvas');
+    const ctx = canvas.getContext('2d');
+    const statusText = document.getElementById('statusText');
+
+    const TOTAL_DURATION = 5.0; // 5 Seconds
+    const FPS = 60;
+    const TOTAL_FRAMES = TOTAL_DURATION * FPS;
+
+    const img1 = new Image();
+    const img2 = new Image();
+    const img3 = new Image();
+
+    img1.src = 'scene1_desk.jpg';
+    img2.src = 'scene2_shelf.jpg';
+    img3.src = 'scene3_table.jpg';
+
+    let loadedCount = 0;
+    [img1, img2, img3].forEach(img => {
+      img.onload = () => {
+        loadedCount++;
+        if (loadedCount === 3) {
+          startAnimation(false);
+        }
+      };
+    });
+
+    let animationFrameId = null;
+    let startTime = null;
+
+    function drawFrame(progress) {
+      const time = progress * TOTAL_DURATION;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      let currentImg = img1;
+      let nextImg = null;
+      let sceneProgress = 0;
+      let activeText = "";
+      let subtitle = "";
+
+      if (time < 1.6) {
+        // Scene 1: Desk (0.0s - 1.6s)
+        currentImg = img1;
+        sceneProgress = time / 1.6;
+        activeText = "في مكتبك.. هدوء وتركيز";
+        subtitle = "تنسيق مريح للعين بدون ذبول 🌿";
+
+        if (time > 1.3) {
+          nextImg = img2;
+          var blend = (time - 1.3) / 0.3;
+        }
+      } else if (time < 3.2) {
+        // Scene 2: Shelf (1.6s - 3.2s)
+        currentImg = img2;
+        sceneProgress = (time - 1.6) / 1.6;
+        activeText = "على رفك.. لمسة حياة مودرن";
+        subtitle = "طوق ذهبي فخم وأصيص مضلع ✨";
+
+        if (time > 2.9) {
+          nextImg = img3;
+          var blend = (time - 2.9) / 0.3;
+        }
+      } else {
+        // Scene 3: Table & Final Offer (3.2s - 5.0s)
+        currentImg = img3;
+        sceneProgress = (time - 3.2) / 1.8;
+        activeText = "مزرعة السرخس بكسر الرخام";
+        subtitle = "تقيلة • ضد الكسر • قابلة للغسيل 🤍";
+      }
+
+      // Draw Main Background with Ken Burns zoom effect
+      const scale = 1.0 + (sceneProgress * 0.08);
+      const w = canvas.width * scale;
+      const h = canvas.height * scale;
+      const x = (canvas.width - w) / 2;
+      const y = (canvas.height - h) / 2;
+
+      ctx.save();
+      ctx.drawImage(currentImg, x, y, w, h);
+
+      // Smooth cross-fade to next scene
+      if (nextImg && typeof blend !== 'undefined') {
+        ctx.globalAlpha = blend;
+        ctx.drawImage(nextImg, (canvas.width - canvas.width * 1.0) / 2, (canvas.height - canvas.height * 1.0) / 2, canvas.width, canvas.height);
+      }
+      ctx.restore();
+
+      // Cinematic Vignette / Gradients
+      const topGrad = ctx.createLinearGradient(0, 0, 0, 250);
+      topGrad.addColorStop(0, 'rgba(0,0,0,0.6)');
+      topGrad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = topGrad;
+      ctx.fillRect(0, 0, canvas.width, 250);
+
+      const btmGrad = ctx.createLinearGradient(0, canvas.height - 450, 0, canvas.height);
+      btmGrad.addColorStop(0, 'rgba(0,0,0,0)');
+      btmGrad.addColorStop(0.4, 'rgba(0,0,0,0.7)');
+      btmGrad.addColorStop(1, 'rgba(0,0,0,0.95)');
+      ctx.fillStyle = btmGrad;
+      ctx.fillRect(0, canvas.height - 450, canvas.width, 450);
+
+      // Top Brand Badge
+      ctx.save();
+      ctx.fillStyle = "rgba(255, 255, 255, 0.15)";
+      ctx.beginPath();
+      ctx.roundRect(canvas.width / 2 - 130, 50, 260, 44, 22);
+      ctx.fill();
+      ctx.strokeStyle = "rgba(255, 215, 0, 0.5)";
+      ctx.lineWidth = 1.5;
+      ctx.stroke();
+
+      ctx.font = "bold 20px 'Cairo', sans-serif";
+      ctx.fillStyle = "#fbbf24";
+      ctx.textAlign = "center";
+      ctx.fillText("كازا آرت للديكور • بالوراق", canvas.width / 2, 79);
+      ctx.restore();
+
+      // Lower Third Text Overlay (Animated)
+      ctx.save();
+      ctx.textAlign = "center";
+
+      // Text Slide-in & Fade
+      const textAlpha = Math.min(1, sceneProgress * 4);
+      ctx.globalAlpha = textAlpha;
+
+      ctx.font = "900 36px 'Cairo', sans-serif";
+      ctx.fillStyle = "#ffffff";
+      ctx.shadowColor = "rgba(0,0,0,0.8)";
+      ctx.shadowBlur = 15;
+      ctx.fillText(activeText, canvas.width / 2, canvas.height - 230);
+
+      ctx.font = "600 22px 'Cairo', sans-serif";
+      ctx.fillStyle = "#e2e8f0";
+      ctx.fillText(subtitle, canvas.width / 2, canvas.height - 180);
+
+      // Final Call To Action Banner (Only in Scene 3)
+      if (time >= 3.2) {
+        const ctaProgress = Math.min(1, (time - 3.2) / 0.5);
+        ctx.globalAlpha = ctaProgress;
+
+        // Golden Price Pill
+        ctx.fillStyle = "#f59e0b";
+        ctx.beginPath();
+        ctx.roundRect(canvas.width / 2 - 160, canvas.height - 150, 320, 56, 28);
+        ctx.fill();
+        ctx.strokeStyle = "#fff";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.font = "900 28px 'Cairo', sans-serif";
+        ctx.fillStyle = "#000";
+        ctx.fillText("50 جنيه فقط 🏷️", canvas.width / 2, canvas.height - 112);
+
+        // Contact info below pill
+        ctx.font = "bold 22px 'Cairo', sans-serif";
+        ctx.fillStyle = "#fbbf24";
+        ctx.fillText("واتساب كازا آرت: 01070810979", canvas.width / 2, canvas.height - 65);
+      }
+
+      ctx.restore();
+    }
+
+    function startAnimation(loop = true) {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      startTime = performance.now();
+
+      function step(timestamp) {
+        const elapsed = (timestamp - startTime) / 1000;
+        let progress = elapsed / TOTAL_DURATION;
+
+        if (progress >= 1.0) {
+          if (loop) {
+            startTime = timestamp;
+            progress = 0;
+          } else {
+            drawFrame(1.0);
+            statusText.innerText = "اكتمل العرض بنجاح (5 ثوانٍ)";
+            return;
+          }
+        }
+
+        drawFrame(progress);
+        statusText.innerText = `جاري العرض: ${elapsed.toFixed(1)} ث / 5.0 ث`;
+        animationFrameId = requestAnimationFrame(step);
+      }
+
+      animationFrameId = requestAnimationFrame(step);
+    }
+
+    async function recordAndDownload() {
+      const btn = document.getElementById('downloadBtn');
+      btn.disabled = true;
+      btn.innerText = "⏳ جاري التسجيل (5 ثوانٍ)...";
+
+      const stream = canvas.captureStream(60);
+      const mimeType = MediaRecorder.isTypeSupported('video/webm;codecs=vp9') ? 'video/webm;codecs=vp9' : 'video/webm';
+      const recorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 6000000 });
+      const chunks = [];
+
+      recorder.ondataavailable = e => {
+        if (e.data.size > 0) chunks.push(e.data);
+      };
+
+      recorder.onstop = () => {
+        const blob = new Blob(chunks, { type: 'video/webm' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'casaart_fern_reel_5sec.webm';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        btn.disabled = false;
+        btn.innerText = "✅ تم التحميل بنجاح! تسجيل مرة أخرى";
+        statusText.innerText = "تم حفظ ملف الفيديو بنجاح!";
+      };
+
+      recorder.start();
+      startAnimation(false);
+
+      setTimeout(() => {
+        recorder.stop();
+      }, (TOTAL_DURATION * 1000) + 200);
+    }
+  </script>
+</body>
+</html>
