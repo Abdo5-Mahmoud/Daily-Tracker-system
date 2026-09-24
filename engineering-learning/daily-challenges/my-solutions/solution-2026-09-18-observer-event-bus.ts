@@ -36,7 +36,10 @@ type EventMap = Record<string, any>;
 type EventHandler<T> = (data: T) => void;
 
 interface IEventBus<T extends EventMap> {
-  subscribe<K extends keyof T>(eventName: K, handler: EventHandler<T[K]>): void;
+  subscribe<K extends keyof T>(
+    eventName: K,
+    handler: EventHandler<T[K]>,
+  ): () => void;
   unsubscribe<K extends keyof T>(
     eventName: K,
     handler: EventHandler<T[K]>,
@@ -48,34 +51,29 @@ interface IEventBus<T extends EventMap> {
 // Phase 3: The Concrete EventBus Class Implementation
 // ============================================================================
 class EventBus<T extends EventMap> implements IEventBus<T> {
-  private cachedEvents = new Map<keyof T, EventHandler<any>[]>();
+  private listeners = new Map<keyof T, Set<EventHandler<any>>>();
 
   subscribe<K extends keyof T>(
     eventName: K,
     handler: EventHandler<T[K]>,
-  ): void {
-    if (!this.cachedEvents.has(eventName)) {
-      this.cachedEvents.set(eventName, [handler]);
-    } else {
-      this.cachedEvents.get(eventName)?.push(handler);
-    }
+  ): () => void {
+    const handlers = this.listeners.get(eventName);
+    if (handlers) handlers.add(handler);
+    else this.listeners.set(eventName, new Set([handler]));
+
+    return () => this.unsubscribe(eventName, handler);
   }
   unsubscribe<K extends keyof T>(
     eventName: K,
     handler: EventHandler<T[K]>,
   ): void {
-    if (!this.cachedEvents.has(eventName)) return;
-    const handlers = this.cachedEvents.get(eventName);
-    if (!handlers) return;
-    this.cachedEvents.set(
-      eventName,
-      handlers.filter((h) => h !== handler),
-    );
+    const handlers = this.listeners.get(eventName);
+    handlers?.delete(handler);
+    if (handlers?.size === 0) this.listeners.delete(eventName);
   }
   publish<K extends keyof T>(eventName: K, data: T[K]) {
-    if (this.cachedEvents.has(eventName)) {
-      const handlers = this.cachedEvents.get(eventName);
-      if (!handlers) return;
+    const handlers = this.listeners.get(eventName);
+    if (handlers) {
       for (const handler of handlers) {
         try {
           handler(data);
@@ -87,7 +85,7 @@ class EventBus<T extends EventMap> implements IEventBus<T> {
   }
 }
 // ============================================================================
-// Phase 4: Independent Domain Listeners (WhatsApp, Stock, Faulty Listener)
+// Phase 4: Independent Domain listeners (WhatsApp, Stock, Faulty Listener)
 // ============================================================================
 const whatsAppListener: EventHandler<Order> = (order) => {
   console.log("WhatsApp: " + order.customerName);
