@@ -1,4 +1,4 @@
-# Amazon Egypt Market Audit: Home Decor & Flower Vases 🌸📊
+ # Amazon Egypt Market Audit: Home Decor & Flower Vases 🌸📊
 
 > **Date**: 2026-09-24  
 > **Target Category**: Home & Kitchen > Home Decor > Vases & Artificial Flowers  
@@ -61,7 +61,40 @@ Net Clean Profit per Sold Unit:            59.71 EGP (~21.4% Net Margin)
 
 ---
 
-## 4. Optimized Amazon Listing Blueprint
+## 4. Mini Bouquets & Small Potted Plants Deep-Dive (البوكيهات والزرع الصغير)
+
+> **Key Question**: Is there low demand, or is there a severe lack of quality supply?  
+> **Empirical Answer**: **Massive High Demand with a Catastrophic Quality Gap.**
+
+### Live Market Evidence:
+1. **Top Volume Benchmark**:
+   - `Der Rose 6-Pack Mini Plants` (ASIN: `B09MTGGJY7`)
+   - Price: **79.00 EGP** (Discounted)
+   - Monthly Sales Volume: **1,000+ units / month**
+   - Customer Rating: **3.1 / 5.0 Stars** (Over 2,000 reviews)
+   - Direct Competitor (`B0BZ8593CB`): **2.8 / 5.0 Stars**
+2. **The Ready-Made Arrangement Vacuum**:
+   - Over 85% of listings under "فازة مع ورد" sell **empty vases only** or **loose dried grass**.
+   - Buyers are forced to buy vases and flowers from separate sellers, paying double shipping fees.
+
+### The Top 4 Customer Complaints in Small Plants:
+1. **Visual Deception on Size (صدمة المقاس الفعلي)**:
+   - Buyers expect a desk centerpiece, but receive items smaller than a teacup ("حجمها صغير أووي").
+2. **Sparse, Cheap Density (زرع فقير وفاضي)**:
+   - Only 1 to 2 plastic stems inside the pot, exposing the ugly foam/glue base.
+3. **Cheap Shiny Plastic Feel (بلاستيك رديء وفاقع)**:
+   - Unnatural color and reflective plastic finish that ruins home decor aesthetics.
+4. **The Bottom-Feeder Price Trap**:
+   - Low-price Chinese imports ($79 EGP for 6 pots) cannot afford real quality materials or protective packaging.
+
+### CasaArt Counter-Move (`PLANT-001` & `PLANT-002`):
+- **Item**: مزرعة كسر رخام فاخرة مع نباتات كثيفة وطوق ذهبي (وزن ثقيل وثبات حقيقي).
+- **Positioning**: Sell at 129 - 149 EGP per single premium piece or 249 EGP for a 2-piece set.
+- **Photography Rule**: Must feature hand-held scale shots and desk setups with laptops to prove actual size.
+
+---
+
+## 5. Optimized Amazon Listing Blueprint
 
 ### SEO Title:
 ```text
