@@ -100,6 +100,8 @@
 
 - 📄 **دراسة السوق وفحص المنافسين الميداني**:
   [AMAZON_MARKET_AUDIT_FLOWER_VASES.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/AMAZON_MARKET_AUDIT_FLOWER_VASES.md)
+- 📦 **دليل كراتين الشحن وموردي الجملة والطباعة**:
+  [PACKAGING_AND_SUPPLIERS_GUIDE.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/PACKAGING_AND_SUPPLIERS_GUIDE.md)
 - ⚙️ **دليل اقتصاديات الوحدة واستراتيجية التسعير**:
   [.agents/skills/amazon-ecommerce-growth/SKILL.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/.agents/skills/amazon-ecommerce-growth/SKILL.md)
 - [x] مسح أسعار المنافسين وثغرات الجودة في فئة الفازات الدائرية والبوكيهات الصغيرة.

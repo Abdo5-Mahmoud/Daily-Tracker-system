@@ -149,10 +149,14 @@
 
 ## 6. 🏪 تسويق وبيزنس محل الديكور (Local Business)
 
-- **خطة نمو المحل والتسويق**:  
+- **مركز قيادة وفهرس ملفات بيزنس المتجر**:  
+  🔗 [local-business-store/README.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/README.md)
+- **خطة نمو المحل والتسويق والأتمتة**:  
   🔗 [local-business-store/STORE_GROWTH_PLAN.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/STORE_GROWTH_PLAN.md)
 - **دراسة ومسح سوق أمازون مصر لفئات الفازات والبوكيهات الصغيرة**:  
   🔗 [local-business-store/AMAZON_MARKET_AUDIT_FLOWER_VASES.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/AMAZON_MARKET_AUDIT_FLOWER_VASES.md)
+- **دليل كراتين الشحن والتغليف وموردي الجملة والطباعة**:  
+  🔗 [local-business-store/PACKAGING_AND_SUPPLIERS_GUIDE.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/PACKAGING_AND_SUPPLIERS_GUIDE.md)
 - **دليل مهارة التجارة الإلكترونية وأمازون مصر**:  
   🔗 [.agents/skills/amazon-ecommerce-growth/SKILL.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/.agents/skills/amazon-ecommerce-growth/SKILL.md)
 - **مواصفات وكلاء الذكاء الاصطناعي للمحل (إخراج الفيديو والصور)**:  
