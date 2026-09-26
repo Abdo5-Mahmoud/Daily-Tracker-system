@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="scenes_data.js"></script>
   <style>
     * {
       box-sizing: border-box;
@@ -138,9 +139,10 @@
     const img2 = new Image();
     const img3 = new Image();
 
-    img1.src = 'scene1_desk.jpg';
-    img2.src = 'scene2_shelf.jpg';
-    img3.src = 'scene3_table.jpg';
+    // Use Origin-Clean Base64 Data URIs to prevent Tainted Canvas SecurityError on file:///
+    img1.src = (window.SCENE_DATA && window.SCENE_DATA.scene1) ? window.SCENE_DATA.scene1 : 'scene1_desk.jpg';
+    img2.src = (window.SCENE_DATA && window.SCENE_DATA.scene2) ? window.SCENE_DATA.scene2 : 'scene2_shelf.jpg';
+    img3.src = (window.SCENE_DATA && window.SCENE_DATA.scene3) ? window.SCENE_DATA.scene3 : 'scene3_table.jpg';
 
     let loadedCount = 0;
     [img1, img2, img3].forEach(img => {
@@ -247,37 +249,62 @@
       btn.disabled = true;
       btn.innerText = "⏳ جاري التسجيل (5 ثوانٍ)...";
 
-      const stream = canvas.captureStream(60);
-      const mimeType = MediaRecorder.isTypeSupported('video/webm;codecs=vp9') ? 'video/webm;codecs=vp9' : 'video/webm';
-      const recorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 6000000 });
-      const chunks = [];
+      try {
+        const stream = canvas.captureStream(60);
+        let mimeType = 'video/webm';
+        if (MediaRecorder.isTypeSupported('video/webm;codecs=vp9')) {
+          mimeType = 'video/webm;codecs=vp9';
+        } else if (MediaRecorder.isTypeSupported('video/webm;codecs=vp8')) {
+          mimeType = 'video/webm;codecs=vp8';
+        } else if (MediaRecorder.isTypeSupported('video/mp4')) {
+          mimeType = 'video/mp4';
+        }
 
-      recorder.ondataavailable = e => {
-        if (e.data.size > 0) chunks.push(e.data);
-      };
+        const recorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 6000000 });
+        const chunks = [];
 
-      recorder.onstop = () => {
-        const blob = new Blob(chunks, { type: 'video/webm' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'casaart_fern_reel_5sec.webm';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
+        recorder.ondataavailable = e => {
+          if (e.data && e.data.size > 0) chunks.push(e.data);
+        };
 
+        recorder.onerror = e => {
+          console.error("Recording error:", e);
+          alert("حدث خطأ أثناء التسجيل: " + (e.error?.message || e.name));
+          btn.disabled = false;
+          btn.innerText = "🎥 تسجيل وتحميل الفيديو (MP4 / WebM)";
+        };
+
+        recorder.onstop = () => {
+          const blob = new Blob(chunks, { type: mimeType });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = 'casaart_fern_reel_5sec.webm';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          setTimeout(() => URL.revokeObjectURL(url), 2000);
+
+          btn.disabled = false;
+          btn.innerText = "✅ تم التحميل بنجاح! تسجيل مرة أخرى";
+          statusText.innerText = "تم حفظ ملف الفيديو بنجاح!";
+        };
+
+        recorder.start();
+        startAnimation(false);
+
+        setTimeout(() => {
+          if (recorder.state === "recording") {
+            recorder.stop();
+          }
+        }, (TOTAL_DURATION * 1000) + 300);
+      } catch (err) {
+        console.error("Recording setup error:", err);
+        alert("فشل بدء التسجيل: " + err.message + "\nتأكد من فتح الملف في متصفح حديث (Chrome/Edge).");
         btn.disabled = false;
-        btn.innerText = "✅ تم التحميل بنجاح! تسجيل مرة أخرى";
-        statusText.innerText = "تم حفظ ملف الفيديو بنجاح!";
-      };
-
-      recorder.start();
-      startAnimation(false);
-
-      setTimeout(() => {
-        recorder.stop();
-      }, (TOTAL_DURATION * 1000) + 200);
+        btn.innerText = "🎥 تسجيل وتحميل الفيديو (MP4 / WebM)";
+        statusText.innerText = "خطأ أمني: " + err.message;
+      }
     }
   </script>
 </body>
