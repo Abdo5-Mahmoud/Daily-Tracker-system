@@ -127,7 +127,7 @@ Whenever deciding on plans, curriculum steps, or architectural trade-offs, the r
 - **Morning Deep-Work Window (8:00 AM – 3:30 PM)**:
   - Focus: Hard engineering, English speaking practice, and daily job applications (2 targeted applications/day).
 - **Evening Shop Window (4:00 PM – 12:00 AM)**:
-  - Focus: Retail store operations (CasaArt Decor in Elwraq), customer service, Amazon Egypt listing & tax setup, product photography. NO heavy code in the shop to prevent mental burnout.
+  - Focus: Retail store operations (Artiflora in Elwraq | Flora_Home on Amazon Egypt), customer service, Amazon Egypt listing & tax setup, product photography. NO heavy code in the shop to prevent mental burnout.
 - **Nightly Active Recall Check-in (11:30 PM)**:
   - Rapid-fire recap of what was actually learned and logging of real progress in `PROGRESS_TRACKER.md`.
 

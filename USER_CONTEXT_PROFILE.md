@@ -12,7 +12,8 @@
 - Location: Elwraq, Giza, Egypt.
 - Contact:
   - Personal / Engineering: abdofwzy9@gmail.com | 01070810979
-  - Store / Brand (CasaArt Decor): casaart.decore@gmail.com (Previous: artiflora1.decore@gmail.com)
+  - Physical Store (Artiflora): artiflora1.decore@gmail.com (Location: Elwraq, Giza)
+  - Amazon Egypt Store / Brand: Flora_Home (CasaArt is completely retired/unused due to unavailability on Amazon)
 - Military status: Exempt.
 - Education: Bachelor's Degree in Mathematics, Helwan University (Graduated Oct 2024).
 - Current role: Small business owner (local decoration store) & Junior Frontend Developer transitioning to Fullstack/Production.
