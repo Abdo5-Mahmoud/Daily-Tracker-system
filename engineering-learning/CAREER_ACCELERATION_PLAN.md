@@ -1,4 +1,8 @@
 # The 45-Day Engineering & Income Acceleration Master Plan 🚀💼
+
+> 🧭 **الروابط المركزية (Vault Navigation Hub)**:
+> 🔗 [خريطة المحتوى الرئيسية (MOC)](../MASTER_KNOWLEDGE_BASE.md) • [لوحة المتابعة والتقدم](../PROGRESS_TRACKER.md) • [مهارة المنتور الهندسية](../.agents/skills/abdo-personal-mentor/SKILL.md) • [سجل الإنجليزية](ENGLISH_MASTERY_LOG.md) • [السير الذاتية المستهدفة](targeted-cvs/README.md)
+
 > **Target**: Secure a High-Paying Frontend/Fullstack Role (Remote / Gulf / Top Egypt Tech) & Maximize Store Cashflow  
 > **Candidate**: Abdullah Mahmoud Fawzy (Abdo)  
 > **Background**: Mathematics Graduate (Helwan University) | Fullstack Engineer  

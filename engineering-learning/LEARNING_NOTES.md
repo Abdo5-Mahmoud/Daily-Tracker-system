@@ -1,5 +1,8 @@
 # Engineering & Career Learning Notes 🧠
 
+> 🧭 **الروابط المركزية (Vault Navigation Hub)**:
+> 🔗 [خريطة المحتوى الرئيسية (MOC)](../MASTER_KNOWLEDGE_BASE.md) • [لوحة المتابعة والتقدم](../PROGRESS_TRACKER.md) • [مهارة المنتور الهندسية](../.agents/skills/abdo-personal-mentor/SKILL.md) • [سجل تدريب الإنجليزية](ENGLISH_MASTERY_LOG.md) • [خطة تسريع المسار المهني](CAREER_ACCELERATION_PLAN.md)
+
 > **معيار التوثيق والتحقق المعتمد (The 3-Part Concept Card & Attribution)**:
 > كل مفهوم هندسي يمر عبر 3 أركان صارمة مع إسناد شفاف لمستوى الكود:
 > 1. **Intuition (طفل 10 سنين)**: تشبيه واقعي من الحياة اليومية بدون تعقيد.

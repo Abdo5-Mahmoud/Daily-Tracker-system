@@ -1,5 +1,8 @@
 # Personal & Professional Context — Working Profile
 
+> 🧭 **الروابط المركزية (Vault Navigation Hub)**:
+> 🔗 [خريطة المحتوى الرئيسية (MOC)](MASTER_KNOWLEDGE_BASE.md) • [لوحة المتابعة والتقدم](PROGRESS_TRACKER.md) • [مهارة المنتور الهندسية](.agents/skills/abdo-personal-mentor/SKILL.md) • [المفاهيم الهندسية](engineering-learning/LEARNING_NOTES.md) • [خطة المتجر وأمازون](local-business-store/STORE_GROWTH_PLAN.md)
+
 > Purpose: a candid working-context document for AI assistants. This is not a résumé and not a flattering biography.
 > Scope: only information currently known from conversations/context. Unknown or uncertain facts are explicitly marked rather than invented.
 > Last compiled: 2026-09-03

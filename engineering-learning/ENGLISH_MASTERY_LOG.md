@@ -1,5 +1,8 @@
 # English Mastery & Communication Log 🎙️🇬🇧
 
+> 🧭 **الروابط المركزية (Vault Navigation Hub)**:
+> 🔗 [خريطة المحتوى الرئيسية (MOC)](../MASTER_KNOWLEDGE_BASE.md) • [لوحة المتابعة والتقدم](../PROGRESS_TRACKER.md) • [مهارة المنتور الهندسية](../.agents/skills/abdo-personal-mentor/SKILL.md) • [المفاهيم الهندسية](LEARNING_NOTES.md) • [خطة تسريع المسار المهني](CAREER_ACCELERATION_PLAN.md)
+
 > **Purpose**: A running personal tracker for Abdo's English journey: tracking recurring grammar habits, vocabulary upgrades, professional tech interview phrasing, and candid corrections from our daily chats.
 > 
 > **Rule of Thumb**: Zero shame, 100% growth. Making mistakes is how your brain wires fluent patterns.

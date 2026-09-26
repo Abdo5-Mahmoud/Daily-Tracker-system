@@ -7,20 +7,38 @@
 ## 🧭 الأهداف الكبرى الحالية (Quarterly Milestones)
 
 - [ ] **1. Devfolio AI**: إنهاء الـ MVP كامل ونشره أونلاين بكود نظيف ومفهوم بنسبة 100%.
+  - 🧠 **المهارة الموجهة**: [abdo-personal-mentor](.agents/skills/abdo-personal-mentor/SKILL.md)
+  - 📚 **المعمارية والمفاهيم الهندسية**: [LEARNING_NOTES.md](engineering-learning/LEARNING_NOTES.md) | [MASTER_KNOWLEDGE_BASE.md](MASTER_KNOWLEDGE_BASE.md)
+  - 🔗 **المشروع لايف**: [devfolio-ai.vercel.app](https://devfolio-ai.vercel.app) | [GitHub](https://github.com/Abdo5-Mahmoud/devfolio-ai)
+
 - [ ] **2. English & Interview Readiness**: كسر حاجز الخوف في التحدث، واجتياز محاكاة إنترفيو تقني كامل بالإنجليزي بسلاسة.
-- [ ] **3. First Income Stream (Job / Freelance)**: التقديم المنظم على وظائف Frontend/Fullstack (عن بُعد أو محلية) أو الفوز بأول عميل Freelance عالي القيمة.
-- [ ] **4. Local Decoration Store (المحل)**: إطلاق صفحة إنستجرام وتيك توك بروفيشنال للمحل + ضبط Google Business Profile لجلب زباين من المنطقة.
+  - 🧠 **المهارة الموجهة**: [abdo-personal-mentor](.agents/skills/abdo-personal-mentor/SKILL.md)
+  - 🎙️ **سجل التحدث وترقية العبارات**: [ENGLISH_MASTERY_LOG.md](engineering-learning/ENGLISH_MASTERY_LOG.md)
+  - 🎯 **خطة تسريع المسار المهني**: [CAREER_ACCELERATION_PLAN.md](engineering-learning/CAREER_ACCELERATION_PLAN.md)
+
+- [ ] **3. First Income Stream (Job / Freelance)**: التقديم المنظم على وظائف Frontend/Fullstack بمعدل وظيفتين يومياً ومطابقة معايير السوق.
+  - 🧠 **المهارة الموجهة**: [abdo-personal-mentor](.agents/skills/abdo-personal-mentor/SKILL.md)
+  - 📄 **السير الذاتية المستهدفة**: [targeted-cvs/README.md](engineering-learning/targeted-cvs/README.md)
+  - 📑 **منظومة التواجد على لينكد إن**: [LINKEDIN_CONTENT_PLAYBOOK.md](engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md)
+
+- [ ] **4. Local Store (أرتيفلورا) & Amazon Egypt (Flora_Home)**: إطلاق ومضاعفة مبيعات المحل أوفلاين + إدراج منتجات أمازون مصر والتسويق بالريلز.
+  - 🛒 **المهارة الموجهة**: [amazon-ecommerce-growth](.agents/skills/amazon-ecommerce-growth/SKILL.md)
+  - 🏪 **خطة نمو المحل والتسويق**: [STORE_GROWTH_PLAN.md](local-business-store/STORE_GROWTH_PLAN.md)
+  - 📦 **مخطط إدراج أول منتج بأمازون**: [AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md](local-business-store/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md)
+  - 📊 **دراسة الجدوى واقتصاديات الوحدة**: [AMAZON_MARKET_AUDIT_FLOWER_VASES.md](local-business-store/AMAZON_MARKET_AUDIT_FLOWER_VASES.md)
+  - 🎥 **دليل ريلز وإنتاج الفيديو**: [WORKFLOW.md](local-business-store/store-marketing/WORKFLOW.md) | [AI_AGENTS_SPECIFICATIONS.md](local-business-store/store-marketing/AI_AGENTS_SPECIFICATIONS.md)
 
 ---
 
 ## 📅 خطة الأسبوع الحالي (Sprint Focus - المرحلة الأولى)
 
 ### أولوية الأسبوع: (تأمين معمارية واختبارات ديفوليو + إطلاق السيرة والـ LinkedIn + تسويق المحل)
-- [x] ترقية وتأمين معمارية مساعد ديفوليو بالكامل (Strategy + Gateway + Rate Limiting + Custom Errors).
-- [x] تشغيل الـ 5 Test Suites لـ Devfolio بنسبة 100% (38 من 38 اختبار ناجح)، ونشر المشروع لايف على الإنتاج بالكامل 🚀.
-- [ ] اعتماد وتصدير السيرة الذاتية كصفحة واحدة حصرية (Strict 1-Page PDF) ونشرها على LinkedIn.
-- [ ] تدريب إنجليزي يومي لمدة 15 دقيقة مسجل وموثق بالعبارات البديلة في السجل الدائم.
-- [ ] نشر فيديو ريلز سينمائي يومي لمنتجات محل الديكور بالوراق بالوكيل المخصص.
+- [x] ترقية وتأمين معمارية مساعد ديفوليو بالكامل (Strategy + Gateway + Rate Limiting + Custom Errors) - موثق في [LEARNING_NOTES.md](engineering-learning/LEARNING_NOTES.md).
+- [x] تشغيل الـ 5 Test Suites لـ Devfolio بنسبة 100% (38 من 38 اختبار ناجح)، ونشر المشروع لايف على الإنتاج بالكامل 🚀 - موثق في [MASTER_KNOWLEDGE_BASE.md](MASTER_KNOWLEDGE_BASE.md).
+- [x] التقديم المباشر على فرصتين يومياً واقتناص وظائف الفرونت إند والـ Fullstack (سكيليزي، أمير سامي، عمر بكري).
+- [ ] اعتماد وتصدير السيرة الذاتية كصفحة واحدة حصرية (Strict 1-Page PDF) ونشرها على LinkedIn عبر [targeted-cvs/](engineering-learning/targeted-cvs/).
+- [ ] تدريب إنجليزي يومي لمدة 15 دقيقة مسجل وموثق بالعبارات البديلة في [ENGLISH_MASTERY_LOG.md](engineering-learning/ENGLISH_MASTERY_LOG.md).
+- [x] نشر فيديو ريلز سينمائي تجاري لمنتجات محل أرتيفلورا بالوراق عبر ميتا بزنس سويت موجه بالمهارة [amazon-ecommerce-growth](.agents/skills/amazon-ecommerce-growth/SKILL.md).
 
 ---
 
