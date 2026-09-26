@@ -1,6 +1,7 @@
 # ملف تجهيز منتج أمازون مصر الرسمي (Amazon Egypt Listing Blueprint) 📦🚀
 
-> **اسم البراند التجاري**: `CasaArt`  
+> **اسم الحساب الحالي على أمازون**: `flora_Homw1`  
+> **الاسم التجاري المقترح للمتجر (Display Name)**: `CasaArt Decor` أو `Flora Home Decor`  
 > **الفئة المستهدفة**: `Home & Kitchen > Home Decor > Vases & Artificial Plants`  
 > **حالة الجاهزية**: جاهز للنقل واللصق المباشر في لوحة بائع أمازون فور صدور الرقم الضريبي (TRN).
 
