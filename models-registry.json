@@ -1,33 +1,125 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "name": "superpowers-model-registry",
-  "version": "1.0.0",
-  "description": "Dynamic Model Registry and Compute Routing Engine for Antigravity & OpenCode harnesses.",
+  "version": "2.0.0",
+  "description": "Multi-Engine Free Compute Routing Matrix for Antigravity, OpenCode, and Superpowers Harnesses.",
   "default_routing": {
     "planning_and_architecture": "google/gemini-2.0-flash",
-    "core_coding_and_tdd": "mistral/codestral-2501",
+    "heavy_fullstack_coding": "openrouter/qwen/qwen-2.5-coder-32b-instruct:free",
+    "core_tdd_and_refactoring": "mistral/codestral-2501",
     "verification_and_fast_qa": "groq/llama-3.3-70b-versatile",
-    "algorithmic_and_math_fallback": "openrouter/glm-5.2"
+    "deep_security_and_edge_cases": "openrouter/nvidia/nemotron-3-ultra-550b:free",
+    "long_context_synthesis": "minimax/minimax-01",
+    "task_triage_and_classification": "opencode/jev-1.13-free"
   },
   "skill_routing": {
     "brainstorming": "google/gemini-2.0-flash",
-    "writing-plans": "google/gemini-2.0-flash",
-    "executing-plans": "mistral/codestral-2501",
+    "writing-plans": "minimax/minimax-01",
+    "executing-plans": "openrouter/qwen/qwen-2.5-coder-32b-instruct:free",
     "subagent-driven-development": "mistral/codestral-2501",
     "test-driven-development": "mistral/codestral-2501",
-    "systematic-debugging": "mistral/codestral-2501",
+    "systematic-debugging": "openrouter/nvidia/nemotron-3-ultra-550b:free",
     "verification-before-completion": "groq/llama-3.3-70b-versatile",
-    "requesting-code-review": "groq/llama-3.3-70b-versatile",
-    "receiving-code-review": "mistral/codestral-2501"
+    "requesting-code-review": "openrouter/nvidia/nemotron-3-ultra-550b:free",
+    "receiving-code-review": "openrouter/qwen/qwen-2.5-coder-32b-instruct:free",
+    "task-classification": "opencode/jev-1.13-free"
   },
   "models": [
+    {
+      "id": "openrouter/qwen/qwen-2.5-coder-32b-instruct:free",
+      "displayName": "Qwen 2.5 Coder 32B Free",
+      "provider": "OpenRouter / Qwen",
+      "enabled": true,
+      "tier": "Free Tier",
+      "primaryRole": "Heavy Fullstack TypeScript/React Code Generation & Feature Implementation",
+      "specs": {
+        "contextWindow": 131072,
+        "maxOutputTokens": 8192,
+        "rateLimits": {
+          "rpm": 20,
+          "rpd": 200,
+          "tpm": 100000
+        }
+      },
+      "superpowersCompatibility": {
+        "executingPlans": "primary",
+        "receivingCodeReview": "primary",
+        "featureImplementation": "primary"
+      }
+    },
+    {
+      "id": "minimax/minimax-01",
+      "displayName": "MiniMax-01 Free (OpenCode)",
+      "provider": "OpenCode / MiniMax",
+      "enabled": true,
+      "tier": "Free Tier",
+      "primaryRole": "Long-Context Synthesis, Large Document Reasoning & Architectural Flow Planning",
+      "specs": {
+        "contextWindow": 1000000,
+        "maxOutputTokens": 8192,
+        "rateLimits": {
+          "rpm": 30,
+          "rpd": 1000,
+          "tpm": 500000
+        }
+      },
+      "superpowersCompatibility": {
+        "writingPlans": "primary",
+        "flowSynthesis": "primary",
+        "largeContextIngestion": "primary"
+      }
+    },
+    {
+      "id": "openrouter/nvidia/nemotron-3-ultra-550b:free",
+      "displayName": "NVIDIA Nemotron 3 Ultra 550B Free",
+      "provider": "OpenRouter / NVIDIA",
+      "enabled": true,
+      "tier": "Free Tier",
+      "primaryRole": "Deep Edge-Case Auditing, Concurrency Race Condition Probing & Adversarial Code Review",
+      "specs": {
+        "contextWindow": 131072,
+        "maxOutputTokens": 8192,
+        "rateLimits": {
+          "rpm": 20,
+          "rpd": 100,
+          "tpm": 80000
+        }
+      },
+      "superpowersCompatibility": {
+        "requestingCodeReview": "primary",
+        "systematicDebugging": "primary",
+        "securityAudit": "primary"
+      }
+    },
+    {
+      "id": "opencode/jev-1.13-free",
+      "displayName": "JEV 1.13 Deterministic Free",
+      "provider": "OpenCode",
+      "enabled": true,
+      "tier": "Free Tier (Deterministic)",
+      "primaryRole": "Zero-Cost Task Classification, Dependency Slicing & Architectural Triage",
+      "specs": {
+        "contextWindow": 65536,
+        "maxOutputTokens": 4096,
+        "rateLimits": {
+          "rpm": 60,
+          "rpd": 5000,
+          "tpm": 200000
+        }
+      },
+      "superpowersCompatibility": {
+        "taskClassification": "primary",
+        "scopingTriage": "primary",
+        "secondOpinion": "primary"
+      }
+    },
     {
       "id": "mistral/codestral-2501",
       "displayName": "Mistral Codestral 2501",
       "provider": "Mistral AI",
       "enabled": true,
       "tier": "Free / Developer API",
-      "primaryRole": "Code Generation, TDD Implementation, Complex Refactoring",
+      "primaryRole": "Fast TDD Loops, Subagent Unit Testing & Refactoring",
       "specs": {
         "contextWindow": 128000,
         "maxOutputTokens": 8192,
@@ -38,8 +130,8 @@
         }
       },
       "superpowersCompatibility": {
-        "tddExecution": "primary",
-        "debugging": "primary",
+        "testDrivenDevelopment": "primary",
+        "subagentDrivenDevelopment": "primary",
         "refactoring": "primary"
       }
     },
@@ -49,7 +141,7 @@
       "provider": "Google AI Studio",
       "enabled": true,
       "tier": "Free Tier",
-      "primaryRole": "Architecture, Brainstorming, Full-Repo Analysis",
+      "primaryRole": "Whole-Repository Scanning, Broad Brainstorming & Supreme Orchestration",
       "specs": {
         "contextWindow": 1048576,
         "maxOutputTokens": 8192,
@@ -61,8 +153,8 @@
       },
       "superpowersCompatibility": {
         "brainstorming": "primary",
-        "writingPlans": "primary",
-        "systemArchitecture": "primary"
+        "fullRepoAnalysis": "primary",
+        "masterPlanning": "primary"
       }
     },
     {
@@ -71,7 +163,7 @@
       "provider": "Groq",
       "enabled": true,
       "tier": "Free Tier",
-      "primaryRole": "Ultra-fast QA, Verification, Syntax & Lint Screening",
+      "primaryRole": "Sub-Second Test Output Screening, Lint Checking & Fast QA Assertions",
       "specs": {
         "contextWindow": 128000,
         "maxOutputTokens": 8192,
@@ -83,53 +175,9 @@
       },
       "superpowersCompatibility": {
         "verificationBeforeCompletion": "primary",
-        "quickCodeReview": "primary",
+        "fastQAScreening": "primary",
         "testLogAnalysis": "primary"
       }
-    },
-    {
-      "id": "openrouter/glm-5.2",
-      "displayName": "OpenRouter GLM 5.2 / 4-9B",
-      "provider": "OpenRouter",
-      "enabled": true,
-      "tier": "Free Tier Fallback",
-      "primaryRole": "Mathematical Proofing, Algorithmic Edge Cases Fallback",
-      "specs": {
-        "contextWindow": 32768,
-        "maxOutputTokens": 4096,
-        "rateLimits": {
-          "rpm": 20,
-          "rpd": 50,
-          "tpm": 40000
-        }
-      },
-      "superpowersCompatibility": {
-        "algorithmicReasoning": "fallback",
-        "secondOpinion": "on_demand"
-      }
     }
-  ],
-  "extensionTemplate": {
-    "instructions": "To add any new model, copy this block into the 'models' array and configure its role.",
-    "schema": {
-      "id": "provider/model-name",
-      "displayName": "Human Readable Name",
-      "provider": "Provider Name",
-      "enabled": true,
-      "tier": "Free / Paid / Dedicated",
-      "primaryRole": "Describe primary workload",
-      "specs": {
-        "contextWindow": 128000,
-        "maxOutputTokens": 8192,
-        "rateLimits": {
-          "rpm": 30,
-          "rpd": 1000,
-          "tpm": 100000
-        }
-      },
-      "superpowersCompatibility": {
-        "skillName": "primary | fallback | secondary"
-      }
-    }
-  }
+  ]
 }
