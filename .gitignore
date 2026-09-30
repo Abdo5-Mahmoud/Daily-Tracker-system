@@ -18,6 +18,8 @@ tmp/
 *.bak
 *.log
 superpowers/
+__pycache__/
+*.py[cod]
 
 # Heavy Media & Local Store Private Assets
 *.mp4
