@@ -1,14 +1,16 @@
-const path = require('path');
+const path = require("path");
 
 module.exports = {
-  BASE_URL: 'https://www.amazon.eg',
-  
+  BASE_URL: "https://www.amazon.eg",
+
   // High-priority search queries for CasaArt Decor / Artiflora market segment
   TARGET_KEYWORDS: [
-    'ورد صناعي',
-    'فازات ديكور',
-    'نباتات صناعية',
-    'تنسيق ورد'
+    "ورد صناعي",
+    "فازات ديكور",
+    "نباتات صناعية",
+    "تنسيق ورد",
+    "ديكور مكتبي",
+    "فازه مكتب",
   ],
 
   // Number of pages to scrape per keyword (1 page = ~48-60 products)
@@ -22,15 +24,21 @@ module.exports = {
   COMPETITOR_UNDERCUT_THRESHOLD: 199.0,
 
   // File paths
-  DB_PATH: path.resolve(__dirname, '../../local-business-store/market-intelligence/amazon_market.db'),
-  OUTPUT_DIR: path.resolve(__dirname, '../../local-business-store/market-intelligence'),
+  DB_PATH: path.resolve(
+    __dirname,
+    "../../local-business-store/market-intelligence/amazon_market.db",
+  ),
+  OUTPUT_DIR: path.resolve(
+    __dirname,
+    "../../local-business-store/market-intelligence",
+  ),
 
   // Modern browser User-Agents for rotation
   USER_AGENTS: [
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
-    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0',
-    'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_3_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3.1 Safari/605.1.15'
-  ]
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0",
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_3_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3.1 Safari/605.1.15",
+  ],
 };
