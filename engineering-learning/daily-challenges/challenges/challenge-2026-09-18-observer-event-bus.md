@@ -5,7 +5,7 @@
 > **Author / Student**: Abdullah Mahmoud Fawzy (Abdo)  
 > **Mentor**: Blue (بلو)  
 > **Target Solution File**: [solution-2026-09-18-observer-event-bus.ts](../my-solutions/solution-2026-09-18-observer-event-bus.ts)  
-> **Knowledge Reference**: [LEARNING_NOTES.md](../../LEARNING_NOTES.md) | [MASTER_KNOWLEDGE_BASE.md](../../MASTER_KNOWLEDGE_BASE.md)  
+> **Knowledge Reference**: [LEARNING_NOTES.md](../../LEARNING_NOTES.md) | [MASTER_KNOWLEDGE_BASE.md](../../../MASTER_KNOWLEDGE_BASE.md)  
 
 ---
 

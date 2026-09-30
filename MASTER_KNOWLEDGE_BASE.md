@@ -8,7 +8,7 @@
 
 | الركيزة الاستراتيجية (Goal) | المهارة الموجهة (Skill) | ملفات المعمارية والتنفيذ في مساحة العمل | مؤشر الحالة |
 | :--- | :--- | :--- | :--- |
-| **1. Devfolio AI & هندسة الواجهات** | [abdo-personal-mentor](.agents/skills/abdo-personal-mentor/SKILL.md) | • [LEARNING_NOTES.md](engineering-learning/LEARNING_NOTES.md)<br>• [DEVFOLIO_AGENT_SYSTEM_PROMPT.md](engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md)<br>• [PROGRESS_TRACKER.md](PROGRESS_TRACKER.md) | 🟢 **100% مكتمل ولايف** (38/38 اختبارات خضراء) |
+| **1. Devfolio AI & هندسة الواجهات** | [abdo-personal-mentor](.agents/skills/abdo-personal-mentor/SKILL.md) | • [4 Master Handbooks](engineering-learning/DESIGN_PATTERNS_MASTER_HANDBOOK.md)<br>• [LEARNING_NOTES.md](engineering-learning/LEARNING_NOTES.md)<br>• [DEVFOLIO_AGENT_SYSTEM_PROMPT.md](engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md)<br>• [PROGRESS_TRACKER.md](PROGRESS_TRACKER.md) | 🟢 **100% مكتمل ولايف** (38/38 اختبارات خضراء) |
 | **2. إتقان الإنجليزية وجاهزية المقابلات** | [abdo-personal-mentor](.agents/skills/abdo-personal-mentor/SKILL.md) | • [ENGLISH_MASTERY_LOG.md](engineering-learning/ENGLISH_MASTERY_LOG.md)<br>• [CAREER_ACCELERATION_PLAN.md](engineering-learning/CAREER_ACCELERATION_PLAN.md) | 🟡 **نشط يومياً** (ترقية العبارات ومحاكاة الإنترفيو) |
 | **3. اقتناص الدخل (وظيفة / فريلانس)** | [abdo-personal-mentor](.agents/skills/abdo-personal-mentor/SKILL.md) | • [targeted-cvs/README.md](engineering-learning/targeted-cvs/README.md)<br>• [LINKEDIN_CONTENT_PLAYBOOK.md](engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md) | 🚀 **نشط يومياً** (معدل تقديمين مستهدفين يومياً) |
 | **4. متجر أرتيفلورا وأمازون (Flora_Home)** | [amazon-ecommerce-growth](.agents/skills/amazon-ecommerce-growth/SKILL.md) | • [STORE_GROWTH_PLAN.md](local-business-store/STORE_GROWTH_PLAN.md)<br>• [AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md](local-business-store/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md)<br>• [AMAZON_MARKET_AUDIT_FLOWER_VASES.md](local-business-store/AMAZON_MARKET_AUDIT_FLOWER_VASES.md)<br>• [WORKFLOW.md](local-business-store/store-marketing/WORKFLOW.md)<br>• [AI_AGENTS_SPECIFICATIONS.md](local-business-store/store-marketing/AI_AGENTS_SPECIFICATIONS.md) | 🌿 **نشط ميدانياً** (نشر ريلز + إدراج أول منتج) |
@@ -29,7 +29,14 @@
 
 ## 1. 🏛️ المعمارية والمفاهيم الهندسية المكتملة
 
-الملف المرجعي الرئيسي للشرح التفصيلي والأمثلة:  
+### 📚 الكتيبات المرجعية الشاملة الأربعة (The 4 Master Handbooks):
+تم تجميع وتكثيف كافة المفاهيم في 4 مراجع معمارية عليا لتوجيه الذكاء الاصطناعي والمراجعة الدورية:
+- 🎨 **[DESIGN_PATTERNS_MASTER_HANDBOOK.md](engineering-learning/DESIGN_PATTERNS_MASTER_HANDBOOK.md)**: الدليل الشامل لكافة أنماط التصميم (Creational, Structural, Behavioral) بأمثلة متجر الديكور والتايب سكريبت.
+- 🧱 **[SOLID_PRINCIPLES_MASTER_HANDBOOK.md](engineering-learning/SOLID_PRINCIPLES_MASTER_HANDBOOK.md)**: الدليل الشامل لمبادئ SOLID الخمسة وكيفية فحص وتصحيح كود الذكاء الاصطناعي ومعمارية الطبقات الأربع.
+- ☁️ **[SYSTEM_DESIGN_MASTER_HANDBOOK.md](engineering-learning/SYSTEM_DESIGN_MASTER_HANDBOOK.md)**: دليل تصميم الأنظمة الموزعة، التوسع الأفقي، الكاش، محدد الطلبات، قفل المعاملات، ودورة حياة السيرفرليس.
+- 📐 **[ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md](engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md)**: دليل الخوارزميات وهياكل البيانات العملية المستندة للأساس الرياضي (LRU Cache, Trie, Sliding Window, Debounce).
+
+سجل الملاحظات اليومية والتطبيق الميداني:  
 🔗 [engineering-learning/LEARNING_NOTES.md](engineering-learning/LEARNING_NOTES.md)
 
 ### المفاهيم المعمارية ومستويات إسنادها:
@@ -64,7 +71,7 @@
 - `[Tier 3: Solo-Authored]` **The Adapter Pattern & Anti-Corruption Layer (Bosta & Stripe)**:
   - *المفهوم*: ترويض الواجهات والمكتبات الخارجية غير المتوافقة دون تلويث كود النظام الداخلي، مع عزل أخطاء المزود الخارجي في طبقة حماية (`ACL`).
   - *الشرح المفصل*: [LEARNING_NOTES.md (Concept 13)](engineering-learning/LEARNING_NOTES.md#13-the-adapter-pattern--anti-corruption-layer-bosta-shipping--stripe-integration)
-  - *ملفات الحل*: [solution-2026-09-17-decor-shipping-engine.ts](engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts) | [solution-2026-09-17-adapter-payment-gateway.ts](engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-adapter-payment-gateway.ts)
+  - *ملفات الحل*: [solution-2026-09-17-decor-shipping-engine.ts](engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts) | [solution-2026-09-17-adapter-payment-gateway.ts](engineering-learning/daily-challenges/solutions/solution-2026-09-17-adapter-payment-gateway.ts)
 - `[Tier 3: Solo-Authored]` **The Observer Pattern & Type-Safe EventBus with Fault Isolation**:
   - *المفهوم*: معمارية موجهة بالأحداث، وسيط مركزي مع حلقة تكرار تعزل الأعطال `Fault Isolation` عبر `try/catch` لكل مستمع بشكل مستقل، مع أمان تام للأنواع باستخدام `keyof Events` و `Events[K]`.
   - *الشرح المفصل*: [LEARNING_NOTES.md (Concept 14)](engineering-learning/LEARNING_NOTES.md#14-the-observer-pattern--type-safe-eventbus-with-fault-isolation)

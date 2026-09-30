@@ -2,6 +2,9 @@
 
 > 🧭 **الروابط المركزية (Vault Navigation Hub)**:
 > 🔗 [خريطة المحتوى الرئيسية (MOC)](../MASTER_KNOWLEDGE_BASE.md) • [لوحة المتابعة والتقدم](../PROGRESS_TRACKER.md) • [مهارة المنتور الهندسية](../.agents/skills/abdo-personal-mentor/SKILL.md) • [سجل تدريب الإنجليزية](ENGLISH_MASTERY_LOG.md) • [خطة تسريع المسار المهني](CAREER_ACCELERATION_PLAN.md)
+>
+> 📚 **الكتيبات المرجعية الكبرى (The 4 Master Handbooks)**:  
+> [🎨 Design Patterns](DESIGN_PATTERNS_MASTER_HANDBOOK.md) • [🧱 SOLID Principles](SOLID_PRINCIPLES_MASTER_HANDBOOK.md) • [☁️ System Design](SYSTEM_DESIGN_MASTER_HANDBOOK.md) • [📐 Algorithms & Data Structures](ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md)
 
 > **معيار التوثيق والتحقق المعتمد (The 3-Part Concept Card & Attribution)**:
 > كل مفهوم هندسي يمر عبر 3 أركان صارمة مع إسناد شفاف لمستوى الكود:
@@ -126,7 +129,7 @@ The Pro Interview Response:
 ## 13. The Adapter Pattern & Anti-Corruption Layer (Bosta Shipping & Stripe Integration)
 
 > **Status**: `[Tier 3: Solo-Authored & Verified by Abdo]`  
-> **Production Code**: [`daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts) | [`daily-challenges/my-solutions/solution-2026-09-17-adapter-payment-gateway.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-adapter-payment-gateway.ts)
+> **Production Code**: [`daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts`](daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts) | [`daily-challenges/solutions/solution-2026-09-17-adapter-payment-gateway.ts`](daily-challenges/solutions/solution-2026-09-17-adapter-payment-gateway.ts)
 
 ### 1. 👶 Intuition (كأنك بتشرح لطفل 10 سنين):
 - تخيل أنك اشتريت جهاز بلايستيشن من إنجلترا وجاي بفيشة ثلاثية مربعة، وفي بيتك بمصر المقبس في الحائط ثنائي دائري.
@@ -551,7 +554,7 @@ interface RefundableGateway extends ChargeableGateway {
 ## 02. Mongoose Promise Caching & Cache Poisoning (Next.js Serverless)
 
 > **Status**: `[Tier 2: AI-Audited -> Ready for Verification]`  
-> **Production Code**: [`devfolio/lib/mongodb.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/devfolio/lib/mongodb.ts)
+> **Production Code**: [`devfolio-ai/lib/mongodb.ts`](https://github.com/Abdo5-Mahmoud/devfolio-ai/blob/main/lib/mongodb.ts)
 
 ### 1. 👶 Intuition (كأنك بتشرح لطفل 10 سنين):
 تخيل إن عندك في المحل جرس كهربائي على الباب بيرن أول ما زبون يضغط عليه.

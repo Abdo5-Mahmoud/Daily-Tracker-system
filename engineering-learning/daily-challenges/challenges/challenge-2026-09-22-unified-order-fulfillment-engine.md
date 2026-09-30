@@ -5,7 +5,7 @@
 > **Author / Student**: Abdullah Mahmoud Fawzy (Abdo)  
 > **Methodology**: Tier 3 (Solo-Authored Implementation)  
 > **Target Solution File**: [solution-2026-09-22-unified-order-fulfillment-engine.ts](../my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts)  
-> **Knowledge Reference**: [LEARNING_NOTES.md](../../LEARNING_NOTES.md) | [MASTER_KNOWLEDGE_BASE.md](../../MASTER_KNOWLEDGE_BASE.md)  
+> **Knowledge Reference**: [LEARNING_NOTES.md](../../LEARNING_NOTES.md) | [MASTER_KNOWLEDGE_BASE.md](../../../MASTER_KNOWLEDGE_BASE.md)  
 
 ---
 
