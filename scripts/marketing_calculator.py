@@ -82,6 +82,36 @@ def calculate_amazon_economics(cost: float, price: float, referral_rate: float =
     }
 
 
+def calculate_amazon_fba_economics(cost: float, price: float, referral_rate: float = 0.13, fba_fee: float = 22.50, inbound_shipping: float = 2.50, storage_fee: float = 0.50, packaging: float = 8.00, return_rate: float = 0.02) -> dict:
+    referral_fee = price * referral_rate
+    vat_on_fees = (referral_fee + fba_fee) * 0.14
+    breakage_buffer = price * return_rate
+    total_fees = referral_fee + fba_fee + inbound_shipping + storage_fee + packaging + vat_on_fees + breakage_buffer
+    net_profit = price - cost - total_fees
+    margin = (net_profit / price) * 100 if price > 0 else 0
+    max_ppc_spend = max(0.0, net_profit * 0.4)
+    target_acos = round((max_ppc_spend / price) * 100, 1) if price > 0 else 0.0
+
+    return {
+        "channel": "أمازون مصر (Flora_Home - FBA شحن من قبل أمازون)",
+        "price": price,
+        "cost": cost,
+        "referral_fee": round(referral_fee, 2),
+        "fba_fee": fba_fee,
+        "inbound_shipping": inbound_shipping,
+        "storage_fee": storage_fee,
+        "vat_on_fees": round(vat_on_fees, 2),
+        "packaging": packaging,
+        "breakage_buffer": round(breakage_buffer, 2),
+        "total_fees": round(total_fees, 2),
+        "net_profit": round(net_profit, 2),
+        "margin_percent": round(margin, 1),
+        "max_ppc_cpa": round(max_ppc_spend, 2),
+        "target_acos": target_acos,
+        "is_safe": margin >= 30.0
+    }
+
+
 def print_report(cost: float, store_price: float, amazon_price: float):
     print("=" * 65)
     print(" 📊 تقرير الجدوى الاقتصادية وهوامش الربح الصافية - Artiflora")
@@ -111,30 +141,33 @@ def print_report(cost: float, store_price: float, amazon_price: float):
     status_social = "✅ مجدي للإعلانات" if social['is_safe'] else "⚠️ غير مجدي للإعلانات الممولة"
     print(f"    - الحالة: {status_social}")
 
-    # 3. أمازون مصر
-    amz = calculate_amazon_economics(cost, amazon_price)
-    print(f"\n[3] قناة: {amz['channel']}")
-    print(f"    - عمولة أمازون (13%): {amz['referral_fee']} ج.م")
-    print(f"    - عجز شحن إيزي شيب (الفرق الذي يدفعه البائع): {amz['easy_ship_deficit']} ج.م")
-    print(f"    - ضريبة القيمة المضافة (14% على الرسوم): {amz['vat_on_fees']} ج.م")
-    print(f"    - كرتونة وبابلز مضاد للصدمات: {amz['packaging']} ج.م")
-    print(f"    - مخصص الكسر والمرتجع (5%): {amz['breakage_buffer']} ج.م")
-    print(f"    - إجمالي خصومات المنصة والشحن: {amz['total_fees']} ج.م")
-    print(f"    - صافي الربح في جيبك: {amz['net_profit']} ج.م")
-    print(f"    - نسبة هامش الربح الصافي: {amz['margin_percent']}%")
-    print(f"    - أقصى صرف إعلاني مسموح لكل طلب أمازون: {amz['max_ppc_cpa']} ج.م")
-    print(f"    - مستهدف الـ ACoS الإعلاني الأقصى: {amz['target_acos']}%")
+    # 3. أمازون مصر (Easy Ship)
+    amz_easy = calculate_amazon_economics(cost, amazon_price)
+    print(f"\n[3] قناة: {amz_easy['channel']}")
+    print(f"    - عمولة أمازون (13%): {amz_easy['referral_fee']} ج.م")
+    print(f"    - عجز شحن إيزي شيب: {amz_easy['easy_ship_deficit']} ج.م")
+    print(f"    - ضريبة القيمة المضافة: {amz_easy['vat_on_fees']} ج.م")
+    print(f"    - كرتونة وبابلز: {amz_easy['packaging']} ج.م")
+    print(f"    - مخصص الكسر والمرتجع: {amz_easy['breakage_buffer']} ج.م")
+    print(f"    - إجمالي الخصومات: {amz_easy['total_fees']} ج.م")
+    print(f"    - صافي الربح في جيبك: {amz_easy['net_profit']} ج.م ({amz_easy['margin_percent']}%)")
+    print(f"    - أقصى صرف إعلاني مسموح: {amz_easy['max_ppc_cpa']} ج.م (ACoS: {amz_easy['target_acos']}%)")
 
-    if amz['net_profit'] <= 0:
-        status_amz = "❌ انتحار مالي (خسارة مؤكدة على أمازون!)"
-    elif amz['margin_percent'] < 25.0:
-        status_amz = "⚠️ خطر شديد (الهامش أقل من 25% وابتلاع العمولات مؤكد)"
-    elif amz['margin_percent'] < 35.0:
-        status_amz = "🟡 مقبول بحذر (ارفع السعر لو أمكن لتغطية الإعلانات)"
-    else:
-        status_amz = "✅ ممتاز ومربح جداً للإدراج على أمازون مصر"
-    print(f"    - التقييم النهائي لأمازون: {status_amz}")
-    print("=" * 65)
+    # 4. أمازون مصر (FBA)
+    amz_fba = calculate_amazon_fba_economics(cost, amazon_price)
+    print(f"\n[4] قناة: {amz_fba['channel']}")
+    print(f"    - عمولة أمازون (13%): {amz_fba['referral_fee']} ج.م")
+    print(f"    - رسوم التجهيز والشحن (FBA Fee): {amz_fba['fba_fee']} ج.م")
+    print(f"    - تكلفة شحن الدفعة للمستودع (لكل قطعة): {amz_fba['inbound_shipping']} ج.م")
+    print(f"    - رسوم التخزين الشهري: {amz_fba['storage_fee']} ج.م")
+    print(f"    - ضريبة القيمة المضافة الفعلية: {amz_fba['vat_on_fees']} ج.م")
+    print(f"    - تغليف بابلز بدون كرتونة شحن: {amz_fba['packaging']} ج.م")
+    print(f"    - مخصص كسر ومرتجع (أمازون تتحمل تلف الشحن): {amz_fba['breakage_buffer']} ج.م")
+    print(f"    - إجمالي الخصومات: {amz_fba['total_fees']} ج.م")
+    print(f"    - صافي الربح في جيبك: {amz_fba['net_profit']} ج.م ({amz_fba['margin_percent']}%)")
+    print(f"    - أقصى صرف إعلاني مسموح: {amz_fba['max_ppc_cpa']} ج.م (ACoS: {amz_fba['target_acos']}%)")
+    diff = amz_fba['net_profit'] - amz_easy['net_profit']
+    print(f"    - 🌟 فارق الربح لصالح FBA: +{diff:.2f} ج.م إضافية في كل قطعة!")
 
 
 def main():
