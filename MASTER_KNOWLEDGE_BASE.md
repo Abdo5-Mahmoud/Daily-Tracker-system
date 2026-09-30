@@ -41,49 +41,101 @@
 
 ### المفاهيم المعمارية ومستويات إسنادها:
 
-#### أ. هندسة الخوادم وعديمة الخادم (Serverless & Backend Nuances)
-- `[Tier 2: AI-Audited]` **Mongoose Cache Poisoning & In-Flight Promise Caching**:
-  - *المشكلة*: إعادة بناء الاتصال في كل ريكويست، وتسمم الذاكرة بوعود فاشلة، وخطر سباق الطلبات المتزامنة `Connection Stampede`.
-  - *الحل*: حفظ الوعد غير المتزامن فوراً في `globalThis` لمنع تكرار الاتصال، وتفريغه إلى `null` في `.catch` عند حدوث أي خطأ.
-  - *الشرح المفصل*: [LEARNING_NOTES.md (Concept 02)](engineering-learning/LEARNING_NOTES.md#02-mongoose-promise-caching--cache-poisoning-nextjs-serverless)
-- `[Tier 2: AI-Audited]` **Serverless Container Freeze & `after()`**:
-  - *المشكلة*: الدوال غير المتزامنة التي تعمل بدون `await` تتجمد عند إرسال الرد للمستخدم في السيرفرليس.
-  - *الحل*: استخدام دالة `after()` في Next.js 15/16 لتنفيذ المهام الخلفية دون تأخير الرد للعميل.
-- `[Tier 2: AI-Audited]` **In-Memory Rate Limiting & Memory Cleanup**:
-  - *المشكلة*: استهلاك موارد السيرفر وهجمات إغراق الطلبات وتضخم الذاكرة `Memory Leak` بمرور الوقت.
-  - *الحل*: بناء محدد طلبات بخوارزمية النافذة المنزلقة مع دالة تنظيف دورية للسجلات القديمة وحفظ الحالة في `globalThis`.
-- `[Tier 2: AI-Audited]` **Honeypot Bot Trap**:
-  - *المشكلة*: السبام والبوتات التي تملأ فورم التواصل.
-  - *الحل*: حقل مخفي للمستخدم يملأه البوت تلقائياً فيتم إسقاط الطلب بصمت بدون تكلفة `CAPTCHA`.
+#### أ. هندسة الخوادم وعديمة الخادم
+- `[Tier 2: AI-Audited]`
+  **Mongoose Cache Poisoning & In-Flight Promise Caching**:
+  - *المشكلة*:
+    إعادة بناء الاتصال في كل طلب، وتسمم الذاكرة بوعود فاشلة، وخطر سباق الطلبات المتزامنة:
+    `Connection Stampede`
+  - *الحل*:
+    حفظ الوعد غير المتزامن فوراً في المتغير العام لمنع تكرار الاتصال، وتفريغه عند حدوث أي خطأ:
+    `globalThis`
+  - *الشرح المفصل*:
+    [LEARNING_NOTES.md (Concept 02)](engineering-learning/LEARNING_NOTES.md#02-mongoose-promise-caching--cache-poisoning-nextjs-serverless)
+- `[Tier 2: AI-Audited]`
+  **Serverless Container Freeze & after()**:
+  - *المشكلة*:
+    الدوال غير المتزامنة التي تعمل بدون انتظار تتجمد عند إرسال الرد للمستخدم في السيرفرليس.
+  - *الحل*:
+    استخدام دالة التنفيذ اللاحق لتنفيذ المهام الخلفية دون تأخير الرد للعميل:
+    `after()`
+- `[Tier 2: AI-Audited]`
+  **In-Memory Rate Limiting & Memory Cleanup**:
+  - *المشكلة*:
+    استهلاك موارد السيرفر وهجمات إغراق الطلبات وتضخم الذاكرة بمرور الوقت:
+    `Memory Leak`
+  - *الحل*:
+    بناء محدد طلبات بخوارزمية النافذة المنزلقة مع دالة تنظيف دورية للسجلات القديمة وحفظ الحالة في المتغير العام:
+    `globalThis`
+- `[Tier 2: AI-Audited]`
+  **Honeypot Bot Trap**:
+  - *المشكلة*:
+    السبام ورسائل البوتات المزعجة التي تملأ استمارة التواصل.
+  - *الحل*:
+    حقل مخفي للمستخدم يملأه البوت تلقائياً فيتم إسقاط الطلب بصمت بدون تكلفة أو تعقيد:
+    `CAPTCHA`
 
-#### ب. مبادئ التصميم وأنماط البرمجيات (SOLID & Design Patterns)
-- `[Tier 2: AI-Audited]` **Single Responsibility Principle (SRP)**:
-  - *المفهوم*: فصل المسؤوليات إلى 4 طبقات نقية:
+#### ب. مبادئ التصميم وأنماط البرمجيات
+- `[Tier 2: AI-Audited]`
+  **Single Responsibility Principle (SRP)**:
+  - *المفهوم*:
+    فصل المسؤوليات إلى 4 طبقات نقية:
     `Controller -> Service -> Repository -> Validator`
-  - *ملف الحل*: [solution-2026-09-10-srp-user-service.ts](engineering-learning/daily-challenges/solutions/solution-2026-09-10-srp-user-service.ts)
-  - *ملف الكويز*: [quiz-2026-09-10-srp-user-service.md](engineering-learning/daily-challenges/grilling-quizzes/quiz-2026-09-10-srp-user-service.md)
-- `[Tier 2: AI-Audited]` **Open/Closed Principle (OCP)**:
-  - *المفهوم*: فتح الكود للإضافة وإغلاقه أمام التعديل. التخلص من `switch-case` المعقدة باستخدام نمط السجل والاستراتيجية `Strategy & Registry Pattern`.
-  - *ملف الحل*: [solution-2026-09-11-ocp-payment-gateway.ts](engineering-learning/daily-challenges/solutions/solution-2026-09-11-ocp-payment-gateway.ts)
-  - *ملف الكويز*: [quiz-2026-09-11-ocp-payment-gateway.md](engineering-learning/daily-challenges/grilling-quizzes/quiz-2026-09-11-ocp-payment-gateway.md)
-- `[Tier 2: AI-Audited]` **Strategy & Gateway Pattern في المساعد الذكي**:
-  - *المفهوم*: عزل مزودي الذكاء الاصطناعي عبر واجهة موحدة `LLMProviderStrategy` وبوابة اتصالات معزولة `GeminiClient` مع معالجة أخطاء المجال `LLMError`.
-- `[Tier 3: Solo-Authored]` **The Adapter Pattern & Anti-Corruption Layer (Bosta & Stripe)**:
-  - *المفهوم*: ترويض الواجهات والمكتبات الخارجية غير المتوافقة دون تلويث كود النظام الداخلي، مع عزل أخطاء المزود الخارجي في طبقة حماية (`ACL`).
-  - *الشرح المفصل*: [LEARNING_NOTES.md (Concept 13)](engineering-learning/LEARNING_NOTES.md#13-the-adapter-pattern--anti-corruption-layer-bosta-shipping--stripe-integration)
-  - *ملفات الحل*: [solution-2026-09-17-decor-shipping-engine.ts](engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts) | [solution-2026-09-17-adapter-payment-gateway.ts](engineering-learning/daily-challenges/solutions/solution-2026-09-17-adapter-payment-gateway.ts)
-- `[Tier 3: Solo-Authored]` **The Observer Pattern & Type-Safe EventBus with Fault Isolation**:
-  - *المفهوم*: معمارية موجهة بالأحداث، وسيط مركزي مع حلقة تكرار تعزل الأعطال `Fault Isolation` عبر `try/catch` لكل مستمع بشكل مستقل، مع أمان تام للأنواع باستخدام `keyof Events` و `Events[K]`.
-  - *الشرح المفصل*: [LEARNING_NOTES.md (Concept 14)](engineering-learning/LEARNING_NOTES.md#14-the-observer-pattern--type-safe-eventbus-with-fault-isolation)
-  - *ملف الحل*: [solution-2026-09-18-observer-event-bus.ts](engineering-learning/daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts)
-- `[Tier 3: Solo-Authored]` **Liskov Substitution Principle (LSP) & Behavioral Subtyping**:
-  - *المفهوم*: الفئات الفرعية يجب أن تستبدل الفئات الأصلية دون كسر العقد السلوكي أو رمي استثناءات غير متوقعة. التخلص من فخ `instanceof` عبر تجزئة الواجهات.
-  - *الشرح المفصل*: [LEARNING_NOTES.md (Concept 15)](engineering-learning/LEARNING_NOTES.md#15-liskov-substitution-principle-lsp--behavioral-subtyping)
-  - *ملف الحل*: [solution-2026-09-13-lsp-refund-gateway.ts](engineering-learning/daily-challenges/solutions/solution-2026-09-13-lsp-refund-gateway.ts)
-- `[Tier 3: Solo-Authored]` **Architectural Integration: Unified Order Fulfillment Engine**:
-  - *المفهوم*: تجميع وتكامل أنماط التصميم الثلاثة في تدفق واحد متماسك (Strategy لاختيار الناقل + Adapter لترجمة شروط بوسطة + Observer لبث الأحداث دون ارتباط مباشر مع عزل الأعطال).
-  - *الشرح المفصل*: [LEARNING_NOTES.md (Concept 16)](engineering-learning/LEARNING_NOTES.md#16-architectural-integration-unified-order-fulfillment-engine-strategy--adapter--observer)
-  - *ملف الحل*: [solution-2026-09-22-unified-order-fulfillment-engine.ts](engineering-learning/daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts)
+  - *ملف الحل*:
+    [solution-2026-09-10-srp-user-service.ts](engineering-learning/daily-challenges/solutions/solution-2026-09-10-srp-user-service.ts)
+  - *ملف الكويز*:
+    [quiz-2026-09-10-srp-user-service.md](engineering-learning/daily-challenges/grilling-quizzes/quiz-2026-09-10-srp-user-service.md)
+- `[Tier 2: AI-Audited]`
+  **Open/Closed Principle (OCP)**:
+  - *المفهوم*:
+    فتح الكود للإضافة وإغلاقه أمام التعديل. التخلص من الشروط المتشعبة باستخدام نمط السجل والاستراتيجية:
+    `Strategy & Registry Pattern`
+  - *ملف الحل*:
+    [solution-2026-09-11-ocp-payment-gateway.ts](engineering-learning/daily-challenges/solutions/solution-2026-09-11-ocp-payment-gateway.ts)
+  - *ملف الكويز*:
+    [quiz-2026-09-11-ocp-payment-gateway.md](engineering-learning/daily-challenges/grilling-quizzes/quiz-2026-09-11-ocp-payment-gateway.md)
+- `[Tier 2: AI-Audited]`
+  **Strategy & Gateway Pattern**:
+  - *المفهوم*:
+    عزل مزودي الذكاء الاصطناعي عبر واجهة موحدة وبوابة اتصالات معزولة مع معالجة أخطاء المجال:
+    `LLMProviderStrategy & GeminiClient`
+- `[Tier 3: Solo-Authored]`
+  **The Adapter Pattern & Anti-Corruption Layer (Bosta & Stripe)**:
+  - *المفهوم*:
+    ترويض الواجهات والمكتبات الخارجية غير المتوافقة دون تلويث كود النظام الداخلي، مع عزل أخطاء المزود الخارجي في طبقة حماية:
+    `Anti-Corruption Layer (ACL)`
+  - *الشرح المفصل*:
+    [LEARNING_NOTES.md (Concept 13)](engineering-learning/LEARNING_NOTES.md#13-the-adapter-pattern--anti-corruption-layer-bosta-shipping--stripe-integration)
+  - *ملفات الحل*:
+    [solution-2026-09-17-decor-shipping-engine.ts](engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts)
+    [solution-2026-09-17-adapter-payment-gateway.ts](engineering-learning/daily-challenges/solutions/solution-2026-09-17-adapter-payment-gateway.ts)
+- `[Tier 3: Solo-Authored]`
+  **The Observer Pattern & Type-Safe EventBus with Fault Isolation**:
+  - *المفهوم*:
+    معمارية موجهة بالأحداث، وسيط مركزي مع حلقة تكرار تعزل الأعطال عبر عزل كل مستمع بشكل مستقل، مع أمان تام للأنواع:
+    `Fault Isolation`
+  - *الشرح المفصل*:
+    [LEARNING_NOTES.md (Concept 14)](engineering-learning/LEARNING_NOTES.md#14-the-observer-pattern--type-safe-eventbus-with-fault-isolation)
+  - *ملف الحل*:
+    [solution-2026-09-18-observer-event-bus.ts](engineering-learning/daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts)
+- `[Tier 3: Solo-Authored]`
+  **Liskov Substitution Principle (LSP) & Behavioral Subtyping**:
+  - *المفهوم*:
+    الفئات الفرعية يجب أن تستبدل الفئات الأصلية دون كسر العقد السلوكي أو رمي استثناءات غير متوقعة. التخلص من فخ فحص نوع الكائن عبر تجزئة الواجهات:
+    `instanceof`
+  - *الشرح المفصل*:
+    [LEARNING_NOTES.md (Concept 15)](engineering-learning/LEARNING_NOTES.md#15-liskov-substitution-principle-lsp--behavioral-subtyping)
+  - *ملف الحل*:
+    [solution-2026-09-13-lsp-refund-gateway.ts](engineering-learning/daily-challenges/solutions/solution-2026-09-13-lsp-refund-gateway.ts)
+- `[Tier 3: Solo-Authored]`
+  **Architectural Integration: Unified Order Fulfillment Engine**:
+  - *المفهوم*:
+    تجميع وتكامل أنماط التصميم الثلاثة في تدفق واحد متماسك (الاستراتيجية لاختيار الناقل، والمحول لترجمة الشروط، والوسيط لبث الأحداث دون ارتباط مباشر مع عزل الأعطال):
+    `Strategy + Adapter + Observer`
+  - *الشرح المفصل*:
+    [LEARNING_NOTES.md (Concept 16)](engineering-learning/LEARNING_NOTES.md#16-architectural-integration-unified-order-fulfillment-engine-strategy--adapter--observer)
+  - *ملف الحل*:
+    [solution-2026-09-22-unified-order-fulfillment-engine.ts](engineering-learning/daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts)
 
 #### ج. خارطة مشاريع الفول ستاك ونظام أجايل (Fullstack Projects & Agile Roadmap)
 - **محرك متجر الديكور وسبرنتات أجايل الرأسية (Decor Store Commerce Engine)**:
