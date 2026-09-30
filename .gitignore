@@ -35,6 +35,8 @@ ehthumbs.db
 Thumbs.db
 *.sqlite
 *.sqlite-journal
+*.db
+*.db-journal
 
 # Obsidian local settings
 .obsidian/
