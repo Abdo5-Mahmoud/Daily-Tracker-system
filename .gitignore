@@ -17,6 +17,7 @@ tmp/
 *.tmp
 *.bak
 *.log
+superpowers/
 
 # Heavy Media & Local Store Private Assets
 *.mp4
