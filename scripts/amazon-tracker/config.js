@@ -10,7 +10,12 @@ module.exports = {
     "نباتات صناعية",
     "تنسيق ورد",
     "ديكور مكتبي",
-    "فازه مكتب",
+    "فازات مكتب",
+  ],
+
+  // Tracked ASINs belonging to our brand (Flora_Home / CasaArt)
+  MY_PRODUCTS: [
+    "B0HL3QHF3B", // 30cm Decor Plant in Pot
   ],
 
   // Number of pages to scrape per keyword (1 page = ~48-60 products)
