@@ -9,7 +9,9 @@ const PPC_KEYWORDS = [
   'ورد صناعي',
   'فازات ديكور',
   'نباتات صناعية',
-  'ديكور مكتبي'
+  'ديكور مكتبي',
+  'تحف وانتيكات',
+  'ديكور شقق'
 ];
 
 // Amazon Egypt Category Benchmarks for Home & Decor PPC

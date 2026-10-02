@@ -11,6 +11,8 @@ module.exports = {
     "تنسيق ورد",
     "ديكور مكتبي",
     "فازات مكتب",
+    "تحف وانتيكات",
+    "ديكور شقق",
   ],
 
   // Tracked ASINs belonging to our brand (Flora_Home / CasaArt)
