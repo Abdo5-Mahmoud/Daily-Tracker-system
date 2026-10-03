@@ -24,8 +24,9 @@
 - [ ] **4. Local Store (أرتيفلورا) & Amazon Egypt (Flora_Home)**: إطلاق ومضاعفة مبيعات المحل أوفلاين + إدراج منتجات أمازون مصر والتسويق بالريلز.
   - 🛒 **المهارة الموجهة**: [amazon-ecommerce-growth](.agents/skills/amazon-ecommerce-growth/SKILL.md)
   - 🏪 **خطة نمو المحل والتسويق**: [STORE_GROWTH_PLAN.md](local-business-store/STORE_GROWTH_PLAN.md)
-  - 📦 **مخطط إدراج أول منتج بأمازون**: [AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md](local-business-store/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md)
-  - 📊 **دراسة الجدوى واقتصاديات الوحدة**: [AMAZON_MARKET_AUDIT_FLOWER_VASES.md](local-business-store/AMAZON_MARKET_AUDIT_FLOWER_VASES.md)
+  - 📦 **مخطط إدراج أول منتج بأمازون**: [AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md](local-business-store/amazon-operations/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md)
+  - 📊 **دراسة الجدوى واقتصاديات الوحدة**: [AMAZON_MARKET_AUDIT_FLOWER_VASES.md](local-business-store/amazon-operations/AMAZON_MARKET_AUDIT_FLOWER_VASES.md)
+  - 📊 **نظام إدارة المخازن والمحاسبة (ERP)**: [erp-system/README.md](local-business-store/erp-system/README.md)
   - 🎥 **دليل ريلز وإنتاج الفيديو**: [WORKFLOW.md](local-business-store/store-marketing/WORKFLOW.md) | [AI_AGENTS_SPECIFICATIONS.md](local-business-store/store-marketing/AI_AGENTS_SPECIFICATIONS.md)
 
 ---

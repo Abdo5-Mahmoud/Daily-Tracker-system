@@ -218,11 +218,13 @@
 - **خطة نمو المحل والتسويق والأتمتة**:  
   🔗 [local-business-store/STORE_GROWTH_PLAN.md](local-business-store/STORE_GROWTH_PLAN.md)
 - **مخطط إدراج أول منتج رسمي على أمازون مصر**:  
-  🔗 [local-business-store/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md](local-business-store/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md)
+  🔗 [local-business-store/amazon-operations/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md](local-business-store/amazon-operations/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md)
 - **دراسة ومسح سوق أمازون مصر لفئات الفازات والبوكيهات الصغيرة**:  
-  🔗 [local-business-store/AMAZON_MARKET_AUDIT_FLOWER_VASES.md](local-business-store/AMAZON_MARKET_AUDIT_FLOWER_VASES.md)
+  🔗 [local-business-store/amazon-operations/AMAZON_MARKET_AUDIT_FLOWER_VASES.md](local-business-store/amazon-operations/AMAZON_MARKET_AUDIT_FLOWER_VASES.md)
 - **دليل كراتين الشحن والتغليف وموردي الجملة والطباعة**:  
-  🔗 [local-business-store/PACKAGING_AND_SUPPLIERS_GUIDE.md](local-business-store/PACKAGING_AND_SUPPLIERS_GUIDE.md)
+  🔗 [local-business-store/packaging-and-suppliers/PACKAGING_AND_SUPPLIERS_GUIDE.md](local-business-store/packaging-and-suppliers/PACKAGING_AND_SUPPLIERS_GUIDE.md)
+- **نظام إدارة المخازن والمحاسبة (ERP)**:  
+  🔗 [local-business-store/erp-system/README.md](local-business-store/erp-system/README.md)
 - **دليل مهارة التجارة الإلكترونية وأمازون مصر**:  
   🔗 [.agents/skills/amazon-ecommerce-growth/SKILL.md](.agents/skills/amazon-ecommerce-growth/SKILL.md)
 - **مواصفات وكلاء الذكاء الاصطناعي للمحل (إخراج الفيديو والصور)**:  
