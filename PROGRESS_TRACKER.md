@@ -87,7 +87,7 @@
   - [x] تحديث البروفايل وإنشاء سكيل المنتور ونظام المتابعة (`SKILL.md`).
   - [x] أول تمرين إنجليزي لكسر الحاجز (Tell me about yourself & Math transition).
   - [x] فهم وحل مشكلة **Mongoose Cache Poisoning** وتطبيق التعديل بنفسك في `lib/mongodb.ts` (Task 3 P0 Finished 🎉).
-  - [x] توثيق المفهوم واجتياز الكويز في [LEARNING_NOTES.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/LEARNING_NOTES.md).
+  - [x] توثيق المفهوم واجتياز الكويز في [LEARNING_NOTES.md](engineering-learning/LEARNING_NOTES.md).
   - [x] تنفيذ كود إشعار التيليجرام في `lib/telegram.ts` وربطه بالـ Contact API واختباره بنجاح (Task 2 P0 Finished 🚀).
   - [x] استيعاب مفهوم الـ **Serverless Container Freeze** ودالة `after()`، والتحقق المستقل من الـ Docs (Concept 04 Locked 🧠).
   - [x] تنفيذ الـ **Honeypot** في Contact Form مع معايير الـ A11y والـ Security (`aria-hidden="true"`, `autoComplete="off"`).
@@ -100,7 +100,7 @@
     - العودة: `4:16 PM` (التسجيل: `4:31 PM`)
     - إجمالي المدة: `~3 ساعات و 19 دقيقة`.
 - **الفترة المسائية (دوام المحل 4م - 12ص)**:
-  - [x] الاطلاع على خطة المحل [STORE_GROWTH_PLAN.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/STORE_GROWTH_PLAN.md).
+  - [x] الاطلاع على خطة المحل [STORE_GROWTH_PLAN.md](local-business-store/STORE_GROWTH_PLAN.md).
   - [x] تصفح ومطالعة منصة Meta Business Suite والكورسات المجانية الخاصة بها.
   - [x] ضبط وتثبيت قواعد تنسيق النصوص في المحرر لمنع لخبطة ترتيب الجمل العربية.
 - **ملاحظات نهاية اليوم (Evening Review - الساعة 11:00م)**:
@@ -110,7 +110,7 @@
 ---
 
 ### 🗓️ اليوم: الجمعة 2026-09-04 (وضع الـ Locked-In الصارم)
-> جدول زمني صارم بالدقيقة محدد في: [DAILY_CALENDAR_SCHEDULE.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/DAILY_CALENDAR_SCHEDULE.md)
+> جدول زمني صارم بالدقيقة محدد في: [DAILY_CALENDAR_SCHEDULE.md](DAILY_CALENDAR_SCHEDULE.md)
 
 - **البلوك الصباحي (8:30 ص - 11:45 ص) - إنجاز 100% قبل الموعد بـ 50 دقيقة**:
   - [x] ربط الـ Rate Limiter بمسار المساعد الذكي `assistant route`. (تم بنجاح بواسطة عبده).
@@ -393,8 +393,8 @@
 - **البلوك الصباحي (العمل الهندسي العميق - 10:00 ص إلى 03:30 م)**:
   - [x] مراجعة وتوثيق المفاهيم 13 و 14 و 15 بالكامل في `LEARNING_NOTES.md` و `MASTER_KNOWLEDGE_BASE.md`.
   - [x] تحدي اليوم الشامل: تجميع الأنماط الثلاثة في محرك شحن وتنفيذ الطلبات المتكامل:
-    - ملف المواصفات: [challenge-2026-09-22-unified-order-fulfillment-engine.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/challenges/challenge-2026-09-22-unified-order-fulfillment-engine.md)
-    - ملف الشاشة البيضاء: [solution-2026-09-22-unified-order-fulfillment-engine.ts](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts)
+    - ملف المواصفات: [challenge-2026-09-22-unified-order-fulfillment-engine.md](engineering-learning/daily-challenges/challenges/challenge-2026-09-22-unified-order-fulfillment-engine.md)
+    - ملف الشاشة البيضاء: [solution-2026-09-22-unified-order-fulfillment-engine.ts](engineering-learning/daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts)
     - المعمارية المنفذة: `Strategy + Adapter + Observer (EventBus) + Fault Isolation`
   - [x] كتابة كود التنفيذ بيدك من الصفر واجتياز التشغيل بنتيجة خضراء كاملة (`Tier 3: Solo-Authored`).
   - [x] توثيق المفهوم 16 فورياً في `LEARNING_NOTES.md` وتحديث الفهرس العام تطبيقاً لقاعدة المزامنة الإلزامية.

@@ -4,7 +4,7 @@
 > **Topic**: Requirements-First Architecture & Design Patterns Integration (SOLID + Adapter + Strategy)  
 > **Author / Student**: Abdullah Mahmoud Fawzy (Abdo)  
 > **Mentor**: Blue (بلو)  
-> **Target Solution File**: [solution-2026-09-17-decor-shipping-engine.ts](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts)
+> **Target Solution File**: [solution-2026-09-17-decor-shipping-engine.ts](engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts)
 
 ---
 
