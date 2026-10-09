@@ -32,9 +32,9 @@ flowchart TD
     - Status: Completed & Pushed to GitHub"]
 
     %% Question 2 Branch
-    Root --> Q2["Question 2: Production Agent Harness & Anti-Hallucination"]
-    Q2 --> Q2_Doubt["Abdo's Deep Question:
-    - Harness runs on Host/MCP Client, not inside LLM?
+    Root --> Q2["Question 2: Production Agent Harness & Host Governance"]
+    Q2 --> Q2_Doubt["Abdo's Core Question:
+    - Harness lives on Host/MCP Client, not inside LLM?
     - How to prevent amnesia and hallucinations without prompt loops?"]
     Q2_Doubt --> Q2_Analysis["Blue's 5-Pillar Production Architecture:
     1. External State Machine (Append-only DAG)
@@ -42,9 +42,21 @@ flowchart TD
     3. Zod Schema Interception (Type Safety)
     4. Terminal Verification Gate (Evidence-based)
     5. Circuit Breaker (15-20 min hard cap)"]
-    Q2_Analysis --> Q2_Pending["Current Status:
-    - Under Discussion & Active Review
-    - Awaiting Abdo's confirmation before handbook integration"]
+    Q2_Analysis --> Q2_Friction["Abdo's Deep Architectural Challenge:
+    - Host doesn't control model weights directly.
+    - Can the model loop endlessly despite the harness?"]
+    Q2_Friction --> Q2_Resolution["Blue's Proof & Abdo's Consensus:
+    - LLM is a stateless token generator (Paralyzed without Host).
+    - Host controls IO, AbortSignal, and Context Eviction.
+    - Loop broken deterministically by starving the probability basin."]
+    Q2_Resolution --> Q2_Handbook["Handbook Logged:
+    - Section 2: Agent Harness & Execution Sandbox
+    - Status: Completed & Pushed to GitHub"]
+
+    %% Question 3 Branch
+    Root --> Q3["Question 3: Tool Calling & Function Calling Protocol"]
+    Q3 --> Q3_Pending["Current Status:
+    - Ready for Deep Dive & Architectural Discussion"]
 
     %% Styling
     classDef rootStyle fill:#2d3748,stroke:#cbd5e0,stroke-width:2px,color:#fff;
@@ -53,9 +65,9 @@ flowchart TD
     classDef nodeStyle fill:#1a202c,stroke:#4a5568,stroke-width:1px,color:#e2e8f0;
 
     class Root rootStyle;
-    class Q1,Q1_Doubt,Q1_Analysis,Q2,Q2_Doubt,Q2_Analysis nodeStyle;
-    class Q1_Resolution,Q1_Handbook resolvedStyle;
-    class Q2_Pending pendingStyle;
+    class Q1,Q1_Doubt,Q1_Analysis,Q2,Q2_Doubt,Q2_Analysis,Q2_Friction,Q3 nodeStyle;
+    class Q1_Resolution,Q1_Handbook,Q2_Resolution,Q2_Handbook resolvedStyle;
+    class Q3_Pending pendingStyle;
 ```
 
 ---
@@ -65,7 +77,8 @@ flowchart TD
 | المعرف | السؤال والنقطة المحورية | فرع النقاش والتشكيك | النتيجة والحسم | حالة التوثيق |
 | :--- | :--- | :--- | :--- | :--- |
 | **Q1** | MCP Architecture & Transports | التفريق الدقيق بين الوكيل والمضيف والسيرفر | تثبيت النموذج الذهني والتمييز بين النقل المحلي والشبكي | موثق في الكتيب الرئيسي |
-| **Q2** | Host Agent Harness & Hallucination | كيفية بناء هارنيس صلب على المضيف يمنع التوهان | ركائز الهارنيس الخمس مع حواجز الأمان وفحص المخرجات | قيد المراجعة والنقاش |
+| **Q2** | Host Agent Harness & Hallucination | كيفية بناء هارنيس صلب على المضيف والتحكم في دورات الموديل | ركائز الهارنيس الخمس، وسيطرة المضيف التامة على المدخلات والمخرجات وقطع البث وتطهير السياق | موثق في الكتيب الرئيسي |
+| **Q3** | Tool Calling & Function Calling | معمارية استدعاء الأدوات وتنسيق معاملات الدوال | قيد الطرح والنقاش التقني | جاهز للمناقشة |
 
 ---
 
