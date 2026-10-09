@@ -198,7 +198,7 @@ Status: Pilot Batch Ready
 
 ### ثالثاً: مجلد التعلم الهندسي والتوظيف
 
-#### 1. الكتيبات المرجعية الكبرى الأربعة:
+#### 1. الكتيبات المرجعية الكبرى:
 - [engineering-learning/DESIGN_PATTERNS_MASTER_HANDBOOK.md](engineering-learning/DESIGN_PATTERNS_MASTER_HANDBOOK.md)
   - الغرض: الكتيب المرجعي لأنماط التصميم الإنشائية والهيكلية والسلوكية مع أمثلة عملية من دومين المتجر.
   - الحالة: كتيب مرجعي دائم.
@@ -213,6 +213,10 @@ Status: Pilot Batch Ready
 
 - [engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md](engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md)
   - الغرض: الكتيب المرجعي للخوارزميات وهياكل البيانات العملية المرتكزة على الأساس الرياضي والتحليل الزمني والمكاني.
+  - الحالة: كتيب مرجعي دائم.
+
+- [engineering-learning/MODERN_AI_ENGINEERING_MASTER_HANDBOOK.md](engineering-learning/MODERN_AI_ENGINEERING_MASTER_HANDBOOK.md)
+  - الغرض: الكتيب المرجعي لهندسة الذكاء الاصطناعي، بروتوكول سياق النماذج، الحواضن، واستدعاء الأدوات، وحلقات التفكير، والوكلاء الفرعيين.
   - الحالة: كتيب مرجعي دائم.
 
 #### 2. الملاحظات الهندسية ومساعد ديفوليو:
