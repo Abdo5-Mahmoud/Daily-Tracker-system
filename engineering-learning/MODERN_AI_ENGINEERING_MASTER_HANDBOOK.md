@@ -40,31 +40,53 @@ MCP
 بدل ما تبرمج كود مخصص عشان يكلم قاعدة بيانات، وكود تاني عشان يكلم ملفات النظام، وكود تالت عشان يكلم جيت هاب؛ البروتوكول بيعمل كابل قياسي موحد يربط النموذج بأي أداة خارجية فوراً.
 
 ### المعمارية الهندسية
-مبني على معمارية العميل والخادم:
+مبني على معمارية الأركان الأربعة:
 ```text
-Client-Server Architecture
+The 4-Pillar MCP Architecture:
+1. Agent (LLM): محرك الاستنتاج والتفكير واتخاذ القرارات البرمجية.
+2. MCP Client (Host): البيئة الحاضنة وتطبيق التطوير (Antigravity IDE, Cursor, Claude Desktop).
+3. MCP Config: سجل التكوين والاستكشاف الذي يحدد مسار وأوامر تشغيل كل خدمة.
+4. MCP Server: الكود البرمجي التنفيذي المستقل الذي يتصل مباشرة بالأداة أو قاعدة البيانات.
 ```
+
 - عميل البروتوكول:
 ```text
 MCP Client (Host / IDE / Agent Runtime)
 ```
+هو المسؤول عن:
+- قراءة ملف التكوين واكتشاف الخدمات المتاحة.
+- تشغيل خوادم البروتوكول عبر وسيلة النقل المناسبة.
+- استخراج أسماء الأدوات وحقنها في نافذة سياق النموذج.
+- اعتراض طلبات النموذج وتوجيهها للخادم واسترجاع النتائج.
+
 - خادم البروتوكول:
 ```text
 MCP Server (Data Provider / Tool Host)
 ```
+هو خدمة برمجية مستقلة مكتوبة بلغة بايثون أو تايب سكريبت تنفذ المنطق الفعلي لجلب البيانات أو تعديل الموارد.
+
 - وسيلة النقل والتواصل:
 ```text
 Transport Layer:
-1. Standard Input / Output (stdio) - Local Process
-2. Server-Sent Events (SSE) - HTTP / Remote
+1. Standard Input / Output (stdio):
+   - اتصال محلي بين العمليات على نفس الجهاز (Child Process IPC).
+   - الكلاينت يكتب الأوامر في stdin والسيرفر يطبع الردود في stdout.
+   - فائق السرعة، أمان محكم، ولا يستهلك شبكة أو بورتات مفتوحة.
+
+2. Server-Sent Events (SSE over HTTP):
+   - اتصال شبكي سحابي عبر الإنترنت أو الحاويات المعزولة (Docker).
+   - السيرفر يرسل دفق البيانات عبر SSE والكلاينت يرسل الأوامر عبر HTTP POST.
+   - مخصص للأدوات البعيدة وقواعد البيانات السحابية المشتركة.
 ```
 
 ```mermaid
-graph LR
-    Agent[Agent / LLM Host] <--> Client[MCP Client]
-    Client <--> Transport[stdio / SSE Transport]
-    Transport <--> Server[MCP Server]
-    Server <--> Tools[(DB / GitHub / Files / API)]
+graph TD
+    Agent[Agent / LLM: Decision Maker] <--> Client[MCP Client: Host IDE]
+    Config[Config: Discovery Registry] -.-> Client
+    Client <-->|stdio: Local Process| LocalServer[Local MCP Server: SQLite / GitHub]
+    Client <-->|SSE: HTTP Stream| RemoteServer[Remote MCP Server: Cloud DB]
+    LocalServer <--> LocalResources[(Local Files / Git)]
+    RemoteServer <--> CloudResources[(Remote APIs / Miro)]
 ```
 
 ### طريقة الربط والتكوين
