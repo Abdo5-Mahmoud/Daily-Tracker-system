@@ -31,6 +31,7 @@ The agent must actively adhere to and invoke the domain skills located in `.agen
 | :--- | :--- | :--- |
 | **abdo-personal-mentor** | `.agents/skills/abdo-personal-mentor/SKILL.md` | Master mentorship protocol, ELI10 intuition, 3-Step Reality Check, 4-Stage Math-to-Database pedagogy, and Strict 3-Tier Code Attribution (`Tier 1: AI Scaffolding`, `Tier 2: AI-Audited`, `Tier 3: Solo-Authored`). |
 | **amazon-ecommerce-growth** | `.agents/skills/amazon-ecommerce-growth/SKILL.md` | Commercial marketing, product listing on Amazon Egypt (`Flora_Home`), pricing unit economics, and local retail operations (`Artiflora`). |
+| **miro-code-explain-on-board** | `.agents/skills/miro-code-explain-on-board/SKILL.md` | Architecture and dialogue visualization on Miro boards via Miro AI extension and MCP server. |
 
 ---
 
