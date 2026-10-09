@@ -59,6 +59,7 @@ Status: Active Outbound Pipeline
   [local-business-store/amazon-operations/AMAZON_MARKET_AUDIT_FLOWER_VASES.md](local-business-store/amazon-operations/AMAZON_MARKET_AUDIT_FLOWER_VASES.md)
   [local-business-store/erp-system/README.md](local-business-store/erp-system/README.md)
   [local-business-store/advertising-and-creative/FREE_MARKETING_TOOLKIT_PLAYBOOK.md](local-business-store/advertising-and-creative/FREE_MARKETING_TOOLKIT_PLAYBOOK.md)
+  [local-business-store/market-research/HOME_DECOR_CATEGORY_AND_BESTSELLERS_REPORT.md](local-business-store/market-research/HOME_DECOR_CATEGORY_AND_BESTSELLERS_REPORT.md)
   [local-business-store/scripts/amazon_competitor_analyzer.py](local-business-store/scripts/amazon_competitor_analyzer.py)
   [local-business-store/scripts/remove_background.py](local-business-store/scripts/remove_background.py)
 - مؤشر الحالة:

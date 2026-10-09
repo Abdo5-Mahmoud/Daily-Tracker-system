@@ -1,0 +1,52 @@
+[
+  {
+    "id": "SUB-01",
+    "name": "Home Decor Sector & Category Tree Mapper",
+    "agent": "Category Intelligence Subagent",
+    "dependsOn": [],
+    "status": "COMPLETED",
+    "elapsedSec": 18,
+    "tokens": 4200,
+    "deliverable": "Category Hierarchy & Sector Ranking Model"
+  },
+  {
+    "id": "SUB-02",
+    "name": "Vases & Flowers Bestseller Deep Scraper",
+    "agent": "Competitor Scraper Subagent",
+    "dependsOn": ["SUB-01"],
+    "status": "COMPLETED",
+    "elapsedSec": 24,
+    "tokens": 5800,
+    "deliverable": "Top 4 Bestseller Profiles & Price Matrices"
+  },
+  {
+    "id": "SUB-03",
+    "name": "Audience Persona & Psychology Profiler",
+    "agent": "Target Audience Subagent",
+    "dependsOn": ["SUB-02"],
+    "status": "COMPLETED",
+    "elapsedSec": 16,
+    "tokens": 3900,
+    "deliverable": "4 Buyer Archetypes & Purchasing Triggers"
+  },
+  {
+    "id": "SUB-04",
+    "name": "Creative & Visual Advertising Strategist",
+    "agent": "Creative Director Subagent",
+    "dependsOn": ["SUB-03"],
+    "status": "COMPLETED",
+    "elapsedSec": 21,
+    "tokens": 4700,
+    "deliverable": "Visual Hooks, Listing Audit & Video Concepts"
+  },
+  {
+    "id": "SUB-05",
+    "name": "Margin & Packaging Feasibility Auditor",
+    "agent": "Nemotron Strategy Auditor",
+    "dependsOn": ["SUB-02", "SUB-04"],
+    "status": "COMPLETED",
+    "elapsedSec": 15,
+    "tokens": 3400,
+    "deliverable": "Artiflora / Flora_Home Execution Playbook"
+  }
+]
