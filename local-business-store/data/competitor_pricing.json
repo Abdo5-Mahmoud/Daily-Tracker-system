@@ -1,0 +1,29 @@
+[
+  {
+    "asin": "B0CQ12XYZ1",
+    "title": "فازة سيراميك مودرن أرتيفلورا للديكور المنزلي 25 سم",
+    "price_egp": "285.00",
+    "rating": "4.6 out of 5",
+    "reviews_count": "48",
+    "is_prime": true,
+    "url": "https://www.amazon.eg/dp/B0CQ12XYZ1"
+  },
+  {
+    "asin": "B0BP89ABC2",
+    "title": "مزهرية زجاجية شفافة أسطوانية للزهور الصناعية 30 سم",
+    "price_egp": "210.00",
+    "rating": "4.3 out of 5",
+    "reviews_count": "112",
+    "is_prime": true,
+    "url": "https://www.amazon.eg/dp/B0BP89ABC2"
+  },
+  {
+    "asin": "B0CD45EFG3",
+    "title": "فازة ورد بورسلين بيضاء كلاسيكية للمكتب والصالون",
+    "price_egp": "340.00",
+    "rating": "4.7 out of 5",
+    "reviews_count": "29",
+    "is_prime": false,
+    "url": "https://www.amazon.eg/dp/B0CD45EFG3"
+  }
+]

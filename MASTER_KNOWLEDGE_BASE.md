@@ -57,8 +57,10 @@ Status: Active Outbound Pipeline
   [local-business-store/packaging-and-suppliers/FLORA_HOME_PACKAGING_AND_PRICING_REPORT.md](local-business-store/packaging-and-suppliers/FLORA_HOME_PACKAGING_AND_PRICING_REPORT.md)
   [local-business-store/amazon-operations/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md](local-business-store/amazon-operations/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md)
   [local-business-store/amazon-operations/AMAZON_MARKET_AUDIT_FLOWER_VASES.md](local-business-store/amazon-operations/AMAZON_MARKET_AUDIT_FLOWER_VASES.md)
-  [local-business-store/amazon-operations/AMAZON_PPC_LAUNCH_CAMPAIGN_SPEC.md](local-business-store/amazon-operations/AMAZON_PPC_LAUNCH_CAMPAIGN_SPEC.md)
   [local-business-store/erp-system/README.md](local-business-store/erp-system/README.md)
+  [local-business-store/advertising-and-creative/FREE_MARKETING_TOOLKIT_PLAYBOOK.md](local-business-store/advertising-and-creative/FREE_MARKETING_TOOLKIT_PLAYBOOK.md)
+  [local-business-store/scripts/amazon_competitor_analyzer.py](local-business-store/scripts/amazon_competitor_analyzer.py)
+  [local-business-store/scripts/remove_background.py](local-business-store/scripts/remove_background.py)
 - مؤشر الحالة:
 ```text
 Status: Packaging & Pilot Batch Ready
@@ -226,6 +228,10 @@ Status: Pilot Batch Ready
 - [engineering-learning/AI_CURRICULUM_QUESTION_TREE.md](engineering-learning/AI_CURRICULUM_QUESTION_TREE.md)
   - الغرض: الشجرة التفاعلية لتتبع أسئلة عبده ونقاشات التعمق والنتائج المحسومة مع الربط بميرو.
   - الحالة: سجل وجراف تفاعلي متنامي.
+
+- [engineering-learning/SUBAGENT_DAG_VISUALIZER_GUIDE.md](engineering-learning/SUBAGENT_DAG_VISUALIZER_GUIDE.md)
+  - الغرض: الدليل المرجعي لتتبع ومراقبة مهام الوكلاء الفرعيين وتحويل المخططات إلى جراف مرئي في ميرو.
+  - الحالة: أداة مراقبة معتمدة.
 
 #### 2. الملاحظات الهندسية ومساعد ديفوليو:
 - [engineering-learning/LEARNING_NOTES.md](engineering-learning/LEARNING_NOTES.md)
