@@ -54,9 +54,21 @@ flowchart TD
     - Status: Completed & Pushed to GitHub"]
 
     %% Question 3 Branch
-    Root --> Q3["Question 3: Tool Calling & Function Calling Protocol"]
-    Q3 --> Q3_Pending["Current Status:
-    - Ready for Deep Dive & Architectural Discussion"]
+    Root --> Q3["Question 3: Context Compaction Strategies & Implementations"]
+    Q3 --> Q3_Doubt["Abdo's Core Question:
+    - How to utilize context compaction?
+    - How to implement sliding window, recursive summarization, and log compaction?
+    - Trade-offs in usage and effectiveness?"]
+    Q3_Doubt --> Q3_Analysis["Blue's Architectural Breakdown:
+    - Sliding Window: O(1) CPU/RAM, risk of Catastrophic Amnesia
+    - Recursive Summarization: Long-horizon semantic tracking, risk of Drift & Latency
+    - Log Compaction & Truncation: 70%+ token savings, IDE gold standard
+    - Production Hybrid Pipeline: Multi-layered defense"]
+    Q3_Analysis --> Q3_Resolution["Abdo's Consensus:
+    - Fully understood mechanics and production pipeline"]
+    Q3_Resolution --> Q3_Handbook["Handbook Logged:
+    - Section 5: Context Window & Context Compaction
+    - Status: Completed & Pushed to GitHub"]
 
     %% Styling
     classDef rootStyle fill:#2d3748,stroke:#cbd5e0,stroke-width:2px,color:#fff;
@@ -65,9 +77,8 @@ flowchart TD
     classDef nodeStyle fill:#1a202c,stroke:#4a5568,stroke-width:1px,color:#e2e8f0;
 
     class Root rootStyle;
-    class Q1,Q1_Doubt,Q1_Analysis,Q2,Q2_Doubt,Q2_Analysis,Q2_Friction,Q3 nodeStyle;
-    class Q1_Resolution,Q1_Handbook,Q2_Resolution,Q2_Handbook resolvedStyle;
-    class Q3_Pending pendingStyle;
+    class Q1,Q1_Doubt,Q1_Analysis,Q2,Q2_Doubt,Q2_Analysis,Q2_Friction,Q3,Q3_Doubt,Q3_Analysis nodeStyle;
+    class Q1_Resolution,Q1_Handbook,Q2_Resolution,Q2_Handbook,Q3_Resolution,Q3_Handbook resolvedStyle;
 ```
 
 ---
@@ -78,7 +89,7 @@ flowchart TD
 | :--- | :--- | :--- | :--- | :--- |
 | **Q1** | MCP Architecture & Transports | التفريق الدقيق بين الوكيل والمضيف والسيرفر | تثبيت النموذج الذهني والتمييز بين النقل المحلي والشبكي | موثق في الكتيب الرئيسي |
 | **Q2** | Host Agent Harness & Hallucination | كيفية بناء هارنيس صلب على المضيف والتحكم في دورات الموديل | ركائز الهارنيس الخمس، وسيطرة المضيف التامة على المدخلات والمخرجات وقطع البث وتطهير السياق | موثق في الكتيب الرئيسي |
-| **Q3** | Tool Calling & Function Calling | معمارية استدعاء الأدوات وتنسيق معاملات الدوال | قيد الطرح والنقاش التقني | جاهز للمناقشة |
+| **Q3** | Context Compaction Strategies | كيفية استغلال ضغط السياق وتطبيق استراتيجيات الانزلاق والتلخيص واقتطاع السجلات | تفكيك الاستراتيجيات الثلاث برمجياً، المقارنة بين الفعالية والسلبيات، ومعمارية خط الأنابيب الهجين في الإنتاج | موثق في الكتيب الرئيسي (القسم الخامس) |
 
 ---
 
