@@ -95,6 +95,7 @@ Status: Daily Active Drill
   [engineering-learning/targeted-cvs/README.md](engineering-learning/targeted-cvs/README.md)
   [engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md](engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md)
   [engineering-learning/career-accelerator/GEMINI_JOB_HUNTER_GEM.md](engineering-learning/career-accelerator/GEMINI_JOB_HUNTER_GEM.md)
+  [engineering-learning/career-accelerator/GLOBAL_LABOR_MARKET_INTELLIGENCE_2026_2030.md](engineering-learning/career-accelerator/GLOBAL_LABOR_MARKET_INTELLIGENCE_2026_2030.md)
 - مؤشر الحالة:
 ```text
 Status: Active Outbound Pipeline
