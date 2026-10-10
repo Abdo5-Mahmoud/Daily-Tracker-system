@@ -14,6 +14,49 @@
 
 ---
 
+## 🕸️ مصفوفة الترابط الشبكي البيني لأوبسيديان
+```text
+Obsidian Bidirectional Knowledge Mesh & Cross-Domain Bridges
+```
+
+### 1. جسر التجارة والهندسة
+يربط بيانات المتجر بالتحليل الرياضي وأدوات الاستعلام البرمجية:
+- قاعدة بيانات رصد السوق:
+[local-business-store/market-intelligence/amazon_market.db](file:///C:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/market-intelligence/amazon_market.db)
+- أداة الاستعلام السريع:
+[local-business-store/scripts/db_quick_query.py](file:///C:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/scripts/db_quick_query.py)
+- كتيب الخوارزميات وهياكل البيانات:
+[engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md)
+
+### 2. جسر الهندسة والتوظيف
+يربط المشاريع البرمجية الحقيقية بالسير الذاتية وفرص الدخل المباشرة:
+- مشروع ديفوليو البرمجي المنشور:
+[engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md)
+- السير الذاتية الموجهة للشركات:
+[engineering-learning/targeted-cvs/README.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/targeted-cvs/README.md)
+- مسار تتبع التقديمات الوظيفية:
+[engineering-learning/JOB_APPLICATIONS_PIPELINE.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/JOB_APPLICATIONS_PIPELINE.md)
+
+### 3. جسر الإنجليزية والمقابلات المهنية
+يربط التحدث اليومي بجاهزية المقابلات التقنية وبناء الحضور الرقمي:
+- سجل ترقية الصياغة الإنجليزية:
+[engineering-learning/ENGLISH_MASTERY_LOG.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/ENGLISH_MASTERY_LOG.md)
+- خطة تسريع المسار المهني:
+[engineering-learning/CAREER_ACCELERATION_PLAN.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/CAREER_ACCELERATION_PLAN.md)
+- دليل صناعة المحتوى على لينكد إن:
+[engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md)
+
+### 4. جسر الأتمتة الشاملة والوكلاء
+العمود الفقري الحاكم الذي يراقب ديون المهام ويوجه خطط العمل في كافة المسارات:
+- لوحة رصد التقدم ومحاسبة الديون:
+[PROGRESS_TRACKER.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/PROGRESS_TRACKER.md)
+- دستور التوجيهات وقواعد العمل:
+[AGENTS.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/AGENTS.md)
+- محرك مسارات التبعيات للوكلاء:
+[scripts/generate_subagent_dag.js](file:///C:/Users/A5/Desktop/growth-workspace-withAI/scripts/generate_subagent_dag.js)
+
+---
+
 ## 🗺️ خريطة ربط الأهداف الكبرى بالمهارات والملفات
 
 ### 1. هندسة الواجهات ومساعد ديفوليو

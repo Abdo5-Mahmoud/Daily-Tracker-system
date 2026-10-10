@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 """
-Workspace Mental Model & Cognitive Pipeline Generator
-Maps workspace files into 4 directed flow pipelines (DAGs):
-1. E-Commerce & Retail Growth (Flora_Home / Amazon Egypt)
-2. Fullstack Engineering & Math Foundations
-3. Career Acceleration & Outbound Pipeline
-4. Autonomous Multi-Agent Orchestration Engine
+Workspace Mental Model & Cognitive Pipeline Generator (Obsidian Network Mesh Edition)
+Maps workspace files into 4 directed flow pipelines (DAGs) and generates:
+1. Obsidian-compatible Markdown with bidirectional links and cross-domain mesh.
+2. Interactive HTML with Dual-Mode: Pipeline Cards View + Obsidian-Style Force Graph Physics Canvas.
 """
 
 import os
@@ -180,12 +178,58 @@ PIPELINES = [
     }
 ]
 
+CROSS_DOMAIN_BRIDGES = [
+    {
+        "name_ar": "جسر التجارة والهندسة البرمجية",
+        "desc_ar": "يربط بيانات متجر أمازون بأدوات الاستعلام والتحليل الرياضي السريع.",
+        "nodes": [
+            {"name": "قاعدة بيانات سوق أمازون", "file": "local-business-store/market-intelligence/amazon_market.db"},
+            {"name": "أداة الاستعلام السريع", "file": "local-business-store/scripts/db_quick_query.py"},
+            {"name": "كتيب الخوارزميات وهياكل البيانات", "file": "engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md"}
+        ]
+    },
+    {
+        "name_ar": "جسر الهندسة والتوظيف",
+        "desc_ar": "يربط المشروعات البرمجية الحقيقية بالسير الذاتية وفرص الدخل المباشر.",
+        "nodes": [
+            {"name": "مشروع ديفوليو المنشور", "file": "engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md"},
+            {"name": "ملف السير الذاتية الموجهة", "file": "engineering-learning/targeted-cvs/README.md"},
+            {"name": "مسار التقديمات الوظيفية", "file": "engineering-learning/JOB_APPLICATIONS_PIPELINE.md"}
+        ]
+    },
+    {
+        "name_ar": "جسر الإنجليزية والمقابلات المهنية",
+        "desc_ar": "يربط التحدث اليومي بجاهزية المقابلات وبناء السلطة المعرفية على لينكد إن.",
+        "nodes": [
+            {"name": "سجل إتقان الإنجليزية اليومي", "file": "engineering-learning/ENGLISH_MASTERY_LOG.md"},
+            {"name": "خطة تسريع المسار المهني", "file": "engineering-learning/CAREER_ACCELERATION_PLAN.md"},
+            {"name": "دليل صناعة المحتوى على لينكد إن", "file": "engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md"}
+        ]
+    },
+    {
+        "name_ar": "جسر الأتمتة الشاملة والوكلاء",
+        "desc_ar": "العمود الفقري الحاكم الذي يراقب ديون المهام ويوجه خطط العمل في مساحة العمل كاملة.",
+        "nodes": [
+            {"name": "لوحة رصد التقدم ومحاسبة الديون", "file": "PROGRESS_TRACKER.md"},
+            {"name": "دستور التوجيهات وقواعد العمل", "file": "AGENTS.md"},
+            {"name": "محرك مسار الاعتماديات", "file": "scripts/generate_subagent_dag.js"}
+        ]
+    }
+]
+
 def generate_markdown_compass():
     lines = []
-    lines.append("# خريطة النماذج العقلية لمساحة العمل 🧭🧠")
+    lines.append("---")
+    lines.append("tags:")
+    lines.append("  - vault/hub")
+    lines.append("  - moc/mental-model")
+    lines.append("  - pipeline/all")
+    lines.append("---")
     lines.append("")
-    lines.append("> هذا الملف هو البوصلة العقلية الشاملة لمساحة عمل المهندس عبد الله محمود فوزي.")
-    lines.append("> يعرض هذا النظام ملفات المشروع كخطوط إنتاج معرفية مترابطة وفق نموذج المسار الموجّه الخالي من الحلقات.")
+    lines.append("# خريطة النماذج العقلية والترابط الشبكي لمساحة العمل 🧭🧠")
+    lines.append("")
+    lines.append("> هذا الملف هو البوصلة العقلية الشاملة وشبكة الترابط المتوافقة مع أوبسيديان لمساحة عمل المهندس عبد الله محمود فوزي.")
+    lines.append("> يربط هذا النظام ملفات المشروع كخطوط إنتاج معرفية وشبكة علاقات عنكبوتية متكاملة.")
     lines.append("")
     lines.append("---")
     lines.append("")
@@ -223,19 +267,87 @@ def generate_markdown_compass():
         lines.append("---")
         lines.append("")
 
+    # Cross Domain Mesh Section
+    lines.append("## 🕸️ مصفوفة الترابط الشبكي البيني لأوبسيديان")
+    lines.append("```text")
+    lines.append("Obsidian Cross-Domain Mesh & Bidirectional Bridges")
+    lines.append("```")
+    lines.append("")
+    
+    for bridge in CROSS_DOMAIN_BRIDGES:
+        lines.append(f"### {bridge['name_ar']}")
+        lines.append(f"{bridge['desc_ar']}")
+        for n in bridge["nodes"]:
+            full_path = WORKSPACE_ROOT / n["file"]
+            lines.append(f"- {n['name']}:")
+            lines.append(f"[{n['file']}](file:///{full_path.as_posix()})")
+        lines.append("")
+
+    lines.append("---")
+    lines.append("")
+
     output_path = WORKSPACE_ROOT / "WORKSPACE_MENTAL_MODEL.md"
     with open(output_path, "w", encoding="utf-8") as f:
         f.write("\n".join(lines) + "\n")
     print(f"[✓] Generated Mental Model Markdown: {output_path}")
 
 def generate_interactive_html():
+    # Build Graph Nodes & Edges for Force Graph Simulation
+    graph_nodes = []
+    graph_edges = []
+    
+    # Hub Node
+    graph_nodes.append({
+        "id": "hub_master",
+        "label": "Master Knowledge Hub",
+        "group": "hub",
+        "color": "#eab308",
+        "radius": 18,
+        "file": "MASTER_KNOWLEDGE_BASE.md"
+    })
+
+    # Domain Anchor Nodes
+    for pipe in PIPELINES:
+        anchor_id = f"domain_{pipe['id']}"
+        graph_nodes.append({
+            "id": anchor_id,
+            "label": pipe["title_ar"],
+            "group": pipe["id"],
+            "color": pipe["color"],
+            "radius": 14,
+            "file": pipe["stages"][0]["file"]
+        })
+        graph_edges.append({"source": "hub_master", "target": anchor_id})
+
+        prev_node = anchor_id
+        for st in pipe["stages"]:
+            st_id = f"{pipe['id']}_{st['step']}"
+            graph_nodes.append({
+                "id": st_id,
+                "label": f"{st['step']}. {st['name_ar']}",
+                "group": pipe["id"],
+                "color": pipe["color"],
+                "radius": 9,
+                "file": st["file"]
+            })
+            graph_edges.append({"source": prev_node, "target": st_id})
+            prev_node = st_id
+
+    # Cross-domain links
+    graph_edges.append({"source": "ecommerce_5", "target": "engineering_1"})
+    graph_edges.append({"source": "engineering_5", "target": "career_2"})
+    graph_edges.append({"source": "career_1", "target": "career_4"})
+    graph_edges.append({"source": "orchestration_4", "target": "hub_master"})
+
+    graph_data_json = json.dumps({"nodes": graph_nodes, "edges": graph_edges}, ensure_ascii=False)
     pipelines_json = json.dumps(PIPELINES, ensure_ascii=False, indent=2)
+
     html_content = f"""<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>بوصلة النماذج العقلية لمساحة العمل | Abdo Engineering Workspace</title>
+  <title>بوصلة النماذج العقلية والشبكة التفاعلية | Abdo Engineering Workspace</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -261,37 +373,97 @@ def generate_interactive_html():
       color: var(--text);
       font-family: 'Cairo', sans-serif;
       min-height: 100vh;
-      padding: 2.5rem 1.5rem;
+      padding: 2rem 1.5rem;
       background-image: 
         radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
         radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
     }}
     header {{
       max-width: 1200px;
-      margin: 0 auto 3rem auto;
+      margin: 0 auto 2rem auto;
       text-align: center;
     }}
     h1 {{
-      font-size: 2.4rem;
+      font-size: 2.2rem;
       font-weight: 900;
-      letter-spacing: -0.5px;
       background: linear-gradient(135deg, #60a5fa, #c084fc, #34d399);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
     }}
     .subtitle {{
       color: var(--text-muted);
-      font-size: 1.1rem;
-      max-width: 700px;
-      margin: 0 auto;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }}
+    .view-switcher {{
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 30px;
+      padding: 0.3rem;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }}
+    .tab-btn {{
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.5rem 1.5rem;
+      border-radius: 20px;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }}
+    .tab-btn.active {{
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
     }}
     .container {{
       max-width: 1240px;
       margin: 0 auto;
+    }}
+    /* Force Graph Canvas View */
+    #graphView {{
+      width: 100%;
+      height: 700px;
+      background: rgba(10, 16, 28, 0.9);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      display: none;
+    }}
+    #graphCanvas {{
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }}
+    #graphCanvas:active {{
+      cursor: grabbing;
+    }}
+    .graph-hud {{
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(18, 26, 43, 0.85);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      backdrop-filter: blur(8px);
+      pointer-events: none;
+    }}
+    /* Pipeline Cards View */
+    #cardsView {{
       display: flex;
       flex-direction: column;
-      gap: 3rem;
+      gap: 2.5rem;
     }}
     .pipeline-card {{
       background: var(--card-bg);
@@ -300,30 +472,26 @@ def generate_interactive_html():
       padding: 2rem;
       backdrop-filter: blur(16px);
       box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }}
-    .pipeline-card:hover {{
-      border-color: rgba(255, 255, 255, 0.18);
     }}
     .pipeline-header {{
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.5rem;
       border-bottom: 1px solid var(--card-border);
       padding-bottom: 1rem;
     }}
     .pipeline-title {{
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 700;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.5rem;
     }}
     .pipeline-badge {{
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.6rem;
       border-radius: 20px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--card-border);
@@ -332,7 +500,6 @@ def generate_interactive_html():
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1.25rem;
-      position: relative;
     }}
     .stage-node {{
       background: rgba(10, 16, 28, 0.85);
@@ -342,35 +509,32 @@ def generate_interactive_html():
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      position: relative;
       transition: all 0.25s ease;
     }}
     .stage-node:hover {{
       transform: translateY(-4px);
       border-color: var(--primary);
-      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
     }}
     .stage-step {{
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
+      font-size: 0.75rem;
+      margin-bottom: 0.4rem;
     }}
     .stage-name {{
       font-weight: 700;
-      font-size: 1.05rem;
-      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
       color: #fff;
     }}
     .stage-desc {{
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.4;
       margin-bottom: 1rem;
     }}
     .stage-file {{
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       background: rgba(0, 0, 0, 0.4);
       padding: 0.4rem 0.6rem;
       border-radius: 6px;
@@ -379,7 +543,6 @@ def generate_interactive_html():
       text-decoration: none;
       display: inline-block;
       border: 1px solid rgba(56, 189, 248, 0.2);
-      transition: background 0.2s ease;
     }}
     .stage-file:hover {{
       background: rgba(56, 189, 248, 0.15);
@@ -389,20 +552,33 @@ def generate_interactive_html():
 </head>
 <body>
   <header>
-    <h1>بوصلة النماذج العقلية لمساحة العمل 🧭🧠</h1>
-    <p class="subtitle">خريطة التدفق المعرفي لخطوط الإنتاج الأربعة — كل ملف محطة محددة في رحلة الإنجاز</p>
+    <h1>بوصلة النماذج العقلية والترابط الشبكي 🧭🧠</h1>
+    <p class="subtitle">الملاحة البصرية المزدوجة — خطوط الإنتاج المتتابعة أو شبكة العقد الفيزيائية التفاعلية</p>
+    <div class="view-switcher">
+      <button class="tab-btn active" id="btnCards" onclick="switchView('cards')">عرض خطوط الإنتاج (Cards)</button>
+      <button class="tab-btn" id="btnGraph" onclick="switchView('graph')">الشبكة الفيزيائية لأوبسيديان (Force Graph)</button>
+    </div>
   </header>
 
-  <div class="container" id="app"></div>
+  <div class="container">
+    <div id="graphView">
+      <canvas id="graphCanvas"></canvas>
+      <div class="graph-hud">
+        اسحب العقد بالماوس • حرّك الكانفاس للتنقل • متوافق مع شبكة أوبسيديان
+      </div>
+    </div>
+    <div id="cardsView"></div>
+  </div>
 
   <script>
     const data = {pipelines_json};
-    const app = document.getElementById('app');
+    const graphData = {graph_data_json};
+    const cardsContainer = document.getElementById('cardsView');
 
+    // Render Cards View
     data.forEach(pipe => {{
       const card = document.createElement('div');
       card.className = 'pipeline-card';
-      
       let nodesHtml = '';
       pipe.stages.forEach(st => {{
         nodesHtml += `
@@ -416,7 +592,6 @@ def generate_interactive_html():
           </div>
         `;
       }});
-
       card.innerHTML = `
         <div class="pipeline-header">
           <div class="pipeline-title" style="color: ${{pipe.color}};">
@@ -426,8 +601,180 @@ def generate_interactive_html():
         </div>
         <div class="flow-grid">${{nodesHtml}}</div>
       `;
-      app.appendChild(card);
+      cardsContainer.appendChild(card);
     }});
+
+    // Tab Switcher
+    function switchView(mode) {{
+      const cardsView = document.getElementById('cardsView');
+      const graphView = document.getElementById('graphView');
+      const btnCards = document.getElementById('btnCards');
+      const btnGraph = document.getElementById('btnGraph');
+
+      if (mode === 'graph') {{
+        cardsView.style.display = 'none';
+        graphView.style.display = 'block';
+        btnCards.classList.remove('active');
+        btnGraph.classList.add('active');
+        initForceGraph();
+      }} else {{
+        cardsView.style.display = 'flex';
+        graphView.style.display = 'none';
+        btnCards.classList.add('active');
+        btnGraph.classList.remove('active');
+      }}
+    }}
+
+    // Force-Directed Physics Simulation Canvas
+    let animId = null;
+    let canvas, ctx;
+    let nodes = [], edges = [];
+    let draggedNode = null;
+    let mouse = {{ x: 0, y: 0, isDown: false }};
+
+    function initForceGraph() {{
+      canvas = document.getElementById('graphCanvas');
+      ctx = canvas.getContext('2d');
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+
+      // Initialize Node positions in circle
+      nodes = graphData.nodes.map((n, i) => {{
+        const angle = (i / graphData.nodes.length) * Math.PI * 2;
+        const dist = n.group === 'hub' ? 0 : (n.id.startsWith('domain') ? 140 : 250);
+        return {{
+          ...n,
+          x: cx + Math.cos(angle) * dist + (Math.random() - 0.5) * 40,
+          y: cy + Math.sin(angle) * dist + (Math.random() - 0.5) * 40,
+          vx: 0,
+          vy: 0
+        }};
+      }});
+
+      edges = graphData.edges.map(e => ({{
+        sourceNode: nodes.find(n => n.id === e.source),
+        targetNode: nodes.find(n => n.id === e.target)
+      }})).filter(e => e.sourceNode && e.targetNode);
+
+      // Mouse events
+      canvas.onmousedown = (e) => {{
+        const pos = getMousePos(e);
+        draggedNode = nodes.find(n => Math.hypot(n.x - pos.x, n.y - pos.y) < n.radius + 6);
+        mouse.isDown = true;
+      }};
+
+      window.onmousemove = (e) => {{
+        if (draggedNode) {{
+          const pos = getMousePos(e);
+          draggedNode.x = pos.x;
+          draggedNode.y = pos.y;
+          draggedNode.vx = 0;
+          draggedNode.vy = 0;
+        }}
+      }};
+
+      window.onmouseup = () => {{
+        draggedNode = null;
+        mouse.isDown = false;
+      }};
+
+      if (!animId) updatePhysics();
+    }}
+
+    function getMousePos(e) {{
+      const rect = canvas.getBoundingClientRect();
+      return {{ x: e.clientX - rect.left, y: e.clientY - rect.top }};
+    }}
+
+    function updatePhysics() {{
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+
+      // 1. Repulsion between all node pairs
+      for (let i = 0; i < nodes.length; i++) {{
+        for (let j = i + 1; j < nodes.length; j++) {{
+          const a = nodes[i];
+          const b = nodes[j];
+          const dx = b.x - a.x;
+          const dy = b.y - a.y;
+          const dist = Math.hypot(dx, dy) || 1;
+          if (dist < 400) {{
+            const force = (3500 / (dist * dist));
+            const fx = (dx / dist) * force;
+            const fy = (dy / dist) * force;
+            a.vx -= fx;
+            a.vy -= fy;
+            b.vx += fx;
+            b.vy += fy;
+          }}
+        }}
+      }}
+
+      // 2. Spring Attraction along Edges
+      edges.forEach(e => {{
+        const a = e.sourceNode;
+        const b = e.targetNode;
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const dist = Math.hypot(dx, dy) || 1;
+        const targetDist = 90;
+        const force = (dist - targetDist) * 0.02;
+        const fx = (dx / dist) * force;
+        const fy = (dy / dist) * force;
+        a.vx += fx;
+        a.vy += fy;
+        b.vx -= fx;
+        b.vy -= fy;
+      }});
+
+      // 3. Center Gravity & Velocity Update
+      nodes.forEach(n => {{
+        if (n !== draggedNode) {{
+          n.vx += (cx - n.x) * 0.003;
+          n.vy += (cy - n.y) * 0.003;
+          n.x += n.vx;
+          n.y += n.vy;
+          n.vx *= 0.88; // Damping
+          n.vy *= 0.88;
+        }}
+      }});
+
+      // Draw
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw Edges
+      ctx.lineWidth = 1.2;
+      edges.forEach(e => {{
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+        ctx.beginPath();
+        ctx.moveTo(e.sourceNode.x, e.sourceNode.y);
+        ctx.lineTo(e.targetNode.x, e.targetNode.y);
+        ctx.stroke();
+      }});
+
+      // Draw Nodes
+      nodes.forEach(n => {{
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+        ctx.fillStyle = n.color;
+        ctx.shadowColor = n.color;
+        ctx.shadowBlur = 12;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Label
+        ctx.fillStyle = '#f1f5f9';
+        ctx.font = '10px Cairo, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(n.label, n.x, n.y + n.radius + 14);
+      }});
+
+      animId = requestAnimationFrame(updatePhysics);
+    }}
   </script>
 </body>
 </html>
@@ -435,7 +782,7 @@ def generate_interactive_html():
     output_html = WORKSPACE_ROOT / "WORKSPACE_MENTAL_MODEL.html"
     with open(output_html, "w", encoding="utf-8") as f:
         f.write(html_content)
-    print(f"[✓] Generated Interactive HTML: {output_html}")
+    print(f"[✓] Generated Interactive HTML with Dual View: {output_html}")
 
 if __name__ == "__main__":
     generate_markdown_compass()

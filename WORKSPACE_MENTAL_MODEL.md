@@ -1,7 +1,14 @@
-# خريطة النماذج العقلية لمساحة العمل 🧭🧠
+---
+tags:
+  - vault/hub
+  - moc/mental-model
+  - pipeline/all
+---
 
-> هذا الملف هو البوصلة العقلية الشاملة لمساحة عمل المهندس عبد الله محمود فوزي.
-> يعرض هذا النظام ملفات المشروع كخطوط إنتاج معرفية مترابطة وفق نموذج المسار الموجّه الخالي من الحلقات.
+# خريطة النماذج العقلية والترابط الشبكي لمساحة العمل 🧭🧠
+
+> هذا الملف هو البوصلة العقلية الشاملة وشبكة الترابط المتوافقة مع أوبسيديان لمساحة عمل المهندس عبد الله محمود فوزي.
+> يربط هذا النظام ملفات المشروع كخطوط إنتاج معرفية وشبكة علاقات عنكبوتية متكاملة.
 
 ---
 
@@ -186,6 +193,49 @@ flowchart LR
 الحالة: متوفر ونشط على القرص
 - مسار الملف:
 [PROGRESS_TRACKER.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/PROGRESS_TRACKER.md)
+
+---
+
+## 🕸️ مصفوفة الترابط الشبكي البيني لأوبسيديان
+```text
+Obsidian Cross-Domain Mesh & Bidirectional Bridges
+```
+
+### جسر التجارة والهندسة البرمجية
+يربط بيانات متجر أمازون بأدوات الاستعلام والتحليل الرياضي السريع.
+- قاعدة بيانات سوق أمازون:
+[local-business-store/market-intelligence/amazon_market.db](file:///C:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/market-intelligence/amazon_market.db)
+- أداة الاستعلام السريع:
+[local-business-store/scripts/db_quick_query.py](file:///C:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/scripts/db_quick_query.py)
+- كتيب الخوارزميات وهياكل البيانات:
+[engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md)
+
+### جسر الهندسة والتوظيف
+يربط المشروعات البرمجية الحقيقية بالسير الذاتية وفرص الدخل المباشر.
+- مشروع ديفوليو المنشور:
+[engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md)
+- ملف السير الذاتية الموجهة:
+[engineering-learning/targeted-cvs/README.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/targeted-cvs/README.md)
+- مسار التقديمات الوظيفية:
+[engineering-learning/JOB_APPLICATIONS_PIPELINE.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/JOB_APPLICATIONS_PIPELINE.md)
+
+### جسر الإنجليزية والمقابلات المهنية
+يربط التحدث اليومي بجاهزية المقابلات وبناء السلطة المعرفية على لينكد إن.
+- سجل إتقان الإنجليزية اليومي:
+[engineering-learning/ENGLISH_MASTERY_LOG.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/ENGLISH_MASTERY_LOG.md)
+- خطة تسريع المسار المهني:
+[engineering-learning/CAREER_ACCELERATION_PLAN.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/CAREER_ACCELERATION_PLAN.md)
+- دليل صناعة المحتوى على لينكد إن:
+[engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md)
+
+### جسر الأتمتة الشاملة والوكلاء
+العمود الفقري الحاكم الذي يراقب ديون المهام ويوجه خطط العمل في مساحة العمل كاملة.
+- لوحة رصد التقدم ومحاسبة الديون:
+[PROGRESS_TRACKER.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/PROGRESS_TRACKER.md)
+- دستور التوجيهات وقواعد العمل:
+[AGENTS.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/AGENTS.md)
+- محرك مسار الاعتماديات:
+[scripts/generate_subagent_dag.js](file:///C:/Users/A5/Desktop/growth-workspace-withAI/scripts/generate_subagent_dag.js)
 
 ---
 

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>بوصلة النماذج العقلية لمساحة العمل | Abdo Engineering Workspace</title>
+  <title>بوصلة النماذج العقلية والشبكة التفاعلية | Abdo Engineering Workspace</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -29,37 +29,97 @@
       color: var(--text);
       font-family: 'Cairo', sans-serif;
       min-height: 100vh;
-      padding: 2.5rem 1.5rem;
+      padding: 2rem 1.5rem;
       background-image: 
         radial-gradient(at 0% 0%, rgba(59, 130, 246, 0.12) 0px, transparent 50%),
         radial-gradient(at 100% 100%, rgba(139, 92, 246, 0.1) 0px, transparent 50%);
     }
     header {
       max-width: 1200px;
-      margin: 0 auto 3rem auto;
+      margin: 0 auto 2rem auto;
       text-align: center;
     }
     h1 {
-      font-size: 2.4rem;
+      font-size: 2.2rem;
       font-weight: 900;
-      letter-spacing: -0.5px;
       background: linear-gradient(135deg, #60a5fa, #c084fc, #34d399);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
     }
     .subtitle {
       color: var(--text-muted);
-      font-size: 1.1rem;
-      max-width: 700px;
-      margin: 0 auto;
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .view-switcher {
+      display: inline-flex;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      border-radius: 30px;
+      padding: 0.3rem;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      padding: 0.5rem 1.5rem;
+      border-radius: 20px;
+      font-family: 'Cairo', sans-serif;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
     }
     .container {
       max-width: 1240px;
       margin: 0 auto;
+    }
+    /* Force Graph Canvas View */
+    #graphView {
+      width: 100%;
+      height: 700px;
+      background: rgba(10, 16, 28, 0.9);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+      display: none;
+    }
+    #graphCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }
+    #graphCanvas:active {
+      cursor: grabbing;
+    }
+    .graph-hud {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(18, 26, 43, 0.85);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      backdrop-filter: blur(8px);
+      pointer-events: none;
+    }
+    /* Pipeline Cards View */
+    #cardsView {
       display: flex;
       flex-direction: column;
-      gap: 3rem;
+      gap: 2.5rem;
     }
     .pipeline-card {
       background: var(--card-bg);
@@ -68,30 +128,26 @@
       padding: 2rem;
       backdrop-filter: blur(16px);
       box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4);
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-    .pipeline-card:hover {
-      border-color: rgba(255, 255, 255, 0.18);
     }
     .pipeline-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 1.75rem;
+      margin-bottom: 1.5rem;
       border-bottom: 1px solid var(--card-border);
       padding-bottom: 1rem;
     }
     .pipeline-title {
-      font-size: 1.4rem;
+      font-size: 1.3rem;
       font-weight: 700;
       display: flex;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.5rem;
     }
     .pipeline-badge {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-      padding: 0.35rem 0.75rem;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.6rem;
       border-radius: 20px;
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid var(--card-border);
@@ -100,7 +156,6 @@
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 1.25rem;
-      position: relative;
     }
     .stage-node {
       background: rgba(10, 16, 28, 0.85);
@@ -110,35 +165,32 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      position: relative;
       transition: all 0.25s ease;
     }
     .stage-node:hover {
       transform: translateY(-4px);
       border-color: var(--primary);
-      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
     }
     .stage-step {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 0.5rem;
+      font-size: 0.75rem;
+      margin-bottom: 0.4rem;
     }
     .stage-name {
       font-weight: 700;
-      font-size: 1.05rem;
-      margin-bottom: 0.5rem;
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
       color: #fff;
     }
     .stage-desc {
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       color: var(--text-muted);
-      line-height: 1.5;
+      line-height: 1.4;
       margin-bottom: 1rem;
     }
     .stage-file {
       font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       background: rgba(0, 0, 0, 0.4);
       padding: 0.4rem 0.6rem;
       border-radius: 6px;
@@ -147,7 +199,6 @@
       text-decoration: none;
       display: inline-block;
       border: 1px solid rgba(56, 189, 248, 0.2);
-      transition: background 0.2s ease;
     }
     .stage-file:hover {
       background: rgba(56, 189, 248, 0.15);
@@ -157,11 +208,23 @@
 </head>
 <body>
   <header>
-    <h1>بوصلة النماذج العقلية لمساحة العمل 🧭🧠</h1>
-    <p class="subtitle">خريطة التدفق المعرفي لخطوط الإنتاج الأربعة — كل ملف محطة محددة في رحلة الإنجاز</p>
+    <h1>بوصلة النماذج العقلية والترابط الشبكي 🧭🧠</h1>
+    <p class="subtitle">الملاحة البصرية المزدوجة — خطوط الإنتاج المتتابعة أو شبكة العقد الفيزيائية التفاعلية</p>
+    <div class="view-switcher">
+      <button class="tab-btn active" id="btnCards" onclick="switchView('cards')">عرض خطوط الإنتاج (Cards)</button>
+      <button class="tab-btn" id="btnGraph" onclick="switchView('graph')">الشبكة الفيزيائية لأوبسيديان (Force Graph)</button>
+    </div>
   </header>
 
-  <div class="container" id="app"></div>
+  <div class="container">
+    <div id="graphView">
+      <canvas id="graphCanvas"></canvas>
+      <div class="graph-hud">
+        اسحب العقد بالماوس • حرّك الكانفاس للتنقل • متوافق مع شبكة أوبسيديان
+      </div>
+    </div>
+    <div id="cardsView"></div>
+  </div>
 
   <script>
     const data = [
@@ -324,12 +387,13 @@
     ]
   }
 ];
-    const app = document.getElementById('app');
+    const graphData = {"nodes": [{"id": "hub_master", "label": "Master Knowledge Hub", "group": "hub", "color": "#eab308", "radius": 18, "file": "MASTER_KNOWLEDGE_BASE.md"}, {"id": "domain_ecommerce", "label": "خط إنتاج تجارة الديكور وأمازون مصر", "group": "ecommerce", "color": "#10b981", "radius": 14, "file": "local-business-store/packaging-and-suppliers/EGYPT_PACKAGING_CARTON_SUPPLIERS_GUIDE.md"}, {"id": "ecommerce_1", "label": "1. التوريد ومصانع الكراتين والتغليف", "group": "ecommerce", "color": "#10b981", "radius": 9, "file": "local-business-store/packaging-and-suppliers/EGYPT_PACKAGING_CARTON_SUPPLIERS_GUIDE.md"}, {"id": "ecommerce_2", "label": "2. اقتصاديات الوحدة وحساب الهامش الصافي", "group": "ecommerce", "color": "#10b981", "radius": 9, "file": "local-business-store/amazon-operations/AMAZON_MARKET_AUDIT_FLOWER_VASES.md"}, {"id": "ecommerce_3", "label": "3. تجهيز الإدراج والكلمات المفتاحية", "group": "ecommerce", "color": "#10b981", "radius": 9, "file": "local-business-store/amazon-operations/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md"}, {"id": "ecommerce_4", "label": "4. الإعلانات الممولة والاستهداف الدقيق", "group": "ecommerce", "color": "#10b981", "radius": 9, "file": "local-business-store/amazon-operations/AMAZON_PPC_LAUNCH_CAMPAIGN_SPEC.md"}, {"id": "ecommerce_5", "label": "5. رادار الاستخبارات وقاعدة بيانات المنافسين", "group": "ecommerce", "color": "#10b981", "radius": 9, "file": "local-business-store/market-intelligence/SPONSORED_ADS_COMPETITOR_RADAR.md"}, {"id": "domain_engineering", "label": "خط إنتاج التعلم الهندسي والتطوير الشامل", "group": "engineering", "color": "#3b82f6", "radius": 14, "file": "engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md"}, {"id": "engineering_1", "label": "1. أسس الرياضيات والخوارزميات وهياكل البيانات", "group": "engineering", "color": "#3b82f6", "radius": 9, "file": "engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md"}, {"id": "engineering_2", "label": "2. مبادئ التصميم النظيف وفصل المسؤوليات", "group": "engineering", "color": "#3b82f6", "radius": 9, "file": "engineering-learning/SOLID_PRINCIPLES_MASTER_HANDBOOK.md"}, {"id": "engineering_3", "label": "3. أنماط التصميم المعمارية المعتمدة", "group": "engineering", "color": "#3b82f6", "radius": 9, "file": "engineering-learning/DESIGN_PATTERNS_MASTER_HANDBOOK.md"}, {"id": "engineering_4", "label": "4. تصميم النظم الموزعة والتوسع الأفقي", "group": "engineering", "color": "#3b82f6", "radius": 9, "file": "engineering-learning/SYSTEM_DESIGN_MASTER_HANDBOOK.md"}, {"id": "engineering_5", "label": "5. المشروع التطبيقي الحقيقي في الإنتاج", "group": "engineering", "color": "#3b82f6", "radius": 9, "file": "engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md"}, {"id": "domain_career", "label": "خط إنتاج التوظيف واقتناص الدخل الهندسي", "group": "career", "color": "#f59e0b", "radius": 14, "file": "engineering-learning/ENGLISH_MASTERY_LOG.md"}, {"id": "career_1", "label": "1. إتقان الإنجليزية الهندسية والترقي اللغوي", "group": "career", "color": "#f59e0b", "radius": 9, "file": "engineering-learning/ENGLISH_MASTERY_LOG.md"}, {"id": "career_2", "label": "2. صناعة السير الذاتية الموجهة للشركات", "group": "career", "color": "#f59e0b", "radius": 9, "file": "engineering-learning/targeted-cvs/README.md"}, {"id": "career_3", "label": "3. بناء السلطة المعرفية على لينكد إن", "group": "career", "color": "#f59e0b", "radius": 9, "file": "engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md"}, {"id": "career_4", "label": "4. مسار التقدم الوظيفي وقنص الفرص", "group": "career", "color": "#f59e0b", "radius": 9, "file": "engineering-learning/JOB_APPLICATIONS_PIPELINE.md"}, {"id": "domain_orchestration", "label": "خط إنتاج الأتمتة والوكلاء الأذكياء", "group": "orchestration", "color": "#8b5cf6", "radius": 14, "file": "AGENTS.md"}, {"id": "orchestration_1", "label": "1. دستور مساحة العمل وتوجيهات الوكلاء", "group": "orchestration", "color": "#8b5cf6", "radius": 9, "file": "AGENTS.md"}, {"id": "orchestration_2", "label": "2. منظومة القدرات الفائقة ومهارات الدومين", "group": "orchestration", "color": "#8b5cf6", "radius": 9, "file": ".agents/skills/abdo-personal-mentor/SKILL.md"}, {"id": "orchestration_3", "label": "3. محرك مسار الاعتماديات الموجّه للوكلاء", "group": "orchestration", "color": "#8b5cf6", "radius": 9, "file": "scripts/generate_subagent_dag.js"}, {"id": "orchestration_4", "label": "4. لوحة رصد التقدم ومحاسبة ديون المهام", "group": "orchestration", "color": "#8b5cf6", "radius": 9, "file": "PROGRESS_TRACKER.md"}], "edges": [{"source": "hub_master", "target": "domain_ecommerce"}, {"source": "domain_ecommerce", "target": "ecommerce_1"}, {"source": "ecommerce_1", "target": "ecommerce_2"}, {"source": "ecommerce_2", "target": "ecommerce_3"}, {"source": "ecommerce_3", "target": "ecommerce_4"}, {"source": "ecommerce_4", "target": "ecommerce_5"}, {"source": "hub_master", "target": "domain_engineering"}, {"source": "domain_engineering", "target": "engineering_1"}, {"source": "engineering_1", "target": "engineering_2"}, {"source": "engineering_2", "target": "engineering_3"}, {"source": "engineering_3", "target": "engineering_4"}, {"source": "engineering_4", "target": "engineering_5"}, {"source": "hub_master", "target": "domain_career"}, {"source": "domain_career", "target": "career_1"}, {"source": "career_1", "target": "career_2"}, {"source": "career_2", "target": "career_3"}, {"source": "career_3", "target": "career_4"}, {"source": "hub_master", "target": "domain_orchestration"}, {"source": "domain_orchestration", "target": "orchestration_1"}, {"source": "orchestration_1", "target": "orchestration_2"}, {"source": "orchestration_2", "target": "orchestration_3"}, {"source": "orchestration_3", "target": "orchestration_4"}, {"source": "ecommerce_5", "target": "engineering_1"}, {"source": "engineering_5", "target": "career_2"}, {"source": "career_1", "target": "career_4"}, {"source": "orchestration_4", "target": "hub_master"}]};
+    const cardsContainer = document.getElementById('cardsView');
 
+    // Render Cards View
     data.forEach(pipe => {
       const card = document.createElement('div');
       card.className = 'pipeline-card';
-      
       let nodesHtml = '';
       pipe.stages.forEach(st => {
         nodesHtml += `
@@ -343,7 +407,6 @@
           </div>
         `;
       });
-
       card.innerHTML = `
         <div class="pipeline-header">
           <div class="pipeline-title" style="color: ${pipe.color};">
@@ -353,8 +416,180 @@
         </div>
         <div class="flow-grid">${nodesHtml}</div>
       `;
-      app.appendChild(card);
+      cardsContainer.appendChild(card);
     });
+
+    // Tab Switcher
+    function switchView(mode) {
+      const cardsView = document.getElementById('cardsView');
+      const graphView = document.getElementById('graphView');
+      const btnCards = document.getElementById('btnCards');
+      const btnGraph = document.getElementById('btnGraph');
+
+      if (mode === 'graph') {
+        cardsView.style.display = 'none';
+        graphView.style.display = 'block';
+        btnCards.classList.remove('active');
+        btnGraph.classList.add('active');
+        initForceGraph();
+      } else {
+        cardsView.style.display = 'flex';
+        graphView.style.display = 'none';
+        btnCards.classList.add('active');
+        btnGraph.classList.remove('active');
+      }
+    }
+
+    // Force-Directed Physics Simulation Canvas
+    let animId = null;
+    let canvas, ctx;
+    let nodes = [], edges = [];
+    let draggedNode = null;
+    let mouse = { x: 0, y: 0, isDown: false };
+
+    function initForceGraph() {
+      canvas = document.getElementById('graphCanvas');
+      ctx = canvas.getContext('2d');
+      const rect = canvas.getBoundingClientRect();
+      canvas.width = rect.width;
+      canvas.height = rect.height;
+
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+
+      // Initialize Node positions in circle
+      nodes = graphData.nodes.map((n, i) => {
+        const angle = (i / graphData.nodes.length) * Math.PI * 2;
+        const dist = n.group === 'hub' ? 0 : (n.id.startsWith('domain') ? 140 : 250);
+        return {
+          ...n,
+          x: cx + Math.cos(angle) * dist + (Math.random() - 0.5) * 40,
+          y: cy + Math.sin(angle) * dist + (Math.random() - 0.5) * 40,
+          vx: 0,
+          vy: 0
+        };
+      });
+
+      edges = graphData.edges.map(e => ({
+        sourceNode: nodes.find(n => n.id === e.source),
+        targetNode: nodes.find(n => n.id === e.target)
+      })).filter(e => e.sourceNode && e.targetNode);
+
+      // Mouse events
+      canvas.onmousedown = (e) => {
+        const pos = getMousePos(e);
+        draggedNode = nodes.find(n => Math.hypot(n.x - pos.x, n.y - pos.y) < n.radius + 6);
+        mouse.isDown = true;
+      };
+
+      window.onmousemove = (e) => {
+        if (draggedNode) {
+          const pos = getMousePos(e);
+          draggedNode.x = pos.x;
+          draggedNode.y = pos.y;
+          draggedNode.vx = 0;
+          draggedNode.vy = 0;
+        }
+      };
+
+      window.onmouseup = () => {
+        draggedNode = null;
+        mouse.isDown = false;
+      };
+
+      if (!animId) updatePhysics();
+    }
+
+    function getMousePos(e) {
+      const rect = canvas.getBoundingClientRect();
+      return { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    }
+
+    function updatePhysics() {
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+
+      // 1. Repulsion between all node pairs
+      for (let i = 0; i < nodes.length; i++) {
+        for (let j = i + 1; j < nodes.length; j++) {
+          const a = nodes[i];
+          const b = nodes[j];
+          const dx = b.x - a.x;
+          const dy = b.y - a.y;
+          const dist = Math.hypot(dx, dy) || 1;
+          if (dist < 400) {
+            const force = (3500 / (dist * dist));
+            const fx = (dx / dist) * force;
+            const fy = (dy / dist) * force;
+            a.vx -= fx;
+            a.vy -= fy;
+            b.vx += fx;
+            b.vy += fy;
+          }
+        }
+      }
+
+      // 2. Spring Attraction along Edges
+      edges.forEach(e => {
+        const a = e.sourceNode;
+        const b = e.targetNode;
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const dist = Math.hypot(dx, dy) || 1;
+        const targetDist = 90;
+        const force = (dist - targetDist) * 0.02;
+        const fx = (dx / dist) * force;
+        const fy = (dy / dist) * force;
+        a.vx += fx;
+        a.vy += fy;
+        b.vx -= fx;
+        b.vy -= fy;
+      });
+
+      // 3. Center Gravity & Velocity Update
+      nodes.forEach(n => {
+        if (n !== draggedNode) {
+          n.vx += (cx - n.x) * 0.003;
+          n.vy += (cy - n.y) * 0.003;
+          n.x += n.vx;
+          n.y += n.vy;
+          n.vx *= 0.88; // Damping
+          n.vy *= 0.88;
+        }
+      });
+
+      // Draw
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Draw Edges
+      ctx.lineWidth = 1.2;
+      edges.forEach(e => {
+        ctx.strokeStyle = 'rgba(255, 255, 255, 0.12)';
+        ctx.beginPath();
+        ctx.moveTo(e.sourceNode.x, e.sourceNode.y);
+        ctx.lineTo(e.targetNode.x, e.targetNode.y);
+        ctx.stroke();
+      });
+
+      // Draw Nodes
+      nodes.forEach(n => {
+        ctx.beginPath();
+        ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+        ctx.fillStyle = n.color;
+        ctx.shadowColor = n.color;
+        ctx.shadowBlur = 12;
+        ctx.fill();
+        ctx.shadowBlur = 0;
+
+        // Label
+        ctx.fillStyle = '#f1f5f9';
+        ctx.font = '10px Cairo, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(n.label, n.x, n.y + n.radius + 14);
+      });
+
+      animId = requestAnimationFrame(updatePhysics);
+    }
   </script>
 </body>
 </html>
