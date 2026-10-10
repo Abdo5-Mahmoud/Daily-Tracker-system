@@ -6,6 +6,14 @@
 
 ---
 
+## 🧭 البوصلة العقلية المباشرة وخطوط الإنتاج الأربعة
+- للملاحة البصرية السريعة ومسارات التدفق المعرفي:
+[WORKSPACE_MENTAL_MODEL.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/WORKSPACE_MENTAL_MODEL.md)
+- العرض التفاعلي لصفحة الويب المحلية:
+[WORKSPACE_MENTAL_MODEL.html](file:///C:/Users/A5/Desktop/growth-workspace-withAI/WORKSPACE_MENTAL_MODEL.html)
+
+---
+
 ## 🗺️ خريطة ربط الأهداف الكبرى بالمهارات والملفات
 
 ### 1. هندسة الواجهات ومساعد ديفوليو
