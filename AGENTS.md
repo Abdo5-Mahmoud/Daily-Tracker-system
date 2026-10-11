@@ -73,12 +73,14 @@ Whenever a task begins, invoke the appropriate Superpowers skill BEFORE taking a
 
 ## 6. The 7-Model Free Compute Routing Matrix (مصفوفة تشغيل الوكلاء المجانية)
 
-Tasks are dynamically routed across these 7 configured free compute engines:
+Tasks are dynamically routed across this upgraded free compute matrix (Hybrid v2.1):
 
 | Engine | Model ID | Primary Specialized Role |
 | :--- | :--- | :--- |
-| **Qwen 2.5 Coder 32B** | `openrouter/qwen/qwen-2.5-coder-32b-instruct:free` | Heavy Fullstack TS/React code generation & feature implementation. |
-| **MiniMax-01** | `minimax/minimax-01` | Long-context flow synthesis, large document reasoning & implementation plan drafting. |
+| **Poolside Laguna S 2.1** | `openrouter/poolside/laguna-s-2.1:free` | Dedicated Agentic Coding & Fullstack Feature Implementation (Primary). |
+| **Qwen 2.5 Coder 32B** | `openrouter/qwen/qwen-2.5-coder-32b-instruct:free` | Strategic Fallback for Fullstack TS/React Code Generation. |
+| **NVIDIA Nemotron 3.5 Lightning** | `openrouter/nvidia/nemotron-3.5-lightning:free` | Ultra High-Throughput 1M Context Synthesis & Implementation Plan Drafting. |
+| **MiniMax-01** | `minimax/minimax-01` | Strategic Fallback for Long-Context Synthesis. |
 | **NVIDIA Nemotron 3 Ultra 550B** | `openrouter/nvidia/nemotron-3-ultra-550b:free` | Deep edge-case audits, race condition probing & adversarial code reviews. |
 | **JEV 1.13 (Deterministic)** | `opencode/jev-1.13-free` | Zero-cost task classification, dependency slicing & triage. |
 | **Mistral Codestral 2501** | `mistral/codestral-2501` | Rapid TDD loops, unit testing & refactoring. |
