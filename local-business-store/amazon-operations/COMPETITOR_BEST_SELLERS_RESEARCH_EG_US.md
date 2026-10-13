@@ -21,7 +21,31 @@
 
 ---
 
-## 2. دراسة ديب سيرش: أفضل 5 منتجات مبيعاً في السوق المصري
+## 2. جدول الروابط المباشرة لمنتجات البحث في السوقين
+
+```text
+===================================================================================================
+المنتج (السوق المصري - Amazon Egypt)             الرابط المباشر
+===================================================================================================
+1. طقم فازات الدونات (B0B66PQQY3)                https://www.amazon.eg/dp/B0B66PQQY3
+2. فروع ورد الكرز من آرتسي (B08T1F3YSJ)          https://www.amazon.eg/dp/B08T1F3YSJ
+3. طقم نباتات دير روز الصغيرة (B09MTGGJY7)        https://www.amazon.eg/dp/B09MTGGJY7
+4. فازات سيراميك ستيفيدين (B0BPM41R5C)           https://www.amazon.eg/dp/B0BPM41R5C
+5. نباتات وأزهار الزينة في أصيص (B0BZ8593CB)     https://www.amazon.eg/dp/B0BZ8593CB
+---------------------------------------------------------------------------------------------------
+المنتج (السوق الأمريكي - Amazon US)              الرابط المباشر
+---------------------------------------------------------------------------------------------------
+1. تنسيق ورد سيور بالفازة (B0BY8FHQ4N)           https://www.amazon.com/dp/B0BY8FHQ4N
+2. ليليام سيليكون نيرلي ناتشورال (B00BDRASTW)    https://www.amazon.com/dp/B00BDRASTW
+3. بوكيه ورد وفازة دوليسر (B0D2546KTK)           https://www.amazon.com/dp/B0D2546KTK
+4. نباتات وزهور إس جي جفيكسي (B0D22R3B1L)        https://www.amazon.com/dp/B0D22R3B1L
+5. ليليام بطوق دهبي هاوشيكس (B0B3RBF5P7)         https://www.amazon.com/dp/B0B3RBF5P7
+===================================================================================================
+```
+
+---
+
+## 3. دراسة ديب سيرش: أفضل 5 منتجات مبيعاً في السوق المصري
 
 ---
 
@@ -29,6 +53,7 @@
 ```text
 Product 1: Modern Ceramic Donut Vases Set (Amazon Egypt Best Seller)
 ASIN: B0B66PQQY3
+Link: https://www.amazon.eg/dp/B0B66PQQY3
 ```
 
 #### أ. العنوان المكتوب في الإدراج:
@@ -73,6 +98,7 @@ Product Description Script
 ```text
 Product 2: ARTSY Artificial Cherry Blossom Stems (Amazon Egypt)
 ASIN: B08T1F3YSJ
+Link: https://www.amazon.eg/dp/B08T1F3YSJ
 ```
 
 #### أ. العنوان المكتوب في الإدراج:
@@ -115,6 +141,7 @@ Product Description Script
 ```text
 Product 3: Der Rose Mini Potted Plants (Amazon Egypt Best Seller)
 ASIN: B09MTGGJY7
+Link: https://www.amazon.eg/dp/B09MTGGJY7
 ```
 
 #### أ. العنوان المكتوب في الإدراج:
@@ -155,6 +182,7 @@ Product Description Script
 ```text
 Product 4: Steviieden Ceramic Vases Set of 2 (Amazon Egypt)
 ASIN: B0BPM41R5C
+Link: https://www.amazon.eg/dp/B0BPM41R5C
 ```
 
 #### أ. العنوان المكتوب في الإدراج:
@@ -183,6 +211,8 @@ Bullet Points
 ### المنتج الخامس في السوق المصري: فازة ورد الأوركيد والليليام الجاهزة الشعبية
 ```text
 Product 5: Potted Artificial Flower Arrangement (Local Egyptian E-Commerce Benchmark)
+ASIN: B0BZ8593CB
+Link: https://www.amazon.eg/dp/B0BZ8593CB
 ```
 
 #### أ. العنوان المكتوب في الإدراج:
@@ -208,13 +238,15 @@ Bullet Points
 
 ---
 
-## 3. دراسة ديب سيرش: أفضل 5 منتجات مبيعاً في السوق الأمريكي
+## 4. دراسة ديب سيرش: أفضل 5 منتجات مبيعاً في السوق الأمريكي
 
 ---
 
 ### المنتج الأول في السوق الأمريكي: عملاق التنسيقات الجاهزة المتصدر للمبيعات
 ```text
 Product 1: CEWOR Artificial Flowers with Vase (Amazon US Best Seller)
+ASIN: B0BY8FHQ4N
+Link: https://www.amazon.com/dp/B0BY8FHQ4N
 Category Rank: #1 in Artificial Floral Arrangements
 ```
 
@@ -266,6 +298,8 @@ Clip 8% Coupon
 ### المنتج الثاني في السوق الأمريكي: براند الفخامة والورد بملمس السيليكون الحقيقي
 ```text
 Product 2: Nearly Natural Real-Touch Floral Arrangement in Vase
+ASIN: B00BDRASTW
+Link: https://www.amazon.com/dp/B00BDRASTW
 Brand: Nearly Natural (US Industry Leader)
 ```
 
@@ -303,6 +337,8 @@ Real-Touch Silicone Technology
 ### المنتج الثالث في السوق الأمريكي: البوكيه الكلاسيكي بالفازة السيراميك
 ```text
 Product 3: Dolicer Faux Silk Rose & Peony with Ceramic Planter
+ASIN: B0D2546KTK
+Link: https://www.amazon.com/dp/B0D2546KTK
 ```
 
 #### أ. العنوان المكتوب في الإدراج:
@@ -330,6 +366,8 @@ Save $2.00 with coupon
 ### المنتج الرابع في السوق الأمريكي: الديكور المنزلي المزرعي البسيط
 ```text
 Product 4: Sggvecsy Farmhouse Small Potted Flowers in Unbreakable Pot
+ASIN: B0D22R3B1L
+Link: https://www.amazon.com/dp/B0D22R3B1L
 ```
 
 #### أ. العنوان المكتوب في الإدراج:
@@ -357,6 +395,8 @@ Bullet Points
 ### المنتج الخامس في السوق الأمريكي: تنسيق زهور الليليام الفاخرة بطوق معدني
 ```text
 Product 5: HAOSHICS Real-Touch PU Floral Arrangement with Gold Trim Vase
+ASIN: B0B3RBF5P7
+Link: https://www.amazon.com/dp/B0B3RBF5P7
 ```
 
 #### أ. العنوان المكتوب في الإدراج:
@@ -378,7 +418,7 @@ Bullet Points
 
 ---
 
-## 4. الخريطة الهندسية لتطبيق أسرار البيست سيلرز على منتجنا (فلورا هوم)
+## 5. الخريطة الهندسية لتطبيق أسرار البيست سيلرز على منتجنا (فلورا هوم)
 
 لتحويل منتج فلورا هوم الجديد (ورد ليليام سيليكون في فازة مضلعة بطوق دهبي) إلى المنتج الأكثر مبيعاً في مصر، سنطبق الخلطة السرية التالية:
 
