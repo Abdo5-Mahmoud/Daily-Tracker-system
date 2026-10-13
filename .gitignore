@@ -17,7 +17,7 @@ tmp/
 *.tmp
 *.bak
 *.log
-superpowers/
+/superpowers/
 __pycache__/
 *.py[cod]
 

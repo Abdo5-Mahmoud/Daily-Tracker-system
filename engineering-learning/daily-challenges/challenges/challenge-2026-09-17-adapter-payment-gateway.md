@@ -2,8 +2,8 @@
 
 > **Date**: 2026-09-17  
 > **Topic**: Structural Design Patterns - The Adapter Pattern (Object Adapter vs. Interface Incompatibilities)  
-> **Target Solution File**: [solution-2026-09-17-adapter-payment-gateway.ts](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/solutions/solution-2026-09-17-adapter-payment-gateway.ts)  
-> **Target Quiz File**: [quiz-2026-09-17-adapter-payment-gateway.md](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/grilling-quizzes/quiz-2026-09-17-adapter-payment-gateway.md)
+> **Target Solution File**: [solution-2026-09-17-adapter-payment-gateway.ts](engineering-learning/daily-challenges/solutions/solution-2026-09-17-adapter-payment-gateway.ts)  
+> **Target Quiz File**: [quiz-2026-09-17-adapter-payment-gateway.md](engineering-learning/daily-challenges/grilling-quizzes/quiz-2026-09-17-adapter-payment-gateway.md)
 
 ---
 

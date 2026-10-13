@@ -18,10 +18,10 @@
 ---
 
 ## 📂 Modular English Mastery System (النظام المعياري المحدث)
-- 🚨 [Strike & Error Tracker](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/english-mastery/strike-tracker.md): لوحة متابعة العداد والإنذارات ونقاط التعافي.
-- 🛠️ [Technical Vocabulary & Spelling Vault](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/english-mastery/vocabulary-vault.md): قاموس المصطلحات التقنية والتهجئة الصحيحة.
-- 💬 [Pro Engineer Phrase Templates](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/english-mastery/phrase-templates.md): قوالب الجمل الهندسية ونصوص المقابلات.
-- 🎙️ [Voice Practice & Call Log](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/english-mastery/voice-practice-log.md): سجل تفريغ مكالمات Gemini Live وتمارين القراءة بصوت عالٍ.
+- 🚨 [Strike & Error Tracker](engineering-learning/english-mastery/strike-tracker.md): لوحة متابعة العداد والإنذارات ونقاط التعافي.
+- 🛠️ [Technical Vocabulary & Spelling Vault](engineering-learning/english-mastery/vocabulary-vault.md): قاموس المصطلحات التقنية والتهجئة الصحيحة.
+- 💬 [Pro Engineer Phrase Templates](engineering-learning/english-mastery/phrase-templates.md): قوالب الجمل الهندسية ونصوص المقابلات.
+- 🎙️ [Voice Practice & Call Log](engineering-learning/english-mastery/voice-practice-log.md): سجل تفريغ مكالمات Gemini Live وتمارين القراءة بصوت عالٍ.
 
 ---
 

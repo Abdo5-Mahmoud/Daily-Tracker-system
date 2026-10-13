@@ -1,246 +1,807 @@
-# Master Knowledge Base & Engineering Compass 🧭🧠
+# Master Knowledge Base & Complete Workspace Compass 🧭🧠
 
-> **الغرض**: الدليل المرجعي الشامل وخريطة المحتوى المركزية (Map of Content - MOC) لكل ما تعلمته، بنيته، وثقته في مساحة العمل. افتح هذا الملف في أي وقت لمراجعة شبكة المفاهيم الهندسية، السير الذاتية، سكريبتات المقابلات، وبيزنس المتجر في بيئة واحدة متكاملة ومترابطة داخل Obsidian.
-
----
-
-## 🗺️ خريطة ربط الأهداف الكبرى بالمهارات والملفات التنفيذية (Goals-to-Skills Matrix)
-
-| الركيزة الاستراتيجية (Goal) | المهارة الموجهة (Skill) | ملفات المعمارية والتنفيذ في مساحة العمل | مؤشر الحالة |
-| :--- | :--- | :--- | :--- |
-| **1. Devfolio AI & هندسة الواجهات** | [abdo-personal-mentor](.agents/skills/abdo-personal-mentor/SKILL.md) | • [4 Master Handbooks](engineering-learning/DESIGN_PATTERNS_MASTER_HANDBOOK.md)<br>• [LEARNING_NOTES.md](engineering-learning/LEARNING_NOTES.md)<br>• [DEVFOLIO_AGENT_SYSTEM_PROMPT.md](engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md)<br>• [PROGRESS_TRACKER.md](PROGRESS_TRACKER.md) | 🟢 **100% مكتمل ولايف** (38/38 اختبارات خضراء) |
-| **2. إتقان الإنجليزية وجاهزية المقابلات** | [abdo-personal-mentor](.agents/skills/abdo-personal-mentor/SKILL.md) | • [ENGLISH_MASTERY_LOG.md](engineering-learning/ENGLISH_MASTERY_LOG.md)<br>• [CAREER_ACCELERATION_PLAN.md](engineering-learning/CAREER_ACCELERATION_PLAN.md) | 🟡 **نشط يومياً** (ترقية العبارات ومحاكاة الإنترفيو) |
-| **3. اقتناص الدخل (وظيفة / فريلانس)** | [abdo-personal-mentor](.agents/skills/abdo-personal-mentor/SKILL.md) | • [targeted-cvs/README.md](engineering-learning/targeted-cvs/README.md)<br>• [LINKEDIN_CONTENT_PLAYBOOK.md](engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md) | 🚀 **نشط يومياً** (معدل تقديمين مستهدفين يومياً) |
-| **4. متجر أرتيفلورا وأمازون (Flora_Home)** | [amazon-ecommerce-growth](.agents/skills/amazon-ecommerce-growth/SKILL.md) | • [STORE_GROWTH_PLAN.md](local-business-store/STORE_GROWTH_PLAN.md)<br>• [AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md](local-business-store/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md)<br>• [AMAZON_MARKET_AUDIT_FLOWER_VASES.md](local-business-store/AMAZON_MARKET_AUDIT_FLOWER_VASES.md)<br>• [WORKFLOW.md](local-business-store/store-marketing/WORKFLOW.md)<br>• [AI_AGENTS_SPECIFICATIONS.md](local-business-store/store-marketing/AI_AGENTS_SPECIFICATIONS.md) | 🌿 **نشط ميدانياً** (نشر ريلز + إدراج أول منتج) |
+> **الغرض**:
+> الدليل المرجعي الشامل وخريطة المحتوى المركزية وفهرس مساحة العمل الكامل لكل ملف وهدفه ودوره التشغيلي.
+> يربط هذا الملف كافة ملفات الكود، ومراجع الهندسة، ووثائق بيزنس المتجر وأمازون، والسكربتات، وسجلات التتبع في مصدر حقيقة واحد.
 
 ---
 
-## 📑 الفهرس السريع (Quick Navigation)
-
-1. [🏛️ المعمارية والمفاهيم الهندسية المكتملة](#1-المعمارية-والمفاهيم-الهندسية-المكتملة)
-2. [🧪 الاختبارات وجودة الكود (Testing & Quality)](#2-الاختبارات-وجودة-الكود-testing--quality)
-3. [🎯 السير الذاتية المستهدفة والوظائف (Targeted CVs & Job Hunt)](#3-السير-الذاتية-المستهدفة-والوظائف-targeted-cvs--job-hunt)
-4. [🎙️ تدريب الإنجليزية والمقابلات (English Mastery)](#4-تدريب-الإنجليزية-والمقابلات-english-mastery)
-5. [🤖 برومبتات ودساتير الوكلاء الأذكياء (Agentic Prompts)](#5-برومبتات-ودساتير-الوكلاء-الأذكياء-agentic-prompts)
-6. [🏪 تسويق وبيزنس محل أرتيفلورا وأمازون مصر (Local & E-Commerce Business)](#6-تسويق-وبيزنس-محل-أرتيفلورا-وأمازون-مصر-local--e-commerce-business)
-7. [📊 ملفات المتابعة وإدارة اليوم (Daily Command Center)](#7-ملفات-المتابعة-وإدارة-اليوم-daily-command-center)
+## 🧭 البوصلة العقلية المباشرة وخطوط الإنتاج الأربعة
+- للملاحة البصرية السريعة ومسارات التدفق المعرفي:
+[WORKSPACE_MENTAL_MODEL.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/WORKSPACE_MENTAL_MODEL.md)
+- العرض التفاعلي لصفحة الويب المحلية:
+[WORKSPACE_MENTAL_MODEL.html](file:///C:/Users/A5/Desktop/growth-workspace-withAI/WORKSPACE_MENTAL_MODEL.html)
 
 ---
 
-## 1. 🏛️ المعمارية والمفاهيم الهندسية المكتملة
+## 🕸️ مصفوفة الترابط الشبكي البيني لأوبسيديان
+```text
+Obsidian Bidirectional Knowledge Mesh & Cross-Domain Bridges
+```
 
-### 📚 الكتيبات المرجعية الشاملة الأربعة (The 4 Master Handbooks):
-تم تجميع وتكثيف كافة المفاهيم في 4 مراجع معمارية عليا لتوجيه الذكاء الاصطناعي والمراجعة الدورية:
-- 🎨 **[DESIGN_PATTERNS_MASTER_HANDBOOK.md](engineering-learning/DESIGN_PATTERNS_MASTER_HANDBOOK.md)**: الدليل الشامل لكافة أنماط التصميم (Creational, Structural, Behavioral) بأمثلة متجر الديكور والتايب سكريبت.
-- 🧱 **[SOLID_PRINCIPLES_MASTER_HANDBOOK.md](engineering-learning/SOLID_PRINCIPLES_MASTER_HANDBOOK.md)**: الدليل الشامل لمبادئ SOLID الخمسة وكيفية فحص وتصحيح كود الذكاء الاصطناعي ومعمارية الطبقات الأربع.
-- ☁️ **[SYSTEM_DESIGN_MASTER_HANDBOOK.md](engineering-learning/SYSTEM_DESIGN_MASTER_HANDBOOK.md)**: دليل تصميم الأنظمة الموزعة، التوسع الأفقي، الكاش، محدد الطلبات، قفل المعاملات، ودورة حياة السيرفرليس.
-- 📐 **[ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md](engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md)**: دليل الخوارزميات وهياكل البيانات العملية المستندة للأساس الرياضي (LRU Cache, Trie, Sliding Window, Debounce).
+### 1. جسر التجارة والهندسة
+يربط بيانات المتجر بالتحليل الرياضي وأدوات الاستعلام البرمجية:
+- قاعدة بيانات رصد السوق:
+[local-business-store/market-intelligence/amazon_market.db](file:///C:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/market-intelligence/amazon_market.db)
+- أداة الاستعلام السريع:
+[local-business-store/scripts/db_quick_query.py](file:///C:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/scripts/db_quick_query.py)
+- كتيب الخوارزميات وهياكل البيانات:
+[engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md)
 
-سجل الملاحظات اليومية والتطبيق الميداني:  
-🔗 [engineering-learning/LEARNING_NOTES.md](engineering-learning/LEARNING_NOTES.md)
+### 2. جسر الهندسة والتوظيف
+يربط المشاريع البرمجية الحقيقية بالسير الذاتية وفرص الدخل المباشرة:
+- مشروع ديفوليو البرمجي المنشور:
+[engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md)
+- السير الذاتية الموجهة للشركات:
+[engineering-learning/targeted-cvs/README.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/targeted-cvs/README.md)
+- مسار تتبع التقديمات الوظيفية:
+[engineering-learning/JOB_APPLICATIONS_PIPELINE.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/JOB_APPLICATIONS_PIPELINE.md)
 
-### المفاهيم المعمارية ومستويات إسنادها:
+### 3. جسر الإنجليزية والمقابلات المهنية
+يربط التحدث اليومي بجاهزية المقابلات التقنية وبناء الحضور الرقمي:
+- سجل ترقية الصياغة الإنجليزية:
+[engineering-learning/ENGLISH_MASTERY_LOG.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/ENGLISH_MASTERY_LOG.md)
+- خطة تسريع المسار المهني:
+[engineering-learning/CAREER_ACCELERATION_PLAN.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/CAREER_ACCELERATION_PLAN.md)
+- دليل صناعة المحتوى على لينكد إن:
+[engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md)
 
-#### أ. هندسة الخوادم وعديمة الخادم
-- `[Tier 2: AI-Audited]`
-  **Mongoose Cache Poisoning & In-Flight Promise Caching**:
-  - *المشكلة*:
-    إعادة بناء الاتصال في كل طلب، وتسمم الذاكرة بوعود فاشلة، وخطر سباق الطلبات المتزامنة:
-    `Connection Stampede`
-  - *الحل*:
-    حفظ الوعد غير المتزامن فوراً في المتغير العام لمنع تكرار الاتصال، وتفريغه عند حدوث أي خطأ:
-    `globalThis`
-  - *الشرح المفصل*:
-    [LEARNING_NOTES.md (Concept 02)](engineering-learning/LEARNING_NOTES.md#02-mongoose-promise-caching--cache-poisoning-nextjs-serverless)
-- `[Tier 2: AI-Audited]`
-  **Serverless Container Freeze & after()**:
-  - *المشكلة*:
-    الدوال غير المتزامنة التي تعمل بدون انتظار تتجمد عند إرسال الرد للمستخدم في السيرفرليس.
-  - *الحل*:
-    استخدام دالة التنفيذ اللاحق لتنفيذ المهام الخلفية دون تأخير الرد للعميل:
-    `after()`
-- `[Tier 2: AI-Audited]`
-  **In-Memory Rate Limiting & Memory Cleanup**:
-  - *المشكلة*:
-    استهلاك موارد السيرفر وهجمات إغراق الطلبات وتضخم الذاكرة بمرور الوقت:
-    `Memory Leak`
-  - *الحل*:
-    بناء محدد طلبات بخوارزمية النافذة المنزلقة مع دالة تنظيف دورية للسجلات القديمة وحفظ الحالة في المتغير العام:
-    `globalThis`
-- `[Tier 2: AI-Audited]`
-  **Honeypot Bot Trap**:
-  - *المشكلة*:
-    السبام ورسائل البوتات المزعجة التي تملأ استمارة التواصل.
-  - *الحل*:
-    حقل مخفي للمستخدم يملأه البوت تلقائياً فيتم إسقاط الطلب بصمت بدون تكلفة أو تعقيد:
-    `CAPTCHA`
-
-#### ب. مبادئ التصميم وأنماط البرمجيات
-- `[Tier 2: AI-Audited]`
-  **Single Responsibility Principle (SRP)**:
-  - *المفهوم*:
-    فصل المسؤوليات إلى 4 طبقات نقية:
-    `Controller -> Service -> Repository -> Validator`
-  - *ملف الحل*:
-    [solution-2026-09-10-srp-user-service.ts](engineering-learning/daily-challenges/solutions/solution-2026-09-10-srp-user-service.ts)
-  - *ملف الكويز*:
-    [quiz-2026-09-10-srp-user-service.md](engineering-learning/daily-challenges/grilling-quizzes/quiz-2026-09-10-srp-user-service.md)
-- `[Tier 2: AI-Audited]`
-  **Open/Closed Principle (OCP)**:
-  - *المفهوم*:
-    فتح الكود للإضافة وإغلاقه أمام التعديل. التخلص من الشروط المتشعبة باستخدام نمط السجل والاستراتيجية:
-    `Strategy & Registry Pattern`
-  - *ملف الحل*:
-    [solution-2026-09-11-ocp-payment-gateway.ts](engineering-learning/daily-challenges/solutions/solution-2026-09-11-ocp-payment-gateway.ts)
-  - *ملف الكويز*:
-    [quiz-2026-09-11-ocp-payment-gateway.md](engineering-learning/daily-challenges/grilling-quizzes/quiz-2026-09-11-ocp-payment-gateway.md)
-- `[Tier 2: AI-Audited]`
-  **Strategy & Gateway Pattern**:
-  - *المفهوم*:
-    عزل مزودي الذكاء الاصطناعي عبر واجهة موحدة وبوابة اتصالات معزولة مع معالجة أخطاء المجال:
-    `LLMProviderStrategy & GeminiClient`
-- `[Tier 3: Solo-Authored]`
-  **The Adapter Pattern & Anti-Corruption Layer (Bosta & Stripe)**:
-  - *المفهوم*:
-    ترويض الواجهات والمكتبات الخارجية غير المتوافقة دون تلويث كود النظام الداخلي، مع عزل أخطاء المزود الخارجي في طبقة حماية:
-    `Anti-Corruption Layer (ACL)`
-  - *الشرح المفصل*:
-    [LEARNING_NOTES.md (Concept 13)](engineering-learning/LEARNING_NOTES.md#13-the-adapter-pattern--anti-corruption-layer-bosta-shipping--stripe-integration)
-  - *ملفات الحل*:
-    [solution-2026-09-17-decor-shipping-engine.ts](engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts)
-    [solution-2026-09-17-adapter-payment-gateway.ts](engineering-learning/daily-challenges/solutions/solution-2026-09-17-adapter-payment-gateway.ts)
-- `[Tier 3: Solo-Authored]`
-  **The Observer Pattern & Type-Safe EventBus with Fault Isolation**:
-  - *المفهوم*:
-    معمارية موجهة بالأحداث، وسيط مركزي مع حلقة تكرار تعزل الأعطال عبر عزل كل مستمع بشكل مستقل، مع أمان تام للأنواع:
-    `Fault Isolation`
-  - *الشرح المفصل*:
-    [LEARNING_NOTES.md (Concept 14)](engineering-learning/LEARNING_NOTES.md#14-the-observer-pattern--type-safe-eventbus-with-fault-isolation)
-  - *ملف الحل*:
-    [solution-2026-09-18-observer-event-bus.ts](engineering-learning/daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts)
-- `[Tier 3: Solo-Authored]`
-  **Liskov Substitution Principle (LSP) & Behavioral Subtyping**:
-  - *المفهوم*:
-    الفئات الفرعية يجب أن تستبدل الفئات الأصلية دون كسر العقد السلوكي أو رمي استثناءات غير متوقعة. التخلص من فخ فحص نوع الكائن عبر تجزئة الواجهات:
-    `instanceof`
-  - *الشرح المفصل*:
-    [LEARNING_NOTES.md (Concept 15)](engineering-learning/LEARNING_NOTES.md#15-liskov-substitution-principle-lsp--behavioral-subtyping)
-  - *ملف الحل*:
-    [solution-2026-09-13-lsp-refund-gateway.ts](engineering-learning/daily-challenges/solutions/solution-2026-09-13-lsp-refund-gateway.ts)
-- `[Tier 3: Solo-Authored]`
-  **Architectural Integration: Unified Order Fulfillment Engine**:
-  - *المفهوم*:
-    تجميع وتكامل أنماط التصميم الثلاثة في تدفق واحد متماسك (الاستراتيجية لاختيار الناقل، والمحول لترجمة الشروط، والوسيط لبث الأحداث دون ارتباط مباشر مع عزل الأعطال):
-    `Strategy + Adapter + Observer`
-  - *الشرح المفصل*:
-    [LEARNING_NOTES.md (Concept 16)](engineering-learning/LEARNING_NOTES.md#16-architectural-integration-unified-order-fulfillment-engine-strategy--adapter--observer)
-  - *ملف الحل*:
-    [solution-2026-09-22-unified-order-fulfillment-engine.ts](engineering-learning/daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts)
-
-#### ج. خارطة مشاريع الفول ستاك ونظام أجايل (Fullstack Projects & Agile Roadmap)
-- **محرك متجر الديكور وسبرنتات أجايل الرأسية (Decor Store Commerce Engine)**:
-  - *المنهجية*: نظام سبرنتات أسبوعية بتقسيم الشرائح الرأسية (Vertical Slices) لخدمة المتجر كعميل أول:
-    `PostgreSQL + Prisma -> Auth/RBAC -> Concurrency/Locking -> TanStack Query/Docker`
-  - *الوثيقة الكاملة للمسار*: [ROADMAP_AND_AGILE_SPRINTS.md](engineering-learning/decor-store-engine/ROADMAP_AND_AGILE_SPRINTS.md)
+### 4. جسر الأتمتة الشاملة والوكلاء
+العمود الفقري الحاكم الذي يراقب ديون المهام ويوجه خطط العمل في كافة المسارات:
+- لوحة رصد التقدم ومحاسبة الديون:
+[PROGRESS_TRACKER.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/PROGRESS_TRACKER.md)
+- دستور التوجيهات وقواعد العمل:
+[AGENTS.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/AGENTS.md)
+- محرك مسارات التبعيات للوكلاء:
+[scripts/generate_subagent_dag.js](file:///C:/Users/A5/Desktop/growth-workspace-withAI/scripts/generate_subagent_dag.js)
 
 ---
 
-## 2. 🧪 الاختبارات وجودة الكود (Testing & Quality)
+## 🗺️ خريطة ربط الأهداف الكبرى بالمهارات والملفات
 
-- **أجنحة اختبارات ديفوليو (5 Test Suites / 38 Tests Passing 100%)**:
-  - *تصنيف الإسناد*: `[Tier 1: AI-Generated Scaffolding]` (تم توليد الهيكل والاختبارات كمرجع لضمان سلامة المشروع).
-  - `__tests__/smoke.test.ts`: اختبار تشغيل واستجابة المسارات الأساسية.
-  - `__tests__/auth.test.ts`: اختبار أمان الجلسات وحماية الكوكيز.
-  - `__tests__/api-boundaries.test.ts`: اختبار حدود واجهات البرمجة والتحقق من المدخلات.
-  - `__tests__/ai-assistant.test.ts`: اختبار المزود الوهمي ومحدد الطلبات الحسابي بدقة 100%.
-  - `__tests__/projects-validation.test.ts`: اختبار سلامة بيانات المشاريع ومخطط Zod.
-- **منصة الاختبار مقابل الحالة الاختبارية (Test Harness vs. Test Case)**:
-  - *تصنيف الإسناد*: `[Tier 2: AI-Audited]`
-  - *المفهوم*: بناء منصة بيئة عزل وحواضن تشغيل محكمة (`Test Harness`) لحماية الإنتاج من الخصم المالي، وتلويث الداتابيز، والاختبارات المتذبذبة.
-  - *الشرح الكامل*: [LEARNING_NOTES.md (Concept 12)](engineering-learning/LEARNING_NOTES.md#12-test-harness-vs-test-case-isolated-execution-rigs--production-risk-elimination)
+### 1. هندسة الواجهات ومساعد ديفوليو
+- المهارة الموجهة:
+  [.agents/skills/abdo-personal-mentor/SKILL.md](.agents/skills/abdo-personal-mentor/SKILL.md)
+- الملفات المرتبطة:
+  [engineering-learning/DESIGN_PATTERNS_MASTER_HANDBOOK.md](engineering-learning/DESIGN_PATTERNS_MASTER_HANDBOOK.md)
+  [engineering-learning/LEARNING_NOTES.md](engineering-learning/LEARNING_NOTES.md)
+  [engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md](engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md)
+  [PROGRESS_TRACKER.md](PROGRESS_TRACKER.md)
+- روابط المشروع على الويب وجيت هاب:
+  [https://devfolio-ai.vercel.app](https://devfolio-ai.vercel.app)
+  [https://github.com/Abdo5-Mahmoud/devfolio-ai](https://github.com/Abdo5-Mahmoud/devfolio-ai)
+- مؤشر الحالة:
+```text
+Status: Live in Production (38/38 Tests Passing)
+```
 
----
+### 2. إتقان الإنجليزية وجاهزية المقابلات
+- المهارة الموجهة:
+  [.agents/skills/abdo-personal-mentor/SKILL.md](.agents/skills/abdo-personal-mentor/SKILL.md)
+- الملفات المرتبطة:
+  [engineering-learning/ENGLISH_MASTERY_LOG.md](engineering-learning/ENGLISH_MASTERY_LOG.md)
+  [engineering-learning/CAREER_ACCELERATION_PLAN.md](engineering-learning/CAREER_ACCELERATION_PLAN.md)
+  [engineering-learning/english-mastery/phrase-templates.md](engineering-learning/english-mastery/phrase-templates.md)
+- مؤشر الحالة:
+```text
+Status: Daily Active Drill
+```
 
-## 3. 🎯 السير الذاتية المستهدفة والوظائف (Targeted CVs & Job Hunt)
+### 3. اقتناص الدخل الهندسي والتقديم على الوظائف
+- المهارة الموجهة:
+  [.agents/skills/abdo-personal-mentor/SKILL.md](.agents/skills/abdo-personal-mentor/SKILL.md)
+- الملفات المرتبطة:
+  [engineering-learning/JOB_APPLICATIONS_PIPELINE.md](engineering-learning/JOB_APPLICATIONS_PIPELINE.md)
+  [engineering-learning/targeted-cvs/README.md](engineering-learning/targeted-cvs/README.md)
+  [engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md](engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md)
+  [engineering-learning/career-accelerator/GEMINI_JOB_HUNTER_GEM.md](engineering-learning/career-accelerator/GEMINI_JOB_HUNTER_GEM.md)
+  [engineering-learning/career-accelerator/GLOBAL_LABOR_MARKET_INTELLIGENCE_2026_2030.md](engineering-learning/career-accelerator/GLOBAL_LABOR_MARKET_INTELLIGENCE_2026_2030.md)
+- مؤشر الحالة:
+```text
+Status: Active Outbound Pipeline
+```
 
-دليل بروتوكول التقديم المباشر:  
-🔗 [engineering-learning/targeted-cvs/README.md](engineering-learning/targeted-cvs/README.md)
-
-### ملفات السير الذاتية الجاهزة حسب الدور:
-1. **الواجهات الأمامية (Frontend Specialist)**:
-   - النص المصدر: [CV_FRONTEND_REACT_SPECIALIST.md](engineering-learning/targeted-cvs/CV_FRONTEND_REACT_SPECIALIST.md)
-   - ملف الـ PDF المعتمد: [Abdullah_Mahmoud_Fawzy_FRONTEND_DEVELOPER.pdf](engineering-learning/targeted-cvs/Abdullah_Mahmoud_Fawzy_FRONTEND_DEVELOPER.pdf)
-2. **الفول ستاك (Fullstack TypeScript Engineer)**:
-   - النص المصدر: [CV_FULLSTACK_TYPESCRIPT_ENGINEER.md](engineering-learning/targeted-cvs/CV_FULLSTACK_TYPESCRIPT_ENGINEER.md)
-   - ملف الـ PDF المعتمد: [Abdullah_Mahmoud_Fawzy_FullStack.pdf](engineering-learning/targeted-cvs/Abdullah_Mahmoud_Fawzy_FullStack.pdf)
-3. **السيرة المخصصة لفودافون (Vodafone Frontend Specialist)**:
-   - النص المصدر: [CV_VODAFONE_FRONTEND_DEVELOPER.md](engineering-learning/targeted-cvs/CV_VODAFONE_FRONTEND_DEVELOPER.md)
-
-### سجل التقديمات الرسمية النشطة:
-- ✅ **شركة فودافون (Vodafone)**: تم التقديم لوظيفة مطور واجهات أمامية بالسيرة المخصصة.
-- ✅ **شركة بينو تكنولوجيز دبي (BENO Technologies)**: تم التقديم لوظيفة مطور واجهات مبتدئ مع خطاب تقديم ذكي.
-- ✅ **شركة سكيليزي بالدقي (Scalezy)**: تم التقديم المباشر لوظيفة مطور متكامل مبتدئ عبر الواتساب.
-- ✅ **شركة بيكسيبو (Pixibo)**: تم التقديم لوظيفة مطور واجهات مبتدئ عبر سمارت ريكروترز.
-- ✅ **شركة شركتي (Sherkety)**: تم التقديم لتدريب المطور المتكامل والذكاء الاصطناعي عبر وظف.
-- ✅ **أمير سامي (Amir Sami)**: تم التقديم لوظيفة مطور واجهات عن بُعد بالكامل عبر الواتساب.
-- ✅ **عمر بكري (Omar Bakry)**: تم التقديم لفرصة مطور واجهات دوام جزئي عن بُعد عبر لينكد إن.
-- ✅ **شركة فونديرًا (Vondera)**: تم التقديم لوظيفة مطور ويب وتهيئة التجار عبر الإيميل المباشر للمؤسس محمد الشريف بسيرة مطور الواجهات.
-
----
-
-## 4. 🎙️ تدريب الإنجليزية والمقابلات (English Mastery)
-
-- **سجل التدريب اللغوي وترقية العبارات**:  
-  🔗 [engineering-learning/ENGLISH_MASTERY_LOG.md](engineering-learning/ENGLISH_MASTERY_LOG.md)  
-  (يحتوي على مقارنات الصيغ الركيكة مقابل الصيغ الاحترافية لكبار المهندسين وسجل الأخطاء المتكررة).
-- **خطة تسريع المسار المهني واقتناص الوظائف**:  
-  🔗 [engineering-learning/CAREER_ACCELERATION_PLAN.md](engineering-learning/CAREER_ACCELERATION_PLAN.md)
-- **دستور منشورات لينكد إن (Learning in Public Playbook)**:  
-  🔗 [engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md](engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md)
-
----
-
-## 5. 🤖 برومبتات ودساتير الوكلاء الأذكياء (Agentic Prompts)
-
-- **دستور وكيل ديفوليو (Cursor / Windsurf / Claude)**:  
-  🔗 [engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md](engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md)  
-  (برومبت صلب يجبر الإيجنت على نبرة المنتور الصارم، منع التطبيل، حماية الاختبارات الـ 38، ورادار المفاهيم المعمارية).
-- **دستور المنتور ومصفوفة تشغيل الوكلاء المجانية (Multi-Agent Operations Matrix)**:  
-  🔗 [.agents/skills/abdo-personal-mentor/SKILL.md](.agents/skills/abdo-personal-mentor/SKILL.md)  
-  (قيادة الوكلاء: Antigravity كقائد أعلى، JEV للتصنيف والمشاورة، Qwen 3.8 للكود، Nemotron 550B للتدقيق، و Gemini 2.5 Flash للمسح).
+### 4. متجر أرتيفلورا وأمازون مصر
+- المهارة الموجهة:
+  [.agents/skills/amazon-ecommerce-growth/SKILL.md](.agents/skills/amazon-ecommerce-growth/SKILL.md)
+- الملفات المرتبطة:
+  [local-business-store/STORE_GROWTH_PLAN.md](local-business-store/STORE_GROWTH_PLAN.md)
+  [local-business-store/packaging-and-suppliers/FLORA_HOME_PACKAGING_AND_PRICING_REPORT.md](local-business-store/packaging-and-suppliers/FLORA_HOME_PACKAGING_AND_PRICING_REPORT.md)
+  [local-business-store/amazon-operations/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md](local-business-store/amazon-operations/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md)
+  [local-business-store/amazon-operations/AMAZON_MARKET_AUDIT_FLOWER_VASES.md](local-business-store/amazon-operations/AMAZON_MARKET_AUDIT_FLOWER_VASES.md)
+  [local-business-store/erp-system/README.md](local-business-store/erp-system/README.md)
+  [local-business-store/advertising-and-creative/FREE_MARKETING_TOOLKIT_PLAYBOOK.md](local-business-store/advertising-and-creative/FREE_MARKETING_TOOLKIT_PLAYBOOK.md)
+  [local-business-store/market-research/HOME_DECOR_CATEGORY_AND_BESTSELLERS_REPORT.md](local-business-store/market-research/HOME_DECOR_CATEGORY_AND_BESTSELLERS_REPORT.md)
+  [local-business-store/scripts/amazon_competitor_analyzer.py](local-business-store/scripts/amazon_competitor_analyzer.py)
+  [local-business-store/scripts/remove_background.py](local-business-store/scripts/remove_background.py)
+- مؤشر الحالة:
+```text
+Status: Packaging & Pilot Batch Ready
+```
 
 ---
 
-## 6. 🏪 تسويق وبيزنس محل أرتيفلورا وأمازون مصر (Local & E-Commerce Business)
+## 🌐 لوحة روابط المشاريع البرمجية الحية
 
-- **مركز قيادة وفهرس ملفات بيزنس المتجر**:  
-  🔗 [local-business-store/README.md](local-business-store/README.md)
-- **خطة نمو المحل والتسويق والأتمتة**:  
-  🔗 [local-business-store/STORE_GROWTH_PLAN.md](local-business-store/STORE_GROWTH_PLAN.md)
-- **مخطط إدراج أول منتج رسمي على أمازون مصر**:  
-  🔗 [local-business-store/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md](local-business-store/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md)
-- **دراسة ومسح سوق أمازون مصر لفئات الفازات والبوكيهات الصغيرة**:  
-  🔗 [local-business-store/AMAZON_MARKET_AUDIT_FLOWER_VASES.md](local-business-store/AMAZON_MARKET_AUDIT_FLOWER_VASES.md)
-- **دليل كراتين الشحن والتغليف وموردي الجملة والطباعة**:  
-  🔗 [local-business-store/PACKAGING_AND_SUPPLIERS_GUIDE.md](local-business-store/PACKAGING_AND_SUPPLIERS_GUIDE.md)
-- **دليل مهارة التجارة الإلكترونية وأمازون مصر**:  
-  🔗 [.agents/skills/amazon-ecommerce-growth/SKILL.md](.agents/skills/amazon-ecommerce-growth/SKILL.md)
-- **مواصفات وكلاء الذكاء الاصطناعي للمحل (إخراج الفيديو والصور)**:  
-  🔗 [local-business-store/store-marketing/AI_AGENTS_SPECIFICATIONS.md](local-business-store/store-marketing/AI_AGENTS_SPECIFICATIONS.md)
-- **بروتوكول التصوير وكتالوج المنتجات ونصوص البوستات**:  
-  🔗 [local-business-store/store-marketing/WORKFLOW.md](local-business-store/store-marketing/WORKFLOW.md)
+هذا القسم يجمع روابط كافة المشاريع المنشورة على الويب ومستودعات الأكواد للوصول السريع:
+
+### 1. مشروع مساعد ديفوليو الذكي
+- رابط المعاينة الحية على الإنتاج:
+  [https://devfolio-ai.vercel.app](https://devfolio-ai.vercel.app)
+- مستودع الكود على جيت هاب:
+  [https://github.com/Abdo5-Mahmoud/devfolio-ai](https://github.com/Abdo5-Mahmoud/devfolio-ai)
+- ملف دستور المساعد في المستودع:
+  [engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md](engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md)
+- الحالة:
+```text
+Status: Live in Production (38/38 Tests Passing)
+```
+
+### 2. لوحة تحكم إدارة المخزون
+- رابط المعاينة الحية على فيرسيل:
+  [https://inventory-dashboard-beryl-zeta.vercel.app](https://inventory-dashboard-beryl-zeta.vercel.app)
+- مستودع الكود على جيت هاب:
+  [https://github.com/Abdo5-Mahmoud/inventory-management-dashboard](https://github.com/Abdo5-Mahmoud/inventory-management-dashboard)
+- الحالة:
+```text
+Status: Deployed on Vercel
+```
+
+### 3. نظام إدارة الفنادق
+- رابط المعاينة الحية على فيرسيل:
+  [https://hotel-management-system-git-master-abdallahs.vercel.app](https://hotel-management-system-git-master-abdallahs.vercel.app)
+- مستودع الكود على جيت هاب:
+  [https://github.com/Abdo5-Mahmoud/hotel-management-system](https://github.com/Abdo5-Mahmoud/hotel-management-system)
+- الحالة:
+```text
+Status: Deployed on Vercel
+```
+
+### 4. تطبيق المحادثات الفورية
+- مستودع الواجهة الأمامية على جيت هاب:
+  [https://github.com/Abdo5-Mahmoud/chatApp_frontend](https://github.com/Abdo5-Mahmoud/chatApp_frontend)
+- الحالة:
+```text
+Status: Code on GitHub
+```
+
+### 5. متجر أمازون مصر
+- التقرير الشامل لاقتصاديات التغليف والتسعير:
+  [local-business-store/packaging-and-suppliers/FLORA_HOME_PACKAGING_AND_PRICING_REPORT.md](local-business-store/packaging-and-suppliers/FLORA_HOME_PACKAGING_AND_PRICING_REPORT.md)
+- الحالة:
+```text
+Status: Pilot Batch Ready
+```
 
 ---
 
-## 7. 📊 ملفات المتابعة وإدارة اليوم (Daily Command Center)
+## 🗂️ فهرس مساحة العمل الشامل وهيكل المجلدات
 
-- **لوحة تتبع التقدم والمهام الحية**:  
-  🔗 [PROGRESS_TRACKER.md](PROGRESS_TRACKER.md)
-- **بروفايل ومعلومات عبده الدائمة والواقعية**:  
-  🔗 [USER_CONTEXT_PROFILE.md](USER_CONTEXT_PROFILE.md)
-- **الجدول الزمني بالدقيقة للبلوكات اليومية**:  
-  🔗 [DAILY_CALENDAR_SCHEDULE.md](DAILY_CALENDAR_SCHEDULE.md)
+هذا الفهرس يربط كل ملف بمكانه في الهيكل الإنشائي وغرضه التشغيلي الدقيق:
+
+### أولاً: ملفات القيادة المركزية في جذر المشروع
+
+- [AGENTS.md](AGENTS.md)
+  - الغرض: دستور مساحة العمل، تعريف شخصية المنتور، قواعد التنسيق الصارمة، ومصفوفة توجيه النماذج.
+  - الحالة: مرجع إلزامي وتشغيلي دائم.
+
+- [PROGRESS_TRACKER.md](PROGRESS_TRACKER.md)
+  - الغرض: لوحة التحكم اليومية الحية، سجل الإنجازات اليومية، تتبع الأهداف ربع السنوية، وطبقة التخطيط الموحدة.
+  - الحالة: نشط يومياً ومحدث باستمرار.
+
+- [MASTER_KNOWLEDGE_BASE.md](MASTER_KNOWLEDGE_BASE.md)
+  - الغرض: خريطة المحتوى الكبرى وفهرس الربط الشبكي لجميع ملفات مساحة العمل وتوثيق المفاهيم الهندسية.
+  - الحالة: المصدر المركزي الشامل للحقيقة.
+
+- [USER_CONTEXT_PROFILE.md](USER_CONTEXT_PROFILE.md)
+  - الغرض: ملف بيانات وسياق عبده الدائم (الخلفية الرياضية، الروتين اليومي، الأجهزة، المبادئ الحاكمة).
+  - الحالة: مرجع دائم.
+
+- [DAILY_CALENDAR_SCHEDULE.md](DAILY_CALENDAR_SCHEDULE.md)
+  - الغرض: الجدول الزمني المفصل بالدقيقة لتوزيع ساعات العمل العميق، الجيم، وإدارة المتجر.
+  - الحالة: مرجع تشغيلي للروتين.
+
+- [MODELS_REGISTRY.md](MODELS_REGISTRY.md)
+  - الغرض: التوثيق الكامل لمصفوفة النماذج السبعة المجانية وتوزيع المهام حسب الكفاءة والسياق وحدود الاستخدام.
+  - الحالة: مرجع تشغيلي للمطور والوكلاء.
+
+- [models-registry.json](models-registry.json)
+  - الغرض: سجل التكوين البرمجي لتعريف النماذج المجانية والمفاتيح وحدود النوافذ بصيغة برمجية قابلة للاستهلاك الآلي.
+  - الحالة: ملف تكوين مفعل برمجياً.
+
+- [README.md](README.md)
+  - الغرض: واجهة مستودع جيت هاب التعريفي بالمشروع ونظام التتبع اليومي.
+  - الحالة: ملف واجهة المستودع.
+
+- [.gitignore](.gitignore)
+  - الغرض: استبعاد الملفات المؤقتة والسرية ومخلفات التشغيل وحزم التبعيات من التتبع.
+  - الحالة: ملف حماية وتكوين لمستودع جيت.
 
 ---
 
-> 💡 **قانون الربط الشبكي**: أي ملاحظة أو مفهوم يتم إنشاؤه يتم ربطه تبادلياً بهذا الملف وبسجل الإنجاز والمهارة الموجهة لتبقى خريطة أوبسيديان العصبية (Graph View) مترابطة وواضحة دائماً.
+### ثانياً: سكيلز ودساتير توجيه الوكلاء
+
+- [.agents/skills/abdo-personal-mentor/SKILL.md](.agents/skills/abdo-personal-mentor/SKILL.md)
+  - الغرض: دستور المنتور الشخصي لعبده، بروتوكولات الفحص الصارم، ومنهجية الانتقال من الرياضيات لقواعد البيانات، ومستويات الإسناد الثلاثة.
+  - الحالة: مهارة موجهة نشطة.
+
+- [.agents/skills/amazon-ecommerce-growth/SKILL.md](.agents/skills/amazon-ecommerce-growth/SKILL.md)
+  - الغرض: الدليل التشغيلي والتسويقي لمتجر أرتيفلورا وبراند فلورا هوم على أمازون مصر وإدارة الإعلانات واقتصاديات الوحدة.
+  - الحالة: مهارة تشغيلية نشطة.
+
+- [.agents/skills/autonomous-task-orchestrator/SKILL.md](.agents/skills/autonomous-task-orchestrator/SKILL.md)
+  - الغرض: إدارة دورة حياة المهام في الخلفية، فرض حد زمني صارم، ومزامنة قضايا جيت هاب وتتبع ديون المهام.
+  - الحالة: مهارة أتمتة نشطة.
+
+- [.agents/skills/autonomous-task-orchestrator/references/TASK_DEBT_PROTOCOL.md](.agents/skills/autonomous-task-orchestrator/references/TASK_DEBT_PROTOCOL.md)
+  - الغرض: بروتوكول ترحيل ديون المهام ومحاسبة التأخير لمنع تبخر المهام غير المكتملة.
+  - الحالة: مرجع تشغيلي صارم.
+
+- [.agents/skills/visual-asset-generation/SKILL.md](.agents/skills/visual-asset-generation/SKILL.md)
+  - الغرض: المعايير الهندسية لإنتاج صور المنتجات وتجهيز مشاهد الديكور ثلاثية الأبعاد والتخلص من التشوهات البصرية.
+  - الحالة: مهارة بصرية معتمدة.
+
+- [.agents/skills/visual-asset-generation/references/DISTORTION_CHECKLIST.md](.agents/skills/visual-asset-generation/references/DISTORTION_CHECKLIST.md)
+  - الغرض: قائمة فحص التشوهات البصرية وتدقيق الإضاءة والنسب والظلال لصور الذكاء الاصطناعي.
+  - الحالة: قائمة مراجعة فنية.
+
+- [.agents/skills/visual-asset-generation/references/PROMPT_MATRICES.md](.agents/skills/visual-asset-generation/references/PROMPT_MATRICES.md)
+  - الغرض: مصفوفة صياغة الأوامر المتقدمة لإنتاج صور المنتجات بدقة تجارية معتمدة.
+  - الحالة: مرجع صياغة البرومبت.
+
+- [.agents/skills/miro-code-explain-on-board/SKILL.md](.agents/skills/miro-code-explain-on-board/SKILL.md)
+  - الغرض: مهارة التمثيل المعماري والرسوم البيانية لشجرة الأسئلة والنقاشات على لوحات ميرو.
+  - الحالة: مهارة ربط بصري نشطة.
+
+---
+
+### ثالثاً: مجلد التعلم الهندسي والتوظيف
+
+#### 1. الكتيبات المرجعية الكبرى:
+- [engineering-learning/DESIGN_PATTERNS_MASTER_HANDBOOK.md](engineering-learning/DESIGN_PATTERNS_MASTER_HANDBOOK.md)
+  - الغرض: الكتيب المرجعي لأنماط التصميم الإنشائية والهيكلية والسلوكية مع أمثلة عملية من دومين المتجر.
+  - الحالة: كتيب مرجعي دائم.
+
+- [engineering-learning/SOLID_PRINCIPLES_MASTER_HANDBOOK.md](engineering-learning/SOLID_PRINCIPLES_MASTER_HANDBOOK.md)
+  - الغرض: الكتيب المرجعي لمبادئ التصميم الصلبة وفصل الطبقات الأربع وتدقيق كود الوكلاء الأذكياء.
+  - الحالة: كتيب مرجعي دائم.
+
+- [engineering-learning/SYSTEM_DESIGN_MASTER_HANDBOOK.md](engineering-learning/SYSTEM_DESIGN_MASTER_HANDBOOK.md)
+  - الغرض: الكتيب المرجعي لتصميم الأنظمة الموزعة، التوسع الأفقي، آليات التخزين المؤقت، ومحددات المعدل، وأمان السيرفرليس.
+  - الحالة: كتيب مرجعي دائم.
+
+- [engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md](engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md)
+  - الغرض: الكتيب المرجعي للخوارزميات وهياكل البيانات العملية المرتكزة على الأساس الرياضي والتحليل الزمني والمكاني.
+  - الحالة: كتيب مرجعي دائم.
+
+- [engineering-learning/MODERN_AI_ENGINEERING_MASTER_HANDBOOK.md](engineering-learning/MODERN_AI_ENGINEERING_MASTER_HANDBOOK.md)
+  - الغرض: الكتيب المرجعي لهندسة الذكاء الاصطناعي، بروتوكول سياق النماذج، الحواضن، واستدعاء الأدوات، وحلقات التفكير، والوكلاء الفرعيين.
+  - الحالة: كتيب مرجعي دائم.
+
+- [engineering-learning/AI_CURRICULUM_QUESTION_TREE.md](engineering-learning/AI_CURRICULUM_QUESTION_TREE.md)
+  - الغرض: الشجرة التفاعلية لتتبع أسئلة عبده ونقاشات التعمق والنتائج المحسومة مع الربط بميرو.
+  - الحالة: سجل وجراف تفاعلي متنامي.
+
+- [engineering-learning/SUBAGENT_DAG_VISUALIZER_GUIDE.md](engineering-learning/SUBAGENT_DAG_VISUALIZER_GUIDE.md)
+  - الغرض: الدليل المرجعي لتتبع ومراقبة مهام الوكلاء الفرعيين وتحويل المخططات إلى جراف مرئي في ميرو.
+  - الحالة: أداة مراقبة معتمدة.
+
+#### 2. الملاحظات الهندسية ومساعد ديفوليو:
+- [engineering-learning/LEARNING_NOTES.md](engineering-learning/LEARNING_NOTES.md)
+  - الغرض: السجل الميداني لتوثيق 16 مفهوماً معمارياً تم تطبيقها واجتياز اختباراتها عملياً بمستويات الإسناد الثلاثة.
+  - الحالة: سجل نشط ومحدث مع كل تحدي.
+
+- [engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md](engineering-learning/DEVFOLIO_AGENT_SYSTEM_PROMPT.md)
+  - الغرض: برومبت النظام المعتمد لمساعد ديفوليو لفرض النبرة الحازمة وحماية أجنحة الاختبارات الـ 38.
+  - الحالة: وثيقة تشغيلية للإنتاج.
+
+- [engineering-learning/DEEP_ENGINEERING_CURRICULUM_AND_SCHEDULE.md](engineering-learning/DEEP_ENGINEERING_CURRICULUM_AND_SCHEDULE.md)
+  - الغرض: المنهج الدراسي العميق لتطوير المهارات الهندسية وجدول التحديات التقنية الدورية.
+  - الحالة: منهج تدريبي معتمد.
+
+- [engineering-learning/MODELS_COMPLIANCE_SCORECARD.md](engineering-learning/MODELS_COMPLIANCE_SCORECARD.md)
+  - الغرض: بطاقة قياس التزام النماذج الذكية بالقواعد الهندسية وتصنيف دقتها في التوليد.
+  - الحالة: أداة تقييم ومراقبة.
+
+- [engineering-learning/REFERENCE_STAGING_BENCHMARK.md](engineering-learning/REFERENCE_STAGING_BENCHMARK.md)
+  - الغرض: معيار اختبار بيئة التجهيز والمقارنة المعيارية للأداء قبل النشر على الإنتاج.
+  - الحالة: مرجع جودة.
+
+- [engineering-learning/decor-store-engine/ROADMAP_AND_AGILE_SPRINTS.md](engineering-learning/decor-store-engine/ROADMAP_AND_AGILE_SPRINTS.md)
+  - الغرض: خارطة طريق محرك متجر الديكور وتقسيم السبرنتات الرأسية للربط مع قاعدة البيانات والتوثيق والتحكم بالوصول.
+  - الحالة: خطة مشروع كاملة.
+
+#### 3. التحديات التقنية اليومية:
+- [engineering-learning/daily-challenges/WORKFLOW.md](engineering-learning/daily-challenges/WORKFLOW.md)
+  - الغرض: سير عمل التحدي اليومي، قواعد التسليم، التقييم، وكتابة الحلول الذاتية.
+  - الحالة: دليل عمل تنفيذي.
+
+- [engineering-learning/daily-challenges/challenges/README.md](engineering-learning/daily-challenges/challenges/README.md)
+  - الغرض: مجلد يحتوي على مواصفات التحديات البرمجية المستقلة لأنماط التصميم ومبادئ الجودة.
+  - الحالة: بنك تحديات هندسية.
+
+- [engineering-learning/daily-challenges/solutions/README.md](engineering-learning/daily-challenges/solutions/README.md)
+  - الغرض: الحلول المرجعية النموذجية المعتمدة هندسياً للتحديات البرمجية.
+  - الحالة: مرجع معياري للأكواد.
+
+- [engineering-learning/daily-challenges/my-solutions/README.md](engineering-learning/daily-challenges/my-solutions/README.md)
+  - الغرض: الأكواد البرمجية التي كتبها عبده بنفسه لإثبات الفهم والتطبيق المستقل.
+  - الحالة: معرض حلول ذاتية.
+
+- [engineering-learning/daily-challenges/grilling-quizzes/README.md](engineering-learning/daily-challenges/grilling-quizzes/README.md)
+  - الغرض: كويزات الاستجواب التقني العنيف لاختبار الفهم النظري والبديهة البرمجية بدون حفظ سطحي.
+  - الحالة: بنك كويزات تقييمية.
+
+#### 4. محرك تسريع المسار المهني والتقديمات:
+- [engineering-learning/CAREER_ACCELERATION_PLAN.md](engineering-learning/CAREER_ACCELERATION_PLAN.md)
+  - الغرض: الخطة الشاملة لاقتناص أول فرصة عمل برمجية، تجهيز الملفات، واستراتيجية بناء الحضور الرقمي.
+  - الحالة: خطة استراتيجية نشطة.
+
+- [engineering-learning/JOB_APPLICATIONS_PIPELINE.md](engineering-learning/JOB_APPLICATIONS_PIPELINE.md)
+  - الغرض: جدول متابعة التقديمات اليومية، تفاصيل الشركات، جهات الاتصال، وتواريخ المتابعة.
+  - الحالة: سجل متابعة يومي.
+
+- [engineering-learning/career-accelerator/GEMINI_JOB_HUNTER_GEM.md](engineering-learning/career-accelerator/GEMINI_JOB_HUNTER_GEM.md)
+  - الغرض: تكوين مساعد ذكي لاصطياد الوظائف وفلترة متطلبات السوق وصياغة خطابات التقديم الدقيقة.
+  - الحالة: أداة دعم توظيف.
+
+- [engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md](engineering-learning/career-accelerator/LINKEDIN_CONTENT_PLAYBOOK.md)
+  - الغرض: دليل نشر التعلم علناً وصناعة المحتوى الهندسي الموثوق لجذب مديري التوظيف.
+  - الحالة: دليل محتوى معتمد.
+
+- [engineering-learning/career-accelerator/LINKEDIN_ORDER_ENGINE_POST.md](engineering-learning/career-accelerator/LINKEDIN_ORDER_ENGINE_POST.md)
+  - الغرض: مسودة منشور هندسي احترافي يشرح معمارية محرك الطلبات الموحد وأنماط التصميم.
+  - الحالة: منشور جاهز للنشر.
+
+- [engineering-learning/career-accelerator/LINKEDIN_RATE_LIMITER_POST.md](engineering-learning/career-accelerator/LINKEDIN_RATE_LIMITER_POST.md)
+  - الغرض: مسودة منشور هندسي تفصيلي يشرح بناء محدد الطلبات في بيئة السيرفرليس وحماية الذاكرة.
+  - الحالة: منشور معتمد.
+
+- [engineering-learning/targeted-cvs/README.md](engineering-learning/targeted-cvs/README.md)
+  - الغرض: بروتوكول تخصيص السير الذاتية وإرشادات التصدير بصيغة صفحة واحدة لا غير.
+  - الحالة: دليل تشغيلي للسير.
+
+- [engineering-learning/targeted-cvs/CV_FRONTEND_REACT_SPECIALIST.md](engineering-learning/targeted-cvs/CV_FRONTEND_REACT_SPECIALIST.md)
+  - الغرض: السيرة الذاتية المركزة على تخصص تطوير الواجهات الأمامية ورياكت ونيكست.
+  - الحالة: سيرة معتمدة ومحدثة.
+
+- [engineering-learning/targeted-cvs/CV_FULLSTACK_TYPESCRIPT_ENGINEER.md](engineering-learning/targeted-cvs/CV_FULLSTACK_TYPESCRIPT_ENGINEER.md)
+  - الغرض: السيرة الذاتية الشاملة لدور مهندس تايب سكريبت المتكامل للمشاريع الكبيرة.
+  - الحالة: سيرة معتمدة ومحدثة.
+
+- [engineering-learning/targeted-cvs/CV_VODAFONE_FRONTEND_DEVELOPER.md](engineering-learning/targeted-cvs/CV_VODAFONE_FRONTEND_DEVELOPER.md)
+  - الغرض: السيرة الذاتية المفصلة والمطابقة لمعايير ومتطلبات شركة فودافون مصر.
+  - الحالة: سيرة مخصصة ومقدم بها.
+
+#### 5. تدريب الإنجليزية والمحادثات:
+- [engineering-learning/ENGLISH_MASTERY_LOG.md](engineering-learning/ENGLISH_MASTERY_LOG.md)
+  - الغرض: السجل الرئيسي لترقية العبارات ومقارنة الصياغة الضعيفة مع صياغة كبار المهندسين.
+  - الحالة: سجل تدريب حي ومستمر.
+
+- [engineering-learning/english-mastery/phrase-templates.md](engineering-learning/english-mastery/phrase-templates.md)
+  - الغرض: قوالب جاهزة ومصطلحات هندسية للمحادثات التقنية واجتماعات العمل اليومية.
+  - الحالة: بنك عبارات سريع.
+
+- [engineering-learning/english-mastery/strike-tracker.md](engineering-learning/english-mastery/strike-tracker.md)
+  - الغرض: متتبع الالتزام بالتدريب اليومي الصوتي وتوثيق التتابع دون انقطاع.
+  - الحالة: أداة تحفيز ومتابعة.
+
+- [engineering-learning/english-mastery/vocabulary-vault.md](engineering-learning/english-mastery/vocabulary-vault.md)
+  - الغرض: خزانة المفردات والمصطلحات الاحترافية الجديدة المكتسبة مع أمثلة السياق.
+  - الحالة: قاموس مصطلحات متجدد.
+
+- [engineering-learning/english-mastery/voice-practice-log.md](engineering-learning/english-mastery/voice-practice-log.md)
+  - الغرض: سجل جلسات التدريب الصوتي وملاحظات تحسين النطق ومخارج الحروف.
+  - الحالة: سجل تدريب صوتي.
+
+---
+
+### رابعاً: بيزنس المتجر المحلي والتجارة الإلكترونية
+
+#### 1. استراتيجية المتجر العامة:
+- [local-business-store/README.md](local-business-store/README.md)
+  - الغرض: لوحة القيادة والفهرس الشامل لملفات إدارة متجر أرتيفلورا وبراند فلورا هوم.
+  - الحالة: دليل تشغيلي رئيسي للمتجر.
+
+- [local-business-store/STORE_GROWTH_PLAN.md](local-business-store/STORE_GROWTH_PLAN.md)
+  - الغرض: خطة نمو المتجر ومضاعفة المبيعات عبر ربط العمليات المحلية بالتجارة الإلكترونية.
+  - الحالة: خطة استراتيجية معتمدة.
+
+#### 2. عمليات متجر أمازون مصر:
+- [local-business-store/amazon-operations/README.md](local-business-store/amazon-operations/README.md)
+  - الغرض: دليل قسم عمليات وتجارة أمازون مصر وقائمة الوثائق التشغيلية المعتمدة.
+  - الحالة: فهرس القسم.
+
+- [local-business-store/amazon-operations/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md](local-business-store/amazon-operations/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md)
+  - الغرض: المخطط الكامل لإدراج منتج نبات الزينة 30 سم (العنوان، النقاط البارزة، الوصف، الكلمات المفتاحية).
+  - الحالة: وثيقة إدراج مكتملة.
+
+- [local-business-store/amazon-operations/AMAZON_MARKET_AUDIT_FLOWER_VASES.md](local-business-store/amazon-operations/AMAZON_MARKET_AUDIT_FLOWER_VASES.md)
+  - الغرض: مسح شامل لأسعار المنافسين وهوامش الربح لفئات فازات الورد والزرع الصناعي على أمازون مصر.
+  - الحالة: دراسة جدوى تسويقية.
+
+- [local-business-store/amazon-operations/AMAZON_PPC_LAUNCH_CAMPAIGN_SPEC.md](local-business-store/amazon-operations/AMAZON_PPC_LAUNCH_CAMPAIGN_SPEC.md)
+  - الغرض: مواصفات حملات الإعلانات الممولة للإطلاق على أمازون مصر وتقسيم الكلمات والمزايدات والميزانية.
+  - الحالة: خطة إعلانية معتمدة.
+
+- [local-business-store/amazon-operations/EASY_SHIP_VS_FBA_MASTER_REPORT.md](local-business-store/amazon-operations/EASY_SHIP_VS_FBA_MASTER_REPORT.md)
+  - الغرض: مقارنة مالية وتشغيلية مفصلة بين الشحن عبر إيزي شيب والشحن عبر مستودعات أمازون مع جدول العمولات.
+  - الحالة: تقرير قرار استراتيجي.
+
+- [local-business-store/amazon-operations/FBA_PILOT_5PCS_LAUNCH_AND_CONVERSIONS.md](local-business-store/amazon-operations/FBA_PILOT_5PCS_LAUNCH_AND_CONVERSIONS.md)
+  - الغرض: خطة تشغيل وإرسال دفعة تجريبية أولية محدودة لحساب معدل التحويل وسرعة البيع بأقل مخاطرة.
+  - الحالة: خطة إطلاق تجريبي.
+
+- [local-business-store/amazon-operations/FBA_SHIPMENT_CHECKLIST_VASE_15PCS.md](local-business-store/amazon-operations/FBA_SHIPMENT_CHECKLIST_VASE_15PCS.md)
+  - الغرض: قائمة الفحص والتجهيز لإرسال شحنة 15 فازة لمستودع أمازون بالعاشر من رمضان وتوليد الباركود.
+  - الحالة: قائمة فحص لوجستية.
+
+#### 3. التغليف واقتصاديات الموردين:
+- [local-business-store/packaging-and-suppliers/README.md](local-business-store/packaging-and-suppliers/README.md)
+  - الغرض: دليل قسم التغليف وموردي الخامات وقائمة الملفات والتقارير المالية المعتمدة.
+  - الحالة: فهرس القسم.
+
+- [local-business-store/packaging-and-suppliers/FLORA_HOME_PACKAGING_AND_PRICING_REPORT.md](local-business-store/packaging-and-suppliers/FLORA_HOME_PACKAGING_AND_PRICING_REPORT.md)
+  - الغرض: التقرير الرئيسي الشامل لمواصفات وتكاليف التغليف، الكراتين، البابلز، الاستيكرات، وسيناريوهات الأرباح والإعلانات.
+  - الحالة: تقرير مالي وتشغيلي معتمد 100%.
+
+- [local-business-store/packaging-and-suppliers/PACKAGING_AND_SUPPLIERS_GUIDE.md](local-business-store/packaging-and-suppliers/PACKAGING_AND_SUPPLIERS_GUIDE.md)
+  - الغرض: دليل مواصفات التغليف الكرتوني وطباعة الهوية وتجهيز الشحنات الفردية والمجمعة.
+  - الحالة: دليل إرشادي للتغليف.
+
+- [local-business-store/packaging-and-suppliers/EGYPT_PACKAGING_CARTON_SUPPLIERS_DIRECTORY.md](local-business-store/packaging-and-suppliers/EGYPT_PACKAGING_CARTON_SUPPLIERS_DIRECTORY.md)
+  - الغرض: دليل هواتف وعناوين مصانع وموردي الكراتين المضلعة وخامات التغليف في مصر.
+  - الحالة: دليل جهات اتصال تجاري.
+
+#### 4. استخبارات السوق والمنافسين:
+- [local-business-store/market-intelligence/SPONSORED_ADS_COMPETITOR_RADAR.md](local-business-store/market-intelligence/SPONSORED_ADS_COMPETITOR_RADAR.md)
+  - الغرض: رادار رصد إعلانات المنافسين المباشرين والمنتجات التي تستحوذ على الصفحة الأولى في فئة الديكور.
+  - الحالة: تقرير استخبارات تنافسية.
+
+- [local-business-store/market-intelligence/DAILY_MARKET_BRIEFING_2026-09-30.md](local-business-store/market-intelligence/DAILY_MARKET_BRIEFING_2026-09-30.md)
+  - الغرض: تقرير الرصد اليومي لحركة الأسعار والمنتجات الرائجة ليوم 30 سبتمبر 2026.
+  - الحالة: سجل تاريخي.
+
+- [local-business-store/market-intelligence/DAILY_MARKET_BRIEFING_2026-10-01.md](local-business-store/market-intelligence/DAILY_MARKET_BRIEFING_2026-10-01.md)
+  - الغرض: تقرير الرصد اليومي لحركة الأسعار والمبيعات ليوم 1 أكتوبر 2026.
+  - الحالة: سجل تاريخي.
+
+- [local-business-store/market-intelligence/DAILY_MARKET_BRIEFING_2026-10-02.md](local-business-store/market-intelligence/DAILY_MARKET_BRIEFING_2026-10-02.md)
+  - الغرض: تقرير الرصد اليومي لحركة الأسعار والمنافسين ليوم 2 أكتوبر 2026.
+  - الحالة: سجل تاريخي.
+
+#### 5. نظام إدارة المخازن والمحاسبة:
+- [local-business-store/erp-system/README.md](local-business-store/erp-system/README.md)
+  - الغرض: التوثيق العام لنظام إدارة المخزون والمبيعات والمشتريات لمتجر أرتيفلورا.
+  - الحالة: دليل نظام العمليات.
+
+- [local-business-store/erp-system/ARTIFLORA_SYSTEM_UPGRADE_SOP.md](local-business-store/erp-system/ARTIFLORA_SYSTEM_UPGRADE_SOP.md)
+  - الغرض: إجراءات التشغيل القياسية لترقية نظام المحل وإدخال الباركود وجرد المنتجات وتتبع الإيرادات.
+  - الحالة: إجراءات تشغيل قياسية.
+
+#### 6. الشؤون القانونية والضرائب:
+- [local-business-store/legal-and-tax/README.md](local-business-store/legal-and-tax/README.md)
+  - الغرض: الإرشادات القانونية والضريبية الخاصة بالسجل التجاري والبطاقة الضريبية والفاتورة الإلكترونية لمتجر التجزئة.
+  - الحالة: ملف مرجعي قانوني.
+
+#### 7. التسويق وصناعة المحتوى والميديا:
+- [local-business-store/store-marketing/WORKFLOW.md](local-business-store/store-marketing/WORKFLOW.md)
+  - الغرض: بروتوكول تصوير المنتجات، تحرير الفيديو، وإنتاج المحتوى البصري لوسائل التواصل الاجتماعي.
+  - الحالة: سير عمل تسويقي معتمد.
+
+- [local-business-store/store-marketing/catalog.md](local-business-store/store-marketing/catalog.md)
+  - الغرض: الكتالوج الوصفي الشامل لكافة منتجات المتجر بأسعارها وأبعادها وأكوادها المميزة.
+  - الحالة: كتالوج منتجات متكامل.
+
+- [local-business-store/store-marketing/AI_AGENTS_SPECIFICATIONS.md](local-business-store/store-marketing/AI_AGENTS_SPECIFICATIONS.md)
+  - الغرض: مواصفات وكلاء الذكاء الاصطناعي الموجهين لكتابة الإعلانات وتوليد المشاهد البصرية.
+  - الحالة: دستور وكلاء التسويق.
+
+- [local-business-store/store-marketing/AHMED_HELAL_MEDIA_BUYING_MASTER_BREIFING.md](local-business-store/store-marketing/AHMED_HELAL_MEDIA_BUYING_MASTER_BREIFING.md)
+  - الغرض: البريفينج الشامل لإدارة الحملات الإعلانية الممولة على منصات ميتا مع متخصص الإعلانات.
+  - الحالة: وثيقة بريف تسويقية.
+
+- [local-business-store/store-marketing/copy/README.md](local-business-store/store-marketing/copy/README.md)
+  - الغرض: نصوص وحزم كتابة الإعلانات لمختلف المنتجات والبوكيهات والقطع الكريستالية.
+  - الحالة: بنك نصوص إعلانية.
+
+- [local-business-store/store-marketing/packaging-mockups/README.md](local-business-store/store-marketing/packaging-mockups/README.md)
+  - الغرض: أصول وتصميمات استيكر البراند الدائري 6 سم وموك آب الكراتين الفردية للتجهيز والطباعة.
+  - الحالة: ملفات أصول بصرية جاهزة للمطبعة.
+
+- [local-business-store/store-marketing/AmazonProducts/README.md](local-business-store/store-marketing/AmazonProducts/README.md)
+  - الغرض: أصول الصور للمنتجات المعروضة على أمازون مصر مقسمة للصور الخام والمعدلة والإنفوجرافيك.
+  - الحالة: مجلد أصول التصوير.
+
+- [local-business-store/store-marketing/reels/README.md](local-business-store/store-marketing/reels/README.md)
+  - الغرض: كود وأصول فيديو الريلز الترويجي السريع لنباتات الزينة المعتمد للنشر.
+  - الحالة: أصول ريلز منجزة.
+
+---
+
+### خامساً: أدوات وسكربتات الأتمتة والاختبارات
+
+- [scripts/manage_task_lifecycle.ps1](scripts/manage_task_lifecycle.ps1)
+  - الغرض: سكربت أتمتة لإدارة دورة حياة المهام في الخلفية وتسجيل المهام المؤجلة في سجل التتبع تلقائياً.
+  - الحالة: سكربت تشغيلي مختبر بنجاح.
+
+- [tests/test_manage_task_lifecycle.ps1](tests/test_manage_task_lifecycle.ps1)
+  - الغرض: جناح اختبارات التحقق من صحة عمل سكربت إدارة المهام.
+  - الحالة: اختبارات خضراء وناجحة بنسبة 100%.
+
+- [scripts/audit_image_quality.ps1](scripts/audit_image_quality.ps1)
+  - الغرض: سكربت فحص جودة وتناسق صور المنتجات البصرية والتأكد من مطابقتها للأبعاد وغياب التشوهات.
+  - الحالة: سكربت تدقيق معتمد.
+
+- [tests/test_audit_image_quality.ps1](tests/test_audit_image_quality.ps1)
+  - الغرض: جناح اختبارات التحقق من عمل سكربت تدقيق جودة الصور.
+  - الحالة: اختبارات خضراء وناجحة بنسبة 100%.
+
+- [scripts/audit_text_formatting.js](scripts/audit_text_formatting.js)
+  - الغرض: سكربت التحقق الصارم من قاعدة فصل السطور ومنع اختلاط الكلمات الإنجليزية داخل الجمل العربية.
+  - الحالة: أداة تدقيق جودة النصوص.
+
+- [scripts/amazon-tracker/README.md](scripts/amazon-tracker/README.md)
+  - الغرض: منظومة برمجية متكاملة لجمع بيانات الأسعار ورصد إعلانات المنافسين وتحليل ترتيب المنتجات على أمازون مصر.
+  - الحالة: منظومة رصد وتتبع نشطة.
+
+- [scripts/marketing_calculator.py](scripts/marketing_calculator.py)
+  - الغرض: أداة حسابية سريعة لحساب اقتصاديات الإعلانات ونسب التحويل وعوائد الحملات.
+  - الحالة: أداة حسابية مساعدة.
+
+- [scripts/generate_campaign_pack.py](scripts/generate_campaign_pack.py)
+  - الغرض: أداة توليد حزم الحملات التسويقية ونصوص الإعلانات وتجهيزها للنشر.
+  - الحالة: سكربت توليد محتوى.
+
+- [scripts/optimize_hero_image.ps1](scripts/optimize_hero_image.ps1)
+  - الغرض: تحسين وضغط صور الواجهة والمنتجات لتسريع التحميل ومطابقة معايير العرض.
+  - الحالة: أداة معالجة وسائط.
+
+- [scripts/test_mcp_connectivity.ps1](scripts/test_mcp_connectivity.ps1)
+  - الغرض: اختبار جاهزية واستقرار الاتصال بخوادم بروتوكول سياق النماذج الخارجية.
+  - الحالة: سكربت فحص اتصال.
+
+- [scripts/update-superpowers.ps1](scripts/update-superpowers.ps1)
+  - الغرض: مزامنة وتحديث حزمة مهارات السوبر باورز ومكونات التشغيل في بيئة العمل.
+  - الحالة: أداة تحديث بنية تحتية.
+
+---
+
+### سادساً: حزمة القدرات التشغيلية المتقدمة
+
+- [superpowers/skills/using-superpowers/SKILL.md](superpowers/skills/using-superpowers/SKILL.md)
+  - الغرض: المهارة الأساسية الحاكمة لتفعيل مهارات السوبر باورز الإلزامية قبل كتابة الكود.
+  - الحالة: مهارة عليا مفعلة.
+
+- [superpowers/skills/brainstorming/SKILL.md](superpowers/skills/brainstorming/SKILL.md)
+  - الغرض: مهارة استكشاف المتطلبات وتصميم الحلول المعمارية والموافقة عليها قبل التنفيذ.
+  - الحالة: مهارة مرحلة التصميم الأولى.
+
+- [superpowers/skills/writing-plans/SKILL.md](superpowers/skills/writing-plans/SKILL.md)
+  - الغرض: تفكيك التصاميم المعتمدة إلى خطط عمل دقيقة ومهام تفصيلية صغيرة قابلة للاختبار.
+  - الحالة: مهارة التخطيط المرحلي.
+
+- [superpowers/skills/test-driven-development/SKILL.md](superpowers/skills/test-driven-development/SKILL.md)
+  - الغرض: كتابة الاختبارات الفاشلة أولاً قبل الكود الفعلي ثم النجاح ثم إعادة الهيكلة.
+  - الحالة: مهارة التطوير الموجه بالاختبارات.
+
+- [superpowers/skills/executing-plans/SKILL.md](superpowers/skills/executing-plans/SKILL.md)
+  - الغرض: تنفيذ خطط العمل المعتمدة خطوة بخطوة مع الفحص المستمر.
+  - الحالة: مهارة التنفيذ المباشر.
+
+- [superpowers/skills/subagent-driven-development/SKILL.md](superpowers/skills/subagent-driven-development/SKILL.md)
+  - الغرض: تفويض المهام لوكلاء فرعيين متخصصين مع مراجعة ثنائية مستقلة لكل مهمة.
+  - الحالة: مهارة توزيع العمل.
+
+- [superpowers/skills/systematic-debugging/SKILL.md](superpowers/skills/systematic-debugging/SKILL.md)
+  - الغرض: عزل المشاكل البرمجية وتتبع أسبابها الجذرية بدون تخمين وسقف زمني 20 دقيقة كحد أقصى.
+  - الحالة: مهارة تصحيح الأخطاء.
+
+- [superpowers/skills/verification-before-completion/SKILL.md](superpowers/skills/verification-before-completion/SKILL.md)
+  - الغرض: إلزام التحقق بالأدلة وسطور الأوامر قبل إعلان اكتمال أي مهمة برمجية.
+  - الحالة: مهارة التدقيق النهائي الإلزامية.
+
+- [superpowers/skills/requesting-code-review/SKILL.md](superpowers/skills/requesting-code-review/SKILL.md)
+  - الغرض: طلب تدقيق كود مستقل وصارم قبل دمج التعديلات.
+  - الحالة: مهارة مراجعة الكود.
+
+- [superpowers/skills/receiving-code-review/SKILL.md](superpowers/skills/receiving-code-review/SKILL.md)
+  - الغرض: استقبال ملاحظات تدقيق الكود وتطبيقها باحترافية والتحقق منها.
+  - الحالة: مهارة استيعاب الملاحظات.
+
+- [superpowers/skills/dispatching-parallel-agents/SKILL.md](superpowers/skills/dispatching-parallel-agents/SKILL.md)
+  - الغرض: تشغيل وكلاء متزامنين لتنفيذ المهام المستقلة المتوازية.
+  - الحالة: مهارة التوازي.
+
+- [superpowers/skills/using-git-worktrees/SKILL.md](superpowers/skills/using-git-worktrees/SKILL.md)
+  - الغرض: عزل الفروع البرمجية والميزات في مساحات عمل فرعية مستقلة وسريعة.
+  - الحالة: مهارة عزل الفروع.
+
+- [superpowers/skills/finishing-a-development-branch/SKILL.md](superpowers/skills/finishing-a-development-branch/SKILL.md)
+  - الغرض: إنهاء الفروع البرمجية ومراجعتها ودمجها وتنظيفها بسلاسة.
+  - الحالة: مهارة الدمج النهائي.
+
+- [superpowers/skills/diagnosing-superpowers/SKILL.md](superpowers/skills/diagnosing-superpowers/SKILL.md)
+  - الغرض: تشخيص أعطال حزمة السوبر باورز وعلاجها ذاتياً.
+  - الحالة: مهارة العلاج الذاتي.
+
+---
+
+## 🏛️ المفاهيم المعمارية المشروحة ومستويات إسنادها
+
+### أ. هندسة الخوادم والأنظمة الموزعة
+- تصنيف الإسناد:
+```text
+Tier 2: AI-Audited
+```
+- المفهوم الأول:
+```text
+Mongoose Cache Poisoning & In-Flight Promise Caching
+```
+  - المشكلة: إعادة بناء الاتصال في كل طلب، وتسمم الذاكرة بوعود فاشلة، وسباق الطلبات المتزامنة.
+  - الحل: حفظ الوعد غير المتزامن فوراً في المتغير العام لمنع تكرار الاتصال وتفريغه عند الخطأ.
+  - الشرح المفصل:
+    [engineering-learning/LEARNING_NOTES.md](engineering-learning/LEARNING_NOTES.md#02-mongoose-promise-caching--cache-poisoning-nextjs-serverless)
+
+- تصنيف الإسناد:
+```text
+Tier 2: AI-Audited
+```
+- المفهوم الثاني:
+```text
+Serverless Container Freeze & after()
+```
+  - المشكلة: الدوال غير المتزامنة التي تعمل بدون انتظار تتجمد عند إرسال الرد للعميل في بيئات السيرفرليس.
+  - الحل: استخدام دالة التنفيذ اللاحق لتنفيذ المهام الخلفية بعد إرسال الرد دون تأخير العميل.
+  - الشرح المفصل:
+    [engineering-learning/LEARNING_NOTES.md](engineering-learning/LEARNING_NOTES.md)
+
+- تصنيف الإسناد:
+```text
+Tier 2: AI-Audited
+```
+- المفهوم الثالث:
+```text
+In-Memory Rate Limiting & Sliding Window Cleanup
+```
+  - المشكلة: استهلاك موارد الخادم وهجمات إغراق الطلبات وتضخم الذاكرة مع الوقت.
+  - الحل: بناء محدد طلبات بالنافذة المنزلقة مع تنظيف دوري وحفظ الحالة في المتغير العام.
+  - الشرح المفصل:
+    [engineering-learning/LEARNING_NOTES.md](engineering-learning/LEARNING_NOTES.md)
+
+- تصنيف الإسناد:
+```text
+Tier 2: AI-Audited
+```
+- المفهوم الرابع:
+```text
+Honeypot Security & Bot Trap
+```
+  - المشكلة: البوتات والرسائل المزعجة في استمارات التواصل.
+  - الحل: حقل مخفي يملأه البوت آلياً فيتم إسقاط طلبه بصمت دون إزعاج المستخدم الحقيقي.
+  - الشرح المفصل:
+    [engineering-learning/LEARNING_NOTES.md](engineering-learning/LEARNING_NOTES.md)
+
+### ب. مبادئ التصميم وأنماط البرمجيات
+- تصنيف الإسناد:
+```text
+Tier 2: AI-Audited
+```
+- المفهوم الخامس:
+```text
+Single Responsibility Principle (SRP)
+```
+  - المفهوم: فصل المسؤوليات إلى أربع طبقات نقية:
+```text
+Controller -> Service -> Repository -> Validator
+```
+  - ملف الحل:
+    [engineering-learning/daily-challenges/solutions/solution-2026-09-10-srp-user-service.ts](engineering-learning/daily-challenges/solutions/solution-2026-09-10-srp-user-service.ts)
+
+- تصنيف الإسناد:
+```text
+Tier 2: AI-Audited
+```
+- المفهوم السادس:
+```text
+Open/Closed Principle (OCP)
+```
+  - المفهوم: فتح الكود للإضافة وإغلاقه أمام التعديل عبر نمط السجل والاستراتيجية:
+```text
+Strategy & Registry Pattern
+```
+  - ملف الحل:
+    [engineering-learning/daily-challenges/solutions/solution-2026-09-11-ocp-payment-gateway.ts](engineering-learning/daily-challenges/solutions/solution-2026-09-11-ocp-payment-gateway.ts)
+
+- تصنيف الإسناد:
+```text
+Tier 3: Solo-Authored
+```
+- المفهوم السابع:
+```text
+The Adapter Pattern & Anti-Corruption Layer
+```
+  - المفهوم: ترويض الواجهات والمكتبات الخارجية غير المتوافقة دون تلويث الكود الداخلي للنظام:
+```text
+Anti-Corruption Layer (ACL)
+```
+  - ملف الحل:
+    [engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts](engineering-learning/daily-challenges/my-solutions/solution-2026-09-17-decor-shipping-engine.ts)
+
+- تصنيف الإسناد:
+```text
+Tier 3: Solo-Authored
+```
+- المفهوم الثامن:
+```text
+The Observer Pattern & Type-Safe EventBus with Fault Isolation
+```
+  - المفهوم: معمارية موجهة بالأحداث مع وسيط مركزي يعزل أخطاء كل مستمع بشكل مستقل:
+```text
+Fault Isolation
+```
+  - ملف الحل:
+    [engineering-learning/daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts](engineering-learning/daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts)
+
+- تصنيف الإسناد:
+```text
+Tier 3: Solo-Authored
+```
+- المفهوم التاسع:
+```text
+Liskov Substitution Principle (LSP)
+```
+  - المفهوم: الفئات الفرعية تستبدل الفئات الأصلية دون كسر العقد السلوكي أو رمي استثناءات غير متوقعة.
+  - ملف الحل:
+    [engineering-learning/daily-challenges/solutions/solution-2026-09-13-lsp-refund-gateway.ts](engineering-learning/daily-challenges/solutions/solution-2026-09-13-lsp-refund-gateway.ts)
+
+- تصنيف الإسناد:
+```text
+Tier 3: Solo-Authored
+```
+- المفهوم العاشر:
+```text
+Unified Order Fulfillment Engine
+```
+  - المفهوم: دمج وتكامل أنماط التصميم الثلاثة في تدفق واحد متماسك لمعالجة طلبات متجر الديكور:
+```text
+Strategy + Adapter + Observer
+```
+  - ملف الحل:
+    [engineering-learning/daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts](engineering-learning/daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts)
+
+---
+
+## 🧪 جودة الكود ومنصات الاختبار
+
+- أجنحة اختبارات ديفوليو المكتملة:
+```text
+5 Test Suites / 38 Tests Passing (100% Green)
+```
+- تصنيف الإسناد:
+```text
+Tier 1: AI-Generated Scaffolding
+```
+- التغطية:
+  - مسارات النظام الأساسية وجاهزية التشغيل.
+  - حماية الجلسات وتأمين الكوكيز.
+  - اختبار حدود واجهات البرمجة والمدخلات.
+  - اختبار المزود الوهمي ومحدد الطلبات الحسابي.
+  - اختبار سلامة بيانات المشاريع ومخططات التحقق.
+
+- مفهوم منصة الاختبار مقابل الحالة الاختبارية:
+```text
+Test Harness vs. Test Case
+```
+- تصنيف الإسناد:
+```text
+Tier 2: AI-Audited
+```
+- المفهوم: بناء حواضن ومنصات عزل محكمة لمنع تسريب العمليات المالية وحماية قواعد بيانات الإنتاج.
+- الشرح المفصل:
+  [engineering-learning/LEARNING_NOTES.md](engineering-learning/LEARNING_NOTES.md#12-test-harness-vs-test-case-isolated-execution-rigs--production-risk-elimination)
+
+---
+
+> 💡 **دستور الربط الشبكي المركزي**:
+> كل ملف جديد يتم إنشاؤه في مساحة العمل يتم ربطه فوراً بهذا الملف وفي قسمه المخصص لتبقى شجرة المشروع مترابطة بنسبة 100%.

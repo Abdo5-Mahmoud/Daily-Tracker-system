@@ -1,39 +1,39 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "name": "superpowers-model-registry",
-  "version": "2.0.0",
-  "description": "Multi-Engine Free Compute Routing Matrix for Antigravity, OpenCode, and Superpowers Harnesses.",
+  "version": "2.1.0",
+  "description": "Multi-Engine Free Compute Routing Matrix for Antigravity, OpenCode, and Superpowers Harnesses (Hybrid v2.1).",
   "default_routing": {
     "planning_and_architecture": "google/gemini-2.0-flash",
-    "heavy_fullstack_coding": "openrouter/qwen/qwen-2.5-coder-32b-instruct:free",
+    "heavy_fullstack_coding": "openrouter/poolside/laguna-s-2.1:free",
     "core_tdd_and_refactoring": "mistral/codestral-2501",
     "verification_and_fast_qa": "groq/llama-3.3-70b-versatile",
     "deep_security_and_edge_cases": "openrouter/nvidia/nemotron-3-ultra-550b:free",
-    "long_context_synthesis": "minimax/minimax-01",
+    "long_context_synthesis": "openrouter/nvidia/nemotron-3.5-lightning:free",
     "task_triage_and_classification": "opencode/jev-1.13-free"
   },
   "skill_routing": {
     "brainstorming": "google/gemini-2.0-flash",
-    "writing-plans": "minimax/minimax-01",
-    "executing-plans": "openrouter/qwen/qwen-2.5-coder-32b-instruct:free",
+    "writing-plans": "openrouter/nvidia/nemotron-3.5-lightning:free",
+    "executing-plans": "openrouter/poolside/laguna-s-2.1:free",
     "subagent-driven-development": "mistral/codestral-2501",
     "test-driven-development": "mistral/codestral-2501",
     "systematic-debugging": "openrouter/nvidia/nemotron-3-ultra-550b:free",
     "verification-before-completion": "groq/llama-3.3-70b-versatile",
     "requesting-code-review": "openrouter/nvidia/nemotron-3-ultra-550b:free",
-    "receiving-code-review": "openrouter/qwen/qwen-2.5-coder-32b-instruct:free",
+    "receiving-code-review": "openrouter/poolside/laguna-s-2.1:free",
     "task-classification": "opencode/jev-1.13-free"
   },
   "models": [
     {
-      "id": "openrouter/qwen/qwen-2.5-coder-32b-instruct:free",
-      "displayName": "Qwen 2.5 Coder 32B Free",
-      "provider": "OpenRouter / Qwen",
+      "id": "openrouter/poolside/laguna-s-2.1:free",
+      "displayName": "Poolside Laguna S 2.1 Free",
+      "provider": "OpenRouter / Poolside",
       "enabled": true,
       "tier": "Free Tier",
-      "primaryRole": "Heavy Fullstack TypeScript/React Code Generation & Feature Implementation",
+      "primaryRole": "Dedicated Agentic Coding Model & Feature Implementation (118B / 8B Active MoE)",
       "specs": {
-        "contextWindow": 131072,
+        "contextWindow": 262144,
         "maxOutputTokens": 8192,
         "rateLimits": {
           "rpm": 20,
@@ -48,12 +48,12 @@
       }
     },
     {
-      "id": "minimax/minimax-01",
-      "displayName": "MiniMax-01 Free (OpenCode)",
-      "provider": "OpenCode / MiniMax",
+      "id": "openrouter/nvidia/nemotron-3.5-lightning:free",
+      "displayName": "NVIDIA Nemotron 3.5 Lightning Free",
+      "provider": "OpenRouter / NVIDIA",
       "enabled": true,
       "tier": "Free Tier",
-      "primaryRole": "Long-Context Synthesis, Large Document Reasoning & Architectural Flow Planning",
+      "primaryRole": "Ultra High-Throughput 1M Context Synthesis & Implementation Plan Drafting (30B / 3B Active MoE)",
       "specs": {
         "contextWindow": 1000000,
         "maxOutputTokens": 8192,
@@ -67,6 +67,50 @@
         "writingPlans": "primary",
         "flowSynthesis": "primary",
         "largeContextIngestion": "primary"
+      }
+    },
+    {
+      "id": "openrouter/qwen/qwen-2.5-coder-32b-instruct:free",
+      "displayName": "Qwen 2.5 Coder 32B Free",
+      "provider": "OpenRouter / Qwen",
+      "enabled": true,
+      "tier": "Free Tier",
+      "primaryRole": "Strategic Fallback for Heavy Fullstack TypeScript/React Code Generation",
+      "specs": {
+        "contextWindow": 131072,
+        "maxOutputTokens": 8192,
+        "rateLimits": {
+          "rpm": 20,
+          "rpd": 200,
+          "tpm": 100000
+        }
+      },
+      "superpowersCompatibility": {
+        "executingPlans": "fallback",
+        "receivingCodeReview": "fallback",
+        "featureImplementation": "fallback"
+      }
+    },
+    {
+      "id": "minimax/minimax-01",
+      "displayName": "MiniMax-01 Free (OpenCode)",
+      "provider": "OpenCode / MiniMax",
+      "enabled": true,
+      "tier": "Free Tier",
+      "primaryRole": "Fallback Long-Context Synthesis & Architectural Flow Planning",
+      "specs": {
+        "contextWindow": 1000000,
+        "maxOutputTokens": 8192,
+        "rateLimits": {
+          "rpm": 30,
+          "rpd": 1000,
+          "tpm": 500000
+        }
+      },
+      "superpowersCompatibility": {
+        "writingPlans": "fallback",
+        "flowSynthesis": "fallback",
+        "largeContextIngestion": "fallback"
       }
     },
     {

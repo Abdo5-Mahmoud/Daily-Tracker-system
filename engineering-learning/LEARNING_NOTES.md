@@ -188,7 +188,7 @@ export class BostaShippingAdapter implements ShippingCarrier {
 ## 14. The Observer Pattern & Type-Safe EventBus with Fault Isolation
 
 > **Status**: `[Tier 3: Solo-Authored & Verified by Abdo]`  
-> **Production Code**: [`daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts)
+> **Production Code**: [`daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts`](engineering-learning/daily-challenges/my-solutions/solution-2026-09-18-observer-event-bus.ts)
 
 ### 1. 👶 Intuition (كأنك بتشرح لطفل 10 سنين):
 - تخيل أنك صاحب قناة يوتيوب أو متجر ألعاب، وعندك 1000 متابع.
@@ -257,7 +257,7 @@ class EventBus<Events extends Record<string, any>> {
 ## 16. Architectural Integration: Unified Order Fulfillment Engine (Strategy + Adapter + Observer)
 
 > **Status**: `[Tier 3: Solo-Authored & Verified by Abdo]`  
-> **Production Code**: [`daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts)
+> **Production Code**: [`daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts`](engineering-learning/daily-challenges/my-solutions/solution-2026-09-22-unified-order-fulfillment-engine.ts)
 
 ### 1. 👶 Intuition (كأنك بتشرح لطفل 10 سنين):
 - تخيل أنك صاحب شركة مقاولات عملاقة بتبني أبراج سكنية.
@@ -457,7 +457,7 @@ export async function POST(req: Request) {
 ## 15. Liskov Substitution Principle (LSP) & Behavioral Subtyping
 
 > **Status**: `[Tier 3: Solo-Authored & Verified by Abdo]`  
-> **Production Code**: [`daily-challenges/solutions/solution-2026-09-13-lsp-refund-gateway.ts`](file:///c:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/daily-challenges/solutions/solution-2026-09-13-lsp-refund-gateway.ts)
+> **Production Code**: [`daily-challenges/solutions/solution-2026-09-13-lsp-refund-gateway.ts`](engineering-learning/daily-challenges/solutions/solution-2026-09-13-lsp-refund-gateway.ts)
 
 ### 1. 👶 Intuition (كأنك بتشرح لطفل 10 سنين):
 - تخيل أنك اشتريت لعبة سيارة أطفال تعمل بأي بطارية قلم عادية (`AA`).
