@@ -14,7 +14,13 @@ from pathlib import Path
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-DB_PATH = Path(__file__).resolve().parent.parent / "market-intelligence" / "amazon_market.db"
+CANDIDATE_PATHS = [
+    Path(__file__).resolve().parents[2] / "local-business-store" / "market-intelligence" / "amazon_market.db",
+    Path(__file__).resolve().parents[1] / "local-business-store" / "market-intelligence" / "amazon_market.db",
+    Path.cwd() / "local-business-store" / "market-intelligence" / "amazon_market.db",
+    Path("local-business-store/market-intelligence/amazon_market.db").resolve(),
+]
+DB_PATH = next((p for p in CANDIDATE_PATHS if p.exists()), CANDIDATE_PATHS[0])
 
 def get_connection():
     if not DB_PATH.exists():

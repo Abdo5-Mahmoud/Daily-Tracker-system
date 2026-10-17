@@ -12,6 +12,7 @@ import csv
 import time
 import random
 import argparse
+from pathlib import Path
 import requests
 from bs4 import BeautifulSoup
 
@@ -141,7 +142,8 @@ if __name__ == "__main__":
     parser.add_argument("--test", action="store_true", help="Run self-test with sample data")
     args = parser.parse_args()
     
-    output_directory = os.path.join("local-business-store", "data")
+    workspace_root = Path(__file__).resolve().parents[2] if len(Path(__file__).resolve().parents) >= 3 else Path.cwd()
+    output_directory = str(workspace_root / "local-business-store" / "data")
     if args.test:
         print("[*] Running in self-test validation mode...")
         results = generate_mock_baseline(args.keyword, args.limit)
