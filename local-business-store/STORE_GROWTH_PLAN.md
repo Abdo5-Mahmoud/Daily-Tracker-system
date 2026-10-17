@@ -1,7 +1,7 @@
 # خطة تطوير وتوسيع متجر الديكور وأمازون (Artiflora & Flora_Home Growth Plan) 🌸✨
 
 > 🧭 **الروابط المركزية (Vault Navigation Hub)**:
-> 🔗 [خريطة المحتوى الرئيسية (MOC)](../MASTER_KNOWLEDGE_BASE.md) • [لوحة المتابعة والتقدم](../PROGRESS_TRACKER.md) • [مهارة التجارة الإلكترونية وأمازون](../.agents/skills/amazon-ecommerce-growth/SKILL.md) • [مخطط إدراج منتج الـ 30سم](AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md) • [دراسة جدوى الفازات](AMAZON_MARKET_AUDIT_FLOWER_VASES.md) • [دليل التغليف](PACKAGING_AND_SUPPLIERS_GUIDE.md)
+> 🔗 [خريطة المحتوى الرئيسية (MOC)](../MASTER_KNOWLEDGE_BASE.md) • [لوحة المتابعة والتقدم](../PROGRESS_TRACKER.md) • [مهارة التجارة الإلكترونية وأمازون](../.agents/skills/amazon-ecommerce-growth/SKILL.md) • [مخطط إدراج منتج الـ 30سم](amazon-operations/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md) • [دراسة جدوى الفازات](amazon-operations/AMAZON_MARKET_AUDIT_FLOWER_VASES.md) • [دليل التغليف](packaging-and-suppliers/EGYPT_PACKAGING_CARTON_SUPPLIERS_GUIDE.md)
 
 > **المتجر المحلي**: أرتيفلورا للديكور والزهور (Artiflora Decor: ورد صناعي، شجر زينة، مفارش، كريستالات، أنتيكات) بالوراق - الجيزة.  
 > **العلامة التجارية على أمازون مصر**: فلورا هوم (`Flora_Home`).  
@@ -105,7 +105,7 @@
 - 📄 **دراسة السوق وفحص المنافسين الميداني**:
   [AMAZON_MARKET_AUDIT_FLOWER_VASES.md](local-business-store/AMAZON_MARKET_AUDIT_FLOWER_VASES.md)
 - 📦 **دليل كراتين الشحن وموردي الجملة والطباعة**:
-  [PACKAGING_AND_SUPPLIERS_GUIDE.md](local-business-store/PACKAGING_AND_SUPPLIERS_GUIDE.md)
+  [EGYPT_PACKAGING_CARTON_SUPPLIERS_GUIDE.md](packaging-and-suppliers/EGYPT_PACKAGING_CARTON_SUPPLIERS_GUIDE.md)
 - ⚙️ **دليل اقتصاديات الوحدة واستراتيجية التسعير**:
   [.agents/skills/amazon-ecommerce-growth/SKILL.md](.agents/skills/amazon-ecommerce-growth/SKILL.md)
 - [x] مسح أسعار المنافسين وثغرات الجودة في فئة الفازات الدائرية والبوكيهات الصغيرة.

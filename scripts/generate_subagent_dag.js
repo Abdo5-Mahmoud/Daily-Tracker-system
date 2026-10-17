@@ -42,7 +42,7 @@ const fallbackTasks = [
     status: "COMPLETED",
     elapsedSec: 14,
     tokens: 3200,
-    deliverable: "local-business-store/scripts/amazon_competitor_analyzer.py"
+    deliverable: "scripts/amazon-tracker/amazon_competitor_analyzer.py"
   },
   {
     id: "TASK-02",
@@ -72,7 +72,7 @@ const fallbackTasks = [
     status: "COMPLETED",
     elapsedSec: 19,
     tokens: 4100,
-    deliverable: "local-business-store/scripts/remove_background.py"
+    deliverable: "scripts/image-processing/remove_background.py"
   }
 ];
 

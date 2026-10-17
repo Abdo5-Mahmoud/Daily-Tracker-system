@@ -110,7 +110,7 @@
 ---
 
 ### 🗓️ اليوم: الجمعة 2026-09-04 (وضع الـ Locked-In الصارم)
-> جدول زمني صارم بالدقيقة محدد في: [DAILY_CALENDAR_SCHEDULE.md](DAILY_CALENDAR_SCHEDULE.md)
+> جدول تشغيل محدد في: نظام التخطيط اليومي الموحد بأعلى الصفحة.
 
 - **البلوك الصباحي (8:30 ص - 11:45 ص) - إنجاز 100% قبل الموعد بـ 50 دقيقة**:
   - [x] ربط الـ Rate Limiter بمسار المساعد الذكي `assistant route`. (تم بنجاح بواسطة عبده).
@@ -634,6 +634,15 @@
   - تسجيل الخادم في الإعدادات العامة: `~/.gemini/config/mcp_config.json` تحت اسم `workspace-tools`.
   - اجتياز جميع اختبارات الوحدة الخمسة بنسبة 100% عبر `scripts/test_workspace_mcp.py`.
   - تحديث الخريطة العقلية لمساحة العمل: `WORKSPACE_MENTAL_MODEL.md` و `.html`.
+
+- [x] **تدقيق وإزالة الملفات المكررة والقديمة وتثبيت مصدر الحقيقة الموحد**:
+  - حذف ملف الجدول اليومي القديم والتاريخي المنتهي: `DAILY_CALENDAR_SCHEDULE.md` والاعتماد حصرياً على لوحة التخطيط بأعلى السجل.
+  - حذف الملف المكرر لمخطط إدراج الفازة: `2nd_P/LISTING_BLUEPRINT.md` لتثبيت المرجع الموحد في `amazon-operations/AMAZON_EGYPT_LISTING_BLUEPRINT_LILIUM_VASE.md`.
+  - حذف دليل التغليف القديم المكرر: `PACKAGING_AND_SUPPLIERS_GUIDE.md` واعتماد الدليل الميداني المحدث.
+  - دمج مجلد الإعلانات الفرعي: نقل `FREE_MARKETING_TOOLKIT_PLAYBOOK.md` إلى `store-marketing/` وحذف مجلد `advertising-and-creative/`.
+  - حذف لقطات السوق القديمة الثلاث `market_snapshot_2026-*.csv` والتقارير اليومية المؤقتة للاكتفاء بقاعدة البيانات `amazon_market.db` والملف النشط.
+  - حذف مجلد خطط ومواصفات السوبر باورز القديمة المنتهية: `docs/superpowers/`.
+  - تحديث كافة الروابط الشبكية والمراجع الداخلية في `MASTER_KNOWLEDGE_BASE.md` والسكريبتات.
 
 ---
 

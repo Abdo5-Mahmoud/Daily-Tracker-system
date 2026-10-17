@@ -184,7 +184,7 @@ CROSS_DOMAIN_BRIDGES = [
         "desc_ar": "يربط بيانات متجر أمازون بأدوات الاستعلام والتحليل الرياضي السريع.",
         "nodes": [
             {"name": "قاعدة بيانات سوق أمازون", "file": "local-business-store/market-intelligence/amazon_market.db"},
-            {"name": "أداة الاستعلام السريع", "file": "local-business-store/scripts/db_quick_query.py"},
+            {"name": "أداة الاستعلام السريع", "file": "scripts/amazon-tracker/db_quick_query.py"},
             {"name": "كتيب الخوارزميات وهياكل البيانات", "file": "engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md"}
         ]
     },

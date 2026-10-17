@@ -24,7 +24,7 @@ Obsidian Bidirectional Knowledge Mesh & Cross-Domain Bridges
 - قاعدة بيانات رصد السوق:
 [local-business-store/market-intelligence/amazon_market.db](file:///C:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/market-intelligence/amazon_market.db)
 - أداة الاستعلام السريع:
-[local-business-store/scripts/db_quick_query.py](file:///C:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/scripts/db_quick_query.py)
+[scripts/amazon-tracker/db_quick_query.py](file:///C:/Users/A5/Desktop/growth-workspace-withAI/scripts/amazon-tracker/db_quick_query.py)
 - كتيب الخوارزميات وهياكل البيانات:
 [engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md)
 
@@ -110,10 +110,10 @@ Status: Active Outbound Pipeline
   [local-business-store/amazon-operations/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md](local-business-store/amazon-operations/AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md)
   [local-business-store/amazon-operations/AMAZON_MARKET_AUDIT_FLOWER_VASES.md](local-business-store/amazon-operations/AMAZON_MARKET_AUDIT_FLOWER_VASES.md)
   [local-business-store/erp-system/README.md](local-business-store/erp-system/README.md)
-  [local-business-store/advertising-and-creative/FREE_MARKETING_TOOLKIT_PLAYBOOK.md](local-business-store/advertising-and-creative/FREE_MARKETING_TOOLKIT_PLAYBOOK.md)
+  [local-business-store/store-marketing/FREE_MARKETING_TOOLKIT_PLAYBOOK.md](local-business-store/store-marketing/FREE_MARKETING_TOOLKIT_PLAYBOOK.md)
   [local-business-store/market-research/HOME_DECOR_CATEGORY_AND_BESTSELLERS_REPORT.md](local-business-store/market-research/HOME_DECOR_CATEGORY_AND_BESTSELLERS_REPORT.md)
-  [local-business-store/scripts/amazon_competitor_analyzer.py](local-business-store/scripts/amazon_competitor_analyzer.py)
-  [local-business-store/scripts/remove_background.py](local-business-store/scripts/remove_background.py)
+  [scripts/amazon-tracker/amazon_competitor_analyzer.py](scripts/amazon-tracker/amazon_competitor_analyzer.py)
+  [scripts/image-processing/remove_background.py](scripts/image-processing/remove_background.py)
 - مؤشر الحالة:
 ```text
 Status: Packaging & Pilot Batch Ready
@@ -197,9 +197,9 @@ Status: Pilot Batch Ready
   - الغرض: ملف بيانات وسياق عبده الدائم (الخلفية الرياضية، الروتين اليومي، الأجهزة، المبادئ الحاكمة).
   - الحالة: مرجع دائم.
 
-- [DAILY_CALENDAR_SCHEDULE.md](DAILY_CALENDAR_SCHEDULE.md)
-  - الغرض: الجدول الزمني المفصل بالدقيقة لتوزيع ساعات العمل العميق، الجيم، وإدارة المتجر.
-  - الحالة: مرجع تشغيلي للروتين.
+- [PROGRESS_TRACKER.md](PROGRESS_TRACKER.md)
+  - الغرض: لوحة التحكم اليومية الموحدة بالدقيقة لتوزيع ساعات العمل العميق، الجيم، إدارة المتجر، ومتابعة الديون والمهام.
+  - الحالة: مرجع تشغيلي حي ومحدث باستمرار.
 
 - [MODELS_REGISTRY.md](MODELS_REGISTRY.md)
   - الغرض: التوثيق الكامل لمصفوفة النماذج السبعة المجانية وتوزيع المهام حسب الكفاءة والسياق وحدود الاستخدام.
@@ -445,30 +445,18 @@ Status: Pilot Batch Ready
   - الغرض: التقرير الرئيسي الشامل لمواصفات وتكاليف التغليف، الكراتين، البابلز، الاستيكرات، وسيناريوهات الأرباح والإعلانات.
   - الحالة: تقرير مالي وتشغيلي معتمد 100%.
 
-- [local-business-store/packaging-and-suppliers/PACKAGING_AND_SUPPLIERS_GUIDE.md](local-business-store/packaging-and-suppliers/PACKAGING_AND_SUPPLIERS_GUIDE.md)
-  - الغرض: دليل مواصفات التغليف الكرتوني وطباعة الهوية وتجهيز الشحنات الفردية والمجمعة.
-  - الحالة: دليل إرشادي للتغليف.
-
-- [local-business-store/packaging-and-suppliers/EGYPT_PACKAGING_CARTON_SUPPLIERS_DIRECTORY.md](local-business-store/packaging-and-suppliers/EGYPT_PACKAGING_CARTON_SUPPLIERS_DIRECTORY.md)
-  - الغرض: دليل هواتف وعناوين مصانع وموردي الكراتين المضلعة وخامات التغليف في مصر.
-  - الحالة: دليل جهات اتصال تجاري.
+- [local-business-store/packaging-and-suppliers/EGYPT_PACKAGING_CARTON_SUPPLIERS_GUIDE.md](local-business-store/packaging-and-suppliers/EGYPT_PACKAGING_CARTON_SUPPLIERS_GUIDE.md)
+  - الغرض: دليل هواتف وعناوين ومواصفات مصانع وموردي الكراتين المضلعة وخامات التغليف في مصر (سادة وداي كت).
+  - الحالة: دليل تشغيلي تجاري معتمد.
 
 #### 4. استخبارات السوق والمنافسين:
 - [local-business-store/market-intelligence/SPONSORED_ADS_COMPETITOR_RADAR.md](local-business-store/market-intelligence/SPONSORED_ADS_COMPETITOR_RADAR.md)
   - الغرض: رادار رصد إعلانات المنافسين المباشرين والمنتجات التي تستحوذ على الصفحة الأولى في فئة الديكور.
   - الحالة: تقرير استخبارات تنافسية.
 
-- [local-business-store/market-intelligence/DAILY_MARKET_BRIEFING_2026-09-30.md](local-business-store/market-intelligence/DAILY_MARKET_BRIEFING_2026-09-30.md)
-  - الغرض: تقرير الرصد اليومي لحركة الأسعار والمنتجات الرائجة ليوم 30 سبتمبر 2026.
-  - الحالة: سجل تاريخي.
-
-- [local-business-store/market-intelligence/DAILY_MARKET_BRIEFING_2026-10-01.md](local-business-store/market-intelligence/DAILY_MARKET_BRIEFING_2026-10-01.md)
-  - الغرض: تقرير الرصد اليومي لحركة الأسعار والمبيعات ليوم 1 أكتوبر 2026.
-  - الحالة: سجل تاريخي.
-
 - [local-business-store/market-intelligence/DAILY_MARKET_BRIEFING_2026-10-02.md](local-business-store/market-intelligence/DAILY_MARKET_BRIEFING_2026-10-02.md)
-  - الغرض: تقرير الرصد اليومي لحركة الأسعار والمنافسين ليوم 2 أكتوبر 2026.
-  - الحالة: سجل تاريخي.
+  - الغرض: تقرير الرصد المرجعي الشامل لحركة الأسعار والمنتجات الرائجة والمنافسين على أمازون مصر.
+  - الحالة: مرجع استخباراتي نشط ومطابق لقاعدة البيانات.
 
 #### 5. نظام إدارة المخازن والمحاسبة:
 - [local-business-store/erp-system/README.md](local-business-store/erp-system/README.md)

@@ -206,7 +206,7 @@ Obsidian Cross-Domain Mesh & Bidirectional Bridges
 - قاعدة بيانات سوق أمازون:
 [local-business-store/market-intelligence/amazon_market.db](file:///C:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/market-intelligence/amazon_market.db)
 - أداة الاستعلام السريع:
-[local-business-store/scripts/db_quick_query.py](file:///C:/Users/A5/Desktop/growth-workspace-withAI/local-business-store/scripts/db_quick_query.py)
+[scripts/amazon-tracker/db_quick_query.py](file:///C:/Users/A5/Desktop/growth-workspace-withAI/scripts/amazon-tracker/db_quick_query.py)
 - كتيب الخوارزميات وهياكل البيانات:
 [engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md](file:///C:/Users/A5/Desktop/growth-workspace-withAI/engineering-learning/ALGORITHMS_AND_DATA_STRUCTURES_MASTER_HANDBOOK.md)
 

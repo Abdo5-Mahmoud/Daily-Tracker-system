@@ -15,5 +15,4 @@
 - [EGYPT_PACKAGING_CARTON_SUPPLIERS_GUIDE.md](local-business-store/packaging-and-suppliers/EGYPT_PACKAGING_CARTON_SUPPLIERS_GUIDE.md)
   دليل موردي الكراتين بمصر متضمناً الأرقام والأسعار وروابط الشراء المباشرة ومقاسات شحن أمازون.
 
-- [PACKAGING_AND_SUPPLIERS_GUIDE.md](local-business-store/packaging-and-suppliers/PACKAGING_AND_SUPPLIERS_GUIDE.md)
-  المعايير الفنية لحماية الزجاج والزهور ومستلزمات الفوم والفقاعات وشريط التغليف.
+

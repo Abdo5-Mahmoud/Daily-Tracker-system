@@ -35,9 +35,10 @@ local-business-store/
 ├── packaging-and-suppliers/                <-- التغليف وموردي الكراتين والشحن
 │   ├── README.md                           <-- دليل مواصفات الكراتين وأسعار الموردين
 │   ├── EGYPT_PACKAGING_CARTON_SUPPLIERS_GUIDE.md
-│   └── PACKAGING_AND_SUPPLIERS_GUIDE.md
+│   └── FLORA_HOME_PACKAGING_AND_PRICING_REPORT.md
 │
 ├── store-marketing/                        <-- منظومة التسويق الرقمي وصناعة المحتوى
+│   ├── FREE_MARKETING_TOOLKIT_PLAYBOOK.md  <-- دليل أدوات التسويق المجانية ومفتوحة المصدر
 │   ├── catalog.md                          <-- قاعدة البيانات المركزية للمنتجات
 │   ├── WORKFLOW.md                         <-- مسار العمل للتصوير والمونتاج والنشر
 │   ├── AI_AGENTS_SPECIFICATIONS.md         <-- برومبتات الوكلاء المتخصصة

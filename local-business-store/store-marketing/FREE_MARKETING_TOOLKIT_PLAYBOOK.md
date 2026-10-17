@@ -18,7 +18,7 @@ U2Net & Bria RMBG 2.0
 
 ### كود التشغيل المحلي المباشر:
 ```bash
-python local-business-store/scripts/remove_background.py --input path/to/vase.jpg --mode amazon_white
+python scripts/image-processing/remove_background.py --input path/to/vase.jpg --mode amazon_white
 ```
 - **المخرجات التلقائية**:
   - صورة مفرغة شفافة:
