@@ -111,8 +111,22 @@ def test_mcp_server():
     assert "Audit Failed: Found 1 mixed lines violation:" in audit_text
     print("    [✓] Language purity audit detected mixed line correctly.")
 
+    print("[*] 6. Testing 'page_one_radar_log' tool call...")
+    radar_res = send_and_receive({
+        "jsonrpc": "2.0",
+        "id": 6,
+        "method": "tools/call",
+        "params": {
+            "name": "page_one_radar_log",
+            "arguments": {"limit_sessions": 2}
+        }
+    })
+    radar_text = radar_res["result"]["content"][0]["text"]
+    assert "Page One Daily Radar" in radar_text or "رادار" in radar_text
+    print("    [✓] Page one radar log tool returned recent scans successfully.")
+
     proc.terminate()
-    print("\n[+] ALL MCP SERVER UNIT TESTS PASSED (5/5)!\n")
+    print("\n[+] ALL MCP SERVER UNIT TESTS PASSED (6/6)!\n")
     return True
 
 if __name__ == "__main__":

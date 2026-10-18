@@ -308,6 +308,22 @@ def tool_audit_image_compliance(image_path: str) -> str:
     except Exception as e:
         return f"Error reading image: {str(e)}"
 
+def tool_page_one_radar_log(limit_sessions: int = 2) -> str:
+    log_file = WORKSPACE_ROOT / "local-business-store" / "market-intelligence" / "AMAZON_PAGE_ONE_RADAR_LOG.md"
+    if not log_file.exists():
+        return f"Error: Page One Radar Log not found at {log_file}"
+    try:
+        with open(log_file, "r", encoding="utf-8", errors="replace") as f:
+            content = f.read()
+        sessions = content.split("## 🗓️")
+        if len(sessions) <= 1:
+            return content
+        header = sessions[0]
+        recent = sessions[-limit_sessions:]
+        return header + "## 🗓️" + "## 🗓️".join(recent)
+    except Exception as e:
+        return f"Error reading log file: {str(e)}"
+
 # ==========================================
 # TOOL REGISTRY FOR MCP
 # ==========================================
@@ -390,6 +406,19 @@ AVAILABLE_TOOLS = [
             },
             "required": ["image_path"]
         }
+    },
+    {
+        "name": "page_one_radar_log",
+        "description": "Read the Amazon Egypt Page One Radar Log (AMAZON_PAGE_ONE_RADAR_LOG.md) to inspect recent daily scan sessions, sponsored ads, pricing, and ranking movements.",
+        "inputSchema": {
+            "type": "object",
+            "properties": {
+                "limit_sessions": {
+                    "type": "integer",
+                    "description": "Number of recent scan sessions to retrieve (default is 2, e.g. morning and evening)."
+                }
+            }
+        }
     }
 ]
 
@@ -465,6 +494,10 @@ def handle_request(req: dict) -> dict:
                 )
             elif tool_name == "audit_image_compliance":
                 output = tool_audit_image_compliance(image_path=arguments.get("image_path"))
+            elif tool_name == "page_one_radar_log":
+                output = tool_page_one_radar_log(
+                    limit_sessions=int(arguments.get("limit_sessions", 2))
+                )
             else:
                 return {
                     "jsonrpc": "2.0",

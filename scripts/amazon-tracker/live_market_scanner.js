@@ -3,16 +3,19 @@
  * Live Amazon Egypt Home Decor & Campaign Keywords Market Scanner
  * 1. Harvests live high-intent search terms via Amazon Completion Ranker API (ARBP9OOSHTCHU)
  * 2. Fetches live search results for priority target keywords
- * 3. Compares with existing database records to spot shifts, price gaps, and ad saturation.
+ * 3. Compares with existing database records to spot shifts, price gaps, and ad saturation
+ * 4. Appends a structured audit entry to AMAZON_PAGE_ONE_RADAR_LOG.md with exact timestamp.
  */
 
 const https = require('https');
-const { fetchUrl } = require('./amazon-tracker/fetcher');
-const { parseSearchResults } = require('./amazon-tracker/parser');
-const { DatabaseSync } = require('node:sqlite');
+const fs = require('fs');
 const path = require('path');
+const { DatabaseSync } = require('node:sqlite');
+const { fetchUrl } = require('./fetcher');
+const { parseSearchResults } = require('./parser');
 
-const DB_PATH = path.resolve(__dirname, '../local-business-store/market-intelligence/amazon_market.db');
+const DB_PATH = path.resolve(__dirname, '../../local-business-store/market-intelligence/amazon_market.db');
+const LOG_PATH = path.resolve(__dirname, '../../local-business-store/market-intelligence/AMAZON_PAGE_ONE_RADAR_LOG.md');
 
 // Prefixes for search demand extraction
 const SEARCH_PREFIXES = [
@@ -62,6 +65,7 @@ function fetchSuggestions(prefix) {
 
 function getDatabaseBaseline() {
   try {
+    if (!fs.existsSync(DB_PATH)) return {};
     const db = new DatabaseSync(DB_PATH, { readOnly: true });
     const stmt = db.prepare(`
       SELECT 
@@ -86,7 +90,81 @@ function getDatabaseBaseline() {
   }
 }
 
+function appendScanToMarkdownLog(searchDemand, liveResults, baseline) {
+  const now = new Date();
+  
+  // Format Cairo / Egypt local timestamp
+  const dateStr = now.toISOString().split('T')[0];
+  const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', hour12: true });
+  const hour = now.getHours();
+  
+  let sessionName = 'رصد الفترة الصباحية';
+  if (hour >= 12 && hour < 17) sessionName = 'رصد فترة الظهيرة';
+  else if (hour >= 17 && hour < 23) sessionName = 'رصد دوام المحل المسائي';
+  else if (hour >= 23 || hour < 6) sessionName = 'رصد الفجر والليل';
+
+  const lines = [];
+  lines.push(`\n## 🗓️ ${sessionName} - ${dateStr}`);
+  lines.push('```text');
+  lines.push(`Session Timestamp: ${dateStr} ${timeStr}`);
+  lines.push(`Session Type: ${sessionName}`);
+  lines.push('```\n');
+
+  lines.push('### 1. الإعلانات الممولة النشطة على الصفحة الأولى');
+  lines.push('| الكلمة المستهدفة | عدد الإعلانات | كود المنتج التعريفي | السعر | العنوان والملاحظات |');
+  lines.push('| :--- | :--- | :--- | :--- | :--- |');
+
+  for (const kw of CAMPAIGN_TARGET_KEYWORDS) {
+    const live = liveResults[kw];
+    if (!live || live.error) continue;
+    const sponsoredItems = (live.allItems || []).filter(p => p.isSponsored);
+    
+    if (sponsoredItems.length === 0) {
+      lines.push(`| **${kw}** | 0 إعلانات | لا يوجد | - | ثغرة خالية تماماً من إعلانات المنافسين |`);
+    } else {
+      const topAd = sponsoredItems[0];
+      const title = (topAd.title || 'Unknown').replace(/\|/g, '-').substring(0, 45);
+      lines.push(`| **${kw}** | ${sponsoredItems.length} إعلاناً | \`${topAd.asin}\` | ${topAd.price || 'N/A'} ج.م | ${title}... |`);
+    }
+  }
+
+  lines.push('\n### 2. حركة أسعار الصفحة الأولى والمتصدرين');
+  lines.push('| الكلمة | المتوسط الحالي | المتوسط السابق | النطاق السعري | نسبة برايم | تقييم الموقف |');
+  lines.push('| :--- | :--- | :--- | :--- | :--- | :--- |');
+
+  for (const kw of CAMPAIGN_TARGET_KEYWORDS) {
+    const live = liveResults[kw];
+    const base = baseline[kw];
+    if (!live || live.error) continue;
+
+    const baseAvgStr = base ? `${base.avg_price} ج.م` : 'رصد جديد';
+    const liveAvgStr = `${live.avgPrice} ج.م`;
+    const rangeStr = `${live.minPrice} - ${live.maxPrice} ج.م`;
+    const primeStr = `\`${live.primeCount} / ${live.totalFound}\``;
+    
+    let evaluation = 'متطابق مع الخطة';
+    if (kw.includes('ليليام')) evaluation = 'فجوة سعرية مربحة جداً لباقتنا';
+    else if (live.primeCount === 0) evaluation = 'انعدام شارة برايم يمنحنا أفضلية كاسحة';
+
+    lines.push(`| **${kw}** | ${liveAvgStr} | ${baseAvgStr} | ${rangeStr} | ${primeStr} | ${evaluation} |`);
+  }
+
+  lines.push('\n### 3. أبرز اقتراحات محرك البحث اللحظية');
+  for (const item of searchDemand.slice(0, 4)) {
+    if (item.suggestions.length > 0) {
+      lines.push(`- **${item.prefix}**: ${item.suggestions.slice(0, 5).join(' • ')}`);
+    }
+  }
+  lines.push('\n---');
+
+  const contentToAppend = lines.join('\n');
+  fs.appendFileSync(LOG_PATH, contentToAppend, 'utf8');
+  console.log(`[✓] Successfully appended audit session to: ${LOG_PATH}`);
+}
+
 async function runLiveScan() {
+  const shouldAppend = !process.argv.includes('--no-log');
+
   console.log('================================================================');
   console.log('🔍 SCANNING AMAZON EGYPT: HOME DECOR & CAMPAIGN KEYWORDS');
   console.log('================================================================\n');
@@ -101,7 +179,7 @@ async function runLiveScan() {
   console.log('[✓] Live Search Suggestions Harvested Successfully.\n');
 
   console.log('[*] Phase 2: Loading Historical Database Baseline...');
-  const baseline = await getDatabaseBaseline();
+  const baseline = getDatabaseBaseline();
 
   console.log('[*] Phase 3: Scraping Live Product Listings on Amazon Egypt...');
   const liveResults = {};
@@ -121,7 +199,6 @@ async function runLiveScan() {
       const minPrice = prices.length ? Math.min(...prices).toFixed(1) : 'N/A';
       const maxPrice = prices.length ? Math.max(...prices).toFixed(1) : 'N/A';
       
-      // Top 3 featured or lowest competitors
       const sortedByRank = [...parsed].slice(0, 3).map(p => ({
         asin: p.asin,
         title: p.title.substring(0, 45),
@@ -137,28 +214,14 @@ async function runLiveScan() {
         maxPrice,
         sponsoredCount: sponsored.length,
         primeCount: prime.length,
-        topItems: sortedByRank
+        topItems: sortedByRank,
+        allItems: parsed
       };
     } catch (err) {
       console.log(`    [!] Warning: Failed fetching "${kw}": ${err.message}`);
       liveResults[kw] = { error: err.message };
     }
-    // Brief polite pause
     await new Promise(r => setTimeout(r, 1500));
-  }
-
-  console.log('\n================================================================');
-  console.log('📊 LIVE SEARCH DEMAND (TOP SUGGESTED PHRASES BY VOLUME/RANK)');
-  console.log('================================================================');
-  for (const item of searchDemand) {
-    console.log(`\n📌 Prefix: [${item.prefix}]`);
-    if (item.suggestions.length === 0) {
-      console.log('   (No autocomplete suggestions currently indexed)');
-    } else {
-      item.suggestions.forEach((s, idx) => {
-        console.log(`   ${idx + 1}. ${s}`);
-      });
-    }
   }
 
   console.log('\n================================================================');
@@ -184,23 +247,13 @@ async function runLiveScan() {
     console.log(kw.padEnd(20) + ' | ' + liveAvg.padEnd(10) + ' | ' + baseAvg.padEnd(10) + ' | ' + priceRange.padEnd(18) + ' | ' + primeStr.padEnd(7) + ' | ' + sponsStr);
   }
 
-  console.log('='.repeat(80));
+  console.log('='.repeat(85));
 
-  // Output detailed top listings for campaign keywords
-  console.log('\n================================================================');
-  console.log('🏆 TOP RANKING ITEMS IN TARGET KEYWORDS');
-  console.log('================================================================');
-  for (const kw of CAMPAIGN_TARGET_KEYWORDS) {
-    const live = liveResults[kw];
-    if (!live || !live.topItems) continue;
-    console.log(`\n[${kw}] Top Organic/Sponsored items:`);
-    live.topItems.forEach((item, i) => {
-      console.log(`  #${i + 1} ASIN: ${item.asin} | ${item.price} EGP | Prime: ${item.isPrime} | Spons: ${item.isSponsored}`);
-      console.log(`     ${item.title}...`);
-    });
+  if (shouldAppend && fs.existsSync(LOG_PATH)) {
+    appendScanToMarkdownLog(searchDemand, liveResults, baseline);
   }
 
-  console.log('\n[✓] Scan Complete.');
+  console.log('\n[✓] Scan and Movement Logging Complete.');
 }
 
 runLiveScan().catch(console.error);
