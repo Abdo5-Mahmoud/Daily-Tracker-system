@@ -428,13 +428,9 @@ Status: Pilot Batch Ready
   - الغرض: مقارنة مالية وتشغيلية مفصلة بين الشحن عبر إيزي شيب والشحن عبر مستودعات أمازون مع جدول العمولات.
   - الحالة: تقرير قرار استراتيجي.
 
-- [local-business-store/amazon-operations/FBA_PILOT_5PCS_LAUNCH_AND_CONVERSIONS.md](local-business-store/amazon-operations/FBA_PILOT_5PCS_LAUNCH_AND_CONVERSIONS.md)
-  - الغرض: خطة تشغيل وإرسال دفعة تجريبية أولية محدودة لحساب معدل التحويل وسرعة البيع بأقل مخاطرة.
-  - الحالة: خطة إطلاق تجريبي.
-
-- [local-business-store/amazon-operations/FBA_SHIPMENT_CHECKLIST_VASE_15PCS.md](local-business-store/amazon-operations/FBA_SHIPMENT_CHECKLIST_VASE_15PCS.md)
-  - الغرض: قائمة الفحص والتجهيز لإرسال شحنة 15 فازة لمستودع أمازون بالعاشر من رمضان وتوليد الباركود.
-  - الحالة: قائمة فحص لوجستية.
+- [local-business-store/amazon-operations/FBA_SHIPMENT_INBOUND_RECORD_19PCS.md](local-business-store/amazon-operations/FBA_SHIPMENT_INBOUND_RECORD_19PCS.md)
+  - الغرض: السجل الماستر الرسمي لشحنة التوريد الأولى (19 قطعة - 2 كرتونة) شامل أرقام التتبع وبوالص ATS وتوزيعة الأوزان والمصاريف.
+  - الحالة: سجل تشغيلي نشط ومعتمد للشحنة الحالية.
 
 #### 3. التغليف واقتصاديات الموردين:
 - [local-business-store/packaging-and-suppliers/README.md](local-business-store/packaging-and-suppliers/README.md)
@@ -442,12 +438,8 @@ Status: Pilot Batch Ready
   - الحالة: فهرس القسم.
 
 - [local-business-store/packaging-and-suppliers/FLORA_HOME_PACKAGING_AND_PRICING_REPORT.md](local-business-store/packaging-and-suppliers/FLORA_HOME_PACKAGING_AND_PRICING_REPORT.md)
-  - الغرض: التقرير الرئيسي الشامل لمواصفات وتكاليف التغليف، الكراتين، البابلز، الاستيكرات، وسيناريوهات الأرباح والإعلانات.
+  - الغرض: التقرير الرئيسي الشامل لمواصفات وتكاليف التغليف، الكراتين، البابلز، الاستيكرات، وسيناريوهات الأرباح، مع أرقام وبيانات مصنع النيل والموردين البدلاء.
   - الحالة: تقرير مالي وتشغيلي معتمد 100%.
-
-- [local-business-store/packaging-and-suppliers/EGYPT_PACKAGING_CARTON_SUPPLIERS_GUIDE.md](local-business-store/packaging-and-suppliers/EGYPT_PACKAGING_CARTON_SUPPLIERS_GUIDE.md)
-  - الغرض: دليل هواتف وعناوين ومواصفات مصانع وموردي الكراتين المضلعة وخامات التغليف في مصر (سادة وداي كت).
-  - الحالة: دليل تشغيلي تجاري معتمد.
 
 #### 4. استخبارات السوق والمنافسين:
 - [local-business-store/market-intelligence/SPONSORED_ADS_COMPETITOR_RADAR.md](local-business-store/market-intelligence/SPONSORED_ADS_COMPETITOR_RADAR.md)

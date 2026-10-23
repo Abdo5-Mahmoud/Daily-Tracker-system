@@ -25,17 +25,17 @@ local-business-store/
 │
 ├── amazon-operations/                      <-- عمليات متجر أمازون مصر (Flora_Home)
 │   ├── README.md                           <-- فهرس عمليات وأدلة إدراج وشحن أمازون
+│   ├── FBA_SHIPMENT_INBOUND_RECORD_19PCS.md <-- السجل الماستر الرسمي لشحنة التوريد الحالية (19 قطعة)
+│   ├── AMAZON_EGYPT_LISTING_BLUEPRINT_LILIUM_VASE.md <-- مخطط إدراج فازات ليليوم سيليكون والتفرع
 │   ├── AMAZON_EGYPT_LISTING_BLUEPRINT_PLANT_30CM.md
 │   ├── AMAZON_MARKET_AUDIT_FLOWER_VASES.md
 │   ├── AMAZON_PPC_LAUNCH_CAMPAIGN_SPEC.md
-│   ├── EASY_SHIP_VS_FBA_MASTER_REPORT.md
-│   ├── FBA_PILOT_5PCS_LAUNCH_AND_CONVERSION_SOP.md
-│   └── FBA_SHIPMENT_CHECKLIST_VASE_15PCS.md
+│   ├── COMPETITOR_BEST_SELLERS_RESEARCH_EG_US.md
+│   └── EASY_SHIP_VS_FBA_MASTER_REPORT.md
 │
 ├── packaging-and-suppliers/                <-- التغليف وموردي الكراتين والشحن
 │   ├── README.md                           <-- دليل مواصفات الكراتين وأسعار الموردين
-│   ├── EGYPT_PACKAGING_CARTON_SUPPLIERS_GUIDE.md
-│   └── FLORA_HOME_PACKAGING_AND_PRICING_REPORT.md
+│   └── FLORA_HOME_PACKAGING_AND_PRICING_REPORT.md <-- التقرير الشامل لمواصفات وتكاليف الكراتين والموردين
 │
 ├── store-marketing/                        <-- منظومة التسويق الرقمي وصناعة المحتوى
 │   ├── FREE_MARKETING_TOOLKIT_PLAYBOOK.md  <-- دليل أدوات التسويق المجانية ومفتوحة المصدر
