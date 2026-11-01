@@ -1,0 +1,155 @@
+"use client";
+
+import Image from "next/image";
+import { FormEvent, useMemo, useState } from "react";
+import { calculatePricing } from "@/lib/pricing";
+import type { Catalog, PaymentMethod, Selection, VariantId } from "@/lib/types";
+
+const emptySelection: Selection = { bubble: 0, diamond: 0, fluted: 0 };
+const variantOrder: VariantId[] = ["bubble", "diamond", "fluted"];
+
+function money(value: number): string {
+  return new Intl.NumberFormat("ar-EG", { style: "currency", currency: "EGP", maximumFractionDigits: 0 }).format(value);
+}
+
+function errorMessage(code: string): string {
+  const messages: Record<string, string> = {
+    pricing_not_approved: "الأسعار تحت المراجعة حاليًا، لذلك لم يتم فتح الطلبات بعد.",
+    out_of_stock: "الكمية المطلوبة لم تعد متاحة.",
+    duplicate_order: "الطلب تم استقباله بالفعل.",
+    not_configured: "نظام الطلبات لم يتم ربطه بعد.",
+  };
+  return messages[code] || "حصل خطأ مؤقت. حاول مرة أخرى.";
+}
+
+export function ProductFunnel({ catalog }: { catalog: Catalog }) {
+  const [activeVariant, setActiveVariant] = useState<VariantId>("bubble");
+  const [selection, setSelection] = useState<Selection>(emptySelection);
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("COD");
+  const [submitting, setSubmitting] = useState(false);
+  const [feedback, setFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
+
+  const pricing = useMemo(() => calculatePricing(selection, catalog.pricing, paymentMethod), [catalog.pricing, paymentMethod, selection]);
+  const hasSelection = pricing.totalUnits > 0;
+  const active = catalog.variants.find((variant) => variant.id === activeVariant) || catalog.variants[0];
+  const hasStock = catalog.variants.some((variant) => variant.availableStock > 0);
+  const orderReady = catalog.pricing.approved && hasSelection && hasStock;
+
+  function setQuantity(id: VariantId, value: number) {
+    const variant = catalog.variants.find((item) => item.id === id);
+    const max = variant?.availableStock || 0;
+    setSelection((current) => ({ ...current, [id]: Math.max(0, Math.min(max, value)) }));
+  }
+
+  async function submitOrder(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    setFeedback(null);
+    if (!orderReady) {
+      setFeedback({ type: "error", message: "الطلب غير متاح قبل اعتماد السعر والمخزون." });
+      return;
+    }
+
+    setSubmitting(true);
+    try {
+      const formData = new FormData(event.currentTarget);
+      formData.set("idempotencyKey", crypto.randomUUID());
+      formData.set("paymentMethod", paymentMethod);
+      formData.set("source", new URLSearchParams(window.location.search).get("utm_source") || "direct");
+      for (const id of variantOrder) formData.set(`${id}Qty`, String(selection[id]));
+
+      const response = await fetch("/api/orders", { method: "POST", body: formData });
+      const body = (await response.json()) as { code?: string; orderId?: string };
+      if (!response.ok) {
+        setFeedback({ type: "error", message: errorMessage(body.code || "internal_error") });
+        return;
+      }
+
+      setFeedback({ type: "success", message: `تم تسجيل طلبك برقم ${body.orderId}. هنتواصل معاك لتأكيد العنوان.` });
+      setSelection(emptySelection);
+      event.currentTarget.reset();
+    } catch {
+      setFeedback({ type: "error", message: "تعذر الاتصال. حاول مرة أخرى." });
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
+  return (
+    <main className="site-shell">
+      <section className="hero-section">
+        <div className="hero-copy">
+          <span className="eyebrow">فلورا هوم</span>
+          <h1>تفصيلة صغيرة تغيّر شكل المكان كله</h1>
+          <p>تنسيق ليليام أبيض جاهز للعرض، من غير مياه أو متابعة يومية، بثلاثة أشكال تختار منهم الشكل اللي يناسب مكتبك أو بيتك.</p>
+          <div className="trust-row"><span>جاهز للعرض</span><span>شحن القاهرة والجيزة</span><span>تأكيد يدوي قبل الشحن</span></div>
+        </div>
+        <div className="hero-art"><Image src={active.image} alt={active.label} width={720} height={720} priority /></div>
+      </section>
+
+      <section className="product-layout" aria-label="تفاصيل المنتج والطلب">
+        <div className="product-panel">
+          <div className="section-heading"><span className="eyebrow">اختار الشكل</span><h2>ثلاث نسخ، نفس الإحساس الهادئ</h2></div>
+          <div className="variant-grid">
+            {catalog.variants.map((variant) => (
+              <article className={`variant-card ${activeVariant === variant.id ? "selected" : ""}`} key={variant.id}>
+                <button className="variant-select" type="button" onClick={() => setActiveVariant(variant.id)}>
+                  <Image src={variant.image} alt={variant.label} width={360} height={360} />
+                  <span className="variant-name">{variant.label}</span>
+                  <span className="variant-description">{variant.description}</span>
+                </button>
+                <div className="quantity-control">
+                  <button type="button" aria-label={`زيادة ${variant.label}`} onClick={() => setQuantity(variant.id, selection[variant.id] + 1)} disabled={selection[variant.id] >= variant.availableStock}>+</button>
+                  <strong>{selection[variant.id]}</strong>
+                  <button type="button" aria-label={`تقليل ${variant.label}`} onClick={() => setQuantity(variant.id, selection[variant.id] - 1)} disabled={selection[variant.id] === 0}>−</button>
+                </div>
+                <small>{variant.availableStock > 0 ? `متاح ${variant.availableStock} قطعة` : "المخزون المباشر لم يُعتمد بعد"}</small>
+              </article>
+            ))}
+          </div>
+
+          <div className="detail-card">
+            <Image src={active.lifestyleImage} alt={`تنسيق ${active.label} على مكتب`} width={900} height={900} />
+            <div><span className="eyebrow">تفاصيل عملية</span><h3>ارتفاع تقريبي ٣٠ سم</h3><p>تنسيق كامل يوصل جاهز للعرض. التنظيف يكون بمسحة خفيفة، من غير غسيل مباشر أو مياه داخل الفازة.</p></div>
+          </div>
+        </div>
+
+        <form className="checkout-card" onSubmit={submitOrder}>
+          <div className="section-heading"><span className="eyebrow">اطلبها من الوراق</span><h2>بيانات التوصيل</h2></div>
+          <div className="summary-box">
+            <div><span>عدد القطع</span><strong>{pricing.totalUnits}</strong></div>
+            <div><span>العرض</span><strong>{pricing.bundleLabel || "اختار قطعة"}</strong></div>
+            <div><span>المنتجات</span><strong>{money(pricing.productSubtotal)}</strong></div>
+            <div><span>الشحن</span><strong>{pricing.shipping ? money(pricing.shipping) : "مجاني"}</strong></div>
+            {pricing.prepaidDiscount > 0 && <div><span>خصم التحويل</span><strong>− {money(pricing.prepaidDiscount)}</strong></div>}
+            <div className="total-row"><span>الإجمالي</span><strong>{money(pricing.total)}</strong></div>
+          </div>
+
+          <fieldset className="payment-options">
+            <legend>طريقة الدفع</legend>
+            <label><input type="radio" name="paymentChoice" checked={paymentMethod === "COD"} onChange={() => setPaymentMethod("COD")} /> الدفع عند الاستلام</label>
+            <label><input type="radio" name="paymentChoice" checked={paymentMethod === "InstaPay"} onChange={() => setPaymentMethod("InstaPay")} /> تحويل مسبق وخصم {money(catalog.pricing.prepaidDiscount)}</label>
+          </fieldset>
+
+          <label>الاسم بالكامل<input name="customerName" required placeholder="اكتب اسمك" /></label>
+          <label>رقم الموبايل<input name="phonePrimary" required inputMode="tel" placeholder="01xxxxxxxxx" /></label>
+          <label>رقم بديل اختياري<input name="phoneSecondary" inputMode="tel" placeholder="01xxxxxxxxx" /></label>
+          <label>المحافظة<select name="governorate" defaultValue="Cairo"><option value="Cairo">القاهرة</option><option value="Giza">الجيزة</option></select></label>
+          <label>العنوان بالتفصيل<textarea name="addressDetails" required minLength={10} placeholder="المنطقة والشارع ورقم العقار وأقرب علامة" /></label>
+
+          {paymentMethod === "InstaPay" && <>
+            <label>آخر أربعة أرقام من مرجع التحويل<input name="paymentReference" inputMode="numeric" maxLength={4} placeholder="1234" /></label>
+            <label>صورة التحويل اختيارية<input name="proofImage" type="file" accept="image/*" /></label>
+          </>}
+
+          {!catalog.pricing.approved && <p className="notice warning">الطلب متوقف مؤقتًا لحين اعتماد التكلفة والسعر.</p>}
+          {catalog.pricing.approved && !hasStock && <p className="notice warning">المخزون المباشر لم يتم إدخاله بعد.</p>}
+          {feedback && <p className={`notice ${feedback.type}`}>{feedback.message}</p>}
+          <button className="primary-button" type="submit" disabled={submitting || !orderReady}>{submitting ? "جاري التسجيل..." : "سجل الطلب"}</button>
+          {catalog.amazonLinkEnabled && <a className="secondary-button" href={catalog.amazonUrl} target="_blank" rel="noreferrer">أو اطلبها من أمازون</a>}
+        </form>
+      </section>
+
+      <footer className="site-footer">فلورا هوم · تنسيق جاهز للمكتب والبيت</footer>
+    </main>
+  );
+}
