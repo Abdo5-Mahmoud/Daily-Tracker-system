@@ -37,11 +37,22 @@ export type PricingConfig = {
   freeShippingThreshold: number;
 };
 
+export type StoreSettings = {
+  instaPayIdentifier: string;
+  instaPayRecipient: string;
+  supportWhatsapp: string;
+  deliveryEstimate: string;
+  instaPayProofRequired: boolean;
+  instaPayConfigured: boolean;
+};
+
 export type Catalog = {
   productName: string;
   brandName: string;
   priceSource: "draft" | "approved";
   pricing: PricingConfig;
+  settings: StoreSettings;
+  inventoryStatus: "live" | "local" | "unavailable";
   variants: CatalogVariant[];
   amazonLinkEnabled: boolean;
   amazonUrl: string;

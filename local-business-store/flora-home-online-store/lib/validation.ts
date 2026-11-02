@@ -12,8 +12,15 @@ function textValue(value: FormDataEntryValue | null): string {
 }
 
 function integerValue(value: FormDataEntryValue | null): number {
-  const parsed = Number.parseInt(normalizeDigits(textValue(value)), 10);
+  const parsed = Number(normalizeDigits(textValue(value)));
   return Number.isInteger(parsed) && parsed >= 0 ? parsed : 0;
+}
+
+export function normalizeEgyptianPhone(value: string): string {
+  const digits = normalizeDigits(value).replace(/\D/g, "");
+  if (digits.startsWith("0020")) return `0${digits.slice(4)}`;
+  if (digits.startsWith("20")) return `0${digits.slice(2)}`;
+  return digits;
 }
 
 function isValidPhone(value: string): boolean {
@@ -24,20 +31,35 @@ function validIdempotencyKey(value: string): boolean {
   return /^[a-zA-Z0-9_-]{16,100}$/.test(value);
 }
 
+export type ValidationErrorCode = "validation_error" | "payment_not_configured";
+
 export type ParsedOrder =
   | { ok: true; input: Omit<OrderInput, "pricing">; proofImage: File | null }
-  | { ok: false; message: string };
+  | { ok: false; code: ValidationErrorCode; message: string };
 
-export function parseOrderFormData(formData: FormData): ParsedOrder {
+export type ValidationOptions = {
+  instaPayConfigured: boolean;
+  instaPayProofRequired: boolean;
+};
+
+function invalid(message: string, code: ValidationErrorCode = "validation_error"): ParsedOrder {
+  return { ok: false, code, message };
+}
+
+export function parseOrderFormData(
+  formData: FormData,
+  options: ValidationOptions = { instaPayConfigured: true, instaPayProofRequired: false },
+): ParsedOrder {
   const idempotencyKey = textValue(formData.get("idempotencyKey"));
   const customerName = textValue(formData.get("customerName"));
-  const phonePrimary = normalizeDigits(textValue(formData.get("phonePrimary")));
-  const phoneSecondary = normalizeDigits(textValue(formData.get("phoneSecondary")));
+  const phonePrimary = normalizeEgyptianPhone(textValue(formData.get("phonePrimary")));
+  const phoneSecondary = normalizeEgyptianPhone(textValue(formData.get("phoneSecondary")));
   const governorate = textValue(formData.get("governorate"));
   const addressDetails = textValue(formData.get("addressDetails"));
   const paymentMethod = textValue(formData.get("paymentMethod")) as PaymentMethod;
   const paymentReference = normalizeDigits(textValue(formData.get("paymentReference")));
   const source = textValue(formData.get("source")) || "direct";
+  const honeypot = textValue(formData.get("website"));
 
   const selection: Selection = {
     bubble: integerValue(formData.get("bubbleQty")),
@@ -45,20 +67,27 @@ export function parseOrderFormData(formData: FormData): ParsedOrder {
     fluted: integerValue(formData.get("flutedQty")),
   };
 
-  if (!validIdempotencyKey(idempotencyKey)) return { ok: false, message: "بيانات الإرسال غير صالحة. حاول مرة أخرى." };
-  if (customerName.length < 3) return { ok: false, message: "اكتب الاسم بالكامل." };
-  if (!isValidPhone(phonePrimary)) return { ok: false, message: "اكتب رقم موبايل مصري صحيح." };
-  if (phoneSecondary && !isValidPhone(phoneSecondary)) return { ok: false, message: "رقم الموبايل البديل غير صحيح." };
-  if (!allowedGovernorates.has(governorate)) return { ok: false, message: "الشحن متاح حاليًا للقاهرة والجيزة فقط." };
-  if (addressDetails.length < 10) return { ok: false, message: "اكتب العنوان بالتفصيل مع أقرب علامة مميزة." };
-  if (paymentMethod !== "COD" && paymentMethod !== "InstaPay") return { ok: false, message: "اختار طريقة دفع صحيحة." };
-  if (paymentMethod === "InstaPay" && !/^\d{4}$/.test(paymentReference)) return { ok: false, message: "اكتب آخر أربعة أرقام من مرجع التحويل." };
-  if (Object.values(selection).every((quantity) => quantity === 0)) return { ok: false, message: "اختار قطعة واحدة على الأقل." };
+  if (honeypot) return invalid("بيانات الإرسال غير صالحة. حاول مرة أخرى.");
+  if (!validIdempotencyKey(idempotencyKey)) return invalid("بيانات الإرسال غير صالحة. حاول مرة أخرى.");
+  if (customerName.length < 3) return invalid("اكتب الاسم بالكامل.");
+  if (!isValidPhone(phonePrimary)) return invalid("اكتب رقم موبايل مصري صحيح.");
+  if (phoneSecondary && !isValidPhone(phoneSecondary)) return invalid("رقم الموبايل البديل غير صحيح.");
+  if (!allowedGovernorates.has(governorate)) return invalid("الشحن متاح حاليًا للقاهرة والجيزة فقط.");
+  if (addressDetails.length < 10) return invalid("اكتب العنوان بالتفصيل مع أقرب علامة مميزة.");
+  if (paymentMethod !== "COD" && paymentMethod !== "InstaPay") return invalid("اختار طريقة دفع صحيحة.");
+  if (paymentMethod === "InstaPay" && !options.instaPayConfigured) {
+    return invalid("الدفع المسبق غير متاح حاليًا.", "payment_not_configured");
+  }
+  if (paymentMethod === "InstaPay" && !/^\d{4}$/.test(paymentReference)) return invalid("اكتب آخر أربعة أرقام من مرجع التحويل.");
+  if (Object.values(selection).every((quantity) => quantity === 0)) return invalid("اختار قطعة واحدة على الأقل.");
 
   const proofEntry = formData.get("proofImage");
   const proofImage = proofEntry instanceof File && proofEntry.size > 0 ? proofEntry : null;
   if (proofImage && (!proofImage.type.startsWith("image/") || proofImage.size > 5 * 1024 * 1024)) {
-    return { ok: false, message: "صورة التحويل يجب أن تكون صورة وألا تتجاوز خمسة ميجابايت." };
+    return invalid("صورة التحويل يجب أن تكون صورة وألا تتجاوز خمسة ميجابايت.");
+  }
+  if (paymentMethod === "InstaPay" && options.instaPayProofRequired && !proofImage) {
+    return invalid("ارفع صورة التحويل لإكمال الدفع المسبق.");
   }
 
   return {

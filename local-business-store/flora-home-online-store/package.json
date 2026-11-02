@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
-    "test:domain": "tsc -p scripts/tsconfig.test.json && node .test-build/scripts/test-domain.js"
+    "test:domain": "tsc -p scripts/tsconfig.test.json && node .test-build/scripts/test-domain.js",
+    "test:validation": "tsc -p scripts/tsconfig.validation.json && node .test-build/scripts/test-validation.js",
+    "test:rate-limit": "tsc -p scripts/tsconfig.rate-limit.json && node .test-build/scripts/test-rate-limit.js",
+    "test": "npm run test:domain && npm run test:validation && npm run test:rate-limit"
   },
   "dependencies": {
     "next": "16.4.3",
@@ -15,13 +18,11 @@
     "react-dom": "19.3.0"
   },
   "devDependencies": {
-    "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.4.3",
-    "tailwindcss": "^4",
     "typescript": "^5"
   }
 }

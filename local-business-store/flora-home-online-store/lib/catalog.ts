@@ -1,4 +1,5 @@
 import { fetchDirectInventory } from "./gateway";
+import { getStoreSettings } from "./store-config";
 import type { Catalog, CatalogVariant, PricingConfig, VariantId } from "./types";
 
 const variantDefinitions: Omit<CatalogVariant, "directStock" | "availableStock" | "amazonInbound">[] = [
@@ -26,6 +27,24 @@ function localInventory(): Record<VariantId, { directStock: number; availableSto
   };
 }
 
+function emptyInventory(): Record<VariantId, { directStock: number; availableStock: number; amazonInbound: number }> {
+  return {
+    bubble: { directStock: 0, availableStock: 0, amazonInbound: 0 },
+    diamond: { directStock: 0, availableStock: 0, amazonInbound: 0 },
+    fluted: { directStock: 0, availableStock: 0, amazonInbound: 0 },
+  };
+}
+
+function isCompleteInventory(value: unknown): value is Record<VariantId, { directStock: number; availableStock: number; amazonInbound: number }> {
+  if (!value || typeof value !== "object") return false;
+  return variantDefinitions.every(({ id }) => {
+    const item = (value as Record<string, unknown>)[id];
+    if (!item || typeof item !== "object") return false;
+    const record = item as Record<string, unknown>;
+    return ["directStock", "availableStock", "amazonInbound"].every((key) => typeof record[key] === "number" && Number.isFinite(record[key]));
+  });
+}
+
 function pricingConfig(): PricingConfig {
   return {
     approved: process.env.PRICING_APPROVED === "true",
@@ -41,12 +60,17 @@ function pricingConfig(): PricingConfig {
 
 export async function getCatalog(): Promise<Catalog> {
   let inventory = localInventory();
+  let inventoryStatus: Catalog["inventoryStatus"] = "local";
 
   if (process.env.APPS_SCRIPT_GATEWAY_URL && process.env.APPS_SCRIPT_SHARED_SECRET) {
     try {
-      inventory = await fetchDirectInventory();
+      const remoteInventory = await fetchDirectInventory();
+      if (!isCompleteInventory(remoteInventory)) throw new Error("Incomplete inventory response.");
+      inventory = remoteInventory;
+      inventoryStatus = "live";
     } catch {
-      inventory = localInventory();
+      inventory = emptyInventory();
+      inventoryStatus = "unavailable";
     }
   }
 
@@ -55,6 +79,8 @@ export async function getCatalog(): Promise<Catalog> {
     brandName: "Flora Home",
     priceSource: process.env.PRICING_APPROVED === "true" ? "approved" : "draft",
     pricing: pricingConfig(),
+    settings: getStoreSettings(),
+    inventoryStatus,
     variants: variantDefinitions.map((definition) => ({ ...definition, ...inventory[definition.id] })),
     amazonLinkEnabled: process.env.NEXT_PUBLIC_AMAZON_LINK_ENABLED === "true" && Boolean(process.env.NEXT_PUBLIC_AMAZON_URL),
     amazonUrl: process.env.NEXT_PUBLIC_AMAZON_URL || "",
