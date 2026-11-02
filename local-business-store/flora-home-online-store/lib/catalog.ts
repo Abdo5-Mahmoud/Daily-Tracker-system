@@ -72,6 +72,9 @@ export async function getCatalog(): Promise<Catalog> {
       inventory = emptyInventory();
       inventoryStatus = "unavailable";
     }
+  } else if (process.env.NODE_ENV === "production") {
+    inventory = emptyInventory();
+    inventoryStatus = "unavailable";
   }
 
   return {

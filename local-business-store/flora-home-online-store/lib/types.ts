@@ -85,4 +85,5 @@ export type GatewayOrderResult = {
   orderId: string;
   status: OrderStatus;
   pricing: PriceBreakdown;
+  duplicate?: boolean;
 };

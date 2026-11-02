@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "CommonJS",
+    "outDir": "../.test-build",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["node"]
+  },
+  "files": ["../lib/types.ts", "../lib/store-config.ts", "../lib/gateway.ts", "../lib/catalog.ts", "./test-catalog.ts"]
+}

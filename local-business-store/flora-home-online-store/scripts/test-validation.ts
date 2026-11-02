@@ -62,9 +62,56 @@ requiredProof.set("paymentMethod", "InstaPay");
 requiredProof.set("paymentReference", "1234");
 assert.equal(parseOrderFormData(requiredProof, { ...options, instaPayProofRequired: true }).ok, false);
 
+const sessionProof = validForm();
+sessionProof.set("paymentMethod", "InstaPay");
+sessionProof.set("paymentReference", "1234");
+sessionProof.set("proofUploadId", "12345678-1234-1234-1234-123456789012");
+sessionProof.set("proofUploadToken", "a".repeat(64));
+sessionProof.set("proofUploadChunkCount", "5");
+sessionProof.set("proofUploadFileType", "image/jpeg");
+const parsedSessionProof = parseOrderFormData(sessionProof, { ...options, instaPayProofRequired: true });
+assert.equal(parsedSessionProof.ok, true);
+if (parsedSessionProof.ok) assert.equal(parsedSessionProof.proofUpload?.chunkCount, 5);
+
 const optionalProof = validForm();
 optionalProof.set("paymentMethod", "InstaPay");
 optionalProof.set("paymentReference", "1234");
 assert.equal(parseOrderFormData(optionalProof, options).ok, true);
+
+const longName = validForm();
+longName.set("customerName", "ع".repeat(121));
+assert.equal(parseOrderFormData(longName, options).ok, false);
+
+const maximumName = validForm();
+maximumName.set("customerName", "ع".repeat(120));
+assert.equal(parseOrderFormData(maximumName, options).ok, true);
+
+const longAddress = validForm();
+longAddress.set("addressDetails", "ع".repeat(1001));
+assert.equal(parseOrderFormData(longAddress, options).ok, false);
+
+const maximumAddress = validForm();
+maximumAddress.set("addressDetails", "ع".repeat(1000));
+assert.equal(parseOrderFormData(maximumAddress, options).ok, true);
+
+const longSource = validForm();
+longSource.set("source", "s".repeat(101));
+assert.equal(parseOrderFormData(longSource, options).ok, false);
+
+const maximumSource = validForm();
+maximumSource.set("source", "s".repeat(100));
+assert.equal(parseOrderFormData(maximumSource, options).ok, true);
+
+const maximumProof = validForm();
+maximumProof.set("paymentMethod", "InstaPay");
+maximumProof.set("paymentReference", "1234");
+maximumProof.set("proofImage", new File([new Uint8Array(5 * 1024 * 1024)], "proof.png", { type: "image/png" }));
+assert.equal(parseOrderFormData(maximumProof, options).ok, true);
+
+const oversizedProof = validForm();
+oversizedProof.set("paymentMethod", "InstaPay");
+oversizedProof.set("paymentReference", "1234");
+oversizedProof.set("proofImage", new File([new Uint8Array(5 * 1024 * 1024 + 1)], "proof.png", { type: "image/png" }));
+assert.equal(parseOrderFormData(oversizedProof, options).ok, false);
 
 console.log("Validation tests passed.");
