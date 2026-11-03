@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useMemo, useRef, useState, type FormEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { calculatePricing } from "@/lib/pricing";
 import type { Catalog, PaymentMethod, Selection, VariantId } from "@/lib/types";
 
@@ -59,7 +59,21 @@ export function ProductFunnel({ catalog }: { catalog: Catalog }) {
   const [copied, setCopied] = useState(false);
   const [successOrderId, setSuccessOrderId] = useState<string | null>(null);
   const [feedback, setFeedback] = useState<{ type: "success" | "error"; message: string } | null>(null);
+  const [lightbox, setLightbox] = useState<{ src: string; alt: string; title: string } | null>(null);
   const idempotencyKeyRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    if (!lightbox) return;
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setLightbox(null);
+    }
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [lightbox]);
 
   const pricing = useMemo(
     () => calculatePricing(selection, catalog.pricing, paymentMethod),
@@ -217,7 +231,17 @@ export function ProductFunnel({ catalog }: { catalog: Catalog }) {
             <span>{catalog.settings.deliveryEstimate || "تأكيد الموعد قبل الشحن"}</span>
           </div>
         </div>
-        <div className="hero-art"><Image src={active.image} alt={active.label} width={720} height={720} priority /></div>
+        <div className="hero-art">
+          <button
+            type="button"
+            className="hero-art-button"
+            onClick={() => setLightbox({ src: active.image, alt: active.label, title: `فازة ${active.label} - تنسيق كامل` })}
+            aria-label={`تكبير صورة فازة ${active.label}`}
+          >
+            <Image src={active.image} alt={active.label} width={720} height={720} priority />
+            <span className="zoom-badge">🔍 اضغط للتكبير</span>
+          </button>
+        </div>
       </section>
 
       <section className="product-layout" aria-label="تفاصيل المنتج والطلب">
@@ -250,11 +274,31 @@ export function ProductFunnel({ catalog }: { catalog: Catalog }) {
           </div>
 
           <div className="detail-card">
-            <div className="detail-image-grid">
-              <Image src={active.lifestyleImage} alt={`تنسيق ${active.label} على مكتب`} width={900} height={900} />
-              <Image src={active.dimensionsImage} alt={`مقاسات ${active.label}`} width={900} height={900} />
+            <div className="detail-info">
+              <span className="eyebrow">تفاصيل عملية</span>
+              <h3>ارتفاع تقريبي ٣٠ سم · جاهز للعرض مباشرة</h3>
+              <p>تنسيق كامل يوصلك جاهز للعرض. الصور توضح مظهر الفازة في الديكور والمقاسات التفصيلية بالسنتيمتر. اضغط على أي صورة لعرضها بالحجم الكامل.</p>
             </div>
-            <div><span className="eyebrow">تفاصيل عملية</span><h3>ارتفاع تقريبي ٣٠ سم</h3><p>تنسيق كامل يوصل جاهز للعرض. التنظيف يكون بمسحة خفيفة، من غير غسيل مباشر أو مياه داخل الفازة.</p></div>
+            <div className="detail-image-grid">
+              <button
+                type="button"
+                className="preview-zoom-card"
+                onClick={() => setLightbox({ src: active.lifestyleImage, alt: `تنسيق ${active.label} على مكتب`, title: `معاينة تنسيق ${active.label} في الديكور` })}
+                aria-label={`تكبير صورة تنسيق ${active.label} في الديكور`}
+              >
+                <Image src={active.lifestyleImage} alt={`تنسيق ${active.label} على مكتب`} width={900} height={900} />
+                <span className="zoom-pill">🔍 معاينة في الديكور</span>
+              </button>
+              <button
+                type="button"
+                className="preview-zoom-card"
+                onClick={() => setLightbox({ src: active.dimensionsImage, alt: `مقاسات ${active.label}`, title: `أبعاد ومقاسات فازة ${active.label} (ارتفاع وقطر)` })}
+                aria-label={`تكبير صورة مقاسات ${active.label}`}
+              >
+                <Image src={active.dimensionsImage} alt={`مقاسات ${active.label}`} width={900} height={900} />
+                <span className="zoom-pill">🔍 جدول المقاسات والأبعاد</span>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -313,6 +357,41 @@ export function ProductFunnel({ catalog }: { catalog: Catalog }) {
       </section>
 
       <footer className="site-footer">فلورا هوم · تنسيق جاهز للمكتب والبيت</footer>
+
+      {lightbox && (
+        <div
+          className="lightbox-overlay"
+          role="dialog"
+          aria-modal="true"
+          aria-label={lightbox.title}
+          onClick={() => setLightbox(null)}
+        >
+          <div className="lightbox-content" onClick={(event) => event.stopPropagation()}>
+            <div className="lightbox-header">
+              <span className="lightbox-title">{lightbox.title}</span>
+              <button
+                type="button"
+                className="lightbox-close"
+                onClick={() => setLightbox(null)}
+                aria-label="إغلاق نافذة المعاينة"
+              >
+                ✕
+              </button>
+            </div>
+            <div className="lightbox-image-wrapper">
+              <Image
+                src={lightbox.src}
+                alt={lightbox.alt}
+                width={1400}
+                height={1400}
+                className="lightbox-image"
+                priority
+              />
+            </div>
+            <span className="lightbox-hint">اضغط في أي مكان خارج الصورة أو زر (✕) للعودة</span>
+          </div>
+        </div>
+      )}
     </main>
   );
 }

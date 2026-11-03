@@ -472,3 +472,4 @@ Before enabling live advertising traffic, execute this verification run:
   Confirm order row appears in Google Sheets with sanitized text and correct quantity deductions.
 - [ ] **Audit Telegram Delivery**:
   Verify message and payment proof photo arrive in the private Telegram operations channel within 15 minutes.
+
