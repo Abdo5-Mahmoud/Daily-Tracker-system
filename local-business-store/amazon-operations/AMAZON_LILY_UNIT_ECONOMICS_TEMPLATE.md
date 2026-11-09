@@ -22,6 +22,7 @@ To determine the true net profit per unit sold, enter the live values from Selle
 | `C_COGS` | **Cost of Goods Sold (COGS)** | Stems (Lilium + filler greens) + polymer pot + inner sand/cement base + workshop labor | `[Enter COGS, e.g. 85.00 EGP]` |
 | `C_PACK` | **Individual Packaging Cost** | Nile white single box (34×21×12 cm) + multi-layer bubble wrap + FNSKU sticker + tape | `[Enter Pack Cost, e.g. 10.00 EGP]` |
 | `C_INBOUND` | **ATS Partnered Inbound Shipping** | Total ATS fee divided by total units (`114.40 EGP ÷ 19 units`) | `6.02 EGP / unit` (Verified) |
+| C_LOCAL | **Shop-to-Handover Local Transit** | Transport from shop to handover point (50.00 EGP ÷ 19 units) | 2.63 EGP / unit (Verified) |
 
 ---
 
@@ -91,8 +92,9 @@ Cost Element                                 Variable Code        Calculation / 
 2. Product Assembly Cost (COGS)              C_COGS               Workshop physical build         85.00 EGP
 3. Single Box & Bubble Packaging             C_PACK               Nile Packaging single box       10.00 EGP
 4. Inbound Carrier Freight                   C_INBOUND            ATS Inbound (114.40 / 19)        6.02 EGP
+5. Shop-to-Handover Local Transit            C_LOCAL              Local Transit (50.00 / 19)       2.63 EGP
 ---------------------------------------------------------------------------------------------------
-SUBTOTAL: Landed Cost at Amazon FC           C_LANDED             (2 + 3 + 4)                    101.02 EGP
+SUBTOTAL: Landed Cost at Amazon FC           C_LANDED             (2 + 3 + 4 + 5)                103.65 EGP
 ---------------------------------------------------------------------------------------------------
 5. Amazon Referral Commission (13%)          F_REF                Fee Preview (259.00 × 13%)      33.67 EGP
 6. Amazon FBA Pick & Pack Fee                F_FBA                Fee Preview (450g Standard)    [Fee Preview]
