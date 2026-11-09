@@ -89,25 +89,28 @@ Cost Element                                 Variable Code        Calculation / 
 ===================================================================================================
 1. Customer Selling Price                    P_SELL               Buy Box Live Price             259.00 EGP
 ---------------------------------------------------------------------------------------------------
-2. Product Assembly Cost (COGS)              C_COGS               Workshop physical build         85.00 EGP
-3. Single Box & Bubble Packaging             C_PACK               Nile Packaging single box       10.00 EGP
-4. Inbound Carrier Freight                   C_INBOUND            ATS Inbound (114.40 / 19)        6.02 EGP
+2. Product Assembly Cost (COGS)              C_COGS               Workshop build (2 Lily+3 Green) 55.34 EGP
+3. Nile Packaging & Master Box Share         C_PACK               Single box + Master + Bubble    25.78 EGP
+4. Inbound Carrier Freight (ATS)             C_INBOUND            ATS Inbound (114.40 / 19)        6.02 EGP
 5. Shop-to-Handover Local Transit            C_LOCAL              Local Transit (50.00 / 19)       2.63 EGP
 ---------------------------------------------------------------------------------------------------
-SUBTOTAL: Landed Cost at Amazon FC           C_LANDED             (2 + 3 + 4 + 5)                103.65 EGP
+SUBTOTAL: Landed Cost at Amazon FC           C_LANDED             (2 + 3 + 4 + 5)                 89.77 EGP
 ---------------------------------------------------------------------------------------------------
 5. Amazon Referral Commission (13%)          F_REF                Fee Preview (259.00 × 13%)      33.67 EGP
-6. Amazon FBA Pick & Pack Fee                F_FBA                Fee Preview (450g Standard)    [Fee Preview]
-7. Monthly Storage Allocation                F_STOR               Fee Preview (1 Month)          [Fee Preview]
-8. 14% VAT on Amazon Service Fees            T_VAT                14% of (Line 5 + Line 6)       [Calculated]
+6. Amazon FBA Pick & Pack Fee                F_FBA                FBA Rate (450g Standard)        32.00 EGP
+7. Variable Closing Fee                      F_CLOSE              Amazon Category Fixed Closing    5.00 EGP
+8. 14% VAT on Amazon Service Fees            T_VAT                14% of (Line 5 + 6 + 7)          9.89 EGP
 ---------------------------------------------------------------------------------------------------
-SUBTOTAL: Total Amazon Deductions            F_AMAZON_GROSS       (Line 5 + 6 + 7 + 8)           [Calculated]
+SUBTOTAL: Total Amazon Deductions            F_AMAZON_GROSS       (Line 5 + 6 + 7 + 8)            80.56 EGP
 ---------------------------------------------------------------------------------------------------
 9. Return & Damage Reserve Fund (3%)         R_RET                3% of 259.00 EGP                 7.77 EGP
-10. Target Advertising Allowance (TACOS)     A_PPC                Max PPC per sale allocation      25.00 EGP
+10. Target Advertising Allowance (TACOS)     A_PPC                PPC / Sponsored Products         25.00 EGP
 ===================================================================================================
-NET CASH PROFIT IN HAND                      PROFIT_NET           Line 1 - (Landed + Amz + 9 + 10)[Calculated]
-NET PROFIT MARGIN %                          MARGIN_NET           (PROFIT_NET ÷ Line 1) × 100     [Calculated]
+NET CASH PROFIT (ORGANIC - BEFORE ADS)       PROFIT_ORGANIC       Line 1 - (Landed + Amz + 9)      80.90 EGP
+ORGANIC NET MARGIN %                         MARGIN_ORGANIC       (80.90 / 259.00) * 100           31.2 %
+---------------------------------------------------------------------------------------------------
+NET CASH PROFIT IN HAND (AFTER ADS)          PROFIT_NET           Line 1 - (Landed + Amz + 9 + 10) 55.90 EGP
+NET PROFIT MARGIN % (AFTER ADS)              MARGIN_NET           (55.90 / 259.00) * 100           21.6 %
 ===================================================================================================
 ```
 
