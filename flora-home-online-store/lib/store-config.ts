@@ -1,0 +1,28 @@
+import type { StoreSettings } from "./types";
+
+function envValue(name: string): string {
+  return process.env[name]?.trim() || "";
+}
+
+export function normalizeWhatsappNumber(value: string): string {
+  const digits = value.replace(/\D/g, "");
+  if (digits.startsWith("0020")) return digits.slice(2);
+  if (digits.startsWith("20")) return digits;
+  if (digits.startsWith("0")) return `20${digits.slice(1)}`;
+  return digits;
+}
+
+export function getStoreSettings(): StoreSettings {
+  const instaPayIdentifier = envValue("INSTAPAY_IDENTIFIER");
+  const instaPayRecipient = envValue("INSTAPAY_RECIPIENT");
+
+  return {
+    storeEnabled: process.env.STORE_ENABLED !== "false",
+    sitePausedMessage: envValue("STORE_PAUSED_MESSAGE") || "الطلبات متوقفة مؤقتًا. حاول مرة أخرى بعد قليل.",
+    instaPayIdentifier,
+    instaPayRecipient,
+    supportWhatsapp: normalizeWhatsappNumber(envValue("SUPPORT_WHATSAPP")),
+    deliveryEstimate: envValue("DELIVERY_ESTIMATE"),
+    instaPayConfigured: Boolean(instaPayIdentifier && instaPayRecipient),
+  };
+}
