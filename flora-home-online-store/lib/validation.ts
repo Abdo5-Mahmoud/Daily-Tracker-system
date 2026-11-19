@@ -79,7 +79,7 @@ export function parseOrderFormData(
   if (source.length > ORDER_FIELD_LIMITS.source) return invalid("مصدر الزيارة غير صالح.");
   if (paymentMethod !== "COD" && paymentMethod !== "InstaPay") return invalid("اختار طريقة دفع صحيحة.");
   if (paymentMethod === "InstaPay" && !options.instaPayConfigured) {
-    return invalid("الدفع المسبق غير متاح حاليًا.", "payment_not_configured");
+    return invalid("بيانات دفع عربون الشحن غير مكتملة حاليًا.", "payment_not_configured");
   }
   if (paymentReference && !/^\d{4}$/.test(paymentReference)) return invalid("اكتب آخر أربعة أرقام من مرجع التحويل أو اتركه فارغًا.");
   if (Object.values(selection).every((quantity) => quantity === 0)) return invalid("اختار قطعة واحدة على الأقل.");

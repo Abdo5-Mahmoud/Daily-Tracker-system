@@ -11,7 +11,7 @@
 }
 
 * { box-sizing: border-box; }
-body { margin: 0; background: var(--cream); color: var(--ink); font-family: Tahoma, Arial, sans-serif; }
+body { margin: 0; background: var(--cream); color: var(--ink); font-family: var(--font-alexandria), system-ui, -apple-system, sans-serif; }
 button, input, select, textarea { font: inherit; }
 button { cursor: pointer; }
 .site-shell { max-width: 1280px; margin: 0 auto; padding: 24px; }
@@ -50,18 +50,30 @@ p { color: var(--muted); line-height: 1.9; }
 .gallery-thumbnail.selected { border-color: var(--green); color: var(--green); box-shadow: 0 0 0 3px #687b6320; }
 .gallery-caption { margin: 10px 2px 0; font-size: .8rem; line-height: 1.7; }
 .selection-panel { min-width: 0; }
-.selection-hint { margin: -8px 0 16px; font-size: .86rem; line-height: 1.7; }
+.incentive-bar { background: #fff; border: 1.5px solid var(--line); border-radius: 18px; padding: 14px 18px; margin: 0 0 18px; box-shadow: 0 6px 18px rgba(108, 83, 53, 0.06); }
+.incentive-bar-text { font-size: .88rem; font-weight: 700; color: var(--ink); display: flex; align-items: center; gap: 8px; margin-bottom: 9px; }
+.incentive-progress { width: 100%; height: 7px; background: var(--cream); border-radius: 99px; overflow: hidden; }
+.incentive-progress-fill { height: 100%; background: linear-gradient(90deg, var(--gold), var(--green)); border-radius: 99px; transition: width .35s cubic-bezier(.4, 0, .2, 1); }
 .variant-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
-.variant-card { border: 1px solid var(--line); border-radius: 18px; padding: 10px; background: #fff; transition: .2s ease; }
-.variant-card.selected { border-color: var(--green); box-shadow: 0 0 0 3px #687b6320; }
+.variant-card { position: relative; border: 1.5px solid var(--line); border-radius: 18px; padding: 12px; background: #fff; transition: all .2s ease; }
+.variant-card:hover { border-color: #c9bea8; box-shadow: 0 6px 18px rgba(108, 83, 53, 0.08); }
+.variant-card.preview-active { border-color: var(--gold); }
+.variant-card.selected { border-color: var(--green); box-shadow: 0 0 0 3px #687b6325; background: #fafdf9; }
 .variant-select { display: flex; align-items: center; gap: 12px; border: 0; background: transparent; text-align: right; width: 100%; padding: 0; color: var(--ink); }
 .variant-select img { width: 84px; height: 84px; flex: 0 0 84px; border-radius: 12px; object-fit: cover; }
-.variant-copy { display: grid; gap: 5px; min-width: 0; }
-.variant-name { font-weight: 800; }
+.variant-copy { display: grid; gap: 5px; min-width: 0; width: 100%; }
+.variant-header-row { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.variant-name { font-weight: 800; font-size: 1rem; }
+.cart-badge { background: var(--green); color: #fff; padding: 3px 9px; border-radius: 99px; font-size: .72rem; font-weight: 700; white-space: nowrap; }
 .variant-description { color: var(--muted); font-size: .79rem; line-height: 1.6; }
 .quantity-control { display: flex; align-items: center; justify-content: space-between; margin-top: 12px; background: var(--cream); border-radius: 12px; padding: 5px; }
-.quantity-control button { width: 32px; height: 32px; border: 0; border-radius: 9px; background: #fff; color: var(--green); font-size: 1.25rem; }
-.quantity-control button:disabled { opacity: .35; cursor: not-allowed; }
+.add-to-order-btn { width: 100%; border: 1px dashed var(--green); border-radius: 9px; padding: 8px; background: #f4f8f4; color: var(--green); font-size: .86rem; font-weight: 700; transition: all .15s ease; }
+.add-to-order-btn:hover:not(:disabled) { background: var(--green); color: #fff; border-style: solid; }
+.add-to-order-btn:disabled { opacity: .4; cursor: not-allowed; border-color: var(--muted); color: var(--muted); background: transparent; }
+.stepper-group { display: flex; width: 100%; align-items: center; justify-content: space-between; }
+.stepper-group button { width: 32px; height: 32px; border: 0; border-radius: 9px; background: #fff; color: var(--green); font-size: 1.25rem; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); }
+.stepper-group button:disabled { opacity: .35; cursor: not-allowed; box-shadow: none; }
+.stepper-count { font-weight: 800; font-size: .96rem; color: var(--ink); }
 .variant-card small { display: block; color: var(--muted); font-size: .72rem; margin: 8px 2px 2px; }
 .detail-card { margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--line); }
 .detail-info { margin-bottom: 16px; }
@@ -81,9 +93,15 @@ label, legend { display: grid; gap: 7px; font-weight: 700; font-size: .9rem; mar
 input, select, textarea { width: 100%; border: 1px solid var(--line); border-radius: 12px; padding: 12px; background: #fff; color: var(--ink); outline: none; }
 input:focus, select:focus, textarea:focus { border-color: var(--green); box-shadow: 0 0 0 3px #687b6320; }
 textarea { min-height: 90px; resize: vertical; }
-.payment-options { border: 0; padding: 0; margin: 0 0 14px; }
-.payment-options label { display: flex; align-items: center; gap: 8px; font-weight: 500; }
-.payment-options input { width: auto; }
+.payment-options { border: 0; padding: 0; margin: 0 0 14px; display: grid; gap: 8px; }
+.payment-radio-label { display: flex; align-items: flex-start; gap: 10px; font-weight: 500; font-size: .88rem; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: #fff; cursor: pointer; transition: all .15s ease; }
+.payment-radio-label:hover { border-color: var(--green); background: #fafdf9; }
+.payment-radio-label input { width: auto; margin-top: 3px; }
+.cod-trust-box { margin: 12px 0 16px; padding: 14px 16px; border: 1px solid #c9d8c5; border-radius: 14px; background: #f5faf5; box-shadow: 0 2px 8px rgba(63, 118, 88, 0.05); }
+.cod-trust-header { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; color: var(--success); font-size: .88rem; }
+.trust-shield { font-size: 1rem; }
+.cod-trust-box p { margin: 0; font-size: .82rem; line-height: 1.7; color: #364834; }
+.input-hint { font-size: .74rem; color: var(--muted); font-weight: 500; margin-top: 2px; }
 .instapay-box { margin-top: 16px; padding: 16px; border: 1px solid #d8c49d; border-radius: 16px; background: #fff8e8; }
 .instapay-box p { margin: 8px 0 12px; font-size: .86rem; }
 .instapay-detail { display: flex; justify-content: space-between; gap: 14px; padding: 8px 0; border-top: 1px solid #eadbbb; }

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { getVariantGallery, nextGalleryIndex, previousGalleryIndex } from "@/lib/gallery";
+import { getIncentiveMessage } from "@/lib/incentives";
 import { calculatePricing } from "@/lib/pricing";
 import type { Catalog, PaymentMethod, Selection, VariantId } from "@/lib/types";
 
@@ -19,7 +20,7 @@ function errorMessage(code: string): string {
     out_of_stock: "الكمية المطلوبة لم تعد متاحة.",
     duplicate_order: "الطلب تم استقباله بالفعل.",
     not_configured: "نظام الطلبات لم يتم ربطه بعد.",
-    payment_not_configured: "الدفع المسبق غير متاح حاليًا.",
+    payment_not_configured: "بيانات دفع عربون الشحن غير مكتملة حاليًا.",
     inventory_unavailable: "المخزون غير متاح مؤقتًا. حاول مرة أخرى بعد قليل.",
     store_disabled: "الطلبات متوقفة مؤقتًا. حاول مرة أخرى بعد قليل.",
     rate_limit_unavailable: "استقبال الطلبات متوقف مؤقتًا. حاول مرة أخرى بعد قليل.",
@@ -84,7 +85,7 @@ export function ProductFunnel({ catalog }: { catalog: Catalog }) {
   const hasSelection = pricing.totalUnits > 0;
   const hasStock = catalog.variants.some((variant) => variant.availableStock > 0);
   const inventoryReady = catalog.inventoryStatus === "live";
-  const paymentReady = paymentMethod === "COD" || catalog.settings.instaPayConfigured;
+  const paymentReady = catalog.settings.instaPayConfigured;
   const orderReady = catalog.settings.storeEnabled && catalog.pricing.approved && hasSelection && hasStock && inventoryReady && paymentReady && Boolean(catalog.settings.supportWhatsapp);
 
   if (!active) return null;
@@ -239,30 +240,69 @@ export function ProductFunnel({ catalog }: { catalog: Catalog }) {
 
             <section className="selection-panel" aria-label="اختيار الشكل والكمية">
               <div className="section-heading"><span className="eyebrow">اختار الشكل</span><h2>ثلاث نسخ، نفس الإحساس الهادئ</h2></div>
-              <p className="selection-hint">اختيار الشكل يغير المعاينة فقط. استخدم أزرار الكمية لإضافة القطعة للطلب.</p>
+
+              <div className="incentive-bar" role="status" aria-live="polite">
+                <div className="incentive-bar-text">
+                  <span>{getIncentiveMessage(pricing.totalUnits, catalog.pricing)}</span>
+                </div>
+                <div className="incentive-progress" aria-hidden="true">
+                  <div
+                    className="incentive-progress-fill"
+                    style={{ width: `${Math.min(100, Math.max(8, (pricing.totalUnits / Math.max(1, catalog.pricing.freeShippingThreshold)) * 100))}%` }}
+                  />
+                </div>
+              </div>
+
               <div className="variant-grid">
-                {catalog.variants.map((variant) => (
-                  <article className={`variant-card ${activeVariant === variant.id ? "selected" : ""}`} key={variant.id}>
-                    <button className="variant-select" type="button" onClick={() => selectVariant(variant.id)} aria-pressed={activeVariant === variant.id}>
-                      <Image src={variant.image} alt={variant.label} width={180} height={180} />
-                      <span className="variant-copy"><span className="variant-name">{variant.label}</span><span className="variant-description">{variant.description}</span></span>
-                    </button>
-                    <div className="quantity-control">
-                      <button type="button" aria-label={`زيادة ${variant.label}`} onClick={() => setQuantity(variant.id, selection[variant.id] + 1)} disabled={selection[variant.id] >= variant.availableStock}>+</button>
-                      <strong>{selection[variant.id]}</strong>
-                      <button type="button" aria-label={`تقليل ${variant.label}`} onClick={() => setQuantity(variant.id, selection[variant.id] - 1)} disabled={selection[variant.id] === 0}>−</button>
-                    </div>
-                    <small>
-                      {catalog.inventoryStatus === "unavailable"
-                        ? "المخزون غير متاح مؤقتًا"
-                        : catalog.inventoryStatus === "local"
-                          ? "معاينة محلية فقط؛ الطلبات متوقفة"
-                        : variant.availableStock > 0
-                          ? `متاح ${variant.availableStock} قطعة`
-                          : "المخزون المباشر لم يُعتمد بعد"}
-                    </small>
-                  </article>
-                ))}
+                {catalog.variants.map((variant) => {
+                  const qty = selection[variant.id];
+                  const inCart = qty > 0;
+                  const isPreview = activeVariant === variant.id;
+                  return (
+                    <article className={`variant-card ${isPreview ? "preview-active" : ""} ${inCart ? "selected" : ""}`} key={variant.id}>
+                      <button className="variant-select" type="button" onClick={() => selectVariant(variant.id)} aria-pressed={isPreview}>
+                        <Image src={variant.image} alt={variant.label} width={180} height={180} />
+                        <span className="variant-copy">
+                          <span className="variant-header-row">
+                            <span className="variant-name">{variant.label}</span>
+                            {inCart && <span className="cart-badge">في طلبك ({qty})</span>}
+                          </span>
+                          <span className="variant-description">{variant.description}</span>
+                        </span>
+                      </button>
+                      <div className="quantity-control">
+                        {qty === 0 ? (
+                          <button
+                            type="button"
+                            className="add-to-order-btn"
+                            onClick={() => {
+                              setActiveVariant(variant.id);
+                              setQuantity(variant.id, 1);
+                            }}
+                            disabled={variant.availableStock === 0}
+                          >
+                            + أضف للطلب
+                          </button>
+                        ) : (
+                          <div className="stepper-group">
+                            <button type="button" aria-label={`تقليل ${variant.label}`} onClick={() => setQuantity(variant.id, qty - 1)}>−</button>
+                            <span className="stepper-count">{qty}</span>
+                            <button type="button" aria-label={`زيادة ${variant.label}`} onClick={() => setQuantity(variant.id, qty + 1)} disabled={qty >= variant.availableStock}>+</button>
+                          </div>
+                        )}
+                      </div>
+                      <small>
+                        {catalog.inventoryStatus === "unavailable"
+                          ? "المخزون غير متاح مؤقتًا"
+                          : catalog.inventoryStatus === "local"
+                            ? "معاينة محلية فقط؛ الطلبات متوقفة"
+                          : variant.availableStock > 0
+                            ? `متاح ${variant.availableStock} قطعة`
+                            : "المخزون المباشر لم يُعتمد بعد"}
+                      </small>
+                    </article>
+                  );
+                })}
               </div>
             </section>
           </div>
@@ -283,9 +323,33 @@ export function ProductFunnel({ catalog }: { catalog: Catalog }) {
 
           <fieldset className="payment-options">
             <legend>طريقة الدفع</legend>
-            <label><input type="radio" name="paymentChoice" checked={paymentMethod === "COD"} onChange={() => setPaymentMethod("COD")} /> الدفع عند الاستلام</label>
-            {catalog.settings.instaPayConfigured && <label><input type="radio" name="paymentChoice" checked={paymentMethod === "InstaPay"} onChange={() => setPaymentMethod("InstaPay")} /> تحويل مسبق وخصم {money(catalog.pricing.prepaidDiscount)}</label>}
+            <label className="payment-radio-label">
+              <input type="radio" name="paymentChoice" checked={paymentMethod === "COD"} onChange={() => setPaymentMethod("COD")} />
+              <span>الدفع عند الاستلام (سداد الشحن مقدماً والباقي عند المعاينة)</span>
+            </label>
+            {catalog.settings.instaPayConfigured && (
+              <label className="payment-radio-label">
+                <input type="radio" name="paymentChoice" checked={paymentMethod === "InstaPay"} onChange={() => setPaymentMethod("InstaPay")} />
+                <span>تحويل كامل عبر إنستاباي (وفر {money(catalog.pricing.prepaidDiscount)})</span>
+              </label>
+            )}
           </fieldset>
+
+          {paymentMethod === "COD" && (
+            catalog.settings.instaPayConfigured ? (
+            <div className="cod-trust-box">
+              <div className="cod-trust-header">
+                <span className="trust-shield">🛡️</span>
+                <strong>ضمان جدية الحجز والمعاينة</strong>
+              </div>
+              <p>
+                يتم سداد عربون الشحن فقط <strong>({money(pricing.shippingDeposit)})</strong> عبر إنستاباي لتأكيد تجهيز التغليف وخروج المندوب، وسداد باقي الحساب <strong>({money(pricing.codRemaining)})</strong> كاش عند استلام ومعاينة الفازة بنفسك.
+              </p>
+            </div>
+            ) : (
+              <p className="notice warning">بيانات دفع عربون الشحن غير مكتملة، لذلك استقبال الطلبات متوقف مؤقتًا.</p>
+            )
+          )}
 
           {paymentMethod === "InstaPay" && catalog.settings.instaPayConfigured && <div className="instapay-box">
             <span className="eyebrow">بيانات التحويل</span>
@@ -295,11 +359,11 @@ export function ProductFunnel({ catalog }: { catalog: Catalog }) {
             <button className="copy-button" type="button" onClick={copyInstapayIdentifier}>{copied ? "تم النسخ" : "انسخ معرف التحويل"}</button>
           </div>}
 
-          <label>الاسم بالكامل<input name="customerName" required maxLength={120} placeholder="اكتب اسمك" /></label>
-          <label>رقم الموبايل<input name="phonePrimary" required inputMode="tel" placeholder="01xxxxxxxxx" /></label>
+          <label>الاسم بالكامل<input name="customerName" required maxLength={120} placeholder="اكتب الاسم ثلاثي" /></label>
+          <label>رقم الموبايل الأساسي<input name="phonePrimary" required inputMode="tel" placeholder="01xxxxxxxxx (11 رقم)" /><span className="input-hint">لتأكيد موعد التسليم والمتابعة</span></label>
           <label>رقم بديل اختياري<input name="phoneSecondary" inputMode="tel" placeholder="01xxxxxxxxx" /></label>
           <label>المحافظة<select name="governorate" defaultValue="Cairo"><option value="Cairo">القاهرة</option><option value="Giza">الجيزة</option></select></label>
-          <label>العنوان بالتفصيل<textarea name="addressDetails" required minLength={10} maxLength={1000} placeholder="المنطقة والشارع ورقم العقار وأقرب علامة" /></label>
+          <label>العنوان بالتفصيل<textarea name="addressDetails" required minLength={10} maxLength={1000} placeholder="المنطقة، الشارع، رقم العمارة والشقة، وأقرب علامة مميزة" /><span className="input-hint">لتسهيل وصول المندوب لباب بيتك مباشرة</span></label>
 
           {paymentMethod === "InstaPay" && <label>آخر أربعة أرقام من مرجع التحويل اختياريًا<input name="paymentReference" inputMode="numeric" maxLength={4} placeholder="1234" /></label>}
 

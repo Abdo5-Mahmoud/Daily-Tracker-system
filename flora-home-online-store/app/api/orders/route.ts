@@ -134,7 +134,7 @@ function gatewayFailure(error: GatewayError): Response {
         : error.code === "pricing_not_approved"
           ? "الأسعار ما زالت تحت المراجعة."
           : error.code === "payment_not_configured"
-            ? "بيانات الدفع المسبق غير مكتملة حاليًا."
+            ? "بيانات دفع عربون الشحن غير مكتملة حاليًا."
           : error.code === "duplicate_order"
             ? "الطلب تم استقباله بالفعل."
             : "تعذر تسجيل الطلب حاليًا.";

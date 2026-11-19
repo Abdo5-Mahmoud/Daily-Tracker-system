@@ -199,6 +199,16 @@ function testDisabledStoreAndUnapprovedPricing() {
   assert.throws(() => unapproved.context.reserveOrder_(validOrder("unapproved-key-0001"), true), (error) => error.code === "PRICING_NOT_APPROVED");
 }
 
+function testDepositPaymentConfiguration() {
+  const unavailable = createEnvironment();
+  unavailable.settings.rows[11][1] = "";
+  unavailable.settings.rows[12][1] = "";
+  assert.throws(
+    () => unavailable.context.reserveOrder_(validOrder("payment-config-key-0001"), true),
+    (error) => error.code === "PAYMENT_NOT_CONFIGURED",
+  );
+}
+
 function testNotificationRetryDoesNotChangeOrderState() {
   const { context, orders } = createEnvironment({ telegramResponseCode: 500 });
   const saved = context.reserveOrder_(validOrder("notify-key-0001"), true);
@@ -217,5 +227,6 @@ testIdempotencyAndFormulaSafeText();
 testExpiryPreservesConfirmedOrders();
 testUnknownHeadersFailWithoutMutation();
 testDisabledStoreAndUnapprovedPricing();
+testDepositPaymentConfiguration();
 testNotificationRetryDoesNotChangeOrderState();
 console.log("Apps Script operation tests passed.");

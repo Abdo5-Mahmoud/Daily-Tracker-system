@@ -219,7 +219,7 @@ function pricingFromRow_(row, headers) {
 function validateOrder_(order, settings) {
   if (!order || !order.idempotencyKey || !order.customerName || !order.phonePrimary || !order.addressDetails) throw codedError_('VALIDATION_ERROR', 'Order data is incomplete.');
   if (order.paymentMethod !== 'COD' && order.paymentMethod !== 'InstaPay') throw codedError_('VALIDATION_ERROR', 'Payment method is invalid.');
-  if (order.paymentMethod === 'InstaPay' && !settings.instaPayConfigured) throw codedError_('PAYMENT_NOT_CONFIGURED', 'Prepaid payment is not configured.');
+  if (!settings.instaPayConfigured) throw codedError_('PAYMENT_NOT_CONFIGURED', 'Shipping deposit payment is not configured.');
   ['bubble', 'diamond', 'fluted'].forEach(function (shape) {
     const quantity = Number(order.selection && order.selection[shape]);
     if (!Number.isInteger(quantity) || quantity < 0) throw codedError_('VALIDATION_ERROR', 'Selection is invalid.');
