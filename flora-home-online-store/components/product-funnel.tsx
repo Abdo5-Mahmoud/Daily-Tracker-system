@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { getVariantGallery, nextGalleryIndex, previousGalleryIndex } from "@/lib/gallery";
 import { calculatePricing } from "@/lib/pricing";
 import type { Catalog, PaymentMethod, Selection, VariantId } from "@/lib/types";
 
@@ -50,6 +51,7 @@ function clearAttemptKey(): void {
 
 export function ProductFunnel({ catalog }: { catalog: Catalog }) {
   const [activeVariant, setActiveVariant] = useState<VariantId>("bubble");
+  const [galleryIndex, setGalleryIndex] = useState(0);
   const [selection, setSelection] = useState<Selection>(emptySelection);
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("COD");
   const [submitting, setSubmitting] = useState(false);
@@ -78,6 +80,7 @@ export function ProductFunnel({ catalog }: { catalog: Catalog }) {
     [catalog.pricing, paymentMethod, selection],
   );
   const active = catalog.variants.find((variant) => variant.id === activeVariant) || catalog.variants[0];
+  const heroVariant = catalog.variants[0] || active;
   const hasSelection = pricing.totalUnits > 0;
   const hasStock = catalog.variants.some((variant) => variant.availableStock > 0);
   const inventoryReady = catalog.inventoryStatus === "live";
@@ -94,8 +97,18 @@ export function ProductFunnel({ catalog }: { catalog: Catalog }) {
 
   function selectVariant(id: VariantId) {
     setActiveVariant(id);
-    const variant = catalog.variants.find((item) => item.id === id);
-    if (variant && variant.availableStock > 0 && selection[id] === 0) setQuantity(id, 1);
+    setGalleryIndex(0);
+  }
+
+  const galleryItems = getVariantGallery(active);
+  const activeGalleryItem = galleryItems[galleryIndex] || galleryItems[0];
+
+  function showPreviousImage() {
+    setGalleryIndex((current) => previousGalleryIndex(current, galleryItems.length));
+  }
+
+  function showNextImage() {
+    setGalleryIndex((current) => nextGalleryIndex(current, galleryItems.length));
   }
 
   async function copyInstapayIdentifier() {
@@ -180,74 +193,82 @@ export function ProductFunnel({ catalog }: { catalog: Catalog }) {
           <button
             type="button"
             className="hero-art-button"
-            onClick={() => setLightbox({ src: active.image, alt: active.label, title: `فازة ${active.label} - تنسيق كامل` })}
-            aria-label={`تكبير صورة فازة ${active.label}`}
+            onClick={() => setLightbox({ src: heroVariant.lifestyleImage, alt: "تنسيق ليليام أبيض في الديكور", title: "تنسيق ليليام أبيض في الديكور" })}
+            aria-label="تكبير صورة تنسيق ليليام الأبيض"
           >
-            <Image src={active.image} alt={active.label} width={720} height={720} priority />
-            <span className="zoom-badge">🔍 اضغط للتكبير</span>
+            <Image src={heroVariant.lifestyleImage} alt="تنسيق ليليام أبيض في الديكور" width={900} height={900} priority />
+            <span className="zoom-badge">🔍 إلهام للمكان</span>
           </button>
         </div>
       </section>
 
       <section className="product-layout" aria-label="تفاصيل المنتج والطلب">
         <div className="product-panel">
-          <div className="section-heading"><span className="eyebrow">اختار الشكل</span><h2>ثلاث نسخ، نفس الإحساس الهادئ</h2></div>
-          <div className="variant-grid">
-            {catalog.variants.map((variant) => (
-              <article className={`variant-card ${activeVariant === variant.id ? "selected" : ""}`} key={variant.id}>
-                <button className="variant-select" type="button" onClick={() => selectVariant(variant.id)}>
-                  <Image src={variant.image} alt={variant.label} width={360} height={360} />
-                  <span className="variant-name">{variant.label}</span>
-                  <span className="variant-description">{variant.description}</span>
+          <div className="configurator-layout">
+            <section className="gallery-panel" aria-label="معرض صور المنتج">
+              <div className="gallery-main">
+                <button
+                  type="button"
+                  className="gallery-image-button"
+                  onClick={() => setLightbox({ src: activeGalleryItem.src, alt: activeGalleryItem.alt, title: `${active.label} · ${activeGalleryItem.label}` })}
+                  aria-label={`تكبير ${activeGalleryItem.label} لشكل ${active.label}`}
+                >
+                  <Image src={activeGalleryItem.src} alt={activeGalleryItem.alt} width={1000} height={1000} priority={galleryIndex === 0} />
                 </button>
-                <div className="quantity-control">
-                  <button type="button" aria-label={`زيادة ${variant.label}`} onClick={() => setQuantity(variant.id, selection[variant.id] + 1)} disabled={selection[variant.id] >= variant.availableStock}>+</button>
-                  <strong>{selection[variant.id]}</strong>
-                  <button type="button" aria-label={`تقليل ${variant.label}`} onClick={() => setQuantity(variant.id, selection[variant.id] - 1)} disabled={selection[variant.id] === 0}>−</button>
-                </div>
-                <small>
-                  {catalog.inventoryStatus === "unavailable"
-                    ? "المخزون غير متاح مؤقتًا"
-                    : catalog.inventoryStatus === "local"
-                      ? "معاينة محلية فقط؛ الطلبات متوقفة"
-                    : variant.availableStock > 0
-                      ? `متاح ${variant.availableStock} قطعة`
-                      : "المخزون المباشر لم يُعتمد بعد"}
-                </small>
-              </article>
-            ))}
-          </div>
+                <button type="button" className="gallery-arrow gallery-arrow-prev" onClick={showPreviousImage} aria-label="الصورة السابقة">‹</button>
+                <button type="button" className="gallery-arrow gallery-arrow-next" onClick={showNextImage} aria-label="الصورة التالية">›</button>
+                <span className="gallery-label">{activeGalleryItem.label}</span>
+              </div>
+              <div className="gallery-thumbnails" role="tablist" aria-label="صور الشكل الحالي">
+                {galleryItems.map((item, index) => (
+                  <button
+                    type="button"
+                    className={`gallery-thumbnail ${galleryIndex === index ? "selected" : ""}`}
+                    key={item.id}
+                    role="tab"
+                    aria-selected={galleryIndex === index}
+                    onClick={() => setGalleryIndex(index)}
+                  >
+                    <Image src={item.src} alt="" width={160} height={160} />
+                    <span>{item.label}</span>
+                  </button>
+                ))}
+              </div>
+              <p className="gallery-caption">اضغط على الصور أو اسحب بينها لمشاهدة الشكل في الديكور والمقاسات.</p>
+            </section>
 
-          <div className="detail-card">
-            <div className="detail-info">
-              <span className="eyebrow">تفاصيل عملية</span>
-              <h3>ارتفاع تقريبي ٣٠ سم · جاهز للعرض مباشرة</h3>
-              <p>تنسيق كامل يوصلك جاهز للعرض. الصور توضح مظهر الفازة في الديكور والمقاسات التفصيلية بالسنتيمتر. اضغط على أي صورة لعرضها بالحجم الكامل.</p>
-            </div>
-            <div className="detail-image-grid">
-              <button
-                type="button"
-                className="preview-zoom-card"
-                onClick={() => setLightbox({ src: active.lifestyleImage, alt: `تنسيق ${active.label} على مكتب`, title: `معاينة تنسيق ${active.label} في الديكور` })}
-                aria-label={`تكبير صورة تنسيق ${active.label} في الديكور`}
-              >
-                <Image src={active.lifestyleImage} alt={`تنسيق ${active.label} على مكتب`} width={900} height={900} />
-                <span className="zoom-pill">🔍 معاينة في الديكور</span>
-              </button>
-              <button
-                type="button"
-                className="preview-zoom-card"
-                onClick={() => setLightbox({ src: active.dimensionsImage, alt: `مقاسات ${active.label}`, title: `أبعاد ومقاسات فازة ${active.label} (ارتفاع وقطر)` })}
-                aria-label={`تكبير صورة مقاسات ${active.label}`}
-              >
-                <Image src={active.dimensionsImage} alt={`مقاسات ${active.label}`} width={900} height={900} />
-                <span className="zoom-pill">🔍 جدول المقاسات والأبعاد</span>
-              </button>
-            </div>
+            <section className="selection-panel" aria-label="اختيار الشكل والكمية">
+              <div className="section-heading"><span className="eyebrow">اختار الشكل</span><h2>ثلاث نسخ، نفس الإحساس الهادئ</h2></div>
+              <p className="selection-hint">اختيار الشكل يغير المعاينة فقط. استخدم أزرار الكمية لإضافة القطعة للطلب.</p>
+              <div className="variant-grid">
+                {catalog.variants.map((variant) => (
+                  <article className={`variant-card ${activeVariant === variant.id ? "selected" : ""}`} key={variant.id}>
+                    <button className="variant-select" type="button" onClick={() => selectVariant(variant.id)} aria-pressed={activeVariant === variant.id}>
+                      <Image src={variant.image} alt={variant.label} width={180} height={180} />
+                      <span className="variant-copy"><span className="variant-name">{variant.label}</span><span className="variant-description">{variant.description}</span></span>
+                    </button>
+                    <div className="quantity-control">
+                      <button type="button" aria-label={`زيادة ${variant.label}`} onClick={() => setQuantity(variant.id, selection[variant.id] + 1)} disabled={selection[variant.id] >= variant.availableStock}>+</button>
+                      <strong>{selection[variant.id]}</strong>
+                      <button type="button" aria-label={`تقليل ${variant.label}`} onClick={() => setQuantity(variant.id, selection[variant.id] - 1)} disabled={selection[variant.id] === 0}>−</button>
+                    </div>
+                    <small>
+                      {catalog.inventoryStatus === "unavailable"
+                        ? "المخزون غير متاح مؤقتًا"
+                        : catalog.inventoryStatus === "local"
+                          ? "معاينة محلية فقط؛ الطلبات متوقفة"
+                        : variant.availableStock > 0
+                          ? `متاح ${variant.availableStock} قطعة`
+                          : "المخزون المباشر لم يُعتمد بعد"}
+                    </small>
+                  </article>
+                ))}
+              </div>
+            </section>
           </div>
         </div>
 
-        <form className="checkout-card" onSubmit={submitOrder}>
+        <form className="checkout-card" id="checkout" onSubmit={submitOrder}>
           <div className="section-heading"><span className="eyebrow">اطلبها من الوراق</span><h2>بيانات التوصيل</h2></div>
           <div className="summary-box">
             <div><span>عدد القطع</span><strong>{pricing.totalUnits}</strong></div>
@@ -300,6 +321,11 @@ export function ProductFunnel({ catalog }: { catalog: Catalog }) {
           {catalog.amazonLinkEnabled && <a className="secondary-button" href={catalog.amazonUrl} target="_blank" rel="noreferrer">أو اطلبها من أمازون</a>}
         </form>
       </section>
+
+      <div className="mobile-order-bar" aria-live="polite">
+        <div><span>ملخص الطلب</span><strong>{pricing.totalUnits > 0 ? money(pricing.total) : "اختار الشكل"}</strong></div>
+        <button type="button" onClick={() => document.getElementById("checkout")?.scrollIntoView({ behavior: "smooth", block: "start" })}>راجع الطلب</button>
+      </div>
 
       <footer className="site-footer">فلورا هوم · تنسيق جاهز للمكتب والبيت</footer>
 

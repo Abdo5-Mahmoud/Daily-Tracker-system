@@ -12,9 +12,10 @@
     "test:rate-limit": "tsc -p scripts/tsconfig.rate-limit.json && node .test-build/scripts/test-rate-limit.js",
     "test:request-body": "tsc -p scripts/tsconfig.request-body.json && node .test-build/scripts/test-request-body.js",
     "test:catalog": "tsc -p scripts/tsconfig.catalog.json && node .test-build/scripts/test-catalog.js",
+    "test:gallery": "tsc -p scripts/tsconfig.gallery.json && node .test-build/scripts/test-gallery.js",
     "test:whatsapp": "tsc -p scripts/tsconfig.whatsapp.json && node .test-build/scripts/test-whatsapp.js",
     "test:apps-script": "node scripts/test-apps-script.mjs",
-    "test": "npm run test:domain && npm run test:validation && npm run test:rate-limit && npm run test:request-body && npm run test:catalog && npm run test:whatsapp && npm run test:apps-script"
+    "test": "npm run test:domain && npm run test:validation && npm run test:rate-limit && npm run test:request-body && npm run test:catalog && npm run test:gallery && npm run test:whatsapp && npm run test:apps-script"
   },
   "dependencies": {
     "@upstash/ratelimit": "^2.2.0",
