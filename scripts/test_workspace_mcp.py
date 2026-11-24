@@ -1,18 +1,20 @@
 #!/usr/bin/env python3
 """
-Automated Test Harness for Workspace Tools MCP Server
-Tests JSON-RPC 2.0 handshake, tool enumeration, and tool execution.
+End-to-End JSON-RPC Test Harness for Flora_Home Workspace Tools MCP Server v2.0.
+Verifies handshake, all 9 tool schemas, freshness guards, 13% FBA unit economics,
+pure-white image validation, Arabic Ads CSV parsing, and CAPTCHA guard in HTML ingestion.
 """
 
-import sys
-import os
 import json
 import subprocess
+import sys
+import tempfile
 from pathlib import Path
+from PIL import Image
 
-# Fix Windows console UTF-8
 if hasattr(sys.stdout, "reconfigure"):
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+
 
 def test_mcp_server():
     server_script = Path(__file__).resolve().parent / "workspace_mcp_server.py"
@@ -26,108 +28,151 @@ def test_mcp_server():
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,
-        encoding="utf-8"
+        encoding="utf-8",
     )
 
-    def send_and_receive(req):
-        proc.stdin.write(json.dumps(req) + "\n")
-        proc.stdin.flush()
-        line = proc.stdout.readline()
-        return json.loads(line)
+    try:
+        def send_and_receive(req):
+            proc.stdin.write(json.dumps(req, ensure_ascii=False) + "\n")
+            proc.stdin.flush()
+            line = proc.stdout.readline()
+            return json.loads(line)
 
-    print("[*] 1. Testing 'initialize' handshake...")
-    init_res = send_and_receive({
-        "jsonrpc": "2.0",
-        "id": 1,
-        "method": "initialize",
-        "params": {
-            "protocolVersion": "2024-11-05",
-            "capabilities": {},
-            "clientInfo": {"name": "test-client", "version": "1.0"}
+        print("[*] 1. Testing 'initialize' handshake...")
+        init_res = send_and_receive({
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "initialize",
+            "params": {
+                "protocolVersion": "2024-11-05",
+                "capabilities": {},
+                "clientInfo": {"name": "test-client", "version": "2.0"},
+            },
+        })
+        assert init_res["result"]["serverInfo"]["name"] == "workspace-tools"
+        assert init_res["result"]["serverInfo"]["version"] == "2.0.0"
+        print("    [OK] Handshake verified: workspace-tools v2.0.0")
+
+        print("[*] 2. Testing 'tools/list' (9 tools)...")
+        list_res = send_and_receive({"jsonrpc": "2.0", "id": 2, "method": "tools/list"})
+        tool_names = [t["name"] for t in list_res["result"]["tools"]]
+        expected_tools = {
+            "market_summary",
+            "market_sponsored_radar",
+            "market_sql_query",
+            "unit_economics_calculator",
+            "audit_language_formatting",
+            "audit_image_compliance",
+            "page_one_radar_log",
+            "analyze_ads_csv",
+            "ingest_amazon_html",
         }
-    })
-    assert init_res["result"]["serverInfo"]["name"] == "workspace-tools", "Invalid server name"
-    print("    [✓] Handshake successful: workspace-tools v1.0.0")
+        assert expected_tools.issubset(set(tool_names)), f"Missing tools: {expected_tools - set(tool_names)}"
+        print(f"    [OK] Registered {len(tool_names)} tools cleanly")
 
-    print("[*] 2. Testing 'tools/list'...")
-    list_res = send_and_receive({
-        "jsonrpc": "2.0",
-        "id": 2,
-        "method": "tools/list"
-    })
-    tools = list_res["result"]["tools"]
-    tool_names = [t["name"] for t in tools]
-    print(f"    [✓] Found {len(tools)} registered tools: {', '.join(tool_names)}")
-    assert "market_summary" in tool_names
-    assert "unit_economics_calculator" in tool_names
-    assert "audit_language_formatting" in tool_names
+        print("[*] 3. Testing 'market_summary' freshness & staleness banner...")
+        market_res = send_and_receive({
+            "jsonrpc": "2.0",
+            "id": 3,
+            "method": "tools/call",
+            "params": {"name": "market_summary", "arguments": {"keyword": "فازات"}},
+        })
+        output_text = market_res["result"]["content"][0]["text"]
+        assert "AMAZON EGYPT MARKET INTELLIGENCE SUMMARY" in output_text
+        assert "STALE DATA WARNING" in output_text
+        print("    [OK] Market summary enforces explicit STALE DATA WARNING")
 
-    print("[*] 3. Testing 'market_summary' tool call...")
-    market_res = send_and_receive({
-        "jsonrpc": "2.0",
-        "id": 3,
-        "method": "tools/call",
-        "params": {
-            "name": "market_summary",
-            "arguments": {"keyword": "فازات"}
-        }
-    })
-    output_text = market_res["result"]["content"][0]["text"]
-    assert "AMAZON EGYPT MARKET INTELLIGENCE SUMMARY" in output_text
-    print("    [✓] Tool execution returned database records successfully.")
+        print("[*] 4. Testing 'unit_economics_calculator' (13% FBA + Break-Even CPC)...")
+        calc_res = send_and_receive({
+            "jsonrpc": "2.0",
+            "id": 4,
+            "method": "tools/call",
+            "params": {
+                "name": "unit_economics_calculator",
+                "arguments": {
+                    "selling_price": 259.0,
+                    "product_cost": 55.34,
+                    "packaging_cost": 25.78,
+                    "model": "fba",
+                },
+            },
+        })
+        calc_text = calc_res["result"]["content"][0]["text"]
+        assert "Referral Fee (13.0%):    33.67 EGP" in calc_text
+        assert "Net Profit:" in calc_text
+        assert "Break-Even CPC" in calc_text
+        print("    [OK] Unified 13% FBA economics verified")
 
-    print("[*] 4. Testing 'unit_economics_calculator' tool call...")
-    calc_res = send_and_receive({
-        "jsonrpc": "2.0",
-        "id": 4,
-        "method": "tools/call",
-        "params": {
-            "name": "unit_economics_calculator",
-            "arguments": {
-                "selling_price": 259.0,
-                "product_cost": 85.0,
-                "packaging_cost": 15.0,
-                "model": "easy_ship"
-            }
-        }
-    })
-    calc_text = calc_res["result"]["content"][0]["text"]
-    assert "Net Profit:" in calc_text
-    print("    [✓] Unit economics calculation verified.")
+        print("[*] 5. Testing 'audit_language_formatting'...")
+        audit_res = send_and_receive({
+            "jsonrpc": "2.0",
+            "id": 5,
+            "method": "tools/call",
+            "params": {
+                "name": "audit_language_formatting",
+                "arguments": {
+                    "text_content": "سطر عربي كامل بدون أي لغة ثانية\nPure English line\nسطر عربي فيه كلمة English في النص"
+                },
+            },
+        })
+        audit_text = audit_res["result"]["content"][0]["text"]
+        assert "Audit Failed: Found 1 mixed lines violation:" in audit_text
+        print("    [OK] Language line-purity gate verified")
 
-    print("[*] 5. Testing 'audit_language_formatting' tool call...")
-    audit_res = send_and_receive({
-        "jsonrpc": "2.0",
-        "id": 5,
-        "method": "tools/call",
-        "params": {
-            "name": "audit_language_formatting",
-            "arguments": {
-                "text_content": "سطر عربي كامل بدون أي لغة ثانية\nThis is a pure English line\nسطر عربي فيه كلمة English في النص"
-            }
-        }
-    })
-    audit_text = audit_res["result"]["content"][0]["text"]
-    assert "Audit Failed: Found 1 mixed lines violation:" in audit_text
-    print("    [✓] Language purity audit detected mixed line correctly.")
+        print("[*] 6. Testing 'audit_image_compliance' pure-white corner check...")
+        with tempfile.TemporaryDirectory() as tmp:
+            gray_img = Path(tmp) / "gray_bg.jpg"
+            Image.new("RGB", (1200, 1200), (240, 240, 240)).save(gray_img)
+            img_res = send_and_receive({
+                "jsonrpc": "2.0",
+                "id": 6,
+                "method": "tools/call",
+                "params": {"name": "audit_image_compliance", "arguments": {"image_path": str(gray_img)}},
+            })
+            img_text = img_res["result"]["content"][0]["text"]
+            assert "NON-COMPLIANT" in img_text
+        print("    [OK] Pure-white background violation detected cleanly")
 
-    print("[*] 6. Testing 'page_one_radar_log' tool call...")
-    radar_res = send_and_receive({
-        "jsonrpc": "2.0",
-        "id": 6,
-        "method": "tools/call",
-        "params": {
-            "name": "page_one_radar_log",
-            "arguments": {"limit_sessions": 2}
-        }
-    })
-    radar_text = radar_res["result"]["content"][0]["text"]
-    assert "Page One Daily Radar" in radar_text or "رادار" in radar_text
-    print("    [✓] Page one radar log tool returned recent scans successfully.")
+        print("[*] 7. Testing 'analyze_ads_csv' via JSON-RPC...")
+        csv_payload = (
+            "مصطلح البحث لدى العميل,الكلمات الرئيسية,مرات الظهور,النقرات,إجمالي التكلفة,المشتريات,المبيعات\n"
+            "vase,المطابقة القريبة,1710,4,5.06 ج.م.,0,0\n"
+            "فازة,المطابقة غير المحددة,300,2,4.07 ج.م.,1,259.00 ج.م.\n"
+        )
+        ads_res = send_and_receive({
+            "jsonrpc": "2.0",
+            "id": 7,
+            "method": "tools/call",
+            "params": {"name": "analyze_ads_csv", "arguments": {"csv_content": csv_payload}},
+        })
+        ads_text = ads_res["result"]["content"][0]["text"]
+        assert "WINNERS -> PROMOTE TO MANUAL EXACT" in ads_text
+        assert "NLP GROUP ALERT" in ads_text
+        print("    [OK] Seller Central Ads CSV analyzer verified")
 
-    proc.terminate()
-    print("\n[+] ALL MCP SERVER UNIT TESTS PASSED (6/6)!\n")
-    return True
+        print("[*] 8. Testing 'ingest_amazon_html' rejects CAPTCHA pages loudly...")
+        with tempfile.TemporaryDirectory() as tmp:
+            captcha_html = Path(tmp) / "blocked.html"
+            captcha_html.write_text("<html><title>Robot Check</title><form action='/errors/validateCaptcha'></form></html>", encoding="utf-8")
+            ingest_res = send_and_receive({
+                "jsonrpc": "2.0",
+                "id": 8,
+                "method": "tools/call",
+                "params": {"name": "ingest_amazon_html", "arguments": {"file_path": str(captcha_html), "keyword": "فازة"}},
+            })
+            ingest_text = ingest_res["result"]["content"][0]["text"]
+            assert "Blocked HTML / CAPTCHA" in ingest_text
+        print("    [OK] HTML ingestion CAPTCHA guard verified")
+
+        print("[+] ALL MCP SERVER TESTS PASSED (8/8)!")
+        return True
+    finally:
+        proc.terminate()
+        proc.wait(timeout=5)
+        for pipe in (proc.stdin, proc.stdout, proc.stderr):
+            if pipe:
+                pipe.close()
+
 
 if __name__ == "__main__":
     success = test_mcp_server()

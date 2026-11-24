@@ -1,36 +1,36 @@
 const path = require("path");
 
+/**
+ * Flora_Home Amazon Egypt Intelligence Configuration.
+ * Stores verified live Lilium ASINs, Arabic PPC keywords, and local snapshot intake paths.
+ */
 module.exports = {
   BASE_URL: "https://www.amazon.eg",
+  BRAND_NAME: "Flora_Home",
 
-  // High-priority search queries for CasaArt Decor / Artiflora market segment
   TARGET_KEYWORDS: [
-    "ورد صناعي",
+    "فازة",
     "فازات ديكور",
-    "نباتات صناعية",
+    "فازات ورد",
+    "ورد صناعي",
+    "ورد صناعى كانه طبيعى مع فازه",
+    "ورد ليليام",
     "تنسيق ورد",
     "ديكور مكتبي",
-    "فازات مكتب",
-    "تحف وانتيكات",
-    "ديكور شقق",
   ],
 
-  // Tracked ASINs belonging to our brand (Flora_Home / CasaArt)
   MY_PRODUCTS: [
-    "B0HL3QHF3B", // 30cm Decor Plant in Pot
+    { asin: "B0HNFBPLGG", sku: "FL-LILY-BUBBLE-WHT", variant: "Bubble" },
+    { asin: "B0HNFC2MDD", sku: "FL-LILY-DIAMOND-WHT", variant: "Diamond" },
+    { asin: "B0HNF8SBZ7", sku: "FL-LILY-FLUTED-WHT", variant: "Fluted" },
   ],
 
-  // Number of pages to scrape per keyword (1 page = ~48-60 products)
-  MAX_PAGES_PER_KEYWORD: 2,
-
-  // Human-like delay between requests to avoid triggering Amazon WAF (milliseconds)
-  MIN_DELAY_MS: 2500,
-  MAX_DELAY_MS: 5000,
-
-  // Threshold price in EGP for competitor undercut alerts (our minimum test price is 199 EGP)
+  // Alert threshold for low-price commodity competition
   COMPETITOR_UNDERCUT_THRESHOLD: 199.0,
 
-  // File paths
+  // Data older than 24 hours is explicitly flagged as stale
+  STALE_THRESHOLD_HOURS: 24,
+
   DB_PATH: path.resolve(
     __dirname,
     "../../local-business-store/market-intelligence/amazon_market.db",
@@ -39,13 +39,12 @@ module.exports = {
     __dirname,
     "../../local-business-store/market-intelligence",
   ),
-
-  // Modern browser User-Agents for rotation
-  USER_AGENTS: [
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:124.0) Gecko/20100101 Firefox/124.0",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
-    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36 Edg/122.0.0.0",
-    "Mozilla/5.0 (Macintosh; Intel Mac OS X 14_3_1) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.3.1 Safari/605.1.15",
-  ],
+  INBOX_DIR: path.resolve(
+    __dirname,
+    "../../local-business-store/market-intelligence/inbox",
+  ),
+  RADAR_LOG_PATH: path.resolve(
+    __dirname,
+    "../../local-business-store/market-intelligence/AMAZON_PAGE_ONE_RADAR_LOG.md",
+  ),
 };

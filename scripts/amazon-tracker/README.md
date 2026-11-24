@@ -1,97 +1,30 @@
-# Amazon Egypt Daily Market Intelligence Engine 📦🔍
+# Amazon Egypt Intelligence Engine (`scripts/amazon-tracker/`)
 
-A production-grade, zero-external-dependency automated market intelligence scraper and competitor tracking engine built natively with **Node.js 24** (`node:sqlite`, `node:https`, `node:zlib`).
-
----
-
-## 🎯 Architecture Overview
-
-```
-                      +-----------------------------+
-                      |       Amazon Egypt          |
-                      |  (amazon.eg Search Engine)  |
-                      +--------------+--------------+
-                                     |
-                         [Stealth HTTP & UA Rotation]
-                         [Gzip/Brotli Stream Decoding]
-                                     v
-                      +-----------------------------+
-                      |         fetcher.js          |
-                      |   (Anti-Bot / Jitter Delay) |
-                      +--------------+--------------+
-                                     |
-                                [Raw HTML]
-                                     v
-                      +-----------------------------+
-                      |         parser.js           |
-                      | (ASIN, Title, Price, BSR)   |
-                      +--------------+--------------+
-                                     |
-                             [Structured DTOs]
-                                     v
-                      +-----------------------------+
-                      |           db.js             |
-                      |  (SQLite: Products & Daily  |
-                      |    Historical Snapshots)    |
-                      +--------------+--------------+
-                                     |
-                               [Time Series]
-                                     v
-                      +-----------------------------+
-                      |         analyzer.js         |
-                      |  (Price War & Velocity Delta)|
-                      +--------------+--------------+
-                                     |
-             +-----------------------+-----------------------+
-             v                                               v
-+---------------------------+                   +---------------------------+
-|        reporter.js        |                   |        reporter.js        |
-|  (Daily Markdown Briefing |                   |   (Excel / CSV Export     |
-|   in market-intelligence) |                   |    for Pandas/Analytics)  |
-+---------------------------+                   +---------------------------+
-```
+Zero-bypass, test-driven HTML snapshot parser and SQLite time-series analyzer for **Flora_Home** (`B0HNFBPLGG`, `B0HNFC2MDD`, `B0HNF8SBZ7`).
 
 ---
 
-## 🚀 How to Run
+## Architecture
 
-### Manual Run
-From the workspace root directory:
+1. **Sanctioned Input (`inbox/`)**: Accepts Chrome-saved `.html` / `.htm` search pages from `amazon.eg` (zero anti-bot bypass scripts, fails loudly on CAPTCHA pages).
+2. **`parser.js`**: Extracts ASIN, title, Arabic/English EGP prices (`٠-٩`), voucher coupons (`وفر ... ج.م` / `%`), ratings, review counts, Sponsored flags, Prime badges, and flags Flora_Home products.
+3. **`db.js`**: SQLite (`node:sqlite`) storage in `local-business-store/market-intelligence/amazon_market.db` with non-destructive schema migrations and `getFreshnessReport()` (`STALE_THRESHOLD_HOURS = 24`).
+4. **`ingest_search.js` & `reporter.js`**: Updates `amazon_market.db`, `market_snapshot_latest.csv`, `DAILY_MARKET_BRIEFING_YYYY-MM-DD.md`, and appends structured summaries to `AMAZON_PAGE_ONE_RADAR_LOG.md`.
+
+---
+
+## CLI Usage
+
 ```bash
-node scripts/amazon-tracker/index.js
+# Check snapshot age across all tracked keywords
+node scripts/amazon-tracker/index.js --freshness
+
+# Ingest all Chrome-saved .html files inside local-business-store/market-intelligence/inbox/
+node scripts/amazon-tracker/index.js --inbox
+
+# Ingest a specific saved HTML snapshot with explicit keyword
+node scripts/amazon-tracker/index.js --file "path/to/search.html" --keyword "فازة"
+
+# Run automated unit & integration tests
+node --test scripts/amazon-tracker/tests/amazon-tracker.test.js
 ```
-
-### Windows Task Scheduler (Daily Automation)
-To run automatically every morning at 8:00 AM:
-1. Open PowerShell as Administrator.
-2. Run:
-```powershell
-$Action = New-ScheduledTaskAction -Execute "node.exe" -Argument "c:\Users\A5\Desktop\growth-workspace-withAI\scripts\amazon-tracker\index.js" -WorkingDirectory "c:\Users\A5\Desktop\growth-workspace-withAI"
-$Trigger = New-ScheduledTaskTrigger -Daily -At 8:00AM
-Register-ScheduledTask -Action $Action -Trigger $Trigger -TaskName "AmazonMarketDailyTracker" -Description "Daily scraping and market analysis for Amazon Egypt"
-```
-
----
-
-## 📊 Outputs & Artifacts
-
-All outputs are saved to:
-`local-business-store/market-intelligence/`
-
-1. **`amazon_market.db`**: Embedded SQLite database containing full historical snapshots.
-2. **`DAILY_MARKET_BRIEFING_YYYY-MM-DD.md`**: Executive markdown report highlighting:
-   - Price drops and discounts.
-   - Price hikes.
-   - Surging items by review growth (sales velocity).
-   - Competitor undercut threats (< 199 EGP).
-   - Category averages and Prime penetration.
-3. **`market_snapshot_latest.csv`**: UTF-8 BOM CSV export compatible with Microsoft Excel and Python Pandas.
-
----
-
-## ⚙️ Configuration (`config.js`)
-
-- `TARGET_KEYWORDS`: Array of search queries (`ورد صناعي`, `فازات ديكور`, etc.).
-- `MAX_PAGES_PER_KEYWORD`: Number of search result pages per query (default: 2 pages = ~100 items).
-- `MIN_DELAY_MS` / `MAX_DELAY_MS`: Humanized jitter interval between requests (2500ms - 5000ms).
-- `COMPETITOR_UNDERCUT_THRESHOLD`: Alert threshold for cheap competitors (default: 199.0 EGP).

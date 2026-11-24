@@ -1,44 +1,36 @@
 const db = require('./db');
 const config = require('./config');
 
-function analyzeLatestRun(currentTimestamp) {
-  const timestamps = db.getLatestTimestamps();
+/** Computes comparative deltas and staleness metadata for a captured timestamp. */
+function analyzeLatestRun(currentTimestamp, dbHandle = db.getDb(), keyword = null) {
+  const timestamps = db.getLatestTimestamps(dbHandle, keyword);
   const latestTime = currentTimestamp || timestamps.latest;
   const previousTime = timestamps.previous;
-
   const isFirstRun = !previousTime || previousTime === latestTime;
 
-  // 1. Keyword breakdown & market averages
-  const keywordStats = db.getKeywordStats(latestTime);
+  const freshness = db.getFreshnessReport(config.STALE_THRESHOLD_HOURS, dbHandle);
+  const targetFreshness = keyword
+    ? freshness.find(f => f.keyword === keyword)
+    : freshness[0];
 
-  // 2. Price movements (cuts and hikes)
-  const priceChanges = isFirstRun ? [] : db.getPriceChanges(latestTime, previousTime);
-  const priceDrops = priceChanges.filter(p => p.price_diff < 0);
-  const priceHikes = priceChanges.filter(p => p.price_diff > 0);
-
-  // 3. Review velocity (surging products)
-  const reviewSurges = isFirstRun ? [] : db.getReviewSurges(latestTime, previousTime);
-
-  // 4. New entrants in the market
-  const newCompetitors = db.getNewCompetitors(latestTime, previousTime);
-
-  // 5. Undercut competitors (selling below threshold)
-  const undercuts = db.getUndercutCompetitors(config.COMPETITOR_UNDERCUT_THRESHOLD, latestTime);
+  const keywordStats = db.getKeywordStats(latestTime, dbHandle);
+  const priceChanges = isFirstRun ? [] : db.getPriceChanges(latestTime, previousTime, dbHandle);
+  const reviewSurges = isFirstRun ? [] : db.getReviewSurges(latestTime, previousTime, dbHandle);
+  const undercuts = db.getUndercutCompetitors(config.COMPETITOR_UNDERCUT_THRESHOLD, latestTime, dbHandle);
 
   return {
     latestTime,
     previousTime,
     isFirstRun,
+    ageHours: targetFreshness ? targetFreshness.age_hours : null,
+    isStale: targetFreshness ? targetFreshness.is_stale : true,
     keywordStats,
-    priceDrops,
-    priceHikes,
+    priceDrops: priceChanges.filter(p => p.price_diff < 0),
+    priceHikes: priceChanges.filter(p => p.price_diff > 0),
     reviewSurges,
-    newCompetitors,
     undercuts,
-    undercutThreshold: config.COMPETITOR_UNDERCUT_THRESHOLD
+    undercutThreshold: config.COMPETITOR_UNDERCUT_THRESHOLD,
   };
 }
 
-module.exports = {
-  analyzeLatestRun
-};
+module.exports = { analyzeLatestRun };

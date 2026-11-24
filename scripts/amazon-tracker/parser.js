@@ -1,22 +1,126 @@
 const config = require('./config');
 
+const ARABIC_DIGITS_MAP = {
+  '٠': '0',
+  '١': '1',
+  '٢': '2',
+  '٣': '3',
+  '٤': '4',
+  '٥': '5',
+  '٦': '6',
+  '٧': '7',
+  '٨': '8',
+  '٩': '9',
+  '٫': '.',
+  '،': ',',
+};
+
+const OUR_ASIN_SET = new Set(
+  (config.MY_PRODUCTS || []).map(p => (typeof p === 'string' ? p : p.asin))
+);
+
+/** Converts Arabic-Indic digits and decimal marks into ASCII numerals. */
+function normalizeDigits(str) {
+  if (!str) return '';
+  return String(str).replace(/[٠-٩٫،]/g, ch => ARABIC_DIGITS_MAP[ch] || ch);
+}
+
+/** Strips HTML tags and normalizes common HTML entities. */
 function decodeHtmlEntities(str) {
   if (!str) return '';
   return str
+    .replace(/<[^>]+>/g, ' ')
     .replace(/&amp;/g, '&')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>')
     .replace(/&quot;/g, '"')
     .replace(/&#39;/g, "'")
     .replace(/&nbsp;/g, ' ')
+    .replace(/\s+/g, ' ')
     .trim();
 }
 
+/** Rejects blocked/CAPTCHA HTML loudly so bad inputs never masquerade as empty searches. */
+function assertNotBlockedHtml(html) {
+  const markers = [
+    'validateCaptcha',
+    'Robot Check',
+    'Type the characters you see in this image',
+    'To discuss automated access to Amazon data please contact',
+    'bm-verify',
+  ];
+  for (const marker of markers) {
+    if (html.includes(marker)) {
+      throw new Error(
+        `Blocked HTML / CAPTCHA page detected (${marker}). Solve manually in Chrome and re-save HTML.`
+      );
+    }
+  }
+}
+
+function extractPrice(block) {
+  const wholeMatch = block.match(/<span[^>]*class="[^"]*a-price-whole[^"]*"[^>]*>([^<]+)</i);
+  const fractionMatch = block.match(/<span[^>]*class="[^"]*a-price-fraction[^"]*"[^>]*>([^<]+)</i);
+
+  if (wholeMatch) {
+    const whole = normalizeDigits(wholeMatch[1]).replace(/[^0-9]/g, '');
+    const fraction = fractionMatch
+      ? normalizeDigits(fractionMatch[1]).replace(/[^0-9]/g, '')
+      : '00';
+    if (whole) return parseFloat(`${whole}.${fraction || '00'}`);
+  }
+
+  const offscreen = block.match(
+    /<span[^>]*class="[^"]*a-offscreen[^"]*"[^>]*>([^<]*(?:EGP|جنيه|ج\.م)[^<]*)<\/span>/i
+  );
+  if (offscreen) {
+    const numeric = normalizeDigits(offscreen[1]).replace(/[^0-9.]/g, '');
+    if (numeric) return parseFloat(numeric);
+  }
+  return null;
+}
+
+function extractCoupon(block) {
+  const couponMatch =
+    block.match(/<span[^>]*class="[^"]*s-coupon-highlight-color[^"]*"[^>]*>([\s\S]*?)<\/span>/i) ||
+    block.match(/((?:وفر|خصم|Save)\s*[0-9٠-٩.,]+\s*(?:ج\.م|جنيه|EGP|%))/i);
+
+  if (!couponMatch) {
+    return { couponText: null, couponEgp: 0, couponPct: 0 };
+  }
+
+  const couponText = decodeHtmlEntities(couponMatch[1]);
+  const normalized = normalizeDigits(couponText);
+  const pctMatch = normalized.match(/([0-9]+(?:\.[0-9]+)?)\s*%/);
+  const egpMatch = normalized.match(/([0-9]+(?:\.[0-9]+)?)\s*(?:ج\.م|جنيه|EGP)/i);
+
+  return {
+    couponText,
+    couponEgp: egpMatch ? parseFloat(egpMatch[1]) : 0,
+    couponPct: pctMatch ? parseFloat(pctMatch[1]) : 0,
+  };
+}
+
+function extractReviewsCount(block) {
+  const match =
+    block.match(/aria-label="([0-9٠-٩,،]+)\s*(?:ratings|تقييم(?:ات)?)"/i) ||
+    block.match(/<span[^>]*class="[^"]*s-underline-text[^"]*"[^>]*>\s*\(?([0-9٠-٩,،]+)\)?\s*<\/span>/i);
+
+  if (!match) return 0;
+  const cleaned = normalizeDigits(match[1]).replace(/,/g, '');
+  return parseInt(cleaned, 10) || 0;
+}
+
+/**
+ * Parses saved Amazon Egypt search results HTML into normalized product snapshots.
+ */
 function parseSearchResults(html, keyword, page = 1) {
+  if (!html || typeof html !== 'string') {
+    throw new Error('Empty HTML payload provided to parser.');
+  }
+  assertNotBlockedHtml(html);
+
   const products = [];
-  
-  // Amazon product cards are divs having data-asin and data-component-type="s-search-result"
-  // We use regex to match each card block accurately
   const cardRegex = /<div\s+[^>]*?data-asin="([A-Z0-9]{10})"[^>]*?>([\s\S]*?)(?=<div\s+[^>]*?data-asin="[A-Z0-9]{10}"|$)/g;
 
   let rank = (page - 1) * 48;
@@ -24,94 +128,57 @@ function parseSearchResults(html, keyword, page = 1) {
 
   while ((match = cardRegex.exec(html)) !== null) {
     const asin = match[1];
+    const openTag = match[0];
     const block = match[2];
 
-    // Verify it is an actual search result item, not an empty or ad carousel container
-    const isSearchResult = block.includes('data-component-type="s-search-result"') ||
-                          match[0].includes('data-component-type="s-search-result"') ||
-                          block.includes('s-product-image-container');
+    const isSearchResult =
+      openTag.includes('data-component-type="s-search-result"') ||
+      block.includes('data-component-type="s-search-result"') ||
+      block.includes('s-product-image-container');
 
     if (!isSearchResult) continue;
 
     rank++;
 
-    // 1. Title
-    const titleMatch = block.match(/<h2[^>]*>[\s\S]*?<span[^>]*>(.*?)<\/span>/i) ||
-                       block.match(/alt="([^"]+)"/i) ||
-                       block.match(/<span class="a-size-base-plus[^"]*"[^>]*>(.*?)<\/span>/i);
+    const titleMatch =
+      block.match(/<h2[^>]*>[\s\S]*?<span[^>]*>([\s\S]*?)<\/span>/i) ||
+      block.match(/alt="([^"]+)"/i) ||
+      block.match(/<span[^>]*class="[^"]*a-size-base-plus[^"]*"[^>]*>([\s\S]*?)<\/span>/i);
     const title = titleMatch ? decodeHtmlEntities(titleMatch[1]) : 'Unknown Title';
-
-    // Skip empty or generic placeholder titles
     if (!title || title.length < 3) continue;
 
-    // 2. Price
-    let price = null;
-    const priceWholeMatch = block.match(/<span class="a-price-whole">([0-9,]+)/i);
-    const priceFractionMatch = block.match(/<span class="a-price-fraction">([0-9]+)/i);
+    const price = extractPrice(block);
+    const origMatch = block.match(
+      /<span[^>]*class="[^"]*a-price a-text-price[^"]*"[^>]*>[\s\S]*?<span[^>]*class="[^"]*a-offscreen[^"]*"[^>]*>([^<]+)/i
+    );
+    const origPrice = origMatch
+      ? parseFloat(normalizeDigits(origMatch[1]).replace(/[^0-9.]/g, '')) || null
+      : null;
 
-    if (priceWholeMatch) {
-      const whole = priceWholeMatch[1].replace(/,/g, '');
-      const fraction = priceFractionMatch ? priceFractionMatch[1] : '00';
-      price = parseFloat(`${whole}.${fraction}`);
-    } else {
-      // Fallback for flat offscreen prices
-      const flatPriceMatch = block.match(/<span class="a-offscreen">([0-9,.]+)\s*(?:EGP|جنيه)?<\/span>/i);
-      if (flatPriceMatch) {
-        price = parseFloat(flatPriceMatch[1].replace(/,/g, ''));
-      }
-    }
+    const discountPct =
+      origPrice && price && origPrice > price
+        ? Math.round(((origPrice - price) / origPrice) * 100)
+        : 0;
 
-    // 3. Original / List Price (strike-through price)
-    let origPrice = null;
-    const origPriceMatch = block.match(/<span class="a-price a-text-price"[^>]*>[\s\S]*?<span class="a-offscreen">([0-9,.]+)/i);
-    if (origPriceMatch) {
-      origPrice = parseFloat(origPriceMatch[1].replace(/,/g, ''));
-    }
+    const ratingMatch = block.match(/([0-9٠-٩.,]+)\s*(?:out of 5 stars|من 5 نجوم)/i);
+    const rating = ratingMatch ? parseFloat(normalizeDigits(ratingMatch[1])) : null;
 
-    // 4. Discount Percentage
-    let discountPct = 0;
-    if (origPrice && price && origPrice > price) {
-      discountPct = Math.round(((origPrice - price) / origPrice) * 100);
-    }
+    const reviewsCount = extractReviewsCount(block);
+    const { couponText, couponEgp, couponPct } = extractCoupon(block);
 
-    // 5. Rating (out of 5 stars)
-    let rating = null;
-    const ratingMatch = block.match(/<span class="a-icon-alt">([0-9.]+)\s*(?:out of 5 stars|من 5 نجوم)/i) ||
-                        block.match(/([0-9.]+)\s*out of 5 stars/i);
-    if (ratingMatch) {
-      rating = parseFloat(ratingMatch[1]);
-    }
-
-    // 6. Review Count
-    let reviewsCount = 0;
-    const reviewsMatch = block.match(/aria-label="([0-9,]+)\s*(?:ratings|تقييم)/i) ||
-                         block.match(/<span class="a-size-base s-underline-text">([0-9,]+)<\/span>/i) ||
-                         block.match(/<span class="a-size-base">([0-9,]+)<\/span>/i);
-    if (reviewsMatch) {
-      reviewsCount = parseInt(reviewsMatch[1].replace(/,/g, ''), 10) || 0;
-    }
-
-    // 7. Badges & Attributes
-    const isSponsored = block.includes('s-sponsored-label') ||
-                        block.includes('Sponsored') ||
-                        block.includes('ممول');
-
+    const isSponsored =
+      block.includes('s-sponsored-label') ||
+      block.includes('Sponsored') ||
+      block.includes('ممول');
     const isPrime = block.includes('a-icon-prime');
+    const isBestSeller =
+      block.includes('Best Seller') ||
+      block.includes('الأكثر مبيعاً') ||
+      block.includes('a-badge-text');
 
-    const isBestSeller = block.includes('Best Seller') ||
-                         block.includes('الأكثر مبيعاً') ||
-                         block.includes('a-badge-text');
-
-    // 8. Image URL
-    let imageUrl = null;
-    const imgMatch = block.match(/<img[^>]+class="[^"]*s-image[^"]*"[^>]+src="([^">]+)"/i) ||
-                     block.match(/<img[^>]+src="([^">]+)"[^>]+class="[^"]*s-image[^"]*"/i);
-    if (imgMatch) {
-      imageUrl = imgMatch[1];
-    }
-
-    // 9. Canonical Product URL
-    const url = `${config.BASE_URL}/dp/${asin}`;
+    const imgMatch =
+      block.match(/<img[^>]+class="[^"]*s-image[^"]*"[^>]+src="([^">]+)"/i) ||
+      block.match(/<img[^>]+src="([^">]+)"[^>]+class="[^"]*s-image[^"]*"/i);
 
     products.push({
       asin,
@@ -120,14 +187,18 @@ function parseSearchResults(html, keyword, page = 1) {
       price,
       origPrice,
       discountPct,
+      couponText,
+      couponEgp,
+      couponPct,
       rating,
       reviewsCount,
       isSponsored,
       isPrime,
       isBestSeller,
-      imageUrl,
-      url,
-      rankInSearch: rank
+      isOurProduct: OUR_ASIN_SET.has(asin),
+      imageUrl: imgMatch ? imgMatch[1] : null,
+      url: `${config.BASE_URL}/dp/${asin}`,
+      rankInSearch: rank,
     });
   }
 
@@ -135,6 +206,8 @@ function parseSearchResults(html, keyword, page = 1) {
 }
 
 module.exports = {
+  normalizeDigits,
+  decodeHtmlEntities,
+  assertNotBlockedHtml,
   parseSearchResults,
-  decodeHtmlEntities
 };
