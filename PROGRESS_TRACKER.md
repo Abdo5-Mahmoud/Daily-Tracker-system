@@ -710,13 +710,25 @@ Vercel Preview
   - ✅ تنفيذ تدقيق حي عبر المتصفح لثلاث كلمات بحثية وثلاث تفريعات للمنتج مع تسجيل ثلاث وأربعين لقطة في قاعدة البيانات
   - ✅ مطابقة حسابات أول طلب مؤكد واحتساب صافي العائد بعد خصم الشحن الداخلي وضريبة القيمة المضافة
   - ✅ فحص الصور الرئيسية للثلاث تفريعات والتأكد من جاهزية صورتين ووجود خلفية رمادية في صورة التفريعة المنقوشة
+  - ✅ تسجيل الطلب التاني المؤكد في مرحلة التقييم الإعلاني بعد منتصف الليل بفئة التفريعة المكعبة وشحن أمازون السريع
+
+- **تفاصيل الطلب التاني ونتائج المراقبة الصباحية**:
+
+```text
+Order #2 Confirmed (2026-11-25 12:18 AM EET)
+- Order ID: 408-1823755-1428326 (Buyer: Nader, Channel: Amazon.eg FBA Expedited)
+- Product: B0HNFBPLGG / FL-LILY-BUBBLE-WHT (Qty: 1, Subtotal: 259.00 EGP)
+- Attribution Audit (11:07 AM Snapshot vs Tue 11:45 AM & Wed 1:22 AM):
+  * Spend unchanged at 10.28 EGP (7 clicks total) across Placements; Sales column "--".
+  * Status: UNVERIFIED causality vs yesterday's Close-match 2.00 EGP bump; verify Targeting tab, Search Terms CSV, and 24-48h attribution lag before attributing to bid bump vs existing 7-day click or organic ranking.
+```
 
 - **ديون المهام المرحلة لبلوك العمل العميق الصباحي**:
 
 ```text
 Task Debt Rollover — 2026-11-25 Morning Deep Work Block
-1. [URGENT PPC] Confirm Close-match bid reverted from 2.00 to 1.80 EGP on SP_FloraHome_Lilium_HeroAuto.
-2. [REVIEWS] Check Damietta Order #403-3518493-8301929 (AEG3290379559); click "Request a Review" once Delivered.
+1. [URGENT PPC] Confirm Close-match bid reverted from 2.00 to 1.80 EGP on SP_FloraHome_Lilium_HeroAuto (upload Targeting tab screenshot, not Placements).
+2. [ORDERS & INVOICE] Check Damietta Order #403-3518493-8301929 (AEG3290379559) delivery status -> click "Request a Review" once Delivered; investigate orange "Invoice Missing" badge on both orders (#403-3518493-8301929 & #408-1823755-1428326).
 3. [MEDIA AUDIT & CATALOG FIX]
    - var1/processed/hero_white_isolated.jpg -> PASS (1024x1024, White Border Score 1.00, RGB 255,255,255)
    - var2/processed/hero_white_isolated.jpg -> PASS (1024x1024, White Border Score 1.00, RGB 255,255,255)
