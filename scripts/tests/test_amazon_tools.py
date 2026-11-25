@@ -79,9 +79,29 @@ class TestAdsCsvAnalyzer(unittest.TestCase):
 
 class TestWorkspaceMcpUpgrades(unittest.TestCase):
     def test_market_summary_warns_loudly_on_stale_october_data(self):
-        from workspace_mcp_server import tool_market_summary
+        import sqlite3
+        import workspace_mcp_server as mcp
 
-        out = tool_market_summary("فازات")
+        with tempfile.TemporaryDirectory() as tmp:
+            stale_db = Path(tmp) / "stale.db"
+            conn = sqlite3.connect(stale_db)
+            conn.execute("CREATE TABLE products (asin TEXT PRIMARY KEY, title TEXT)")
+            conn.execute(
+                "CREATE TABLE snapshots (asin TEXT, keyword TEXT, price REAL, is_sponsored INTEGER, captured_at TEXT)"
+            )
+            conn.execute("INSERT INTO products VALUES ('B0OLD12345', 'Old Vase')")
+            conn.execute(
+                "INSERT INTO snapshots VALUES ('B0OLD12345', 'فازات', 199.0, 0, '2026-10-02T10:00:00.000Z')"
+            )
+            conn.commit()
+            conn.close()
+
+            orig_db = mcp.DB_PATH
+            try:
+                mcp.DB_PATH = stale_db
+                out = mcp.tool_market_summary("فازات")
+            finally:
+                mcp.DB_PATH = orig_db
         self.assertIn("STALE", out.upper())
 
     def test_image_compliance_catches_non_white_gray_background(self):

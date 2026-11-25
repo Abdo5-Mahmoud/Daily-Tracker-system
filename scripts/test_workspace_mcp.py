@@ -70,17 +70,26 @@ def test_mcp_server():
         assert expected_tools.issubset(set(tool_names)), f"Missing tools: {expected_tools - set(tool_names)}"
         print(f"    [OK] Registered {len(tool_names)} tools cleanly")
 
-        print("[*] 3. Testing 'market_summary' freshness & staleness banner...")
-        market_res = send_and_receive({
+        print("[*] 3. Testing 'market_summary' freshness & live Nov 25 snapshot check...")
+        live_res = send_and_receive({
             "jsonrpc": "2.0",
             "id": 3,
             "method": "tools/call",
-            "params": {"name": "market_summary", "arguments": {"keyword": "فازات"}},
+            "params": {"name": "market_summary", "arguments": {"keyword": "فازة"}},
         })
-        output_text = market_res["result"]["content"][0]["text"]
-        assert "AMAZON EGYPT MARKET INTELLIGENCE SUMMARY" in output_text
-        assert "STALE DATA WARNING" in output_text
-        print("    [OK] Market summary enforces explicit STALE DATA WARNING")
+        live_text = live_res["result"]["content"][0]["text"]
+        assert "AMAZON EGYPT MARKET INTELLIGENCE SUMMARY" in live_text
+        assert "FRESHNESS CHECK" in live_text
+
+        stale_res = send_and_receive({
+            "jsonrpc": "2.0",
+            "id": 30,
+            "method": "tools/call",
+            "params": {"name": "market_summary", "arguments": {"keyword": "ديكور شقق"}},
+        })
+        stale_text = stale_res["result"]["content"][0]["text"]
+        assert "STALE DATA WARNING" in stale_text
+        print("    [OK] Market summary distinguishes FRESH live snapshots vs STALE historical baseline")
 
         print("[*] 4. Testing 'unit_economics_calculator' (13% FBA + Break-Even CPC)...")
         calc_res = send_and_receive({

@@ -107,3 +107,19 @@ Session Type: رصد الفجر والليل
 - **ورد ليليام**: ورد ليلي صناعي • ورد ليليان
 
 ---
+
+## 🗓️ Live Browser Audit - 2026-11-25
+```text
+Session Timestamp: 2026-11-25T00:19:21.481Z
+Source: Interactive Browser Subagent (Zero CAPTCHA, White Friday Nov 19-30 Live Window)
+```
+
+### 1. Live Page-1 Summary (Nov 25, 2026)
+
+| Keyword | Captured Items | Top Price Band (EGP) | Green Coupons Found | Flora_Home Page 1 Ranks |
+| :--- | :--- | :--- | :--- | :--- |
+| فازة | Top 20 (of 60) | 42.17 - 2,034.56 | 1 (Rank 7 B0H5CCC1H5) | 0 / 60 |
+| ورد صناعى كانه طبيعى مع فازه | Top 15 (of 60) | 66.53 - 533.50 | 0 | 0 / 60 |
+| فازات ديكور | Top 8 (of 60) | 177.19 - 648.00 | 1 (Rank 7 B0H5CCC1H5) | 0 / 60 |
+
+---
