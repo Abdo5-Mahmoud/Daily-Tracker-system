@@ -726,20 +726,20 @@ Order #2 Confirmed (2026-11-25 12:18 AM EET)
 - **ديون المهام المرحلة لبلوك العمل العميق الصباحي**:
 
 ```text
-Task Debt Rollover — 2026-11-25 Morning Deep Work Block
-1. [URGENT PPC] Confirm Close-match bid reverted from 2.00 to 1.80 EGP on SP_FloraHome_Lilium_HeroAuto (upload Targeting tab screenshot, not Placements).
-2. [ORDERS & INVOICE] Check Damietta Order #403-3518493-8301929 (AEG3290379559) delivery status -> click "Request a Review" once Delivered; investigate orange "Invoice Missing" badge on both orders (#403-3518493-8301929 & #408-1823755-1428326).
-3. [MEDIA AUDIT & CATALOG FIX]
-   - var1/processed/hero_white_isolated.jpg -> PASS (1024x1024, White Border Score 1.00, RGB 255,255,255)
-   - var2/processed/hero_white_isolated.jpg -> PASS (1024x1024, White Border Score 1.00, RGB 255,255,255)
-   - var3/processed/hero_white_isolated.jpg -> FAIL (1024x1024, White Border Score 0.00, RGB 237,238,240)
-   Action: Isolate var3 cleanly via Photoroom or rembg (naive threshold clips bright lily petals), verify Score >= 0.80, then upload distinct images per ASIN:
-     * B0HNFC2MDD (Diamond)
-     * B0HNFBPLGG (Bubble + append ", مكعب" to title)
-     * B0HNF8SBZ7 (Fluted — 4 units remaining)
-4. [PRICING & MOBILE CTR] Evaluate strike-through List Price (e.g. 299.00 EGP -> 239.00-249.00 EGP) via unit_economics_calculator before White Friday ends (Nov 30).
-5. [PHASE 2 PPC] Export Seller Central Search Terms CSV -> run analyze_ads_csv -> launch Manual Exact campaign targeting Arabic exact queries ("ورد صناعى كانه طبيعى مع فازه" and "ورد ليليام").
-6. [MCP RELOAD] Restart/reload Antigravity MCP server so workspace-tools runs v2.0 (9 tools + White Border Score) instead of cached v1.0 process.
+Task Debt Rollover — Verified at 2026-11-25 08:10 PM EET
+[DONE] 1. Close-match bid verified reverted from 2.00 to 1.80 EGP on Targeting tab (11:45 AM & 08:10 PM screenshots).
+[DONE] 2. Confirmed Order #2 (408-1823755-1428326) is NOT from yesterday's bid bump: 20h elapsed -> still 7 clicks / 10.28 EGP spend. Velocity Alert: only +11 Placement impr in 9h daytime (0.63% ToS CTR).
+
+ZERO-RISK PREP (Do Anytime — Zero Parent Changes / Zero Ad Disruption):
+3. [ORDERS & INVOICE] Order #403-3518493-8301929 (Damietta) confirmed Delivered + proceeds settled. Amazon enforces "Request a Review" strictly 5-30 days AFTER Delivery Date (~Nov 28-29; same +5d rule for #408-1823755-1428326). Resolve orange "Invoice Missing" badge on both orders immediately.
+4. [MEDIA PREP] Clean var3/processed/hero_white_isolated.jpg via Photoroom (#FFFFFF) and re-audit via audit_image_compliance (Score >= 0.80).
+5. [PRICING & MOBILE CTR] Deactivate 21 EGP coupon first -> set List Price 299.00 -> Sale 249.00 or 239.00 EGP (verified 66.25-74.47 EGP net margin) before White Friday ends (Nov 30).
+6. [PHASE 2 PPC PREP] Screenshot Campaign -> Products tab + Export Search Terms CSV -> run analyze_ads_csv -> launch Manual Exact campaign targeting Arabic exact queries ("ورد صناعى كانه طبيعى مع فازه" and "ورد ليليام").
+7. [CATEGORY CHECK] Inspect Artificial Flowers Flat File / Variation Wizard Valid Values for supported visual theme (Color) BEFORE touching old Parent.
+
+OFF-PEAK EXECUTION (Early Morning Dead Hours ~5-7 AM or Pre/Post-Gym — Protect Sleep!):
+8. [PARENT REBUILD] Delete ONLY old Parent SKU (NEVER delete Child SKUs!) -> update standalone photos/titles (B0HNFC2MDD Diamond, B0HNFBPLGG Bubble + ", مكعب", B0HNF8SBZ7 Fluted [4 left]) -> rebuild new Color Parent linking exact Child SKUs/ASINs.
+9. [MCP RELOAD] Restart/reload Antigravity MCP server so workspace-tools runs v2.0 (9 tools + White Border Score) instead of cached v1.0 process.
 ```
 
 ---
