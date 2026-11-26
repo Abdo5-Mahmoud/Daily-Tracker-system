@@ -744,6 +744,35 @@ OFF-PEAK EXECUTION (Early Morning Dead Hours ~5-7 AM or Pre/Post-Gym — Protect
 
 ---
 
+### 🗓️ اليوم: الخميس 2026-11-26 (تأكيد مصطلحات البحث وإطلاق الحملة اليدوية الخاصة والكوبون الجديد)
+
+- **البلوك المسائي والظهيرة (عمليات وتوسيع أمازون مصر)**:
+  - ✅ تحليل شاشة مصطلحات البحث ومطابقة كل مليم منصرف في الحملة التلقائية
+  - ✅ فحص شاشة تخفيضات الأسعار واكتشاف شرط تقييم البائع الواحد بمتوسط تلاتة ونص نجوم على الأقل قبل تفعيل الشطب الترويجي
+  - ✅ إلغاء القسيمة القديمة وإنشاء قسيمة خصم جديدة على المنتجات التلاتة بعنوان إنجليزي متوافق مع سياسة أمازون
+  - ✅ اختبار زر طلب المراجعة على طلب دمياط والتأكد من شرط مهلة الخمس لثلاثين يوم بعد تاريخ التسليم الفعلي
+  - ✅ إطلاق الحملة اليدوية الدقيقة بنوع المطابقة التامة فقط وتغطية صيغ الياء والألف المقصورة والهاء والتاء المربوطة
+
+- **ملخص البيانات والديون المرحلة لباقي اليوم وغداً**:
+
+```text
+2026-11-26 Execution Snapshot & Active Task Debt:
+- Search Terms Total Attribution (10.28 EGP across 7 clicks):
+  * "vase" (Close-match)        -> 5.06 EGP (4 Product-Page clicks, 0 orders)
+  * Arabic general vase term    -> 4.07 EGP (1 ToS + 1 RoS click)
+  * Arabic long-tail rose+vase  -> 1.15 EGP (1 RoS click)
+- Manual Exact Launch Snapshot:
+  * Launched ~01:27 PM EET (bids 1.40 - 1.80 EGP across Arabic & English Exact terms)
+- Active Remaining Debt:
+  1. [VERIFY NOW] Confirm campaign name = SP_FloraHome_Lilium_ManualExact, ToS modifier = 0%, Budget = 20 EGP, and Negative Exact = "vase" inside BOTH Manual & Auto campaigns.
+  2. [1 HR CHECK] Verify new 21 EGP coupon active in Manage Coupons (no "Needs Attention" flag; stacking OFF; budget >= 300 EGP).
+  3. [REVIEWS & SELLER UNLOCK] Check exact Delivery Date inside #403-3518493-8301929 -> trigger Request a Review on Day +5 (~Nov 27-29) to unlock Seller Feedback >= 3.5 stars -> unlocks Price Discounts tool; clear "Invoice Missing" on both orders.
+  4. [PREP FOR OFF-PEAK REBUILD] Isolate var3/hero_white_isolated.jpg (#FFFFFF) via Photoroom + inspect Artificial Flowers Valid Values (Color) BEFORE deleting old Parent SKU in early-morning window.
+  5. [CODING BLOCK STATUS] Intentionally paused by user to focus on retail store + Amazon launch; pending explicit restart milestone/date + sleep discipline fix.
+```
+
+---
+
 ## 📊 لوحة حالة المشاريع (Projects Health)
 
 | المشروع | الـ Stack | الحالة الحالية | الخطوة التالية |
